@@ -10,5 +10,5 @@ https://raw.githubusercontent.com/Bre3n/MLauncher/master/ui_main.py
 https://raw.githubusercontent.com/Bre3n/MLauncher/master/ui_function.py
 https://raw.githubusercontent.com/Bre3n/MLauncher/master/ui_dialog.py
 https://raw.githubusercontent.com/Bre3n/MLauncher/master/ui_error.py
-https://raw.githubusercontent.com/Bre3n/MLauncher/master/icons
+https://raw.githubusercontent.com/Bre3n/MLauncher/master/files/icons.zip
 https://raw.githubusercontent.com/Bre3n/MLauncher/master/files/versions.INI
