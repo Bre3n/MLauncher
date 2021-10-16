@@ -1,16 +1,14 @@
 main.py == 1.1
 ui_main.py == 1.0
 ui_function.py == 1.0
-ui_error.py == 1.0
 ui_dialog.py == 1.0
+ui_error.py == 1.0
 icons.zip == 1.0
 versions.INI == 1.0
-config.INI == 1.0
-https://www.dropbox.com/s/8y6g0pf23iuxp4g/main.pyw?dl=1
-https://www.dropbox.com/s/priydk89w4votrd/ui_main.py?dl=1
-https://www.dropbox.com/s/rj0lyapgxvzzw1v/ui_function.py?dl=1
-https://www.dropbox.com/s/ud5qhpuogqeo4w4/ui_error.py?dl=1
-https://www.dropbox.com/s/sik9dqjnfrsa3wh/ui_dialog.py?dl=1
-https://www.dropbox.com/sh/geff97bc82cwpmk/AADGLvdvAPKeNPJVKWOfu-s7a?dl=1
-https://www.dropbox.com/s/jf2lvhtku51x5zn/versions.INI?dl=1
-https://www.dropbox.com/s/disove52qt5gskl/config.INI?dl=1
+https://raw.githubusercontent.com/Bre3n/MLauncher/master/main.py
+https://raw.githubusercontent.com/Bre3n/MLauncher/master/ui_main.py
+https://raw.githubusercontent.com/Bre3n/MLauncher/master/ui_function.py
+https://raw.githubusercontent.com/Bre3n/MLauncher/master/ui_dialog.py
+https://raw.githubusercontent.com/Bre3n/MLauncher/master/ui_error.py
+https://raw.githubusercontent.com/Bre3n/MLauncher/master/icons
+https://raw.githubusercontent.com/Bre3n/MLauncher/master/versions.INI
