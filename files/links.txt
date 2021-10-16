@@ -3,7 +3,7 @@ ui_main.py == 1.0
 ui_function.py == 1.0
 ui_dialog.py == 1.0
 ui_error.py == 1.0
-icons == 1.0
+icons.zip == 1.0
 versions.INI == 1.0
 https://raw.githubusercontent.com/Bre3n/MLauncher/master/main.py
 https://raw.githubusercontent.com/Bre3n/MLauncher/master/ui_main.py
