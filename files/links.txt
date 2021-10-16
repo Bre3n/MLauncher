@@ -1,11 +1,11 @@
-main.py&1_1
-ui_main.py&1_0
-ui_function.py&1_0
-ui_error.py&1_0
-ui_dialog.py&1_0
-icons.zip&1_0
-versions.INI&1_0
-config.INI&1_0
+main.py == 1.1
+ui_main.py == 1.0
+ui_function.py == 1.0
+ui_error.py == 1.0
+ui_dialog.py == 1.0
+icons.zip == 1.0
+versions.INI == 1.0
+config.INI == 1.0
 https://www.dropbox.com/s/8y6g0pf23iuxp4g/main.pyw?dl=1
 https://www.dropbox.com/s/priydk89w4votrd/ui_main.py?dl=1
 https://www.dropbox.com/s/rj0lyapgxvzzw1v/ui_function.py?dl=1

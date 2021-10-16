@@ -86,7 +86,7 @@ if __name__ == "__main__":
     temp = f"C:/Users/{user}/AppData/Local/Temp"
 
     sciezkaver = f"{sciezka}/bin"
-    txtFile = f"{sciezkaver}/vers.txt"
+    txtFile = f"{sciezkaver}/ver.txt"
     if path.exists(sciezka) == False:
         os.mkdir(sciezka)
     if path.exists(f"{sciezka}/bin") == False:
@@ -111,25 +111,14 @@ if __name__ == "__main__":
     )
 
     logger.debug(f"DEBUG: Downloaded version file")
-    f = open(txtFile, "r")
-    line_count = 0
-    for line in f:
-        if line != "\n":
-            line_count += 1
     with open(txtFile) as f:
         content = f.readlines()
         content = [x.strip() for x in content]
-    if path.exists(f"{sciezkaver}/ver.txt") == True:
-        os.remove(f"{sciezkaver}/ver.txt")
-    f = open(f"{sciezkaver}/ver.txt", "a")
-    for i in range(len(content)):
-        f.write(f"{content[i]}\n")
-    f.close()
-    os.remove(f"{sciezkaver}/vers.txt")
+    # os.remove(f"{sciezkaver}/ver.txt")
 
     if path.exists(f"{sciezkaver}/version.txt") == False:
         f = open(f"{sciezkaver}/version.txt", "w")
-        for i in range(int(len(content)/2)):
+        for i in range(int(len(content) / 2)):
             f.write(f"{content[i]}\n")
         f.close()
         logger.info(f"INFO: Version file didn't exist")
@@ -140,11 +129,13 @@ if __name__ == "__main__":
         with open(f"{sciezkaver}/version.txt") as f:
             contentv = f.readlines()
             contentv = [x.strip() for x in contentv]
-        if int(len(content)/2) != int(len(contentv)/2):
+        if int(len(content) / 2) != int(len(contentv)):
+            print(int(len(content) / 2))
+            print(int(len(contentv)))
             logger.critical(f"CRITICAL: FILES DON'T HAVE SAME NUMER OF LINES!")
             logger.debug(f"DEBUG: Overwritting wrong file with 'None' lines")
             f = open(f"{sciezkaver}/version.txt", "w")
-            for i in range(int(len(content)/2)):
+            for i in range(int(len(content) / 2)):
                 f.write("None\n")
         with open(f"{sciezkaver}/version.txt") as f:
             contentv = f.readlines()
@@ -154,8 +145,8 @@ if __name__ == "__main__":
                 logger.warning(
                     f"WARNING: Lines didn't match   {content[i]}!={contentv[i]}"
                 )
-                bufor = content[i]
-                bufor = bufor.split("&")
+                bufor = content[i].replace(" ", "")
+                bufor = bufor.split("==")
                 checkzip = bufor[0].split(".")
                 logger.debug(f"DEBUG: Downloading   {bufor[0]}")
                 downloader(
@@ -171,15 +162,14 @@ if __name__ == "__main__":
                         zipObj.extractall(f"{sciezkaver}/{checkzip[0]}")
                     os.remove(f"{sciezkaver}/{bufor[0]}")
         f = open(f"{sciezkaver}/version.txt", "w")
-        for i in range(len(content)):
+        for i in range(int(len(content) / 2)):
             f.write(f"{content[i]}\n")
         f.close()
         logger.debug(f"DEBUG: Overwritting old version file")
-        os.remove(f"{sciezkaver}/ver.txt")
         logger.debug(f"DEBUG: Comparing files in directory")
         for i in range(int(len(content) / 2)):
-            bufor = content[i]
-            bufor = bufor.split("&")
+            bufor = content[i].replace(" ", "")
+            bufor = bufor.split("==")
             checkzip = bufor[0].split(".")
             buforr = bufor[0]
             if checkzip[1] == "zip":
