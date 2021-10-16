@@ -65,7 +65,6 @@ if __name__ == "__main__":
     import logging
 
     try:
-        import doctext
         import requests
         import PySide2
         import zipfile
@@ -87,7 +86,7 @@ if __name__ == "__main__":
     temp = f"C:/Users/{user}/AppData/Local/Temp"
 
     sciezkaver = f"{sciezka}/bin"
-    docxFile = f"{sciezkaver}/vers.docx"
+    txtFile = f"{sciezkaver}/vers.txt"
     if path.exists(sciezka) == False:
         os.mkdir(sciezka)
     if path.exists(f"{sciezka}/bin") == False:
@@ -106,18 +105,12 @@ if __name__ == "__main__":
     logger.debug(f"DEBUG: Starting")
 
     downloader(
-        "https://www.dropbox.com/scl/fi/ty1kcmk35sica88nqxhmi/version.docx?dl=1&rlkey=yozszygj4d2w1dzjxt2cesb3d",
-        docxFile,
+        "https://raw.githubusercontent.com/Bre3n/MLauncher/master/files/links.txt",
+        txtFile,
         0,
     )
-    doc_text = doctext.DocFile(doc=docxFile)
-    doctext = doc_text.get_text()
-    txtFile = f"{sciezkaver}/vers.txt"
-    fdoc = open(txtFile, "w")
-    fdoc.write(doctext)
-    fdoc.close()
+
     logger.debug(f"DEBUG: Downloaded version file")
-    os.remove(f"{sciezkaver}/vers.docx")
     f = open(txtFile, "r")
     line_count = 0
     for line in f:
@@ -126,8 +119,6 @@ if __name__ == "__main__":
     with open(txtFile) as f:
         content = f.readlines()
         content = [x.strip() for x in content]
-    for i in range(int(line_count) + 1):
-        content.remove("")
     if path.exists(f"{sciezkaver}/ver.txt") == True:
         os.remove(f"{sciezkaver}/ver.txt")
     f = open(f"{sciezkaver}/ver.txt", "a")
