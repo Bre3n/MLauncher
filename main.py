@@ -175,8 +175,8 @@ class MainWindow(QMainWindow):
             contentv = f.readlines()
             contentv = [x.strip() for x in contentv]
         bufor = contentv[0]
-        bufor = bufor.split("&")
-        bufor = bufor[1].replace("_", ".")
+        bufor = bufor.split("==")
+        bufor = bufor[1]
         self.ui.label_version.setText(bufor)
 
         # ----> SET WINDOW TITLE AND ICON
