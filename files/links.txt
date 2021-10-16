@@ -1,8 +1,8 @@
 main.py == 1.1
-ui_main.py == 1.0
-ui_function.py == 1.0
-ui_dialog.py == 1.0
-ui_error.py == 1.0
+ui_main.py == 1.1
+ui_function.py == 1.1
+ui_dialog.py == 1.1
+ui_error.py == 1.1
 icons.zip == 1.0
 versions.INI == 1.0
 https://raw.githubusercontent.com/Bre3n/MLauncher/master/main.py
