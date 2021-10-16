@@ -306,7 +306,7 @@ class APFunction:
             self.ui.line_checkbox_rpc.setText("Checked")
 
     def pushButton_github(self):
-        webbrowser.open("https://github.com/Bre3n")
+        webbrowser.open("https://github.com/Bre3n/MLauncher")
 
 
 #######################################as########################################################################################################################
