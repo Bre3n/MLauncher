@@ -1,7 +1,13 @@
-from main import *  # IMPORTING THE MAIN.PY FILE
-
+import configparser
 import webbrowser
 
+from main import *  # IMPORTING THE MAIN.PY FILE
+
+user = os.getlogin()
+sciezka = f"C:/Users/{user}/AppData/Roaming/.mlauncher"
+sciezkaver = f"{sciezka}/bin"
+config = configparser.ConfigParser()
+config.read(f"{sciezkaver}/config.ini")
 
 GLOBAL_STATE = 0  # NECESSERY FOR CHECKING WEATHER THE WINDWO IS FULL SCREEN OR NOT
 GLOBAL_TITLE_BAR = (
@@ -243,7 +249,6 @@ class APFunction:
     def editable(self):
         self.ui.line_android_name.setEnabled(True)
         self.ui.line_android_adress.setEnabled(True)
-        self.ui.line_android_email.setEnabled(True)
         self.ui.line_checkbox_arg.setEnabled(True)
         self.ui.line_checkbox_rpc.setEnabled(True)
 
@@ -258,13 +263,11 @@ class APFunction:
         self.ui.bn_android_clean.setEnabled(False)
         self.ui.bn_android_world.setEnabled(False)
 
-    # -----> FUNCTION TO SAVE THE MODOFOED TEXT FIELD
     def saveContact(self):
         self.ui.lab_user.setText(self.ui.line_android_name.text())
         self.ui.lab_home_username.setText(self.ui.line_android_name.text())
         self.ui.line_android_name.setEnabled(False)
         self.ui.line_android_adress.setEnabled(False)
-        self.ui.line_android_email.setEnabled(False)
         self.ui.line_checkbox_arg.setEnabled(False)
         self.ui.line_checkbox_rpc.setEnabled(False)
 
@@ -279,6 +282,42 @@ class APFunction:
         self.ui.bn_android_clean.setEnabled(True)
         self.ui.bn_android_world.setEnabled(True)
 
+        # * USERNAME
+        config["PROFILE"]["username"] = self.ui.line_android_name.text()
+
+        # * Alocated Ram
+        self.ui.line_android_adress.setText(
+            (self.ui.line_android_adress.text()).upper()
+        )
+        bufor = self.ui.line_android_adress.text()
+        if bufor[-1] != "G" and bufor[-1] != "M":
+            self.errorexec(
+                "'Max Ram' must have a unit. One of this two: 'G', 'M'. Settings will not be applied and saved!!!",
+                "icons/1x/errorAsset 55.png",
+                "Ok",
+            )
+            self.ui.line_android_adress.setText(config.get("SETTINGS", "allocatedram"))
+        else:
+            if bufor[-1] == "G":
+                bufor = str(int(bufor.replace("G", "").replace("g", "")) * 1024) + "M"
+                self.ui.line_android_adress.setText(bufor)
+            config["SETTINGS"]["AllocatedRam"] = bufor
+
+        # * DiscordActivity
+        if self.ui.line_checkbox_rpc.isChecked() == True:
+            config["SETTINGS"]["discordactivity"] = "True"
+        else:
+            config["SETTINGS"]["discordactivity"] = "False"
+
+        # * Special Arguments
+        if self.ui.line_checkbox_arg.isChecked() == True:
+            config["SETTINGS"]["specialarg"] = "True"
+        else:
+            config["SETTINGS"]["specialarg"] = "False"
+
+        with open(f"{sciezkaver}/config.ini", "w") as configfile:
+            config.write(configfile)
+
     def deleteContact(self):
         self.dialogexec(
             "Warning",
@@ -291,8 +330,10 @@ class APFunction:
     def checkBox_arg(self):
         if self.ui.line_checkbox_arg.isChecked() == False:
             self.ui.line_checkbox_arg.setText("Unchecked")
+
         else:
             self.ui.line_checkbox_arg.setText("Checked")
+
             self.errorexec(
                 "Recommended if you have alocated more than 2GB RAM",
                 "icons/1x/errorAsset 55.png",
