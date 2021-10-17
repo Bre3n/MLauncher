@@ -102,12 +102,10 @@ if __name__ == "__main__":
     import time
     from os import path
 
-    import psutil
-
     try:
         import configparser
         import zipfile
-
+        import psutil
         import coloredlogs
         import PySide2
         import requests
@@ -120,6 +118,7 @@ if __name__ == "__main__":
         os.system(f"pip install coloredlogs")
         os.system(f"pip install configparser")
         os.system(f"pip install tqdm")
+        os.system(f"pip install psutil")
         os.execv(sys.executable, ["python"] + sys.argv)
 
     config = configparser.ConfigParser()

@@ -3,39 +3,17 @@ import ctypes
 import os
 import sys
 
+import brain
+
 ctypes.windll.user32.ShowWindow(ctypes.windll.kernel32.GetConsoleWindow(), 0)
 
 from PySide2 import QtCore, QtGui, QtWidgets
-from PySide2.QtCore import (
-    QCoreApplication,
-    QDate,
-    QDateTime,
-    QEvent,
-    QMetaObject,
-    QObject,
-    QPoint,
-    QPropertyAnimation,
-    QRect,
-    QSize,
-    Qt,
-    QTime,
-    QUrl,
-)
-from PySide2.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
-    QFont,
-    QFontDatabase,
-    QIcon,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
-)
+from PySide2.QtCore import (QCoreApplication, QDate, QDateTime, QEvent,
+                            QMetaObject, QObject, QPoint, QPropertyAnimation,
+                            QRect, QSize, Qt, QTime, QUrl)
+from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
+                           QFontDatabase, QIcon, QKeySequence, QLinearGradient,
+                           QPainter, QPalette, QPixmap, QRadialGradient)
 from PySide2.QtWidgets import *
 
 from ui_dialog import Ui_Dialog
@@ -172,39 +150,7 @@ class MainWindow(QMainWindow):
         config = configparser.ConfigParser()
         config.read(f"{sciezkaver}/config.ini")
 
-        # * USERNAME
-        Username = config.get("PROFILE", "username")
-        self.ui.lab_user.setText(Username)
-        self.ui.lab_home_username.setText(Username)
-        self.ui.line_android_name.setText(Username)
-
-        # * ALLOCATEDRAM
-        Allocatedram = config.get("SETTINGS", "allocatedram")
-        self.ui.line_android_adress.setText(Allocatedram)
-
-        # * SPECIAL ARGUMENTS
-        bufor = config.get("SETTINGS", "specialarg")
-        if bufor == "True":
-            SpecialArguments = True
-        else:
-            SpecialArguments = False
-        self.ui.line_checkbox_arg.setChecked(SpecialArguments)
-        if SpecialArguments == True:
-            self.ui.line_checkbox_arg.setText("Checked")
-        else:
-            self.ui.line_checkbox_arg.setText("Unchecked")
-
-        # * DiscordActivity
-        bufor = config.get("SETTINGS", "discordactivity")
-        if bufor == "True":
-            DiscordActivity = True
-        else:
-            DiscordActivity = False
-        self.ui.line_checkbox_rpc.setChecked(DiscordActivity)
-        if DiscordActivity == True:
-            self.ui.line_checkbox_rpc.setText("Checked")
-        else:
-            self.ui.line_checkbox_rpc.setText("Unchecked")
+        brain.updateLines(self)
 
         with open(f"{sciezkaver}/version.txt") as f:
             contentv = f.readlines()

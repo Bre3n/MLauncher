@@ -1,6 +1,8 @@
 import configparser
+import os
 import webbrowser
 
+import brain
 from main import *  # IMPORTING THE MAIN.PY FILE
 
 user = os.getlogin()
@@ -8,6 +10,7 @@ sciezka = f"C:/Users/{user}/AppData/Roaming/.mlauncher"
 sciezkaver = f"{sciezka}/bin"
 config = configparser.ConfigParser()
 config.read(f"{sciezkaver}/config.ini")
+deleteBufor = False
 
 GLOBAL_STATE = 0  # NECESSERY FOR CHECKING WEATHER THE WINDWO IS FULL SCREEN OR NOT
 GLOBAL_TITLE_BAR = (
@@ -319,13 +322,23 @@ class APFunction:
             config.write(configfile)
 
     def deleteContact(self):
-        self.dialogexec(
-            "Warning",
-            "Saved settings will be deleted, Do you want to continue?",
-            "icons/1x/errorAsset 55.png",
-            "Cancel",
-            "Yes",
-        )
+        global deleteBufor
+        if deleteBufor == True:
+            brain.configfile("default&a")
+            brain.updateLines(self)
+            deleteBufor = False
+            self.errorexec(
+                "Restored default settings.",
+                "icons/1x/errorAsset 55.png",
+                "Ok",
+            )
+        else:
+            self.errorexec(
+                "Saved settings will be deleted, If you want it, click one more time on delete button",
+                "icons/1x/errorAsset 55.png",
+                "Ok",
+            )
+            deleteBufor = True
 
     def checkBox_arg(self):
         if self.ui.line_checkbox_arg.isChecked() == False:
