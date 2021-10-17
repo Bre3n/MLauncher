@@ -135,8 +135,15 @@ class UIFunction(MainWindow):
                 self.ui.lab_tab.setText("About > Settings")
                 self.ui.frame_android.setStyleSheet(
                     "background:rgb(91,90,90)"
-                )  # SETS THE BACKGROUND OF THE CLICKED BUTTON TO LITER COLOR THAN THE REST
+                )  # SETS THE BACKGROUND OF THE CLICKED BUTTON TO LITER COLOR THAN THE RESTasd
 
+        elif buttonName == "bn_github":
+            self.ui.stackedWidget.setCurrentWidget(self.ui.page_android)
+            self.ui.lab_tab.setText("Github")
+            self.ui.frame_android.setStyleSheet(
+                "background:rgb(91,90,90)"
+            )  # SETS THE BACKGROUND OF THE CLICKED BUTTON TO LITER COLOR THAN THE REST
+            UIFunction.androidStackPages(self, "page_world")
         # ADD ANOTHER ELIF STATEMENT HERE FOR EXECTUITING A NEW MENU BUTTON STACK PAGE.
 
     ########################################################################################################################
@@ -202,6 +209,10 @@ class UIFunction(MainWindow):
 
         self.ui.pushButton_github.clicked.connect(
             lambda: APFunction.pushButton_github(self)
+        )
+
+        self.ui.pushButton_magic.clicked.connect(
+            lambda: APFunction.pushButton_magic(self)
         )
 
     ################################################################################################################################
@@ -361,6 +372,9 @@ class APFunction:
 
     def pushButton_github(self):
         webbrowser.open("https://github.com/Bre3n/MLauncher")
+
+    def pushButton_magic(self):
+        webbrowser.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
 
 
 #######################################as########################################################################################################################

@@ -337,7 +337,7 @@ class Ui_MainWindow(object):
         icon4 = QIcon()
         icon4.addFile(u"icons/1x/settAsset 50.png", QSize(), QIcon.Normal, QIcon.Off)
         self.bn_android.setIcon(icon4)
-        self.bn_android.setIconSize(QSize(20, 22))
+        self.bn_android.setIconSize(QSize(22, 22))
         self.bn_android.setFlat(True)
 
         self.horizontalLayout_18.addWidget(self.bn_android)
@@ -358,6 +358,25 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
 
         self.verticalLayout_3.addWidget(self.frame_8)
+
+        self.bn_github = QPushButton(self.frame_bottom_west)
+        self.bn_github.setObjectName(u"bn_github")
+        self.bn_github.setMinimumSize(QSize(80, 55))
+        self.bn_github.setMaximumSize(QSize(80, 55))
+        self.bn_github.setStyleSheet(u"QPushButton {\n"
+"	border: none;\n"
+"	background-color: rgb(100,110,120);\n"
+"}\n"
+"QPushButton:hover {\n"
+"	background-color: rgb(140,140,140);\n"
+"}\n"
+"")
+        icon5 = QIcon()
+        icon5.addFile(u"icons/1x/github.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bn_github.setIcon(icon5)
+        self.bn_github.setIconSize(QSize(45, 45))
+
+        self.verticalLayout_3.addWidget(self.bn_github)
 
 
         self.horizontalLayout_2.addWidget(self.frame_bottom_west)
@@ -913,9 +932,9 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {	\n"
 "	background-color: rgba(0,0,0,0);\n"
 "}")
-        icon5 = QIcon()
-        icon5.addFile(u"icons/1x/cleanAsset 59.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bn_android_clean.setIcon(icon5)
+        icon6 = QIcon()
+        icon6.addFile(u"icons/1x/cleanAsset 59.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bn_android_clean.setIcon(icon6)
         self.bn_android_clean.setFlat(True)
 
         self.horizontalLayout_23.addWidget(self.bn_android_clean)
@@ -947,9 +966,9 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {	\n"
 "	background-color: rgba(0,0,0,0);\n"
 "}")
-        icon6 = QIcon()
-        icon6.addFile(u"icons/1x/smile2Asset 1.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bn_android_world.setIcon(icon6)
+        icon7 = QIcon()
+        icon7.addFile(u"icons/1x/smile2Asset 1.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bn_android_world.setIcon(icon7)
         self.bn_android_world.setFlat(True)
 
         self.horizontalLayout_24.addWidget(self.bn_android_world)
@@ -1697,6 +1716,21 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_14.addLayout(self.horizontalLayout_30)
 
+        self.pushButton_magic = QPushButton(self.page_android_world)
+        self.pushButton_magic.setObjectName(u"pushButton_magic")
+        self.pushButton_magic.setFont(font)
+        self.pushButton_magic.setStyleSheet(u"QPushButton {\n"
+"	border: none;\n"
+"	background-color: rgb(110,110,110)\n"
+"}\n"
+"QPushButton:hover {\n"
+"	background-color: rgb(125,125,125);\n"
+"}\n"
+"\n"
+"")
+
+        self.verticalLayout_14.addWidget(self.pushButton_magic)
+
         self.pushButton_github = QPushButton(self.page_android_world)
         self.pushButton_github.setObjectName(u"pushButton_github")
         self.pushButton_github.setFont(font)
@@ -1790,7 +1824,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.stackedWidget.setCurrentIndex(7)
-        self.stackedWidget_android.setCurrentIndex(0)
+        self.stackedWidget_android.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1891,6 +1925,7 @@ class Ui_MainWindow(object):
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"Date:", None))
         self.label_version.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.label_date.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.pushButton_magic.setText(QCoreApplication.translate("MainWindow", u"Magic!", None))
         self.pushButton_github.setText(QCoreApplication.translate("MainWindow", u"Github", None))
         self.lab_tab.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><br/></p></body></html>", None))
 #if QT_CONFIG(tooltip)

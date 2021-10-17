@@ -829,7 +829,7 @@ QPushButton:hover {
                   </property>
                   <property name="iconSize">
                    <size>
-                    <width>20</width>
+                    <width>22</width>
                     <height>22</height>
                    </size>
                   </property>
@@ -869,6 +869,42 @@ QPushButton:hover {
               <number>0</number>
              </property>
             </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="bn_github">
+            <property name="minimumSize">
+             <size>
+              <width>80</width>
+              <height>55</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>80</width>
+              <height>55</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+	border: none;
+	background-color: rgb(100,110,120);
+}
+QPushButton:hover {
+	background-color: rgb(140,140,140);
+}
+</string>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>icons/1x/github.png</normaloff>icons/1x/github.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>45</width>
+              <height>45</height>
+             </size>
+            </property>
            </widget>
           </item>
          </layout>
@@ -2192,7 +2228,7 @@ QPushButton:pressed {
                     <string notr="true">background:rgb(91,90,90);</string>
                    </property>
                    <property name="currentIndex">
-                    <number>0</number>
+                    <number>3</number>
                    </property>
                    <widget class="QWidget" name="page_android_contact">
                     <property name="styleSheet">
@@ -3507,6 +3543,30 @@ QSlider::sub-page:vertical {
                           </layout>
                          </item>
                         </layout>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="pushButton_magic">
+                         <property name="font">
+                          <font>
+                           <family>Segoe UI</family>
+                           <pointsize>12</pointsize>
+                          </font>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true">QPushButton {
+	border: none;
+	background-color: rgb(110,110,110)
+}
+QPushButton:hover {
+	background-color: rgb(125,125,125);
+}
+
+</string>
+                         </property>
+                         <property name="text">
+                          <string>Magic!</string>
+                         </property>
+                        </widget>
                        </item>
                        <item>
                         <widget class="QPushButton" name="pushButton_github">

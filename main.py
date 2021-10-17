@@ -205,6 +205,9 @@ class MainWindow(QMainWindow):
         self.ui.bn_android.clicked.connect(
             lambda: UIFunction.buttonPressed(self, "bn_android")
         )
+        self.ui.bn_github.clicked.connect(
+            lambda: UIFunction.buttonPressed(self, "bn_github")
+        )
         #############################################################
 
         # -----> STACK PAGE FUNCTION
