@@ -1,11 +1,11 @@
-main.py == 1.2
-ui_main.py == 1.2
-ui_function.py == 1.2
+main.py == 1.4
+ui_main.py == 1.4
+ui_function.py == 1.4
 ui_dialog.py == 1.1
 ui_error.py == 1.1
 icons.zip == 1.1
 versions.INI == 1.0
-brain.py == 1.1
+brain.py == 1.3
 https://raw.githubusercontent.com/Bre3n/MLauncher/master/main.py
 https://raw.githubusercontent.com/Bre3n/MLauncher/master/ui_main.py
 https://raw.githubusercontent.com/Bre3n/MLauncher/master/ui_function.py
