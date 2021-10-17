@@ -2,18 +2,43 @@ import configparser
 import ctypes
 import os
 import sys
+import threading
 
 import brain
 
 ctypes.windll.user32.ShowWindow(ctypes.windll.kernel32.GetConsoleWindow(), 0)
 
 from PySide2 import QtCore, QtGui, QtWidgets
-from PySide2.QtCore import (QCoreApplication, QDate, QDateTime, QEvent,
-                            QMetaObject, QObject, QPoint, QPropertyAnimation,
-                            QRect, QSize, Qt, QTime, QUrl)
-from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
-                           QFontDatabase, QIcon, QKeySequence, QLinearGradient,
-                           QPainter, QPalette, QPixmap, QRadialGradient)
+from PySide2.QtCore import (
+    QCoreApplication,
+    QDate,
+    QDateTime,
+    QEvent,
+    QMetaObject,
+    QObject,
+    QPoint,
+    QPropertyAnimation,
+    QRect,
+    QSize,
+    Qt,
+    QTime,
+    QUrl,
+)
+from PySide2.QtGui import (
+    QBrush,
+    QColor,
+    QConicalGradient,
+    QCursor,
+    QFont,
+    QFontDatabase,
+    QIcon,
+    QKeySequence,
+    QLinearGradient,
+    QPainter,
+    QPalette,
+    QPixmap,
+    QRadialGradient,
+)
 from PySide2.QtWidgets import *
 
 from ui_dialog import Ui_Dialog
@@ -151,6 +176,7 @@ class MainWindow(QMainWindow):
         config.read(f"{sciezkaver}/config.ini")
 
         brain.updateLines(self)
+        threading.Thread(target=lambda: brain.checkinternet(self)).start()
 
         with open(f"{sciezkaver}/version.txt") as f:
             contentv = f.readlines()

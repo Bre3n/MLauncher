@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_main.ui'
+## Form generated from reading UI file 'ui_main — kopia.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.2.0
 ##
@@ -1795,7 +1795,7 @@ class Ui_MainWindow(object):
         font15.setFamilies([u"Segoe UI Light"])
         font15.setPointSize(10)
         self.lab_tab.setFont(font15)
-        self.lab_tab.setStyleSheet(u"color:rgb(255,255,255);background:rgb(51,51,51);")
+        self.lab_tab.setStyleSheet(u"color:rgb(255,255,255);")
 
         self.horizontalLayout_12.addWidget(self.lab_tab)
 
@@ -1804,8 +1804,8 @@ class Ui_MainWindow(object):
 
         self.frame_drag = QFrame(self.frame_low)
         self.frame_drag.setObjectName(u"frame_drag")
-        self.frame_drag.setMinimumSize(QSize(350, 20))
-        self.frame_drag.setMaximumSize(QSize(350, 20))
+        self.frame_drag.setMinimumSize(QSize(20, 20))
+        self.frame_drag.setMaximumSize(QSize(20, 20))
         self.frame_drag.setStyleSheet(u"background:rgb(51,51,51);")
         self.frame_drag.setFrameShape(QFrame.NoFrame)
         self.frame_drag.setFrameShadow(QFrame.Plain)
@@ -1813,14 +1813,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout_13.setSpacing(0)
         self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
         self.horizontalLayout_13.setContentsMargins(0, 0, 0, 0)
-        self.lab_tab2 = QLabel(self.frame_drag)
-        self.lab_tab2.setObjectName(u"lab_tab2")
-        self.lab_tab2.setFont(font10)
-        self.lab_tab2.setStyleSheet(u"background:rgb(51,51,51);")
-        self.lab_tab2.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
-
-        self.horizontalLayout_13.addWidget(self.lab_tab2)
-
 
         self.horizontalLayout_11.addWidget(self.frame_drag)
 
@@ -1838,7 +1830,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.stackedWidget.setCurrentIndex(7)
-        self.stackedWidget_android.setCurrentIndex(0)
+        self.stackedWidget_android.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1944,6 +1936,5 @@ class Ui_MainWindow(object):
 #if QT_CONFIG(tooltip)
         self.frame_drag.setToolTip(QCoreApplication.translate("MainWindow", u"Drag", None))
 #endif // QT_CONFIG(tooltip)
-        self.lab_tab2.setText("")
     # retranslateUi
 

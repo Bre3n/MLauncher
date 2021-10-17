@@ -300,24 +300,34 @@
               <number>0</number>
              </property>
              <item>
-              <widget class="QLabel" name="lab_person">
+              <widget class="QPushButton" name="bn_profile">
+               <property name="minimumSize">
+                <size>
+                 <width>55</width>
+                 <height>55</height>
+                </size>
+               </property>
                <property name="maximumSize">
                 <size>
                  <width>55</width>
                  <height>55</height>
                 </size>
                </property>
-               <property name="text">
-                <string/>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+	border: none;
+}
+</string>
                </property>
-               <property name="pixmap">
-                <pixmap>icons/1x/peple.png</pixmap>
+               <property name="icon">
+                <iconset>
+                 <normaloff>icons/1x/peple.png</normaloff>icons/1x/peple.png</iconset>
                </property>
-               <property name="scaledContents">
-                <bool>false</bool>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
+               <property name="iconSize">
+                <size>
+                 <width>55</width>
+                 <height>55</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -2228,7 +2238,7 @@ QPushButton:pressed {
                     <string notr="true">background:rgb(91,90,90);</string>
                    </property>
                    <property name="currentIndex">
-                    <number>3</number>
+                    <number>0</number>
                    </property>
                    <widget class="QWidget" name="page_android_contact">
                     <property name="styleSheet">
@@ -3685,7 +3695,7 @@ QPushButton:hover {
                    </font>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">color:rgb(255,255,255);</string>
+                   <string notr="true">color:rgb(255,255,255);background:rgb(51,51,51);</string>
                   </property>
                   <property name="text">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -3699,13 +3709,13 @@ QPushButton:hover {
               <widget class="QFrame" name="frame_drag">
                <property name="minimumSize">
                 <size>
-                 <width>20</width>
+                 <width>350</width>
                  <height>20</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>20</width>
+                 <width>350</width>
                  <height>20</height>
                 </size>
                </property>
@@ -3737,6 +3747,25 @@ QPushButton:hover {
                 <property name="bottomMargin">
                  <number>0</number>
                 </property>
+                <item>
+                 <widget class="QLabel" name="lab_tab2">
+                  <property name="font">
+                   <font>
+                    <family>Segoe UI</family>
+                    <pointsize>14</pointsize>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background:rgb(51,51,51);</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </widget>
              </item>
