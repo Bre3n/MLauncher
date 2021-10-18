@@ -980,7 +980,7 @@ QPushButton:hover {
                 <string notr="true"/>
                </property>
                <property name="currentIndex">
-                <number>7</number>
+                <number>3</number>
                </property>
                <widget class="QWidget" name="page_home">
                 <property name="styleSheet">
@@ -3688,14 +3688,17 @@ QPushButton:hover {
                 </property>
                 <item>
                  <widget class="QLabel" name="lab_tab">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
                   <property name="font">
                    <font>
                     <family>Segoe UI Light</family>
-                    <pointsize>10</pointsize>
+                    <pointsize>12</pointsize>
                    </font>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">color:rgb(255,255,255);background:rgb(51,51,51);</string>
+                   <string notr="true">color:rgb(255,255,255);</string>
                   </property>
                   <property name="text">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -3752,17 +3755,40 @@ QPushButton:hover {
                   <property name="font">
                    <font>
                     <family>Segoe UI</family>
-                    <pointsize>14</pointsize>
+                    <pointsize>10</pointsize>
                    </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">background:rgb(51,51,51);</string>
                   </property>
                   <property name="text">
                    <string/>
                   </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="lab_tab3">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>25</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normaloff>icons/1x/errorAsset 55.png</normaloff>icons/1x/errorAsset 55.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>25</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="flat">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>

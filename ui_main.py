@@ -1784,9 +1784,9 @@ class Ui_MainWindow(object):
         self.lab_tab.setObjectName(u"lab_tab")
         font15 = QFont()
         font15.setFamily(u"Segoe UI Light")
-        font15.setPointSize(10)
+        font15.setPointSize(12)
         self.lab_tab.setFont(font15)
-        self.lab_tab.setStyleSheet(u"color:rgb(255,255,255);background:rgb(51,51,51);")
+        self.lab_tab.setStyleSheet(u"color:rgb(255,255,255);")
 
         self.horizontalLayout_12.addWidget(self.lab_tab)
 
@@ -1806,11 +1806,20 @@ class Ui_MainWindow(object):
         self.horizontalLayout_13.setContentsMargins(0, 0, 0, 0)
         self.lab_tab2 = QLabel(self.frame_drag)
         self.lab_tab2.setObjectName(u"lab_tab2")
-        self.lab_tab2.setFont(font10)
-        self.lab_tab2.setStyleSheet(u"background:rgb(51,51,51);")
-        self.lab_tab2.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.lab_tab2.setFont(font7)
 
         self.horizontalLayout_13.addWidget(self.lab_tab2)
+
+        self.lab_tab3 = QPushButton(self.frame_drag)
+        self.lab_tab3.setObjectName(u"lab_tab3")
+        self.lab_tab3.setMaximumSize(QSize(25, 20))
+        icon9 = QIcon()
+        icon9.addFile(u"icons/1x/errorAsset 55.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.lab_tab3.setIcon(icon9)
+        self.lab_tab3.setIconSize(QSize(25, 20))
+        self.lab_tab3.setFlat(True)
+
+        self.horizontalLayout_13.addWidget(self.lab_tab3)
 
 
         self.horizontalLayout_11.addWidget(self.frame_drag)
@@ -1828,7 +1837,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(7)
+        self.stackedWidget.setCurrentIndex(0)
         self.stackedWidget_android.setCurrentIndex(0)
 
 
@@ -1936,5 +1945,6 @@ class Ui_MainWindow(object):
         self.frame_drag.setToolTip(QCoreApplication.translate("MainWindow", u"Drag", None))
 #endif // QT_CONFIG(tooltip)
         self.lab_tab2.setText("")
+        self.lab_tab3.setText("")
     # retranslateUi
 

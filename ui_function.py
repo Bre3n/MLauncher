@@ -300,6 +300,7 @@ class APFunction:
         config["PROFILE"]["username"] = self.ui.line_android_name.text()
 
         # * Alocated Ram
+
         self.ui.line_android_adress.setText(
             (self.ui.line_android_adress.text()).upper()
         )
@@ -315,7 +316,16 @@ class APFunction:
             if bufor[-1] == "G":
                 bufor = str(int(bufor.replace("G", "").replace("g", "")) * 1024) + "M"
                 self.ui.line_android_adress.setText(bufor)
-            config["SETTINGS"]["AllocatedRam"] = bufor
+            var, buf, size = brain.check_ram(bufor)
+            if var == True:
+                config["SETTINGS"]["AllocatedRam"] = bufor
+            else:
+                self.ui.line_android_adress.setText(config.get("SETTINGS", "allocatedram"))
+                self.errorexec(
+                f"Cannot asing more ram than {buf}MB (80% of amount of available RAM ({size}) )",
+                "icons/1x/errorAsset 55.png",
+                "Ok",
+            )
 
         # * DiscordActivity
         if self.ui.line_checkbox_rpc.isChecked() == True:
@@ -371,7 +381,6 @@ class APFunction:
             self.ui.line_checkbox_rpc.setText("Checked")
 
     def pushButton_github(self):
-        brain.checkinternet(self)
         webbrowser.open("https://github.com/Bre3n/MLauncher")
 
     def pushButton_magic(self):

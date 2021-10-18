@@ -23,6 +23,8 @@ from PySide2.QtCore import (
     Qt,
     QTime,
     QUrl,
+    Signal,
+    Slot,
 )
 from PySide2.QtGui import (
     QBrush,
@@ -163,11 +165,16 @@ class errorUi(QDialog):
 # OUR APPLICATION MAIN WINDOW :
 # -----> MAIN APPLICATION CLASS
 class MainWindow(QMainWindow):
-    def __init__(self):
+    valueChanged = Signal(int)
 
+    def __init__(self):
+        applicationName = "MLauncher"
         super(MainWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
+        self.i = 0
+        self.valueChanged.connect(self.changetheme)
 
         user = os.getlogin()
         sciezka = f"C:/Users/{user}/AppData/Roaming/.mlauncher"
@@ -177,7 +184,7 @@ class MainWindow(QMainWindow):
 
         brain.updateLines(self)
         threading.Thread(target=lambda: brain.checkinternet(self)).start()
-
+        self.ui.lab_tab3.setVisible(False)
         with open(f"{sciezkaver}/version.txt") as f:
             contentv = f.readlines()
             contentv = [x.strip() for x in contentv]
@@ -187,7 +194,7 @@ class MainWindow(QMainWindow):
         self.ui.label_version.setText(bufor)
 
         # ----> SET WINDOW TITLE AND ICON
-        applicationName = "MLauncher"
+
         self.setWindowTitle(
             applicationName
         )  # SETS THE APPLICATION NAME IN THE WINDOW TOPBAR                        ---------(C4)
@@ -378,6 +385,31 @@ class MainWindow(QMainWindow):
     def errorexec(self, heading, icon, btnOk):
         errorUi.errorConstrict(self.error, heading, icon, btnOk)
         self.error.exec_()
+
+    @Slot(int)
+    def changetheme(self, var):
+        if var == 2:
+            self.ui.lab_tab2.setText("")
+            self.ui.lab_tab3.setVisible(False)
+            self.ui.lab_tab2.setStyleSheet("")
+            self.ui.lab_tab.setStyleSheet("")
+            self.ui.frame_appname.setStyleSheet("")
+            self.ui.frame_close.setStyleSheet("")
+            self.ui.frame_min.setStyleSheet("")
+            self.ui.frame_person.setStyleSheet("")
+            self.ui.frame_user.setStyleSheet("")
+        else:
+            self.ui.lab_tab2.setText(
+                "Connection Error (click icon for more information ->)"
+            )
+            self.ui.lab_tab3.setVisible(True)
+            self.ui.lab_tab2.setStyleSheet("background:#ff0033;")
+            self.ui.lab_tab.setStyleSheet("background:#ff0033;")
+            self.ui.frame_appname.setStyleSheet("background:#ff0033;")
+            self.ui.frame_close.setStyleSheet("background:#ff0033;")
+            self.ui.frame_min.setStyleSheet("background:#ff0033;")
+            self.ui.frame_person.setStyleSheet("background:#ff0033;")
+            self.ui.frame_user.setStyleSheet("background:#ff0033;")
 
     ##############################################################
 

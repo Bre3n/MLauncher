@@ -1,7 +1,9 @@
 import configparser
 import os
-import threading
+import multiprocessing
+import time
 
+import psutil
 import requests
 
 user = os.getlogin()
@@ -62,27 +64,32 @@ def updateLines(self):
     else:
         self.ui.line_checkbox_rpc.setText("Unchecked")
 
-
 def checkinternet(self):
     url = "http://www.github.com"
     timeout = 5
-    try:
-        request = requests.get(url, timeout=timeout)
-        self.ui.lab_tab2.setText("")
-        self.ui.lab_tab2.setStyleSheet("background:rgb(51,51,51);")
-        self.ui.lab_tab.setStyleSheet("background:rgb(51,51,51);")
-        self.ui.frame_appname.setStyleSheet("")
-        self.ui.frame_close.setStyleSheet("")
-        self.ui.frame_min.setStyleSheet("")
-        self.ui.frame_person.setStyleSheet("")
-        self.ui.frame_user.setStyleSheet("")
-    except (requests.ConnectionError, requests.Timeout) as exception:
-        self.ui.lab_tab2.setText("Internet connection Error       ")
-        self.ui.lab_tab2.setStyleSheet("background:#ff0033;")
-        self.ui.lab_tab.setStyleSheet("background:#ff0033;")
-        self.ui.frame_appname.setStyleSheet("background:#ff0033;")
-        self.ui.frame_close.setStyleSheet("background:#ff0033;")
-        self.ui.frame_min.setStyleSheet("background:#ff0033;")
-        self.ui.frame_person.setStyleSheet("background:#ff0033;")
-        self.ui.frame_user.setStyleSheet("background:#ff0033;")
-    threading.Timer(10.0, lambda: checkinternet(self)).start()
+    while True:
+        try:
+            request = requests.get(url, timeout=timeout)
+            if self.i == 1:
+                self.i = 2
+                self.valueChanged.emit(self.i)
+        except (requests.ConnectionError, requests.Timeout) as exception:
+            if self.i == 2 or self.i == 0:
+                self.i = 1
+                self.valueChanged.emit(self.i)
+        time.sleep(10)
+
+
+def check_ram(allocated):
+    byte = psutil.virtual_memory().total
+    while True:
+        if byte < 1024:
+            size = f"{byte:.2f}"
+            size = round(float(size)) * 1024
+            break
+        byte = byte / 1024
+    bufor = int(size * 0.8)
+    if int(allocated.replace("M", "")) > bufor:
+        return False, bufor, size
+    else:
+        return True, 0, 0
