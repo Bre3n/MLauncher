@@ -349,7 +349,6 @@ class APFunction:
             self.ui.line_checkbox_rpc.setText("Checked")
 
     def pushButton_github(self):
-        brain.setCurrentDiscordRpc("chuj tomek")
         webbrowser.open("https://github.com/Bre3n/MLauncher")
 
     def pushButton_magic(self):

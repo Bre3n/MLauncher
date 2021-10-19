@@ -8,7 +8,6 @@ from pypresence import Presence
 
 import brain
 
-
 ctypes.windll.user32.ShowWindow(ctypes.windll.kernel32.GetConsoleWindow(), 0)
 
 from PySide2 import QtCore, QtGui, QtWidgets
@@ -190,7 +189,7 @@ class MainWindow(QMainWindow):
 
         brain.updateLines(self)
         threading.Thread(target=lambda: brain.checkinternet(self)).start()
-        brain.setCurrentDiscordRpc("tomekchuj")
+        brain.setCurrentDiscordRpc("Home Page", "")
         threading.Thread(target=lambda: brain.discordrpc(rpc)).start()
         self.ui.lab_tab3.setVisible(False)
         with open(f"{sciezkaver}/version.txt") as f:
@@ -214,7 +213,7 @@ class MainWindow(QMainWindow):
         # THIS UOFunction CLASS IS IN THE FILE: ui_function.py.
         ###############################
 
-        # -----> INITIAL STACKED WIDGET PAGE WIDGET AND TAB
+        # -----> INITIAL STACKED WIDGET PAGE WIDGET AND TABs
         # THIS MAKE THE INITIAL WINDOW OF OUR APPLICATION, I.E. THE FIRST PAGE OR THE WELCOME PAGE/SCREEN            ---------(C5)
         # IN OUR APPLICATION THIS IS THE MENU BAR, TOODLE SWITCH, MIN, MAX, CLOSE BUTTONS, AND THE HOME PAGE.
         # ALL THIS GET INITIALISED HERE.

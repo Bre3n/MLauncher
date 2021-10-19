@@ -12,6 +12,7 @@ sciezka = f"C:/Users/{user}/AppData/Roaming/.mlauncher"
 sciezkaver = f"{sciezka}/bin"
 config = configparser.ConfigParser()
 currentDiscordRpc = ""
+currentDiscordRpcDetails = ""
 
 
 def configfile(arg):
@@ -96,9 +97,13 @@ def check_ram(allocated):
     else:
         return True, 0, 0
 
-def setCurrentDiscordRpc(bufor):
+
+def setCurrentDiscordRpc(bufor, bufor2):
     global currentDiscordRpc
+    global currentDiscordRpcDetails
     currentDiscordRpc = bufor
+    currentDiscordRpcDetails = bufor2
+
 
 def discordrpc(rpc):
     config = configparser.ConfigParser()
@@ -108,7 +113,10 @@ def discordrpc(rpc):
     while True:
         config.read(f"{sciezkaver}/config.ini")
         if (config.get("SETTINGS", "discordactivity")) == "True":
-            rpc.update(state=currentDiscordRpc)
+            if currentDiscordRpcDetails != "":
+                rpc.update(state=currentDiscordRpc, details=currentDiscordRpcDetails)
+            else:
+                rpc.update(state=currentDiscordRpc)
         else:
             rpc.clear()
-        time.sleep(2)
+        time.sleep(15)
