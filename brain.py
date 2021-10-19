@@ -1,15 +1,17 @@
 import configparser
-import os
 import multiprocessing
+import os
 import time
 
 import psutil
 import requests
+from pypresence import Presence
 
 user = os.getlogin()
 sciezka = f"C:/Users/{user}/AppData/Roaming/.mlauncher"
 sciezkaver = f"{sciezka}/bin"
 config = configparser.ConfigParser()
+currentDiscordRpc = ""
 
 
 def configfile(arg):
@@ -64,18 +66,18 @@ def updateLines(self):
     else:
         self.ui.line_checkbox_rpc.setText("Unchecked")
 
+
 def checkinternet(self):
     url = "http://www.github.com"
-    timeout = 5
     while True:
         try:
-            request = requests.get(url, timeout=timeout)
-            if self.i == 1:
-                self.i = 2
+            request = requests.get(url, timeout=5)
+            if self.i == "connectionError":
+                self.i = "connectionStable"
                 self.valueChanged.emit(self.i)
         except (requests.ConnectionError, requests.Timeout) as exception:
-            if self.i == 2 or self.i == 0:
-                self.i = 1
+            if self.i == "connectionStable" or self.i == 0:
+                self.i = "connectionError"
                 self.valueChanged.emit(self.i)
         time.sleep(10)
 
@@ -93,3 +95,20 @@ def check_ram(allocated):
         return False, bufor, size
     else:
         return True, 0, 0
+
+def setCurrentDiscordRpc(bufor):
+    global currentDiscordRpc
+    currentDiscordRpc = bufor
+
+def discordrpc(rpc):
+    config = configparser.ConfigParser()
+    config.read(f"{sciezkaver}/config.ini")
+    client_id = "898206330517610558"
+    rpcbool = False
+    while True:
+        config.read(f"{sciezkaver}/config.ini")
+        if (config.get("SETTINGS", "discordactivity")) == "True":
+            rpc.update(state=currentDiscordRpc)
+        else:
+            rpc.clear()
+        time.sleep(2)

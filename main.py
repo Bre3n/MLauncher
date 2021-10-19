@@ -4,7 +4,10 @@ import os
 import sys
 import threading
 
+from pypresence import Presence
+
 import brain
+
 
 ctypes.windll.user32.ShowWindow(ctypes.windll.kernel32.GetConsoleWindow(), 0)
 
@@ -176,6 +179,9 @@ class MainWindow(QMainWindow):
         self.i = 0
         self.valueChanged.connect(self.changetheme)
 
+        rpc = Presence(client_id="898206330517610558")
+        rpc.connect()
+
         user = os.getlogin()
         sciezka = f"C:/Users/{user}/AppData/Roaming/.mlauncher"
         sciezkaver = f"{sciezka}/bin"
@@ -184,6 +190,8 @@ class MainWindow(QMainWindow):
 
         brain.updateLines(self)
         threading.Thread(target=lambda: brain.checkinternet(self)).start()
+        brain.setCurrentDiscordRpc("tomekchuj")
+        threading.Thread(target=lambda: brain.discordrpc(rpc)).start()
         self.ui.lab_tab3.setVisible(False)
         with open(f"{sciezkaver}/version.txt") as f:
             contentv = f.readlines()
@@ -388,7 +396,7 @@ class MainWindow(QMainWindow):
 
     @Slot(int)
     def changetheme(self, var):
-        if var == 2:
+        if var == "connectionStable":
             self.ui.lab_tab2.setText("")
             self.ui.lab_tab3.setVisible(False)
             self.ui.lab_tab2.setStyleSheet("")

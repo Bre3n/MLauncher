@@ -79,63 +79,31 @@ class UIFunction(MainWindow):
     # ----> BUTTON IN TAB PRESSED EXECUTES THE CORRESPONDING PAGE IN STACKEDWIDGET PAGES
     def buttonPressed(self, buttonName):
 
-        index = self.ui.stackedWidget.currentIndex()
-
         # ------> THIS LINE CLEARS THE BG OF PREVIOUS TABS I.E. FROM THE LITER COLOR TO THE SAME BG COLOR I.E. TO CHANGE THE HIGHLIGHT.
         for each in self.ui.frame_bottom_west.findChildren(QFrame):
             each.setStyleSheet("background:rgb(51,51,51)")
 
         if buttonName == "bn_home":
-            if self.ui.frame_bottom_west.width() == 80 and index != 0:
-                self.ui.stackedWidget.setCurrentWidget(self.ui.page_home)
-                self.ui.lab_tab.setText("Home")
-                self.ui.frame_home.setStyleSheet(
-                    "background:rgb(91,90,90)"
-                )  # SETS THE BACKGROUND OF THE CLICKED BUTTON TO LITER COLOR THAN THE REST
-
-            elif (
-                self.ui.frame_bottom_west.width() == 160 and index != 1
-            ):  # ABOUT PAGE STACKED WIDGET
-                self.ui.stackedWidget.setCurrentWidget(self.ui.page_about_home)
-                self.ui.lab_tab.setText("About > Home")
-                self.ui.frame_home.setStyleSheet(
-                    "background:rgb(91,90,90)"
-                )  # SETS THE BACKGROUND OF THE CLICKED BUTTON TO LITER COLOR THAN THE REST
+            self.ui.stackedWidget.setCurrentWidget(self.ui.page_home)
+            self.ui.lab_tab.setText("Home")
+            self.ui.frame_home.setStyleSheet(
+                "background:rgb(91,90,90)"
+            )  # SETS THE BACKGROUND OF THE CLICKED BUTTON TO LITER COLOR THAN THE REST
 
         elif buttonName == "bn_bug":
-            if self.ui.frame_bottom_west.width() == 80 and index != 5:
-                self.ui.stackedWidget.setCurrentWidget(self.ui.page_bug)
-                self.ui.lab_tab.setText("Game")
-                self.ui.frame_bug.setStyleSheet(
-                    "background:rgb(91,90,90)"
-                )  # SETS THE BACKGROUND OF THE CLICKED BUTTON TO LITER COLOR THAN THE REST
-
-            elif (
-                self.ui.frame_bottom_west.width() == 160 and index != 4
-            ):  # ABOUT PAGE STACKED WIDGET
-                self.ui.stackedWidget.setCurrentWidget(self.ui.page_about_bug)
-                self.ui.lab_tab.setText("About > Game")
-                self.ui.frame_bug.setStyleSheet(
-                    "background:rgb(91,90,90)"
-                )  # SETS THE BACKGROUND OF THE CLICKED BUTTON TO LITER COLOR THAN THE REST
+            self.ui.stackedWidget.setCurrentWidget(self.ui.page_bug)
+            self.ui.lab_tab.setText("Game")
+            self.ui.frame_bug.setStyleSheet(
+                "background:rgb(91,90,90)"
+            )  # SETS THE BACKGROUND OF THE CLICKED BUTTON TO LITER COLOR THAN THE REST
 
         elif buttonName == "bn_android":
-            if self.ui.frame_bottom_west.width() == 80 and index != 7:
-                self.ui.stackedWidget.setCurrentWidget(self.ui.page_android)
-                self.ui.lab_tab.setText("Settings")
-                self.ui.frame_android.setStyleSheet(
-                    "background:rgb(91,90,90)"
-                )  # SETS THE BACKGROUND OF THE CLICKED BUTTON TO LITER COLOR THAN THE REST
-                UIFunction.androidStackPages(self, "page_contact")
-
-            elif (
-                self.ui.frame_bottom_west.width() == 160 and index != 3
-            ):  # ABOUT PAGE STACKED WIDGET
-                self.ui.stackedWidget.setCurrentWidget(self.ui.page_about_android)
-                self.ui.lab_tab.setText("About > Settings")
-                self.ui.frame_android.setStyleSheet(
-                    "background:rgb(91,90,90)"
-                )  # SETS THE BACKGROUND OF THE CLICKED BUTTON TO LITER COLOR THAN THE RESTasd
+            self.ui.stackedWidget.setCurrentWidget(self.ui.page_android)
+            self.ui.lab_tab.setText("Settings")
+            self.ui.frame_android.setStyleSheet(
+                "background:rgb(91,90,90)"
+            )  # SETS THE BACKGROUND OF THE CLICKED BUTTON TO LITER COLOR THAN THE REST
+            UIFunction.androidStackPages(self, "page_contact")
 
         elif buttonName == "bn_github":
             self.ui.stackedWidget.setCurrentWidget(self.ui.page_android)
@@ -381,6 +349,7 @@ class APFunction:
             self.ui.line_checkbox_rpc.setText("Checked")
 
     def pushButton_github(self):
+        brain.setCurrentDiscordRpc("chuj tomek")
         webbrowser.open("https://github.com/Bre3n/MLauncher")
 
     def pushButton_magic(self):

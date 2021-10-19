@@ -110,6 +110,7 @@ if __name__ == "__main__":
         import PySide2
         import requests
         from tqdm import tqdm
+        import pypresence
     except ImportError:
         os.system(f"pip install doctext")
         os.system(f"pip install requests")
@@ -119,6 +120,7 @@ if __name__ == "__main__":
         os.system(f"pip install configparser")
         os.system(f"pip install tqdm")
         os.system(f"pip install psutil")
+        os.system(f"pip install pypresence")
         os.execv(sys.executable, ["python"] + sys.argv)
 
     config = configparser.ConfigParser()
