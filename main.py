@@ -178,20 +178,17 @@ class MainWindow(QMainWindow):
         self.i = 0
         self.valueChanged.connect(self.changetheme)
 
-        rpc = Presence(client_id="898206330517610558")
-        rpc.connect()
-
         user = os.getlogin()
         sciezka = f"C:/Users/{user}/AppData/Roaming/.mlauncher"
         sciezkaver = f"{sciezka}/bin"
         config = configparser.ConfigParser()
         config.read(f"{sciezkaver}/config.ini")
-
+        username = config.get("PROFILE", "username")
         brain.updateLines(self)
         threading.Thread(target=lambda: brain.checkinternet(self)).start()
-        brain.setCurrentDiscordRpc("Home Page", "")
-        threading.Thread(target=lambda: brain.discordrpc(rpc)).start()
-        self.ui.lab_tab3.setVisible(False)
+        brain.setCurrentDiscordRpc("Home Page", f"Playing as {username}")
+        threading.Thread(target=lambda: brain.discordrpc(self)).start()
+        self.ui.bn_error.setVisible(False)
         with open(f"{sciezkaver}/version.txt") as f:
             contentv = f.readlines()
             contentv = [x.strip() for x in contentv]
@@ -247,6 +244,9 @@ class MainWindow(QMainWindow):
         )
         self.ui.bn_github.clicked.connect(
             lambda: UIFunction.buttonPressed(self, "bn_github")
+        )
+        self.ui.bn_error.clicked.connect(
+            lambda: UIFunction.buttonPressed(self, "bn_error")
         )
         #############################################################
 
@@ -395,9 +395,10 @@ class MainWindow(QMainWindow):
 
     @Slot(int)
     def changetheme(self, var):
-        if var == "connectionStable":
+        if var == 1:
             self.ui.lab_tab2.setText("")
-            self.ui.lab_tab3.setVisible(False)
+            self.ui.bn_error.setVisible(False)
+            self.ui.bn_error.setEnabled(False)
             self.ui.lab_tab2.setStyleSheet("")
             self.ui.lab_tab.setStyleSheet("")
             self.ui.frame_appname.setStyleSheet("")
@@ -405,11 +406,12 @@ class MainWindow(QMainWindow):
             self.ui.frame_min.setStyleSheet("")
             self.ui.frame_person.setStyleSheet("")
             self.ui.frame_user.setStyleSheet("")
-        else:
+        elif var == 2:
             self.ui.lab_tab2.setText(
                 "Connection Error (click icon for more information ->)"
             )
-            self.ui.lab_tab3.setVisible(True)
+            self.ui.bn_error.setVisible(True)
+            self.ui.bn_error.setEnabled(True)
             self.ui.lab_tab2.setStyleSheet("background:#ff0033;")
             self.ui.lab_tab.setStyleSheet("background:#ff0033;")
             self.ui.frame_appname.setStyleSheet("background:#ff0033;")
@@ -417,6 +419,11 @@ class MainWindow(QMainWindow):
             self.ui.frame_min.setStyleSheet("background:#ff0033;")
             self.ui.frame_person.setStyleSheet("background:#ff0033;")
             self.ui.frame_user.setStyleSheet("background:#ff0033;")
+            self.ui.error_lab.setText(
+                "Connection Error\n{github connection timeout 5s}\n\nFirst check your internet connection, if all is alright thats may be problem with github"
+            )
+        elif var == 10:
+            brain.connectRpc()
 
     ##############################################################
 

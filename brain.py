@@ -13,6 +13,9 @@ sciezkaver = f"{sciezka}/bin"
 config = configparser.ConfigParser()
 currentDiscordRpc = ""
 currentDiscordRpcDetails = ""
+checkinternetbool = False
+connectedRpc = False
+rpc = 0
 
 
 def configfile(arg):
@@ -28,6 +31,7 @@ def configfile(arg):
         config["PROFILE"]["username"] = "Steve"
         with open(f"{sciezkaver}/config.ini", "w") as configfile:
             config.write(configfile)
+        setCurrentDiscordRpc("Home Page", "Playing as Steve")
 
 
 def updateLines(self):
@@ -70,17 +74,20 @@ def updateLines(self):
 
 def checkinternet(self):
     url = "http://www.github.com"
+    global checkinternetbool
     while True:
         try:
             request = requests.get(url, timeout=5)
-            if self.i == "connectionError":
-                self.i = "connectionStable"
+            checkinternetbool = True
+            if self.i == 2:
+                self.i = 1
                 self.valueChanged.emit(self.i)
         except (requests.ConnectionError, requests.Timeout) as exception:
-            if self.i == "connectionStable" or self.i == 0:
-                self.i = "connectionError"
+            checkinternetbool = False
+            if self.i == 1 or self.i == 0:
+                self.i = 2
                 self.valueChanged.emit(self.i)
-        time.sleep(10)
+        time.sleep(2)
 
 
 def check_ram(allocated):
@@ -101,22 +108,42 @@ def check_ram(allocated):
 def setCurrentDiscordRpc(bufor, bufor2):
     global currentDiscordRpc
     global currentDiscordRpcDetails
-    currentDiscordRpc = bufor
-    currentDiscordRpcDetails = bufor2
+    currentDiscordRpcDetails = bufor
+    currentDiscordRpc = bufor2
 
 
-def discordrpc(rpc):
+def connectRpc():
+    global rpc
+    global connectedRpc
+    rpc = Presence(client_id="898206330517610558")
+    rpc.connect()
+    connectedRpc = True
+
+
+def discordrpc(self):
+    global connectedRpc
+    global rpc
     config = configparser.ConfigParser()
     config.read(f"{sciezkaver}/config.ini")
-    client_id = "898206330517610558"
-    rpcbool = False
     while True:
-        config.read(f"{sciezkaver}/config.ini")
-        if (config.get("SETTINGS", "discordactivity")) == "True":
-            if currentDiscordRpcDetails != "":
-                rpc.update(state=currentDiscordRpc, details=currentDiscordRpcDetails)
+        bufor = "Discord.exe" in (i.name() for i in psutil.process_iter())
+        if bufor == False:
+            break
+        if connectedRpc == False and checkinternetbool == True:
+            self.i = 10
+            self.valueChanged.emit(self.i)
+            self.i = 1
+        if connectedRpc == True and checkinternetbool == True:
+            config.read(f"{sciezkaver}/config.ini")
+            if (config.get("SETTINGS", "discordactivity")) == "True":
+                if currentDiscordRpc == "":
+                    rpc.update(details=currentDiscordRpcDetails, large_image="rpcimage")
+                else:
+                    rpc.update(
+                        state=currentDiscordRpc,
+                        details=currentDiscordRpcDetails,
+                        large_image="rpcimage",
+                    )
             else:
-                rpc.update(state=currentDiscordRpc)
-        else:
-            rpc.clear()
-        time.sleep(15)
+                rpc.clear()
+        time.sleep(2)

@@ -108,10 +108,12 @@ class UIFunction(MainWindow):
         elif buttonName == "bn_github":
             self.ui.stackedWidget.setCurrentWidget(self.ui.page_android)
             self.ui.lab_tab.setText("Github")
-            self.ui.frame_android.setStyleSheet(
-                "background:rgb(91,90,90)"
-            )  # SETS THE BACKGROUND OF THE CLICKED BUTTON TO LITER COLOR THAN THE REST
             UIFunction.androidStackPages(self, "page_world")
+            
+        elif buttonName == "bn_error":
+            self.ui.stackedWidget.setCurrentWidget(self.ui.page_error)
+            self.ui.lab_tab.setText("Error Page")
+            
         # ADD ANOTHER ELIF STATEMENT HERE FOR EXECTUITING A NEW MENU BUTTON STACK PAGE.
 
     ########################################################################################################################
@@ -265,7 +267,9 @@ class APFunction:
         self.ui.bn_android_world.setEnabled(True)
 
         # * USERNAME
-        config["PROFILE"]["username"] = self.ui.line_android_name.text()
+        username= self.ui.line_android_name.text()
+        config["PROFILE"]["username"] = username
+        brain.setCurrentDiscordRpc("Home Page", f"Playing as {username}")
 
         # * Alocated Ram
 
