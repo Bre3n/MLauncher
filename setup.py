@@ -44,15 +44,14 @@ def check_ram(allocated):
 
 
 def pliki(sciezka):
+    i = 0
     pathh = f"{sciezka}/logs-setup"
 
     # * LOGS
     if path.exists(pathh) == False:
         os.mkdir(pathh)
-    if path.exists(f"{pathh}/SORT_BY_MODIFICATION_TIME.txt") == False:
-        f = open(f"{pathh}/SORT_BY_MODIFICATION_TIME.txt", "w")
-        f.write("")
-        f.close()
+    if path.exists(f"{pathh}/.SORT_BY_MODIFICATION_TIME.txt") == False:
+        open(f"{pathh}/.SORT_BY_MODIFICATION_TIME.txt", "w").close()
     if path.exists(f"{pathh}/{now_date}-9.log") == True:
         os.remove(f"{pathh}/{now_date}-9.log")
     if path.exists(f"{pathh}/{now_date}.log") == True:
@@ -215,4 +214,5 @@ if __name__ == "__main__":
                     os.remove(f"{sciezkaver}/{buforr}")
         logger.debug(f"DEBUG: Program process complete")
         os.chdir(f"{sciezkaver}/")
+        logging.shutdown()
         subprocess.call(["python", f"{sciezkaver}/main.py"])

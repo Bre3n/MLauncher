@@ -680,6 +680,21 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_19.addWidget(self.comboBox)
 
+        self.bug_confirm = QPushButton(self.page_bug)
+        self.bug_confirm.setObjectName(u"bug_confirm")
+        self.bug_confirm.setStyleSheet(u"QPushButton {\n"
+"	border: none;\n"
+"	background-color:rgb(100,170,0)\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"	background-color: rgb(120,200,0);\n"
+"}\n"
+"")
+        self.bug_confirm.setFlat(True)
+
+        self.verticalLayout_19.addWidget(self.bug_confirm)
+
         self.verticalSpacer_6 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.verticalLayout_19.addItem(self.verticalSpacer_6)
@@ -703,6 +718,21 @@ class Ui_MainWindow(object):
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.verticalLayout_19.addItem(self.verticalSpacer)
+
+        self.bug_open_folder = QPushButton(self.page_bug)
+        self.bug_open_folder.setObjectName(u"bug_open_folder")
+        self.bug_open_folder.setFont(font)
+        self.bug_open_folder.setStyleSheet(u"QPushButton {\n"
+"	border: none;\n"
+"	background-color: rgb(170,120,35);\n"
+"}\n"
+"QPushButton:hover {\n"
+"	background-color: rgb(191,150,80);\n"
+"}\n"
+"")
+        self.bug_open_folder.setFlat(True)
+
+        self.verticalLayout_19.addWidget(self.bug_open_folder)
 
 
         self.horizontalLayout_3.addLayout(self.verticalLayout_19)
@@ -1784,7 +1814,9 @@ class Ui_MainWindow(object):
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Empty", None))
         self.label_14.setText(QCoreApplication.translate("MainWindow", u"Game Versions", None))
         self.label_12.setText(QCoreApplication.translate("MainWindow", u"Vanilla Versions", None))
+        self.bug_confirm.setText(QCoreApplication.translate("MainWindow", u"Confirm", None))
         self.bug_button.setText(QCoreApplication.translate("MainWindow", u" Change type", None))
+        self.bug_open_folder.setText(QCoreApplication.translate("MainWindow", u"Open Minecraft Versions folder", None))
 #if QT_CONFIG(tooltip)
         self.bn_android_contact.setToolTip("")
 #endif // QT_CONFIG(tooltip)
