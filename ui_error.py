@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+
+################################################################################
+## Form generated from reading UI file 'ui_error.ui'
+##
+## Created by: Qt User Interface Compiler version 5.15.2
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
+
 from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
@@ -7,9 +17,9 @@ class Ui_Error(object):
     def setupUi(self, Error):
         if not Error.objectName():
             Error.setObjectName(u"Error")
-        Error.resize(250, 150)
-        Error.setMinimumSize(QSize(250, 150))
-        Error.setMaximumSize(QSize(250, 150))
+        Error.resize(250, 200)
+        Error.setMinimumSize(QSize(250, 200))
+        Error.setMaximumSize(QSize(250, 200))
         self.horizontalLayout = QHBoxLayout(Error)
         self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
@@ -26,7 +36,7 @@ class Ui_Error(object):
         self.frame_top = QFrame(self.frame)
         self.frame_top.setObjectName(u"frame_top")
         self.frame_top.setMinimumSize(QSize(0, 55))
-        self.frame_top.setMaximumSize(QSize(16777215, 55))
+        self.frame_top.setMaximumSize(QSize(16777215, 120))
         self.frame_top.setStyleSheet(u"background:rgb(91,90,90);")
         self.frame_top.setFrameShape(QFrame.NoFrame)
         self.frame_top.setFrameShadow(QFrame.Plain)
@@ -57,6 +67,7 @@ class Ui_Error(object):
 
         self.frame_bottom = QFrame(self.frame)
         self.frame_bottom.setObjectName(u"frame_bottom")
+        self.frame_bottom.setMaximumSize(QSize(16777215, 80))
         self.frame_bottom.setStyleSheet(u"background:rgb(91,90,90);")
         self.frame_bottom.setFrameShape(QFrame.NoFrame)
         self.frame_bottom.setFrameShadow(QFrame.Plain)

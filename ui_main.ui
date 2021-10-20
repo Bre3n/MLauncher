@@ -1531,6 +1531,27 @@ QScrollBar::sub-page:vertical {
                       </widget>
                      </item>
                      <item>
+                      <widget class="QPushButton" name="bug_confirm">
+                       <property name="styleSheet">
+                        <string notr="true">QPushButton {
+	border: none;
+	background-color:rgb(100,170,0)
+}
+
+QPushButton:hover {
+	background-color: rgb(120,200,0);
+}
+</string>
+                       </property>
+                       <property name="text">
+                        <string>Confirm</string>
+                       </property>
+                       <property name="flat">
+                        <bool>true</bool>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
                       <spacer name="verticalSpacer_6">
                        <property name="orientation">
                         <enum>Qt::Vertical</enum>
@@ -1582,6 +1603,32 @@ QPushButton:hover {
                         </size>
                        </property>
                       </spacer>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="bug_open_folder">
+                       <property name="font">
+                        <font>
+                         <family>Segoe UI</family>
+                         <pointsize>12</pointsize>
+                        </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">QPushButton {
+	border: none;
+	background-color: rgb(170,120,35);
+}
+QPushButton:hover {
+	background-color: rgb(191,150,80);
+}
+</string>
+                       </property>
+                       <property name="text">
+                        <string>Open Minecraft Versions folder</string>
+                       </property>
+                       <property name="flat">
+                        <bool>true</bool>
+                       </property>
+                      </widget>
                      </item>
                     </layout>
                    </item>

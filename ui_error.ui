@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>250</width>
-    <height>150</height>
+    <height>200</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>250</width>
-    <height>150</height>
+    <height>200</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>250</width>
-    <height>150</height>
+    <height>200</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -79,7 +79,7 @@
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>55</height>
+          <height>120</height>
          </size>
         </property>
         <property name="styleSheet">
@@ -150,6 +150,12 @@
       </item>
       <item>
        <widget class="QFrame" name="frame_bottom">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>80</height>
+         </size>
+        </property>
         <property name="styleSheet">
          <string notr="true">background:rgb(91,90,90);</string>
         </property>

@@ -5,7 +5,7 @@ import sys
 import threading
 
 from pypresence import Presence
-
+from os import path
 import brain
 
 ctypes.windll.user32.ShowWindow(ctypes.windll.kernel32.GetConsoleWindow(), 0)
@@ -73,11 +73,10 @@ class dialogUi(QDialog):
         self.d.bn_min.clicked.connect(lambda: self.showMinimized())
 
         # -----> CLOSE APPLICATION FUNCTION BUTTON
-        self.d.bn_close.clicked.connect(lambda: self.close())
+        self.d.bn_close.clicked.connect(lambda: self.closeprogram(self))
 
         # -----> THIS FUNCTION WILL CHECKT WEATHER THE BUTRTON ON THE DIALOGBOX IS CLICKED, AND IF SO DIRECTS TO THE FUNCTINON : diag_return()
-        self.d.bn_east.clicked.connect(lambda: self.close())
-        self.d.bn_west.clicked.connect(lambda: self.close())
+
         ##############################################################################################
 
         ##################################################################################################                        ------(C2)
@@ -166,24 +165,40 @@ class errorUi(QDialog):
 
 class MainWindow(QMainWindow):
     valueChanged = Signal(int)
+    closebool = True
+    iterable = 1
 
     def __init__(self):
+        self.diag = dialogUi()
+        self.error = errorUi()
         applicationName = "MLauncher"
         super(MainWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         brain.createFiles()
 
+        user = os.getlogin()
+        sciezka = f"C:/Users/{user}/AppData/Roaming/.mlauncher"
+        sciezkaver = f"{sciezka}/bin"
+        sciezkains = f"{sciezka}/instances"
+        config = configparser.ConfigParser()
+        config.read(f"{sciezkaver}/config.ini")
+        username = config.get("PROFILE", "username")
+        if (
+            path.exists(f"{sciezkains}/.minecraft.zip") == False
+            or os.path.getsize(f"{sciezkains}/.minecraft.zip") < 496590000
+        ):
+            self.errorexec(
+                "Getting necessary stuff... We are downloading files in the background. Feel free to using program",
+                "icons/1x/errorAsset 55.png",
+                "Ok",
+            )
+            threading.Thread(target=lambda: brain.downloadstuff(self)).start()
+
         self.i = 0
         self.valueChanged.connect(self.changetheme)
         threading.Thread(target=lambda: brain.GetReleases(self)).start()
 
-        user = os.getlogin()
-        sciezka = f"C:/Users/{user}/AppData/Roaming/.mlauncher"
-        sciezkaver = f"{sciezka}/bin"
-        config = configparser.ConfigParser()
-        config.read(f"{sciezkaver}/config.ini")
-        username = config.get("PROFILE", "username")
         brain.updateLines(self)
         threading.Thread(target=lambda: brain.checkinternet(self)).start()
         brain.setCurrentDiscordRpc("Home Page", f"Playing as {username}")
@@ -248,7 +263,7 @@ class MainWindow(QMainWindow):
         self.ui.bn_error.clicked.connect(
             lambda: UIFunction.buttonPressed(self, "bn_error")
         )
-        self.ui.bn_play.clicked.connect(lambda: brain.play(self))
+        self.ui.bn_play.clicked.connect(lambda: brain.playthread(self))
         #############################################################
 
         # -----> STACK PAGE FUNCTION
@@ -260,8 +275,6 @@ class MainWindow(QMainWindow):
         # ----> EXECUTING THE ERROR AND DIALOG BOX MENU : THIS HELP TO CALL THEM WITH THE FUNCTIONS.
         # THIS CODE INITIALISED THE DIALOGBOX AND THE ERRORBOX, MAKES AN OBJECT OF THE CORRESPONDING CLASS, SO THAT WE CAN CALL THEM         ---------(C10)
         # WHENEVER NECESSERY.
-        self.diag = dialogUi()
-        self.error = errorUi()
         #############################################################
 
         #############################################################
@@ -424,7 +437,21 @@ class MainWindow(QMainWindow):
         elif var == 10:
             brain.connectRpc()
 
-    ##############################################################
+    def closeprogram(self):
+        if self.closebool == True:
+            self.iterable = -5
+            exit
+        else:
+            threading.Thread(
+                target=lambda: self.errorexec(
+                    "Can't close program, please wait up to few minutes. We are still downloading necessary stuff.",
+                    "icons/1x/errorAsset 55.png",
+                    "Ok",
+                )
+            )
+
+
+##############################################################
 
 
 if __name__ == "__main__":

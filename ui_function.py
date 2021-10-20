@@ -2,6 +2,7 @@ import configparser
 import os
 import webbrowser
 import threading
+import subprocess
 
 import brain
 from main import *  # IMPORTING THE MAIN.PY FILE
@@ -79,7 +80,6 @@ class UIFunction(MainWindow):
 
     # ----> BUTTON IN TAB PRESSED EXECUTES THE CORRESPONDING PAGE IN STACKEDWIDGET PAGES
     def buttonPressed(self, buttonName):
-
         # ------> THIS LINE CLEARS THE BG OF PREVIOUS TABS I.E. FROM THE LITER COLOR TO THE SAME BG COLOR I.E. TO CHANGE THE HIGHLIGHT.
         for each in self.ui.frame_bottom_west.findChildren(QFrame):
             each.setStyleSheet("background:rgb(51,51,51)")
@@ -129,6 +129,9 @@ class UIFunction(MainWindow):
         ######### PAGE_BUG ############## BELOW DISPLAYS THE FUNCTION OF WIDGET, LABEL, PROGRESS BAR, E.T.C IN STACKEDWIDGET page_bug
 
         self.ui.bug_button.clicked.connect(lambda: APFunction.bug_button(self))
+        self.ui.bug_open_folder.clicked.connect(
+            lambda: APFunction.bug_open_folder(self)
+        )
 
         #########PAGE ANDROID WIDGET AND ITS STACKANDROID WIDGET PAGES
         self.ui.bn_android_contact.clicked.connect(
@@ -351,7 +354,6 @@ class APFunction:
 
         else:
             self.ui.line_checkbox_arg.setText("Checked")
-
             self.errorexec(
                 "Recommended if you have alocated more than 2GB RAM",
                 "icons/1x/errorAsset 55.png",
@@ -375,7 +377,7 @@ class APFunction:
 
     def pushButton_magic(self):
         webbrowser.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
-        
+
     def bug_button(self):
         bufor = self.ui.label_12.text()
         if bufor == "Vanilla Versions":
@@ -384,6 +386,12 @@ class APFunction:
         else:
             self.ui.label_12.setText("Vanilla Versions")
             threading.Thread(target=lambda: brain.GetReleases(self)).start()
+
+    def bug_open_folder(self):
+        bufor = r"C:\Users\{}\AppData\Roaming\.mlauncher".format(user)
+        subprocess.Popen(
+            f'explorer /select,"{bufor}\instances\.Minecraft_Instances.txt"'
+        )
 
 
 #######################################as########################################################################################################################

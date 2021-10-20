@@ -4,14 +4,29 @@ import os
 import time
 import json
 import psutil
+import threading
 import requests
 from pypresence import Presence
-import minecraft_launcher_lib as MCLib
+import minecraft_launcher_lib
+from minecraft_launcher_lib.forge import (
+    install_forge_version,
+    run_forge_installer,
+    supports_automatic_install,
+)
+from minecraft_launcher_lib.fabric import (
+    install_fabric,
+    get_all_minecraft_versions,
+    get_stable_minecraft_versions,
+    get_latest_loader_version,
+)
 from os import path
+import zipfile
+import subprocess
 
 user = os.getlogin()
 sciezka = f"C:/Users/{user}/AppData/Roaming/.mlauncher"
 sciezkaver = f"{sciezka}/bin"
+sciezkains = f"{sciezka}/instances"
 config = configparser.ConfigParser()
 currentDiscordRpc = ""
 currentDiscordRpcDetails = ""
@@ -42,7 +57,7 @@ def createFiles():
     if config.has_option("PROFILE", "username") == False:
         config["PROFILE"]["username"] = "Steve"
     if config.has_option("PROFILE", "version") == False:
-        config["PROFILE"]["version"] = "1.8"
+        config["PROFILE"]["version"] = "1.17.1"
     ALLOCATEDRAM = config.get("SETTINGS", "AllocatedRam")
     if ALLOCATEDRAM[-1] == "G":
         ALLOCATEDRAM = str(int(ALLOCATEDRAM.replace("G", "")) * 1024) + "M"
@@ -53,6 +68,8 @@ def createFiles():
     # * FOLDERS
     if path.exists(f"{sciezka}/instances") == False:
         os.mkdir(f"{sciezka}/instances")
+    if path.exists(f"{sciezka}/instances/.Minecraft_Instances") == False:
+        open(f"{sciezka}/instances/.Minecraft_Instances.txt", "w").close()
 
 
 def configfile(arg):
@@ -67,6 +84,7 @@ def configfile(arg):
         data = requests.get("https://www.uuidtools.com/api/generate/v4/count/1").json()
         config["PROFILE"]["uuid"] = data[0]
         config["PROFILE"]["username"] = "Steve"
+        config["PROFILE"]["version"] = "1.17.1"
 
         with open(f"{sciezkaver}/config.ini", "w") as configfile:
             config.write(configfile)
@@ -120,7 +138,7 @@ def updateLines(self):
 def checkinternet(self):
     url = "http://www.github.com"
     global checkinternetbool
-    while True:
+    while self.iterable == 1:
         try:
             request = requests.get(url, timeout=5)
             checkinternetbool = True
@@ -170,7 +188,8 @@ def discordrpc(self):
     global rpc
     config = configparser.ConfigParser()
     config.read(f"{sciezkaver}/config.ini")
-    while True:
+    print(self.iterable)
+    while self.iterable == 1:
         bufor = "Discord.exe" in (i.name() for i in psutil.process_iter())
         if bufor == False:
             break
@@ -192,7 +211,7 @@ def discordrpc(self):
                     )
             else:
                 rpc.clear()
-        time.sleep(20)
+        time.sleep(2)
 
 
 def GetReleases(self):
@@ -206,6 +225,7 @@ def GetReleases(self):
     global Lista
     Releases = []
     McVers = []
+    buforlist = []
     if Lista == "":
         Lista = requests.get(
             "https://launchermeta.mojang.com/mc/game/version_manifest.json"
@@ -217,20 +237,29 @@ def GetReleases(self):
         if os.path.isdir(os.path.join(f"{sciezka}/instances", name))
     ]
     for i in range(int(len(bufor))):
-        McVers.append(f"local {bufor[i]}")
+        buforlist.append(bufor[i])
     if var == False:
         for key in VersionsA:
             if key["type"] == "release":
                 bufor = key["id"]
-                Releases.append(f"release {bufor}")
+                if bufor in buforlist:
+                    Releases.append(f"release {bufor} <-- local installed")
+                else:
+                    Releases.append(f"release {bufor}")
     else:
         for key in VersionsA:
             if key["type"] == "release":
                 bufor = key["id"]
-                Releases.append(f"release {bufor}")
+                if bufor in buforlist:
+                    Releases.append(f"release {bufor} <-- local installed")
+                else:
+                    Releases.append(f"release {bufor}")
             if key["type"] == "snapshot":
                 bufor = key["id"]
-                Releases.append(f"snapshot {bufor}")
+                if bufor in buforlist:
+                    Releases.append(f"snapchot {bufor} <-- local installed")
+                else:
+                    Releases.append(f"snapshot {bufor}")
     for i in range(int(len(Releases))):
         McVers.append(Releases[i])
     self.ui.comboBox.addItems(McVers)
@@ -244,7 +273,89 @@ def serverVersions(self):
     self.ui.comboBox.addItems(bufor)
 
 
+def playthread(self):
+    threading.Thread(target=lambda: play(self)).start()
+
+
 def play(self):
+    config = configparser.ConfigParser()
+    config.read(f"{sciezkaver}/config.ini")
+    username = config.get("PROFILE", "username")
+    token = config.get("PROFILE", "uuid")
+    uuid = token.replace("-", "")
+    allocatedram = config.get("SETTINGS", "allocatedram")
+    specialarg = config.get("SETTINGS", "specialarg")
+    jvmArguments = str(allocatedram)
+    if specialarg == "True":
+        jvmArguments += ""
+    options = {
+        "username": username,
+        "uuid": uuid,
+        "token": token,
+        "executablePath": r"C:\Program Files\Java\jdk-16.0.2\bin\javaw.exe",  # The path to the java executable
+    }
+
+    callback = {
+        "setStatus": lambda text: print(text),
+    }
     content = self.ui.comboBox.currentText()
-    print(content)
-    pass
+    type = self.ui.label_12.text()
+    local = False
+    """if "local" in content:
+        local = True"""
+    if type == "Vanilla Versions":
+        content = (
+            content.replace("release", "")
+            .replace("snapshot", "")
+            .replace("<-- local installed", "")
+            .replace("local", "")
+            .replace(" ", "")
+        )
+    versionPath = content.replace(" ", "-")
+    if local == True:
+        content = content.split("-")
+        version = content[1]
+    else:
+        version = content
+    versionPathh = f"{sciezkains}/{versionPath}/.minecraft"
+    if path.exists(f"{sciezkains}/{versionPath}") == False:
+        os.mkdir(f"{sciezkains}/{versionPath}")
+        with zipfile.ZipFile(f"{sciezkains}/.minecraft.zip", "r") as zipObj:
+            zipObj.extractall(f"{sciezkains}/{versionPath}/.minecraft")
+        minecraft_launcher_lib.install.install_minecraft_version(
+            version, versionPathh, callback=callback
+        )
+        time.sleep(2)
+        minecraft_command = minecraft_launcher_lib.command.get_minecraft_command(
+            version, versionPath, options
+        )
+        subprocess.call(minecraft_command)
+    else:
+        minecraft_command = minecraft_launcher_lib.command.get_minecraft_command(
+            version, versionPathh, options
+        )
+        subprocess.call(minecraft_command)
+
+
+def downloadstuff(self):
+    global sciezkains
+    bathpath = r"C:\Users\{}\AppData\Roaming\.mlauncher\cache".format(user)
+    if path.exists(f"{sciezka}/cache") == False:
+        os.mkdir(f"{sciezka}/cache")
+    time.sleep(1)
+    with open(
+        f"C:/Users/mwgoi/AppData/Roaming/.mlauncher/instances/.minecraft.zip", "wb"
+    ) as f:
+        response = requests.get(
+            "https://www.dropbox.com/s/pu8qla6yoogstnf/.minecraft.zip?dl=1",
+            stream=True,
+        )
+        total = response.headers.get("content-length")
+        if total is None:
+            f.write(response.content)
+        else:
+            total = int(total)
+            for data in response.iter_content(
+                chunk_size=max(int(total / 1000), 1024 * 1024)
+            ):
+                f.write(data)
