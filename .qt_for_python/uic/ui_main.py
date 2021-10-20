@@ -17,10 +17,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFrame,
     QGridLayout, QGroupBox, QHBoxLayout, QLabel,
-    QLineEdit, QMainWindow, QProgressBar, QPushButton,
-    QRadioButton, QScrollBar, QSizePolicy, QSlider,
-    QSpacerItem, QStackedWidget, QTextEdit, QVBoxLayout,
-    QWidget)
+    QLineEdit, QMainWindow, QPushButton, QRadioButton,
+    QScrollBar, QSizePolicy, QSlider, QSpacerItem,
+    QStackedWidget, QTextEdit, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -452,19 +451,19 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_5.addWidget(self.lab_home_username)
 
-        self.pushButton = QPushButton(self.frame_home_main)
-        self.pushButton.setObjectName(u"pushButton")
+        self.bn_play = QPushButton(self.frame_home_main)
+        self.bn_play.setObjectName(u"bn_play")
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
-        self.pushButton.setSizePolicy(sizePolicy)
-        self.pushButton.setMaximumSize(QSize(16777215, 200))
+        sizePolicy.setHeightForWidth(self.bn_play.sizePolicy().hasHeightForWidth())
+        self.bn_play.setSizePolicy(sizePolicy)
+        self.bn_play.setMaximumSize(QSize(16777215, 200))
         font5 = QFont()
         font5.setFamilies([u"Segoe UI"])
         font5.setPointSize(72)
-        self.pushButton.setFont(font5)
-        self.pushButton.setStyleSheet(u"QPushButton {\n"
+        self.bn_play.setFont(font5)
+        self.bn_play.setStyleSheet(u"QPushButton {\n"
 "background-color: rgb(30,100,140);\n"
 "border: none;\n"
 "}\n"
@@ -473,7 +472,7 @@ class Ui_MainWindow(object):
 "}\n"
 "")
 
-        self.verticalLayout_5.addWidget(self.pushButton)
+        self.verticalLayout_5.addWidget(self.bn_play)
 
 
         self.horizontalLayout_19.addWidget(self.frame_home_main)
@@ -511,6 +510,45 @@ class Ui_MainWindow(object):
         self.horizontalLayout_19.addWidget(self.frame_home_stat)
 
         self.stackedWidget.addWidget(self.page_home)
+        self.page_error = QWidget()
+        self.page_error.setObjectName(u"page_error")
+        self.page_error.setMinimumSize(QSize(220, 0))
+        self.page_error.setMaximumSize(QSize(720, 475))
+        self.verticalLayout_18 = QVBoxLayout(self.page_error)
+        self.verticalLayout_18.setObjectName(u"verticalLayout_18")
+        self.frame_2 = QFrame(self.page_error)
+        self.frame_2.setObjectName(u"frame_2")
+        self.frame_2.setFrameShape(QFrame.NoFrame)
+        self.frame_2.setFrameShadow(QFrame.Plain)
+        self.verticalLayout_17 = QVBoxLayout(self.frame_2)
+        self.verticalLayout_17.setObjectName(u"verticalLayout_17")
+        self.label_7 = QLabel(self.frame_2)
+        self.label_7.setObjectName(u"label_7")
+        self.label_7.setMaximumSize(QSize(16777215, 60))
+        font7 = QFont()
+        font7.setFamilies([u"Segoe UI"])
+        font7.setPointSize(20)
+        font7.setBold(True)
+        self.label_7.setFont(font7)
+        self.label_7.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_17.addWidget(self.label_7)
+
+        self.error_lab = QLabel(self.frame_2)
+        self.error_lab.setObjectName(u"error_lab")
+        font8 = QFont()
+        font8.setFamilies([u"Segoe UI"])
+        font8.setPointSize(16)
+        self.error_lab.setFont(font8)
+        self.error_lab.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.error_lab.setWordWrap(True)
+
+        self.verticalLayout_17.addWidget(self.error_lab)
+
+
+        self.verticalLayout_18.addWidget(self.frame_2)
+
+        self.stackedWidget.addWidget(self.page_error)
         self.page_about_home = QWidget()
         self.page_about_home.setObjectName(u"page_about_home")
         self.page_about_home.setStyleSheet(u"background:rgb(91,90,90);")
@@ -538,10 +576,10 @@ class Ui_MainWindow(object):
         self.text_about_home = QTextEdit(self.frame_about_home)
         self.text_about_home.setObjectName(u"text_about_home")
         self.text_about_home.setEnabled(True)
-        font7 = QFont()
-        font7.setFamilies([u"Segoe UI"])
-        font7.setPointSize(10)
-        self.text_about_home.setFont(font7)
+        font9 = QFont()
+        font9.setFamilies([u"Segoe UI"])
+        font9.setPointSize(10)
+        self.text_about_home.setFont(font9)
         self.text_about_home.setStyleSheet(u"color:rgb(255,255,255);")
         self.text_about_home.setFrameShape(QFrame.NoFrame)
         self.text_about_home.setFrameShadow(QFrame.Plain)
@@ -581,10 +619,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout_29.setObjectName(u"horizontalLayout_29")
         self.label_10 = QLabel(self.page_about_cloud)
         self.label_10.setObjectName(u"label_10")
-        font8 = QFont()
-        font8.setFamilies([u"Segoe UI"])
-        font8.setPointSize(30)
-        self.label_10.setFont(font8)
+        font10 = QFont()
+        font10.setFamilies([u"Segoe UI"])
+        font10.setPointSize(30)
+        self.label_10.setFont(font10)
         self.label_10.setStyleSheet(u"color:rgb(255,255,255);")
         self.label_10.setAlignment(Qt.AlignCenter)
 
@@ -606,220 +644,71 @@ class Ui_MainWindow(object):
         self.verticalLayout_7.setSpacing(5)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
         self.verticalLayout_7.setContentsMargins(5, 5, 5, 5)
-        self.lab_Bug = QLabel(self.page_bug)
-        self.lab_Bug.setObjectName(u"lab_Bug")
-        self.lab_Bug.setMinimumSize(QSize(0, 55))
-        self.lab_Bug.setMaximumSize(QSize(16777215, 55))
-        font9 = QFont()
-        font9.setFamilies([u"Segoe UI Semilight"])
-        font9.setPointSize(24)
-        self.lab_Bug.setFont(font9)
-        self.lab_Bug.setStyleSheet(u"color:rgb(255,255,255);")
+        self.label_14 = QLabel(self.page_bug)
+        self.label_14.setObjectName(u"label_14")
+        self.label_14.setFont(font4)
+        self.label_14.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout_7.addWidget(self.lab_Bug)
+        self.verticalLayout_7.addWidget(self.label_14)
 
-        self.frame_bug_main = QFrame(self.page_bug)
-        self.frame_bug_main.setObjectName(u"frame_bug_main")
-        self.frame_bug_main.setMinimumSize(QSize(0, 200))
-        self.frame_bug_main.setMaximumSize(QSize(16777215, 200))
-        self.frame_bug_main.setFrameShape(QFrame.NoFrame)
-        self.frame_bug_main.setFrameShadow(QFrame.Plain)
-        self.gridLayout = QGridLayout(self.frame_bug_main)
-        self.gridLayout.setObjectName(u"gridLayout")
-        self.horizontalSpacer = QSpacerItem(421, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalLayout_3 = QHBoxLayout()
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.verticalLayout_19 = QVBoxLayout()
+        self.verticalLayout_19.setObjectName(u"verticalLayout_19")
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
-        self.gridLayout.addItem(self.horizontalSpacer, 5, 7, 1, 1)
+        self.verticalLayout_19.addItem(self.verticalSpacer_2)
 
-        self.lab_bullet = QLabel(self.frame_bug_main)
-        self.lab_bullet.setObjectName(u"lab_bullet")
-        self.lab_bullet.setMaximumSize(QSize(5, 16777215))
-        self.lab_bullet.setPixmap(QPixmap(u"icons/1x/bulletAsset 54.png"))
-        self.lab_bullet.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout.addWidget(self.lab_bullet, 0, 0, 1, 1)
-
-        self.lab_bullet3 = QLabel(self.frame_bug_main)
-        self.lab_bullet3.setObjectName(u"lab_bullet3")
-        self.lab_bullet3.setMaximumSize(QSize(5, 16777215))
-        self.lab_bullet3.setPixmap(QPixmap(u"icons/1x/bulletAsset 54.png"))
-
-        self.gridLayout.addWidget(self.lab_bullet3, 2, 0, 1, 1)
-
-        self.lab_bug2 = QLabel(self.frame_bug_main)
-        self.lab_bug2.setObjectName(u"lab_bug2")
-        font10 = QFont()
-        font10.setFamilies([u"Segoe UI"])
-        font10.setPointSize(14)
-        self.lab_bug2.setFont(font10)
-        self.lab_bug2.setStyleSheet(u"color:rgb(255,255,255);")
-
-        self.gridLayout.addWidget(self.lab_bug2, 1, 1, 1, 1)
-
-        self.lab_bug3 = QLabel(self.frame_bug_main)
-        self.lab_bug3.setObjectName(u"lab_bug3")
-        self.lab_bug3.setFont(font10)
-
-        self.gridLayout.addWidget(self.lab_bug3, 2, 1, 1, 1)
-
-        self.comboBox_bug = QComboBox(self.frame_bug_main)
-        self.comboBox_bug.addItem("")
-        self.comboBox_bug.addItem("")
-        self.comboBox_bug.addItem("")
-        self.comboBox_bug.addItem("")
-        self.comboBox_bug.setObjectName(u"comboBox_bug")
-        self.comboBox_bug.setMaximumSize(QSize(16777215, 25))
-        self.comboBox_bug.setFont(font7)
-        self.comboBox_bug.setStyleSheet(u"QComboBox {\n"
-"	border: 2px solid rgb(51,51,51);\n"
-"	border-radius: 5px;	\n"
-"	color:rgb(255,255,255);\n"
-"	background-color: rgb(51,51,51);\n"
-"}\n"
-"\n"
-"QComboBox:hover {\n"
-"	border: 2px solid rgb(0,143,170);\n"
-"	border-radius: 5px;	\n"
-"	color:rgb(255,255,255);\n"
-"	background-color: rgb(0,143,170);\n"
-"}\n"
-"\n"
-"QComboBox:!editable, QComboBox::drop-down:editable {\n"
-"	background: rgb(51,51,51);\n"
-"}\n"
-"\n"
-"QComboBox:!editable:on, QComboBox::drop-down:editable:on {\n"
-"    background:rgb(51,51,51);\n"
-"}\n"
-"\n"
-"QComboBox:on { /* shift the text when the popup opens */\n"
-"    padding-top: 3px;\n"
-"    padding-left: 4px;\n"
-"}\n"
-"\n"
-"QComboBox::drop-down {\n"
-"    subcontrol-origin: padding;\n"
-"    subcontrol-position: top right;\n"
-"    width: 15px;\n"
-"\n"
-"    border-left-width: 1px;\n"
-"    border-left-color: darkgray;\n"
-"    border-left-style: solid; /* just a single line */\n"
-"    border-top-right-radius: 5px; /* same radius as the QComboBox */\n"
-"    border-bottom-right-radius: 5px;\n"
-""
-                        "}\n"
-"\n"
-"QComboBox::down-arrow {\n"
-"    image: url(icons/1x/arrow.png);\n"
-"}\n"
-"\n"
-"QComboBox::down-arrow:on { /* shift the arrow when popup is open */\n"
-"    top: 1px;\n"
-"    left: 1px;\n"
-"}\n"
-"\n"
-"QComboBox::drop-down {\n"
-"    background:rgb(51,51,51);\n"
-"}\n"
-"\n"
-"")
-        self.comboBox_bug.setSizeAdjustPolicy(QComboBox.AdjustToContents)
-        self.comboBox_bug.setFrame(False)
-        self.comboBox_bug.setModelColumn(0)
-
-        self.gridLayout.addWidget(self.comboBox_bug, 3, 8, 1, 1)
-
-        self.lab_bug1 = QLabel(self.frame_bug_main)
-        self.lab_bug1.setObjectName(u"lab_bug1")
-        self.lab_bug1.setMinimumSize(QSize(0, 0))
-        self.lab_bug1.setMaximumSize(QSize(16777215, 16777215))
-        self.lab_bug1.setFont(font10)
-        self.lab_bug1.setStyleSheet(u"color:rgb(255,255,255);")
-        self.lab_bug1.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
-
-        self.gridLayout.addWidget(self.lab_bug1, 0, 1, 1, 1)
-
-        self.lab_bullet2 = QLabel(self.frame_bug_main)
-        self.lab_bullet2.setObjectName(u"lab_bullet2")
-        self.lab_bullet2.setMaximumSize(QSize(5, 16777215))
-        self.lab_bullet2.setPixmap(QPixmap(u"icons/1x/bulletAsset 54.png"))
-
-        self.gridLayout.addWidget(self.lab_bullet2, 1, 0, 1, 1)
-
-        self.bn_bug_start = QPushButton(self.frame_bug_main)
-        self.bn_bug_start.setObjectName(u"bn_bug_start")
-        self.bn_bug_start.setMinimumSize(QSize(69, 25))
-        self.bn_bug_start.setMaximumSize(QSize(69, 25))
-        self.bn_bug_start.setFont(font)
-        self.bn_bug_start.setStyleSheet(u"QPushButton {\n"
-"	border: 2px solid rgb(51,51,51);\n"
-"	border-radius: 5px;	\n"
-"	color:rgb(255,255,255);\n"
-"	background-color: rgb(51,51,51);\n"
-"}\n"
-"QPushButton:hover {\n"
-"	border: 2px solid rgb(0,143,150);\n"
-"	background-color: rgb(0,143,150);\n"
-"}\n"
-"QPushButton:pressed {	\n"
-"	border: 2px solid rgb(0,143,150);\n"
-"	background-color: rgb(51,51,51);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {	\n"
-"	border-radius: 5px;	\n"
-"	border: 2px solid rgb(112,112,112);\n"
-"	background-color: rgb(112,112,112);\n"
-"}")
-        self.bn_bug_start.setCheckable(False)
-        self.bn_bug_start.setFlat(True)
-
-        self.gridLayout.addWidget(self.bn_bug_start, 3, 9, 1, 1)
-
-        self.progressBar_bug = QProgressBar(self.frame_bug_main)
-        self.progressBar_bug.setObjectName(u"progressBar_bug")
-        self.progressBar_bug.setEnabled(True)
-        self.progressBar_bug.setStyleSheet(u"QProgressBar\n"
-"{\n"
-"	color:rgb(255,255,255);\n"
-"	background-color :rgb(51,51,51);\n"
-"	border : 2px;\n"
-"	border-radius:4px;\n"
-"}\n"
-"\n"
-"QProgressBar::chunk{\n"
-"	border : 2px;\n"
-"	border-radius:4px;\n"
-"	background-color:rgb(0,143,170);\n"
-"}")
-        self.progressBar_bug.setValue(0)
-        self.progressBar_bug.setAlignment(Qt.AlignCenter)
-        self.progressBar_bug.setTextVisible(True)
-        self.progressBar_bug.setOrientation(Qt.Horizontal)
-        self.progressBar_bug.setInvertedAppearance(False)
-        self.progressBar_bug.setTextDirection(QProgressBar.TopToBottom)
-
-        self.gridLayout.addWidget(self.progressBar_bug, 4, 7, 1, 3)
-
-        self.lab_bug_action = QLabel(self.frame_bug_main)
-        self.lab_bug_action.setObjectName(u"lab_bug_action")
-        self.lab_bug_action.setMinimumSize(QSize(0, 20))
-        self.lab_bug_action.setMaximumSize(QSize(16777215, 30))
+        self.label_12 = QLabel(self.page_bug)
+        self.label_12.setObjectName(u"label_12")
         font11 = QFont()
         font11.setFamilies([u"Segoe UI"])
-        font11.setPointSize(16)
-        self.lab_bug_action.setFont(font11)
-        self.lab_bug_action.setStyleSheet(u"color:rgb(255,255,255);")
-        self.lab_bug_action.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        font11.setPointSize(26)
+        self.label_12.setFont(font11)
+        self.label_12.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout.addWidget(self.lab_bug_action, 3, 7, 1, 1)
+        self.verticalLayout_19.addWidget(self.label_12)
+
+        self.comboBox = QComboBox(self.page_bug)
+        self.comboBox.setObjectName(u"comboBox")
+        self.comboBox.setMinimumSize(QSize(0, 40))
+        self.comboBox.setMaximumSize(QSize(16777215, 16777215))
+        font12 = QFont()
+        font12.setFamilies([u"Segoe UI"])
+        font12.setPointSize(20)
+        self.comboBox.setFont(font12)
+
+        self.verticalLayout_19.addWidget(self.comboBox)
+
+        self.verticalSpacer_6 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout_19.addItem(self.verticalSpacer_6)
+
+        self.bug_button = QPushButton(self.page_bug)
+        self.bug_button.setObjectName(u"bug_button")
+        self.bug_button.setFont(font6)
+        self.bug_button.setStyleSheet(u"QPushButton {\n"
+"	border: none;\n"
+"	background-color:rgb(100,170,0)\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"	background-color: rgb(120,200,0);\n"
+"}\n"
+"")
+        self.bug_button.setFlat(True)
+
+        self.verticalLayout_19.addWidget(self.bug_button)
+
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout_19.addItem(self.verticalSpacer)
 
 
-        self.verticalLayout_7.addWidget(self.frame_bug_main)
+        self.horizontalLayout_3.addLayout(self.verticalLayout_19)
 
-        self.verticalSpacer = QSpacerItem(20, 197, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
-        self.verticalLayout_7.addItem(self.verticalSpacer)
+        self.verticalLayout_7.addLayout(self.horizontalLayout_3)
 
         self.stackedWidget.addWidget(self.page_bug)
         self.page_cloud = QWidget()
@@ -1036,29 +925,19 @@ class Ui_MainWindow(object):
         self.gridLayout_4.setSpacing(5)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.gridLayout_4.setContentsMargins(5, 5, 5, 5)
-        self.line_checkbox_arg = QCheckBox(self.frame_android_field)
-        self.line_checkbox_arg.setObjectName(u"line_checkbox_arg")
-        self.line_checkbox_arg.setEnabled(False)
-        self.line_checkbox_arg.setFont(font)
-        self.line_checkbox_arg.setStyleSheet(u"color:rgb(255,255,255);")
-        self.line_checkbox_arg.setTristate(False)
-
-        self.gridLayout_4.addWidget(self.line_checkbox_arg, 4, 3, 1, 1)
-
         self.horizontalSpacer_6 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.gridLayout_4.addItem(self.horizontalSpacer_6, 6, 8, 1, 1)
+        self.gridLayout_4.addItem(self.horizontalSpacer_6, 7, 8, 1, 1)
 
-        self.label = QLabel(self.frame_android_field)
-        self.label.setObjectName(u"label")
-        self.label.setFont(font10)
-        self.label.setStyleSheet(u"color:rgb(255,255,255);")
+        self.label_5 = QLabel(self.frame_android_field)
+        self.label_5.setObjectName(u"label_5")
+        font13 = QFont()
+        font13.setFamilies([u"Segoe UI"])
+        font13.setPointSize(14)
+        self.label_5.setFont(font13)
+        self.label_5.setStyleSheet(u"color:rgb(255,255,255);")
 
-        self.gridLayout_4.addWidget(self.label, 1, 0, 1, 3)
-
-        self.verticalSpacer_4 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout_4.addItem(self.verticalSpacer_4, 7, 3, 1, 1)
+        self.gridLayout_4.addWidget(self.label_5, 3, 0, 1, 3)
 
         self.line_checkbox_rpc = QCheckBox(self.frame_android_field)
         self.line_checkbox_rpc.setObjectName(u"line_checkbox_rpc")
@@ -1067,69 +946,27 @@ class Ui_MainWindow(object):
 
         self.gridLayout_4.addWidget(self.line_checkbox_rpc, 5, 3, 1, 1)
 
-        self.label_6 = QLabel(self.frame_android_field)
-        self.label_6.setObjectName(u"label_6")
-        self.label_6.setFont(font10)
-        self.label_6.setStyleSheet(u"color:rgb(255,255,255);")
-
-        self.gridLayout_4.addWidget(self.label_6, 4, 0, 1, 1)
-
-        self.label_5 = QLabel(self.frame_android_field)
-        self.label_5.setObjectName(u"label_5")
-        self.label_5.setFont(font10)
-        self.label_5.setStyleSheet(u"color:rgb(255,255,255);")
-
-        self.gridLayout_4.addWidget(self.label_5, 3, 0, 1, 3)
-
-        self.line_android_adress = QLineEdit(self.frame_android_field)
-        self.line_android_adress.setObjectName(u"line_android_adress")
-        self.line_android_adress.setEnabled(False)
-        self.line_android_adress.setMinimumSize(QSize(300, 25))
-        self.line_android_adress.setMaximumSize(QSize(400, 25))
-        self.line_android_adress.setFont(font)
-        self.line_android_adress.setStyleSheet(u"QLineEdit {\n"
-"	color:rgb(255,255,255);\n"
-"	border:2px solid rgb(51,51,51);\n"
-"	border-radius:4px;\n"
-"	background:rgb(51,51,51);\n"
-"}\n"
-"\n"
-"QLineEdit:disabled {\n"
-"	color:rgb(255,255,255);\n"
-"	border:2px solid rgb(112,112,112);\n"
-"	border-radius:4px;\n"
-"	background:rgb(112,112,112);\n"
-"}")
-
-        self.gridLayout_4.addWidget(self.line_android_adress, 3, 3, 1, 1)
-
         self.label_8 = QLabel(self.frame_android_field)
         self.label_8.setObjectName(u"label_8")
-        self.label_8.setFont(font10)
+        self.label_8.setFont(font13)
 
         self.gridLayout_4.addWidget(self.label_8, 5, 0, 1, 1)
 
-        self.line_android_name = QLineEdit(self.frame_android_field)
-        self.line_android_name.setObjectName(u"line_android_name")
-        self.line_android_name.setEnabled(False)
-        self.line_android_name.setMinimumSize(QSize(300, 25))
-        self.line_android_name.setMaximumSize(QSize(400, 25))
-        self.line_android_name.setFont(font)
-        self.line_android_name.setStyleSheet(u"QLineEdit {\n"
-"	color:rgb(255,255,255);\n"
-"	border:2px solid rgb(51,51,51);\n"
-"	border-radius:4px;\n"
-"	background:rgb(51,51,51);\n"
-"}\n"
-"\n"
-"QLineEdit:disabled {\n"
-"	color:rgb(255,255,255);\n"
-"	border:2px solid rgb(112,112,112);\n"
-"	border-radius:4px;\n"
-"	background:rgb(112,112,112);\n"
-"}")
+        self.label = QLabel(self.frame_android_field)
+        self.label.setObjectName(u"label")
+        self.label.setFont(font13)
+        self.label.setStyleSheet(u"color:rgb(255,255,255);")
 
-        self.gridLayout_4.addWidget(self.line_android_name, 1, 3, 1, 1)
+        self.gridLayout_4.addWidget(self.label, 1, 0, 1, 3)
+
+        self.line_checkbox_arg = QCheckBox(self.frame_android_field)
+        self.line_checkbox_arg.setObjectName(u"line_checkbox_arg")
+        self.line_checkbox_arg.setEnabled(False)
+        self.line_checkbox_arg.setFont(font)
+        self.line_checkbox_arg.setStyleSheet(u"color:rgb(255,255,255);")
+        self.line_checkbox_arg.setTristate(False)
+
+        self.gridLayout_4.addWidget(self.line_checkbox_arg, 4, 3, 1, 1)
 
         self.frame_3 = QFrame(self.frame_android_field)
         self.frame_3.setObjectName(u"frame_3")
@@ -1225,11 +1062,79 @@ class Ui_MainWindow(object):
         self.horizontalLayout_25.addWidget(self.bn_android_contact_save)
 
 
-        self.gridLayout_4.addWidget(self.frame_3, 6, 0, 1, 7)
+        self.gridLayout_4.addWidget(self.frame_3, 7, 0, 1, 7)
+
+        self.line_android_name = QLineEdit(self.frame_android_field)
+        self.line_android_name.setObjectName(u"line_android_name")
+        self.line_android_name.setEnabled(False)
+        self.line_android_name.setMinimumSize(QSize(300, 25))
+        self.line_android_name.setMaximumSize(QSize(400, 25))
+        self.line_android_name.setFont(font)
+        self.line_android_name.setStyleSheet(u"QLineEdit {\n"
+"	color:rgb(255,255,255);\n"
+"	border:2px solid rgb(51,51,51);\n"
+"	border-radius:4px;\n"
+"	background:rgb(51,51,51);\n"
+"}\n"
+"\n"
+"QLineEdit:disabled {\n"
+"	color:rgb(255,255,255);\n"
+"	border:2px solid rgb(112,112,112);\n"
+"	border-radius:4px;\n"
+"	background:rgb(112,112,112);\n"
+"}")
+
+        self.gridLayout_4.addWidget(self.line_android_name, 1, 3, 1, 1)
+
+        self.verticalSpacer_4 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout_4.addItem(self.verticalSpacer_4, 8, 3, 1, 1)
+
+        self.label_6 = QLabel(self.frame_android_field)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setFont(font13)
+        self.label_6.setStyleSheet(u"color:rgb(255,255,255);")
+
+        self.gridLayout_4.addWidget(self.label_6, 4, 0, 1, 1)
+
+        self.line_android_adress = QLineEdit(self.frame_android_field)
+        self.line_android_adress.setObjectName(u"line_android_adress")
+        self.line_android_adress.setEnabled(False)
+        self.line_android_adress.setMinimumSize(QSize(300, 25))
+        self.line_android_adress.setMaximumSize(QSize(400, 25))
+        self.line_android_adress.setFont(font)
+        self.line_android_adress.setStyleSheet(u"QLineEdit {\n"
+"	color:rgb(255,255,255);\n"
+"	border:2px solid rgb(51,51,51);\n"
+"	border-radius:4px;\n"
+"	background:rgb(51,51,51);\n"
+"}\n"
+"\n"
+"QLineEdit:disabled {\n"
+"	color:rgb(255,255,255);\n"
+"	border:2px solid rgb(112,112,112);\n"
+"	border-radius:4px;\n"
+"	background:rgb(112,112,112);\n"
+"}")
+
+        self.gridLayout_4.addWidget(self.line_android_adress, 3, 3, 1, 1)
 
         self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.gridLayout_4.addItem(self.horizontalSpacer_5, 4, 8, 1, 1)
+
+        self.label_4 = QLabel(self.frame_android_field)
+        self.label_4.setObjectName(u"label_4")
+        self.label_4.setFont(font13)
+
+        self.gridLayout_4.addWidget(self.label_4, 6, 0, 1, 1)
+
+        self.line_checkbox_snapshots = QCheckBox(self.frame_android_field)
+        self.line_checkbox_snapshots.setObjectName(u"line_checkbox_snapshots")
+        self.line_checkbox_snapshots.setEnabled(False)
+        self.line_checkbox_snapshots.setFont(font)
+
+        self.gridLayout_4.addWidget(self.line_checkbox_snapshots, 6, 3, 1, 1)
 
 
         self.gridLayout_3.addWidget(self.frame_android_field, 0, 1, 2, 1)
@@ -1315,7 +1220,7 @@ class Ui_MainWindow(object):
         self.groupBox_clean.setMinimumSize(QSize(250, 300))
         self.groupBox_clean.setMaximumSize(QSize(250, 300))
         self.groupBox_clean.setSizeIncrement(QSize(0, 0))
-        self.groupBox_clean.setFont(font7)
+        self.groupBox_clean.setFont(font9)
         self.groupBox_clean.setStyleSheet(u"QGroupBox{\n"
 "	border:1px solid rgb(51,51,51);	\n"
 "	border-radius:4px;\n"
@@ -1330,10 +1235,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_12.setObjectName(u"verticalLayout_12")
         self.radioButton = QRadioButton(self.groupBox_clean)
         self.radioButton.setObjectName(u"radioButton")
-        font12 = QFont()
-        font12.setFamilies([u"Segoe UI"])
-        font12.setPointSize(9)
-        self.radioButton.setFont(font12)
+        font14 = QFont()
+        font14.setFamilies([u"Segoe UI"])
+        font14.setPointSize(9)
+        self.radioButton.setFont(font14)
         self.radioButton.setStyleSheet(u"QRadioButton {\n"
 "	background:rgb(91,90,90);\n"
 "    color:white;\n"
@@ -1359,7 +1264,7 @@ class Ui_MainWindow(object):
 
         self.radioButton_2 = QRadioButton(self.groupBox_clean)
         self.radioButton_2.setObjectName(u"radioButton_2")
-        self.radioButton_2.setFont(font12)
+        self.radioButton_2.setFont(font14)
         self.radioButton_2.setStyleSheet(u"QRadioButton {\n"
 "	background:rgb(91,90,90);\n"
 "    color:white;\n"
@@ -1384,7 +1289,7 @@ class Ui_MainWindow(object):
 
         self.radioButton_3 = QRadioButton(self.groupBox_clean)
         self.radioButton_3.setObjectName(u"radioButton_3")
-        self.radioButton_3.setFont(font12)
+        self.radioButton_3.setFont(font14)
         self.radioButton_3.setStyleSheet(u"QRadioButton {\n"
 "	background:rgb(91,90,90);\n"
 "    color:white;\n"
@@ -1409,7 +1314,7 @@ class Ui_MainWindow(object):
 
         self.radioButton_4 = QRadioButton(self.groupBox_clean)
         self.radioButton_4.setObjectName(u"radioButton_4")
-        self.radioButton_4.setFont(font12)
+        self.radioButton_4.setFont(font14)
         self.radioButton_4.setStyleSheet(u"QRadioButton {\n"
 "	background:rgb(91,90,90);\n"
 "    color:white;\n"
@@ -1434,7 +1339,7 @@ class Ui_MainWindow(object):
 
         self.checkBox = QCheckBox(self.groupBox_clean)
         self.checkBox.setObjectName(u"checkBox")
-        self.checkBox.setFont(font12)
+        self.checkBox.setFont(font14)
         self.checkBox.setStyleSheet(u"QCheckBox {\n"
 "    color:rgb(255,255,255);\n"
 "}\n"
@@ -1471,7 +1376,7 @@ class Ui_MainWindow(object):
 
         self.checkBox_4 = QCheckBox(self.groupBox_clean)
         self.checkBox_4.setObjectName(u"checkBox_4")
-        self.checkBox_4.setFont(font12)
+        self.checkBox_4.setFont(font14)
         self.checkBox_4.setStyleSheet(u"QCheckBox {\n"
 "    color:rgb(255,255,255);\n"
 "}\n"
@@ -1508,7 +1413,7 @@ class Ui_MainWindow(object):
 
         self.checkBox_2 = QCheckBox(self.groupBox_clean)
         self.checkBox_2.setObjectName(u"checkBox_2")
-        self.checkBox_2.setFont(font12)
+        self.checkBox_2.setFont(font14)
         self.checkBox_2.setStyleSheet(u"QCheckBox {\n"
 "    color:rgb(255,255,255);\n"
 "}\n"
@@ -1544,7 +1449,7 @@ class Ui_MainWindow(object):
 
         self.checkBox_3 = QCheckBox(self.groupBox_clean)
         self.checkBox_3.setObjectName(u"checkBox_3")
-        self.checkBox_3.setFont(font12)
+        self.checkBox_3.setFont(font14)
         self.checkBox_3.setStyleSheet(u"QCheckBox {\n"
 "    color:rgb(255,255,255);\n"
 "}\n"
@@ -1595,7 +1500,7 @@ class Ui_MainWindow(object):
         self.groupBox.setObjectName(u"groupBox")
         self.groupBox.setMinimumSize(QSize(250, 300))
         self.groupBox.setMaximumSize(QSize(250, 300))
-        self.groupBox.setFont(font12)
+        self.groupBox.setFont(font14)
         self.groupBox.setStyleSheet(u"QGroupBox{\n"
 "	border:1px solid rgb(51,51,51);	\n"
 "	border-radius:4px;\n"
@@ -1671,10 +1576,10 @@ class Ui_MainWindow(object):
         self.label_11 = QLabel(self.page_android_world)
         self.label_11.setObjectName(u"label_11")
         self.label_11.setMaximumSize(QSize(16777215, 50))
-        font13 = QFont()
-        font13.setFamilies([u"Segoe UI"])
-        font13.setPointSize(28)
-        self.label_11.setFont(font13)
+        font15 = QFont()
+        font15.setFamilies([u"Segoe UI"])
+        font15.setPointSize(28)
+        self.label_11.setFont(font15)
         self.label_11.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_14.addWidget(self.label_11)
@@ -1690,13 +1595,6 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_15.addWidget(self.label_3)
 
-        self.label_4 = QLabel(self.page_android_world)
-        self.label_4.setObjectName(u"label_4")
-        self.label_4.setFont(font4)
-        self.label_4.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout_15.addWidget(self.label_4)
-
 
         self.horizontalLayout_30.addLayout(self.verticalLayout_15)
 
@@ -1708,13 +1606,6 @@ class Ui_MainWindow(object):
         self.label_version.setMargin(50)
 
         self.verticalLayout_16.addWidget(self.label_version)
-
-        self.label_date = QLabel(self.page_android_world)
-        self.label_date.setObjectName(u"label_date")
-        self.label_date.setFont(font4)
-        self.label_date.setMargin(50)
-
-        self.verticalLayout_16.addWidget(self.label_date)
 
 
         self.horizontalLayout_30.addLayout(self.verticalLayout_16)
@@ -1779,9 +1670,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_11.setContentsMargins(0, 0, 0, 0)
         self.frame_tab = QFrame(self.frame_low)
         self.frame_tab.setObjectName(u"frame_tab")
-        font14 = QFont()
-        font14.setFamilies([u"Segoe UI"])
-        self.frame_tab.setFont(font14)
+        font16 = QFont()
+        font16.setFamilies([u"Segoe UI"])
+        self.frame_tab.setFont(font16)
         self.frame_tab.setStyleSheet(u"background:rgb(51,51,51);")
         self.frame_tab.setFrameShape(QFrame.NoFrame)
         self.frame_tab.setFrameShadow(QFrame.Plain)
@@ -1792,10 +1683,10 @@ class Ui_MainWindow(object):
         self.lab_tab = QLabel(self.frame_tab)
         self.lab_tab.setObjectName(u"lab_tab")
         self.lab_tab.setEnabled(True)
-        font15 = QFont()
-        font15.setFamilies([u"Segoe UI Light"])
-        font15.setPointSize(12)
-        self.lab_tab.setFont(font15)
+        font17 = QFont()
+        font17.setFamilies([u"Segoe UI Light"])
+        font17.setPointSize(12)
+        self.lab_tab.setFont(font17)
         self.lab_tab.setStyleSheet(u"color:rgb(255,255,255);")
 
         self.horizontalLayout_12.addWidget(self.lab_tab)
@@ -1816,21 +1707,21 @@ class Ui_MainWindow(object):
         self.horizontalLayout_13.setContentsMargins(0, 0, 0, 0)
         self.lab_tab2 = QLabel(self.frame_drag)
         self.lab_tab2.setObjectName(u"lab_tab2")
-        self.lab_tab2.setFont(font7)
+        self.lab_tab2.setFont(font9)
 
         self.horizontalLayout_13.addWidget(self.lab_tab2)
 
-        self.lab_tab3 = QPushButton(self.frame_drag)
-        self.lab_tab3.setObjectName(u"lab_tab3")
-        self.lab_tab3.setEnabled(False)
-        self.lab_tab3.setMaximumSize(QSize(25, 20))
+        self.bn_error = QPushButton(self.frame_drag)
+        self.bn_error.setObjectName(u"bn_error")
+        self.bn_error.setEnabled(False)
+        self.bn_error.setMaximumSize(QSize(25, 20))
         icon9 = QIcon()
         icon9.addFile(u"icons/1x/errorAsset 55.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.lab_tab3.setIcon(icon9)
-        self.lab_tab3.setIconSize(QSize(25, 20))
-        self.lab_tab3.setFlat(True)
+        self.bn_error.setIcon(icon9)
+        self.bn_error.setIconSize(QSize(25, 20))
+        self.bn_error.setFlat(True)
 
-        self.horizontalLayout_13.addWidget(self.lab_tab3)
+        self.horizontalLayout_13.addWidget(self.bn_error)
 
 
         self.horizontalLayout_11.addWidget(self.frame_drag)
@@ -1848,8 +1739,8 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(3)
-        self.stackedWidget_android.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(6)
+        self.stackedWidget_android.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1883,26 +1774,17 @@ class Ui_MainWindow(object):
         self.lab_home_main_hed.setText(QCoreApplication.translate("MainWindow", u"Welcome", None))
         self.lab_home_username.setText(QCoreApplication.translate("MainWindow", u"Username", None))
 #if QT_CONFIG(tooltip)
-        self.pushButton.setToolTip("")
+        self.bn_play.setToolTip("")
 #endif // QT_CONFIG(tooltip)
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Play", None))
+        self.bn_play.setText(QCoreApplication.translate("MainWindow", u"Play", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"adsdasdasdastfgfdgfgdhkjhjk", None))
+        self.label_7.setText(QCoreApplication.translate("MainWindow", u"Error Page", None))
+        self.error_lab.setText(QCoreApplication.translate("MainWindow", u"Error text", None))
         self.lab_about_home.setText(QCoreApplication.translate("MainWindow", u"About: Home", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Empty", None))
-        self.lab_Bug.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" color:#ffffff;\">Bugs Found</span></p></body></html>", None))
-        self.lab_bullet.setText("")
-        self.lab_bullet3.setText("")
-        self.lab_bug2.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" color:#ffffff;\">Simple TO</span></p></body></html>", None))
-        self.lab_bug3.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" color:#ffffff;\">Sertilage</span></p></body></html>", None))
-        self.comboBox_bug.setItemText(0, QCoreApplication.translate("MainWindow", u"100000", None))
-        self.comboBox_bug.setItemText(1, QCoreApplication.translate("MainWindow", u"1000000", None))
-        self.comboBox_bug.setItemText(2, QCoreApplication.translate("MainWindow", u"10000000", None))
-        self.comboBox_bug.setItemText(3, QCoreApplication.translate("MainWindow", u"100000000", None))
-
-        self.lab_bug1.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" color:#ffffff;\">Vore/Lore</span></p></body></html>", None))
-        self.lab_bullet2.setText("")
-        self.bn_bug_start.setText(QCoreApplication.translate("MainWindow", u"Start", None))
-        self.lab_bug_action.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" color:#ffffff;\">Action: </span></p></body></html>", None))
+        self.label_14.setText(QCoreApplication.translate("MainWindow", u"Game Versions", None))
+        self.label_12.setText(QCoreApplication.translate("MainWindow", u"Vanilla Versions", None))
+        self.bug_button.setText(QCoreApplication.translate("MainWindow", u" Change type", None))
 #if QT_CONFIG(tooltip)
         self.bn_android_contact.setToolTip("")
 #endif // QT_CONFIG(tooltip)
@@ -1921,17 +1803,19 @@ class Ui_MainWindow(object):
         self.bn_android_world.setText("")
         self.lab_android_contact.setText(QCoreApplication.translate("MainWindow", u"Profile", None))
         self.lab_person_icon.setText("")
-        self.line_checkbox_arg.setText(QCoreApplication.translate("MainWindow", u"Unchecked", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"Nickname", None))
-        self.line_checkbox_rpc.setText(QCoreApplication.translate("MainWindow", u"Unchecked", None))
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Special arguments:", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"Max RAM: ", None))
-        self.line_android_adress.setText(QCoreApplication.translate("MainWindow", u"2048M", None))
+        self.line_checkbox_rpc.setText(QCoreApplication.translate("MainWindow", u"Unchecked", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"Discord Activity", None))
-        self.line_android_name.setText(QCoreApplication.translate("MainWindow", u"Steve", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"Nickname", None))
+        self.line_checkbox_arg.setText(QCoreApplication.translate("MainWindow", u"Unchecked", None))
         self.bn_android_contact_edit.setText(QCoreApplication.translate("MainWindow", u"Edit", None))
         self.bn_android_contact_delete.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
         self.bn_android_contact_save.setText(QCoreApplication.translate("MainWindow", u"Save", None))
+        self.line_android_name.setText(QCoreApplication.translate("MainWindow", u"Steve", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Special arguments", None))
+        self.line_android_adress.setText(QCoreApplication.translate("MainWindow", u"2048M", None))
+        self.label_4.setText(QCoreApplication.translate("MainWindow", u"Show Snapshots", None))
+        self.line_checkbox_snapshots.setText(QCoreApplication.translate("MainWindow", u"Unchecked", None))
         self.lab_gamepad.setText(QCoreApplication.translate("MainWindow", u"GamePad", None))
         self.groupBox_clean.setTitle(QCoreApplication.translate("MainWindow", u"Review", None))
         self.radioButton.setText(QCoreApplication.translate("MainWindow", u"Clean History", None))
@@ -1946,9 +1830,7 @@ class Ui_MainWindow(object):
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Sliders", None))
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"Information:", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Version:", None))
-        self.label_4.setText(QCoreApplication.translate("MainWindow", u"Date:", None))
         self.label_version.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.label_date.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.pushButton_magic.setText(QCoreApplication.translate("MainWindow", u"Magic!", None))
         self.pushButton_github.setText(QCoreApplication.translate("MainWindow", u"Github", None))
         self.lab_tab.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><br/></p></body></html>", None))
@@ -1956,6 +1838,6 @@ class Ui_MainWindow(object):
         self.frame_drag.setToolTip(QCoreApplication.translate("MainWindow", u"Drag", None))
 #endif // QT_CONFIG(tooltip)
         self.lab_tab2.setText("")
-        self.lab_tab3.setText("")
+        self.bn_error.setText("")
     # retranslateUi
 

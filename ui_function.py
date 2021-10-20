@@ -1,6 +1,7 @@
 import configparser
 import os
 import webbrowser
+import threading
 
 import brain
 from main import *  # IMPORTING THE MAIN.PY FILE
@@ -58,7 +59,7 @@ class UIFunction(MainWindow):
         # -----> DOUBLE CLICK RESULT IN MAXIMISE OF WINDOW
         def maxDoubleClick(stateMouse):
             if stateMouse.type() == QtCore.QEvent.MouseButtonDblClick:
-                QtCore.QTimer.singleShot(250, lambda: UIFunction.maximize_restore(self))
+                pass
 
         # ----> REMOVE NORMAL TITLE BAR
         if True:
@@ -109,11 +110,11 @@ class UIFunction(MainWindow):
             self.ui.stackedWidget.setCurrentWidget(self.ui.page_android)
             self.ui.lab_tab.setText("Github")
             UIFunction.androidStackPages(self, "page_world")
-            
+
         elif buttonName == "bn_error":
             self.ui.stackedWidget.setCurrentWidget(self.ui.page_error)
             self.ui.lab_tab.setText("Error Page")
-            
+
         # ADD ANOTHER ELIF STATEMENT HERE FOR EXECTUITING A NEW MENU BUTTON STACK PAGE.
 
     ########################################################################################################################
@@ -126,11 +127,8 @@ class UIFunction(MainWindow):
         ######### PAGE_HOME ############# BELOW DISPLAYS THE FUNCTION OF WIDGET, LABEL, PROGRESS BAR, E.T.C IN STACKEDWIDGET page_HOME
 
         ######### PAGE_BUG ############## BELOW DISPLAYS THE FUNCTION OF WIDGET, LABEL, PROGRESS BAR, E.T.C IN STACKEDWIDGET page_bug
-        self.ui.bn_bug_start.clicked.connect(
-            lambda: APFunction.addNumbers(
-                self, self.ui.comboBox_bug.currentText(), True
-            )
-        )
+
+        self.ui.bug_button.clicked.connect(lambda: APFunction.bug_button(self))
 
         #########PAGE ANDROID WIDGET AND ITS STACKANDROID WIDGET PAGES
         self.ui.bn_android_contact.clicked.connect(
@@ -152,6 +150,9 @@ class UIFunction(MainWindow):
         )
         self.ui.line_checkbox_arg.clicked.connect(lambda: APFunction.checkBox_arg(self))
         self.ui.line_checkbox_rpc.clicked.connect(lambda: APFunction.checkBox_rpc(self))
+        self.ui.line_checkbox_snapshots.clicked.connect(
+            lambda: APFunction.checkBox_snapshots(self)
+        )
         self.ui.bn_android_contact_edit.clicked.connect(
             lambda: APFunction.editable(self)
         )
@@ -235,6 +236,7 @@ class APFunction:
         self.ui.line_android_adress.setEnabled(True)
         self.ui.line_checkbox_arg.setEnabled(True)
         self.ui.line_checkbox_rpc.setEnabled(True)
+        self.ui.line_checkbox_snapshots.setEnabled(True)
 
         self.ui.bn_android_contact_save.setEnabled(True)
         self.ui.bn_android_contact_edit.setEnabled(False)
@@ -248,12 +250,14 @@ class APFunction:
         self.ui.bn_android_world.setEnabled(False)
 
     def saveContact(self):
+        threading.Thread(target=lambda: brain.GetReleases(self)).start()
         self.ui.lab_user.setText(self.ui.line_android_name.text())
         self.ui.lab_home_username.setText(self.ui.line_android_name.text())
         self.ui.line_android_name.setEnabled(False)
         self.ui.line_android_adress.setEnabled(False)
         self.ui.line_checkbox_arg.setEnabled(False)
         self.ui.line_checkbox_rpc.setEnabled(False)
+        self.ui.line_checkbox_snapshots.setEnabled(False)
 
         self.ui.bn_android_contact_save.setEnabled(False)
         self.ui.bn_android_contact_edit.setEnabled(True)
@@ -267,7 +271,7 @@ class APFunction:
         self.ui.bn_android_world.setEnabled(True)
 
         # * USERNAME
-        username= self.ui.line_android_name.text()
+        username = self.ui.line_android_name.text()
         config["PROFILE"]["username"] = username
         brain.setCurrentDiscordRpc("Home Page", f"Playing as {username}")
 
@@ -292,12 +296,20 @@ class APFunction:
             if var == True:
                 config["SETTINGS"]["AllocatedRam"] = bufor
             else:
-                self.ui.line_android_adress.setText(config.get("SETTINGS", "allocatedram"))
+                self.ui.line_android_adress.setText(
+                    config.get("SETTINGS", "allocatedram")
+                )
                 self.errorexec(
-                f"Cannot asing more ram than {buf}MB (80% of amount of available RAM ({size}) )",
-                "icons/1x/errorAsset 55.png",
-                "Ok",
-            )
+                    f"Cannot asing more ram than {buf}MB (80% of amount of available RAM ({size}) )",
+                    "icons/1x/errorAsset 55.png",
+                    "Ok",
+                )
+
+        # * Special Arguments
+        if self.ui.line_checkbox_arg.isChecked() == True:
+            config["SETTINGS"]["specialarg"] = "True"
+        else:
+            config["SETTINGS"]["specialarg"] = "False"
 
         # * DiscordActivity
         if self.ui.line_checkbox_rpc.isChecked() == True:
@@ -305,11 +317,11 @@ class APFunction:
         else:
             config["SETTINGS"]["discordactivity"] = "False"
 
-        # * Special Arguments
-        if self.ui.line_checkbox_arg.isChecked() == True:
-            config["SETTINGS"]["specialarg"] = "True"
+        # * Show snapshots
+        if self.ui.line_checkbox_snapshots.isChecked() == True:
+            config["SETTINGS"]["snapshots"] = "True"
         else:
-            config["SETTINGS"]["specialarg"] = "False"
+            config["SETTINGS"]["snapshots"] = "False"
 
         with open(f"{sciezkaver}/config.ini", "w") as configfile:
             config.write(configfile)
@@ -352,11 +364,26 @@ class APFunction:
         else:
             self.ui.line_checkbox_rpc.setText("Checked")
 
+    def checkBox_snapshots(self):
+        if self.ui.line_checkbox_snapshots.isChecked() == False:
+            self.ui.line_checkbox_snapshots.setText("Unchecked")
+        else:
+            self.ui.line_checkbox_snapshots.setText("Checked")
+
     def pushButton_github(self):
         webbrowser.open("https://github.com/Bre3n/MLauncher")
 
     def pushButton_magic(self):
         webbrowser.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+        
+    def bug_button(self):
+        bufor = self.ui.label_12.text()
+        if bufor == "Vanilla Versions":
+            self.ui.label_12.setText("Server Versions")
+            threading.Thread(target=lambda: brain.serverVersions(self)).start()
+        else:
+            self.ui.label_12.setText("Vanilla Versions")
+            threading.Thread(target=lambda: brain.GetReleases(self)).start()
 
 
 #######################################as########################################################################################################################

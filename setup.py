@@ -44,35 +44,9 @@ def check_ram(allocated):
 
 
 def pliki(sciezka):
-    i = 1
     pathh = f"{sciezka}/logs-setup"
 
-    # * CONFIG
-    config.read(f"{sciezka}/config.ini")
-    if config.has_section("SETTINGS") == False:
-        config.add_section("SETTINGS")
-    if config.has_section("PROFILE") == False:
-        config.add_section("PROFILE")
-    if config.has_option("SETTINGS", "allocatedram") == False:
-        config["SETTINGS"]["allocatedram"] = "2048M"
-    if config.has_option("SETTINGS", "specialarg") == False:
-        config["SETTINGS"]["specialarg"] = "False"
-    if config.has_option("SETTINGS", "discordactivity") == False:
-        config["SETTINGS"]["discordactivity"] = "True"
-    if config.has_option("PROFILE", "uuid") == False:
-        data = requests.get("https://www.uuidtools.com/api/generate/v4/count/1").json()
-        config["PROFILE"]["uuid"] = data[0]
-    if config.has_option("PROFILE", "username") == False:
-        config["PROFILE"]["username"] = "Steve"
-    ALLOCATEDRAM = config.get("SETTINGS", "AllocatedRam")
-    if ALLOCATEDRAM[-1] == "G":
-        ALLOCATEDRAM = str(int(ALLOCATEDRAM.replace("G", "")) * 1024) + "M"
-        config["SETTINGS"]["AllocatedRam"] = ALLOCATEDRAM
-    with open(f"{sciezka}/config.ini", "w") as configfile:
-        config.write(configfile)
-
     # * LOGS
-
     if path.exists(pathh) == False:
         os.mkdir(pathh)
     if path.exists(f"{pathh}/SORT_BY_MODIFICATION_TIME.txt") == False:

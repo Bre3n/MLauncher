@@ -164,8 +164,6 @@ class errorUi(QDialog):
         self.e.lab_icon.setPixmap(pixmap2)
 
 
-# OUR APPLICATION MAIN WINDOW :
-# -----> MAIN APPLICATION CLASS
 class MainWindow(QMainWindow):
     valueChanged = Signal(int)
 
@@ -174,9 +172,11 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        brain.createFiles()
 
         self.i = 0
         self.valueChanged.connect(self.changetheme)
+        threading.Thread(target=lambda: brain.GetReleases(self)).start()
 
         user = os.getlogin()
         sciezka = f"C:/Users/{user}/AppData/Roaming/.mlauncher"
@@ -248,6 +248,7 @@ class MainWindow(QMainWindow):
         self.ui.bn_error.clicked.connect(
             lambda: UIFunction.buttonPressed(self, "bn_error")
         )
+        self.ui.bn_play.clicked.connect(lambda: brain.play(self))
         #############################################################
 
         # -----> STACK PAGE FUNCTION
@@ -357,8 +358,6 @@ class MainWindow(QMainWindow):
 
         def moveWindow(event):
             # IF MAXIMIZED CHANGE TO NORMAL
-            if UIFunction.returStatus() == 1:
-                UIFunction.maximize_restore(self)
 
             # MOVE WINDOW
             if event.buttons() == Qt.LeftButton:

@@ -2,10 +2,12 @@ import configparser
 import multiprocessing
 import os
 import time
-
+import json
 import psutil
 import requests
 from pypresence import Presence
+import minecraft_launcher_lib as MCLib
+from os import path
 
 user = os.getlogin()
 sciezka = f"C:/Users/{user}/AppData/Roaming/.mlauncher"
@@ -16,6 +18,41 @@ currentDiscordRpcDetails = ""
 checkinternetbool = False
 connectedRpc = False
 rpc = 0
+Lista = ""
+
+
+def createFiles():
+    # * CONFIG
+    config.read(f"{sciezkaver}/config.ini")
+    if config.has_section("SETTINGS") == False:
+        config.add_section("SETTINGS")
+    if config.has_section("PROFILE") == False:
+        config.add_section("PROFILE")
+    if config.has_option("SETTINGS", "allocatedram") == False:
+        config["SETTINGS"]["allocatedram"] = "2048M"
+    if config.has_option("SETTINGS", "specialarg") == False:
+        config["SETTINGS"]["specialarg"] = "False"
+    if config.has_option("SETTINGS", "discordactivity") == False:
+        config["SETTINGS"]["discordactivity"] = "True"
+    if config.has_option("SETTINGS", "snapshots") == False:
+        config["SETTINGS"]["snapshots"] = "False"
+    if config.has_option("PROFILE", "uuid") == False:
+        data = requests.get("https://www.uuidtools.com/api/generate/v4/count/1").json()
+        config["PROFILE"]["uuid"] = data[0]
+    if config.has_option("PROFILE", "username") == False:
+        config["PROFILE"]["username"] = "Steve"
+    if config.has_option("PROFILE", "version") == False:
+        config["PROFILE"]["version"] = "1.8"
+    ALLOCATEDRAM = config.get("SETTINGS", "AllocatedRam")
+    if ALLOCATEDRAM[-1] == "G":
+        ALLOCATEDRAM = str(int(ALLOCATEDRAM.replace("G", "")) * 1024) + "M"
+        config["SETTINGS"]["AllocatedRam"] = ALLOCATEDRAM
+    with open(f"{sciezkaver}/config.ini", "w") as configfile:
+        config.write(configfile)
+
+    # * FOLDERS
+    if path.exists(f"{sciezka}/instances") == False:
+        os.mkdir(f"{sciezka}/instances")
 
 
 def configfile(arg):
@@ -26,9 +63,11 @@ def configfile(arg):
         config["SETTINGS"]["allocatedram"] = "2048M"
         config["SETTINGS"]["specialarg"] = "False"
         config["SETTINGS"]["discordactivity"] = "True"
+        config["SETTINGS"]["snapshots"] = "False"
         data = requests.get("https://www.uuidtools.com/api/generate/v4/count/1").json()
         config["PROFILE"]["uuid"] = data[0]
         config["PROFILE"]["username"] = "Steve"
+
         with open(f"{sciezkaver}/config.ini", "w") as configfile:
             config.write(configfile)
         setCurrentDiscordRpc("Home Page", "Playing as Steve")
@@ -51,25 +90,31 @@ def updateLines(self):
     bufor = config.get("SETTINGS", "specialarg")
     if bufor == "True":
         SpecialArguments = True
-    else:
-        SpecialArguments = False
-    self.ui.line_checkbox_arg.setChecked(SpecialArguments)
-    if SpecialArguments == True:
         self.ui.line_checkbox_arg.setText("Checked")
     else:
+        SpecialArguments = False
         self.ui.line_checkbox_arg.setText("Unchecked")
+    self.ui.line_checkbox_arg.setChecked(SpecialArguments)
 
     # * DiscordActivity
     bufor = config.get("SETTINGS", "discordactivity")
     if bufor == "True":
         DiscordActivity = True
-    else:
-        DiscordActivity = False
-    self.ui.line_checkbox_rpc.setChecked(DiscordActivity)
-    if DiscordActivity == True:
         self.ui.line_checkbox_rpc.setText("Checked")
     else:
+        DiscordActivity = False
         self.ui.line_checkbox_rpc.setText("Unchecked")
+    self.ui.line_checkbox_rpc.setChecked(DiscordActivity)
+
+    # * Show Snapshots
+    bufor = config.get("SETTINGS", "snapshots")
+    if bufor == "True":
+        ShowSnapshots = True
+        self.ui.line_checkbox_snapshots.setText("Checked")
+    else:
+        ShowSnapshots = False
+        self.ui.line_checkbox_snapshots.setText("Unchecked")
+    self.ui.line_checkbox_snapshots.setChecked(ShowSnapshots)
 
 
 def checkinternet(self):
@@ -87,7 +132,7 @@ def checkinternet(self):
             if self.i == 1 or self.i == 0:
                 self.i = 2
                 self.valueChanged.emit(self.i)
-        time.sleep(2)
+        time.sleep(10)
 
 
 def check_ram(allocated):
@@ -134,10 +179,11 @@ def discordrpc(self):
             self.valueChanged.emit(self.i)
             self.i = 1
         if connectedRpc == True and checkinternetbool == True:
-            config.read(f"{sciezkaver}/config.ini")
             if (config.get("SETTINGS", "discordactivity")) == "True":
                 if currentDiscordRpc == "":
                     rpc.update(details=currentDiscordRpcDetails, large_image="rpcimage")
+                elif currentDiscordRpc == "quit()":
+                    rpc.clear()
                 else:
                     rpc.update(
                         state=currentDiscordRpc,
@@ -146,4 +192,59 @@ def discordrpc(self):
                     )
             else:
                 rpc.clear()
-        time.sleep(2)
+        time.sleep(20)
+
+
+def GetReleases(self):
+    self.ui.comboBox.clear()
+    config = configparser.ConfigParser()
+    config.read(f"{sciezkaver}/config.ini")
+    if config.get("SETTINGS", "snapshots") == "True":
+        var = True
+    else:
+        var = False
+    global Lista
+    Releases = []
+    McVers = []
+    if Lista == "":
+        Lista = requests.get(
+            "https://launchermeta.mojang.com/mc/game/version_manifest.json"
+        ).json()
+    VersionsA = Lista["versions"]
+    bufor = [
+        name
+        for name in os.listdir(f"{sciezka}/instances")
+        if os.path.isdir(os.path.join(f"{sciezka}/instances", name))
+    ]
+    for i in range(int(len(bufor))):
+        McVers.append(f"local {bufor[i]}")
+    if var == False:
+        for key in VersionsA:
+            if key["type"] == "release":
+                bufor = key["id"]
+                Releases.append(f"release {bufor}")
+    else:
+        for key in VersionsA:
+            if key["type"] == "release":
+                bufor = key["id"]
+                Releases.append(f"release {bufor}")
+            if key["type"] == "snapshot":
+                bufor = key["id"]
+                Releases.append(f"snapshot {bufor}")
+    for i in range(int(len(Releases))):
+        McVers.append(Releases[i])
+    self.ui.comboBox.addItems(McVers)
+
+
+def serverVersions(self):
+    self.ui.comboBox.clear()
+    versions = configparser.ConfigParser()
+    versions.read(f"{sciezkaver}/versions.ini")
+    bufor = versions.sections()
+    self.ui.comboBox.addItems(bufor)
+
+
+def play(self):
+    content = self.ui.comboBox.currentText()
+    print(content)
+    pass
