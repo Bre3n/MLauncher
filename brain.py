@@ -138,9 +138,7 @@ def updateLines(self):
 def checkinternet(self):
     url = "http://www.github.com"
     global checkinternetbool
-    while True:
-        if threading.main_thread().is_alive() == False:
-            exit
+    while self.iterable == 1:
         try:
             request = requests.get(url, timeout=5)
             checkinternetbool = True
@@ -190,9 +188,8 @@ def discordrpc(self):
     global rpc
     config = configparser.ConfigParser()
     config.read(f"{sciezkaver}/config.ini")
-    while True:
-        if threading.main_thread().is_alive() == False:
-            exit
+    print(self.iterable)
+    while self.iterable == 1:
         bufor = "Discord.exe" in (i.name() for i in psutil.process_iter())
         if bufor == False:
             break
@@ -341,14 +338,31 @@ def play(self):
 
 
 def downloadstuff(self):
+    global sciezkains
+    bathpath = r"C:\Users\{}\AppData\Roaming\.mlauncher\cache".format(user)
     if path.exists(f"{sciezka}/cache") == False:
         os.mkdir(f"{sciezka}/cache")
     time.sleep(1)
-    f = open(f"{sciezka}/cache/necessarystuff.bat", "w")
-    f.write(f"python {sciezka}/chache/necessarystuff.pyw")
-    f.close()
-    f = open(f"{sciezka}/cache/necessarystuff.pyw", "w")
-    f.write(
-        f'import requests\nwith open(f"{sciezkains}/.minecraft.zip", "wb") as f:\n    response = requests.get("https://raw.githubusercontent.com/Bre3n/MLauncher/master/files/.minecraft.zip",stream=True,)\n    total = response.headers.get("content-length")\n    if total is None:\n        f.write(response.content)\n    else:\n        total = int(total)'
+    with open(
+        f"C:/Users/mwgoi/AppData/Roaming/.mlauncher/instances/.minecraft.zip", "wb"
+    ) as f:
+        response = requests.get(
+            "https://www.dropbox.com/s/pu8qla6yoogstnf/.minecraft.zip?dl=1",
+            stream=True,
+        )
+        total = response.headers.get("content-length")
+        if total is None:
+            f.write(response.content)
+        else:
+            total = int(total)
+            for data in response.iter_content(
+                chunk_size=max(int(total / 1000), 1024 * 1024)
+            ):
+                f.write(data)
+    threading.Thread(
+        target=lambda: self.errorexec(
+            "We downloaded necessary stuff, now you can play or exit program.",
+            "icons/1x/errorAsset 55.png",
+            "Ok",
+        )
     )
-    f.close()
