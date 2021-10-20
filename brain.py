@@ -359,10 +359,3 @@ def downloadstuff(self):
                 chunk_size=max(int(total / 1000), 1024 * 1024)
             ):
                 f.write(data)
-    threading.Thread(
-        target=lambda: self.errorexec(
-            "We downloaded necessary stuff, now you can play or exit program.",
-            "icons/1x/errorAsset 55.png",
-            "Ok",
-        )
-    )
