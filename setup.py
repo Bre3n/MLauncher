@@ -227,7 +227,7 @@ if __name__ == "__main__":
         desktop = winshell.desktop()
         path = os.path.join(desktop, "MLauncher.lnk")
         target = f"{sciezkaver}/setup.py"
-        # icon = r"C:\Users\lenovo\Documents\sample2.txt"
+        icon = f"{sciezkaver}/icons/1x/icon.ico"
         shell = win32com.client.Dispatch("WScript.Shell")
         shortcut = shell.CreateShortCut(path)
         shortcut.Targetpath = target
