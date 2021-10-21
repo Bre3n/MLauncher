@@ -1,13 +1,17 @@
 def downloader(url, path, var):
     if var == 1:
         MANAGER = enlighten.get_manager()
-        r = requests.get(url, stream = True)
+        r = requests.get(url, stream=True)
         assert r.status_code == 200, r.status_code
-        dlen = int(r.headers.get('Content-Length', '0')) or None
+        dlen = int(r.headers.get("Content-Length", "0")) or None
 
-        with MANAGER.counter(color = 'green', total = dlen and math.ceil(dlen / 2 ** 20), unit = 'MiB', leave = False) as ctr, \
-            open(path, 'wb', buffering = 2 ** 24) as f:
-            for chunk in r.iter_content(chunk_size = 2 ** 20):
+        with MANAGER.counter(
+            color="green",
+            total=dlen and math.ceil(dlen / 2 ** 20),
+            unit="MiB",
+            leave=False,
+        ) as ctr, open(path, "wb", buffering=2 ** 24) as f:
+            for chunk in r.iter_content(chunk_size=2 ** 20):
                 print(chunk[-16:].hex().upper())
                 f.write(chunk)
                 ctr.update()
@@ -74,6 +78,7 @@ if __name__ == "__main__":
     import time
     import math
     from os import path
+    import win32com.client
 
     try:
         import configparser
@@ -84,6 +89,8 @@ if __name__ == "__main__":
         import requests
         import enlighten
         import pypresence
+        import winshell
+        import pythoncom
     except ImportError:
         os.system(f"pip install doctext")
         os.system(f"pip install requests")
@@ -94,6 +101,8 @@ if __name__ == "__main__":
         os.system(f"pip install enlighten")
         os.system(f"pip install psutil")
         os.system(f"pip install pypresence")
+        os.system(f"pip install winshell")
+        os.system(f"pip install pywin32")
         os.execv(sys.executable, ["python"] + sys.argv)
 
     config = configparser.ConfigParser()
@@ -215,4 +224,13 @@ if __name__ == "__main__":
         logger.debug(f"DEBUG: Program process complete")
         os.chdir(f"{sciezkaver}/")
         logging.shutdown()
+        desktop = winshell.desktop()
+        path = os.path.join(desktop, "MLauncher.lnk")
+        target = f"{sciezkaver}/setup.py"
+        # icon = r"C:\Users\lenovo\Documents\sample2.txt"
+        shell = win32com.client.Dispatch("WScript.Shell")
+        shortcut = shell.CreateShortCut(path)
+        shortcut.Targetpath = target
+        # shortcut.IconLocation = icon
+        shortcut.save()
         subprocess.call(["python", f"{sciezkaver}/main.py"])
