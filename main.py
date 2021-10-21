@@ -180,12 +180,15 @@ class MainWindow(QMainWindow):
         sciezka = f"C:/Users/{user}/AppData/Roaming/.mlauncher"
         sciezkaver = f"{sciezka}/bin"
         sciezkains = f"{sciezka}/instances"
+        sciezkajvms = f"{sciezka}/jvms"
         config = configparser.ConfigParser()
         config.read(f"{sciezkaver}/config.ini")
         username = config.get("PROFILE", "username")
         if (
             path.exists(f"{sciezkains}/.minecraft.zip") == False
             or os.path.getsize(f"{sciezkains}/.minecraft.zip") < 496590000
+            or path.exists(f"{sciezkajvms}/jre1.8.0_281") == False
+            or path.exists(f"{sciezkajvms}/jdk-16.0.2") == False
         ):
             self.errorexec(
                 "Getting necessary stuff... We are downloading files in the background. Feel free to using program",

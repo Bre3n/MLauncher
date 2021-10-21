@@ -4,6 +4,9 @@ import os
 import time
 import json
 import psutil
+import math
+import ctypes
+import enlighten
 import threading
 import requests
 from pypresence import Presence
@@ -27,6 +30,7 @@ user = os.getlogin()
 sciezka = f"C:/Users/{user}/AppData/Roaming/.mlauncher"
 sciezkaver = f"{sciezka}/bin"
 sciezkains = f"{sciezka}/instances"
+sciezkajvms = f"{sciezka}/jvms"
 config = configparser.ConfigParser()
 currentDiscordRpc = ""
 currentDiscordRpcDetails = ""
@@ -35,15 +39,48 @@ connectedRpc = False
 rpc = 0
 Lista = ""
 iterablebool = 5
+canPlay = True
+
+
+def download(url, pathh, self):
+    MANAGER = enlighten.get_manager()
+    i = 0
+    r = requests.get(url, stream=True)
+    assert r.status_code == 200, r.status_code
+    dlen = int(r.headers.get("Content-Length", "0")) or None
+    with MANAGER.counter(
+        color="green", total=dlen and math.ceil(dlen / 2 ** 20), unit="MiB", leave=False
+    ) as ctr, open(pathh, "wb", buffering=2 ** 24) as f:
+        for chunk in r.iter_content(chunk_size=2 ** 20):
+            i += 1
+            self.ui.lab_tab2.setText(f"Downloading {i}/{math.ceil(dlen/2**20)}")
+            print(chunk[-16:].hex().upper())
+            f.write(chunk)
 
 
 def createFiles():
+    # * FOLDERS
+    if path.exists(f"{sciezka}/instances") == False:
+        os.mkdir(f"{sciezka}/instances")
+    if path.exists(f"{sciezka}/instances/.Minecraft_Instances") == False:
+        open(f"{sciezka}/instances/.Minecraft_Instances.txt", "w").close()
+    if path.exists(f"{sciezka}/cache") == False:
+        os.mkdir(f"{sciezka}/cache")
+    if path.exists(f"{sciezka}/jvms") == False:
+        os.mkdir(f"{sciezka}/jvms")
+
     # * CONFIG
     config.read(f"{sciezkaver}/config.ini")
+    if config.has_section("JVMS") == False:
+        config.add_section("JVMS")
     if config.has_section("SETTINGS") == False:
         config.add_section("SETTINGS")
     if config.has_section("PROFILE") == False:
         config.add_section("PROFILE")
+    if config.has_option("SETTINGS", "java-1.8") == False:
+        config["SETTINGS"]["java-1.8"] = f"{sciezkajvms}/jre1.8.0_281/bin/javaw.exe"
+    if config.has_option("SETTINGS", "java-16") == False:
+        config["SETTINGS"]["java-16"] = f"{sciezkajvms}/jdk-16.0.2/bin/javaw.exe"
     if config.has_option("SETTINGS", "allocatedram") == False:
         config["SETTINGS"]["allocatedram"] = "2048M"
     if config.has_option("SETTINGS", "specialarg") == False:
@@ -65,12 +102,6 @@ def createFiles():
         config["SETTINGS"]["AllocatedRam"] = ALLOCATEDRAM
     with open(f"{sciezkaver}/config.ini", "w") as configfile:
         config.write(configfile)
-
-    # * FOLDERS
-    if path.exists(f"{sciezka}/instances") == False:
-        os.mkdir(f"{sciezka}/instances")
-    if path.exists(f"{sciezka}/instances/.Minecraft_Instances") == False:
-        open(f"{sciezka}/instances/.Minecraft_Instances.txt", "w").close()
 
 
 def configfile(arg):
@@ -290,6 +321,14 @@ def playthread(self):
 
 
 def play(self):
+    global canPlay
+    if canPlay == False:
+        self.errorexec(
+            "All the necessary stuff you need have not been downloaded yet! Please wait",
+            "icons/1x/smile2Asset 1.png",
+            "Ok",
+        )
+        return 0
     config = configparser.ConfigParser()
     config.read(f"{sciezkaver}/config.ini")
     username = config.get("PROFILE", "username")
@@ -298,13 +337,6 @@ def play(self):
     allocatedram = config.get("SETTINGS", "allocatedram")
     specialarg = config.get("SETTINGS", "specialarg")
     jvmArguments = f"-Xmx{allocatedram}"
-    options = {
-        "username": username,
-        "uuid": uuid,
-        "token": token,
-        "jvmArguments": [jvmArguments],
-        "executablePath": r"C:\Program Files\Java\jdk-16.0.2\bin\javaw.exe",  # The path to the java executable
-    }
 
     callback = {
         "setStatus": lambda text: print(text),
@@ -329,10 +361,23 @@ def play(self):
     else:
         version = content
     versionPathh = f"{sciezkains}/{versionPath}/.minecraft"
+    bufor = version.split(".")
+    if int(bufor[1]) >= 16:
+        executablePath = config.get("SETTINGS", "java-16")
+    else:
+        executablePath = config.get("SETTINGS", "java-1.8")
+    options = {
+        "username": username,
+        "uuid": uuid,
+        "token": token,
+        "jvmArguments": [jvmArguments],
+        "executablePath": executablePath,
+    }
+
     if path.exists(f"{sciezkains}/{versionPath}") == False:
         os.mkdir(f"{sciezkains}/{versionPath}")
-        with zipfile.ZipFile(f"{sciezkains}/.minecraft.zip", "r") as zipObj:
-            zipObj.extractall(f"{sciezkains}/{versionPath}/.minecraft")
+        """with zipfile.ZipFile(f"{sciezkains}/.minecraft.zip", "r") as zipObj:
+            zipObj.extractall(f"{sciezkains}/{versionPath}/.minecraft")"""
         minecraft_launcher_lib.install.install_minecraft_version(
             version, versionPathh, callback=callback
         )
@@ -345,29 +390,28 @@ def play(self):
 
 
 def downloadstuff(self):
-    global sciezkains
-    bathpath = r"C:\Users\{}\AppData\Roaming\.mlauncher\cache".format(user)
-    if path.exists(f"{sciezka}/cache") == False:
-        os.mkdir(f"{sciezka}/cache")
-    time.sleep(1)
-    with open(
-        f"C:/Users/mwgoi/AppData/Roaming/.mlauncher/instances/.minecraft.zip", "wb"
-    ) as f:
-        response = requests.get(
+    global canPlay
+    canPlay = False
+    if path.exists(f"{sciezkains}/.minecraft.zip") == False:
+        download(
             "https://www.dropbox.com/s/pu8qla6yoogstnf/.minecraft.zip?dl=1",
-            stream=True,
+            f"{sciezkains}/.minecraft.zip",
+            self,
         )
-        total = response.headers.get("content-length")
-        if total is None:
-            f.write(response.content)
-        else:
-            total = int(total)
-            for data in response.iter_content(
-                chunk_size=max(int(total / 1000), 1024 * 1024)
-            ):
-                f.write(data)
+    if (
+        path.exists(f"{sciezkajvms}/jre1.8.0_281") == False
+        or path.exists(f"{sciezkajvms}/jdk-16.0.2") == False
+    ):
+        download(
+            "https://www.dropbox.com/s/spdx9qinhsr66n4/jvms.zip?dl=1",
+            f"{sciezkajvms}/jvms.zip",
+            self,
+        )
+        with zipfile.ZipFile(f"{sciezkajvms}/jvms.zip", "r") as zipObj:
+            zipObj.extractall(f"{sciezkajvms}/")
     self.errorexec(
-                    "Now you can safetly close program.",
-                    "icons/1x/smile2Asset 1.png",
-                    "Ok",
-                )
+        "Now you can safetly close program. Or just play. idk",
+        "icons/1x/smile2Asset 1.png",
+        "Ok",
+    )
+    canPlay = True

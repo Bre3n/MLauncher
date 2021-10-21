@@ -1,17 +1,16 @@
 def downloader(url, path, var):
     if var == 1:
-        resp = requests.get(url, stream=True)
-        total = int(resp.headers.get("content-length", 0))
-        with open(path, "wb") as file, tqdm(
-            desc=path,
-            total=total,
-            unit="iB",
-            unit_scale=True,
-            unit_divisor=1024,
-        ) as bar:
-            for data in resp.iter_content(chunk_size=1024):
-                size = file.write(data)
-                bar.update(size)
+        MANAGER = enlighten.get_manager()
+        r = requests.get(url, stream = True)
+        assert r.status_code == 200, r.status_code
+        dlen = int(r.headers.get('Content-Length', '0')) or None
+
+        with MANAGER.counter(color = 'green', total = dlen and math.ceil(dlen / 2 ** 20), unit = 'MiB', leave = False) as ctr, \
+            open(path, 'wb', buffering = 2 ** 24) as f:
+            for chunk in r.iter_content(chunk_size = 2 ** 20):
+                print(chunk[-16:].hex().upper())
+                f.write(chunk)
+                ctr.update()
     else:
         with open(path, "wb") as f:
             response = requests.get(url, stream=True)
@@ -73,6 +72,7 @@ if __name__ == "__main__":
     import subprocess
     import sys
     import time
+    import math
     from os import path
 
     try:
@@ -82,7 +82,7 @@ if __name__ == "__main__":
         import coloredlogs
         import PySide2
         import requests
-        from tqdm import tqdm
+        import enlighten
         import pypresence
     except ImportError:
         os.system(f"pip install doctext")
@@ -91,7 +91,7 @@ if __name__ == "__main__":
         os.system(f"pip install zipfile")
         os.system(f"pip install coloredlogs")
         os.system(f"pip install configparser")
-        os.system(f"pip install tqdm")
+        os.system(f"pip install enlighten")
         os.system(f"pip install psutil")
         os.system(f"pip install pypresence")
         os.execv(sys.executable, ["python"] + sys.argv)
