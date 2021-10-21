@@ -222,15 +222,34 @@ if __name__ == "__main__":
                         zipObj.extractall(f"{sciezkaver}/{checkzip[0]}")
                     os.remove(f"{sciezkaver}/{buforr}")
         logger.debug(f"DEBUG: Program process complete")
-        os.chdir(f"{sciezkaver}/")
+
         logging.shutdown()
         desktop = winshell.desktop()
-        path = os.path.join(desktop, "MLauncher.lnk")
-        target = f"{sciezkaver}/setup.py"
-        icon = f"{sciezkaver}/icons/1x/icon.ico"
-        shell = win32com.client.Dispatch("WScript.Shell")
-        shortcut = shell.CreateShortCut(path)
-        shortcut.Targetpath = target
-        shortcut.IconLocation = icon
-        shortcut.save()
+        cwd = os.getcwd()
+        if path.exists(f"{sciezka}/cache/setup.txt"):
+            f = open(f"{sciezka}/cache/setup.txt", "r")
+            bufor = f.read()
+            bufor = bufor.replace("\\", "/")
+            os.remove(bufor)
+            f.close()
+            os.remove(f"{sciezka}/cache/setup.txt")
+        if (
+            cwd != f"C:\\Users\{user}\\AppData\\Roaming\\.mlauncher\\bin"
+            and cwd != f"C:\\Users\\{user}\\Desktop\\Projekty\\LauncherUi"
+        ):
+            if path.exists(f"{sciezka}/cache") == False:
+                os.mkdir(f"{sciezka}/cache")
+            f = open(f"{sciezka}/cache/setup.txt", "w")
+            f.write(f"{cwd}\setup.py")
+            f.close()
+        if path.exists(f"{desktop}/MLauncher.lnk") == False:
+            path = os.path.join(desktop, "MLauncher.lnk")
+            target = f"{sciezkaver}\\setup.py"
+            icon = f"{sciezkaver}/icons/1x/icon.ico"
+            shell = win32com.client.Dispatch("WScript.Shell")
+            shortcut = shell.CreateShortCut(path)
+            shortcut.Targetpath = target
+            shortcut.IconLocation = icon
+            shortcut.save()
+        os.chdir(f"{sciezkaver}/")
         subprocess.call(["python", f"{sciezkaver}/main.py"])
