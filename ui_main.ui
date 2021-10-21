@@ -1548,7 +1548,6 @@ QScrollBar::sub-page:vertical {
                      </item>
                      <item>
                       <widget class="QPushButton" name="bug_confirm">
-<<<<<<< HEAD
                        <property name="font">
                         <font>
                          <family>Segoe UI</family>
@@ -1563,16 +1562,6 @@ QScrollBar::sub-page:vertical {
 
 QPushButton:hover {
 	background-color: rgb(200,0,90);
-=======
-                       <property name="styleSheet">
-                        <string notr="true">QPushButton {
-	border: none;
-	background-color:rgb(100,170,0)
-}
-
-QPushButton:hover {
-	background-color: rgb(120,200,0);
->>>>>>> 31ed42bc073736aba651f59698ce4b466da40608
 }
 </string>
                        </property>

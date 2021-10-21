@@ -5,7 +5,7 @@ import sys
 import threading
 
 from pypresence import Presence
-from os import path
+from os import close, path
 import brain
 
 ctypes.windll.user32.ShowWindow(ctypes.windll.kernel32.GetConsoleWindow(), 0)
@@ -166,7 +166,6 @@ class errorUi(QDialog):
 class MainWindow(QMainWindow):
     valueChanged = Signal(int)
     closebool = True
-    iterable = 1
 
     def __init__(self):
         self.diag = dialogUi()
@@ -190,7 +189,7 @@ class MainWindow(QMainWindow):
         ):
             self.errorexec(
                 "Getting necessary stuff... We are downloading files in the background. Feel free to using program",
-                "icons/1x/errorAsset 55.png",
+                "icons/1x/smile2Asset 1.png",
                 "Ok",
             )
             threading.Thread(target=lambda: brain.downloadstuff(self)).start()
@@ -439,8 +438,9 @@ class MainWindow(QMainWindow):
 
     def closeprogram(self):
         if self.closebool == True:
-            self.iterable = -5
-            exit
+            bufor = -5
+            threading.Thread(target=lambda: brain.iterablebooldef(bufor)).start()
+            self.close()
         else:
             threading.Thread(
                 target=lambda: self.errorexec(

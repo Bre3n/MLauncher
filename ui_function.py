@@ -74,7 +74,7 @@ class UIFunction(MainWindow):
         self.ui.bn_min.clicked.connect(lambda: self.showMinimized())
 
         # -----> CLOSE APPLICATION FUNCTION BUTTON
-        self.ui.bn_close.clicked.connect(lambda: self.close())
+        self.ui.bn_close.clicked.connect(lambda: self.closeprogram())
 
     ################################################################################################################
 
@@ -173,11 +173,7 @@ class UIFunction(MainWindow):
         self.ui.textEdit_gamepad.setText("Type Here Something, or paste something here")
 
         ######ANDROID > PAGE CLEAN >>>>>>>>>>>>>>>>>>>>>>
-        # NOTHING HERE
-        self.ui.horizontalSlider_2.valueChanged.connect(
-            lambda: print("Slider: Horizondal: ", self.ui.horizontalSlider_2.value())
-        )  # CHECK WEATHER THE SLIDER IS MOVED OR NOT
-
+        # NOTHING HER
         ##########PAGE: ABOUT HOME #############
         self.ui.text_about_home.setVerticalScrollBar(self.ui.vsb_about_home)
 
