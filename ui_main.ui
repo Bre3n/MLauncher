@@ -1480,6 +1480,22 @@ QScrollBar::sub-page:vertical {
                    <item>
                     <layout class="QVBoxLayout" name="verticalLayout_19">
                      <item>
+                      <widget class="QLabel" name="label_13">
+                       <property name="font">
+                        <font>
+                         <family>Segoe UI</family>
+                         <pointsize>14</pointsize>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>Current Version:</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
                       <spacer name="verticalSpacer_2">
                        <property name="orientation">
                         <enum>Qt::Vertical</enum>
@@ -1532,14 +1548,20 @@ QScrollBar::sub-page:vertical {
                      </item>
                      <item>
                       <widget class="QPushButton" name="bug_confirm">
+                       <property name="font">
+                        <font>
+                         <family>Segoe UI</family>
+                         <pointsize>20</pointsize>
+                        </font>
+                       </property>
                        <property name="styleSheet">
                         <string notr="true">QPushButton {
 	border: none;
-	background-color:rgb(100,170,0)
+	background-color:rgb(170,0,70)
 }
 
 QPushButton:hover {
-	background-color: rgb(120,200,0);
+	background-color: rgb(200,0,90);
 }
 </string>
                        </property>

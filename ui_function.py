@@ -126,6 +126,8 @@ class UIFunction(MainWindow):
 
         ######### PAGE_HOME ############# BELOW DISPLAYS THE FUNCTION OF WIDGET, LABEL, PROGRESS BAR, E.T.C IN STACKEDWIDGET page_HOME
 
+        self.ui.bug_confirm.clicked.connect(lambda: APFunction.bug_confirm(self))
+
         ######### PAGE_BUG ############## BELOW DISPLAYS THE FUNCTION OF WIDGET, LABEL, PROGRESS BAR, E.T.C IN STACKEDWIDGET page_bug
 
         self.ui.bug_button.clicked.connect(lambda: APFunction.bug_button(self))
@@ -392,6 +394,15 @@ class APFunction:
         subprocess.Popen(
             f'explorer /select,"{bufor}\instances\.Minecraft_Instances.txt"'
         )
+
+    def bug_confirm(self):
+        bufor = self.ui.comboBox.currentText()
+        self.ui.label_13.setText(f"Current Version: {bufor}")
+        config = configparser.ConfigParser()
+        config.read(f"{sciezkaver}/config.ini")
+        config["PROFILE"]["version"] = bufor
+        with open(f"{sciezkaver}/config.ini", "w") as configfile:
+            config.write(configfile)
 
 
 #######################################as########################################################################################################################

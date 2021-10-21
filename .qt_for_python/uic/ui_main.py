@@ -655,16 +655,26 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.verticalLayout_19 = QVBoxLayout()
         self.verticalLayout_19.setObjectName(u"verticalLayout_19")
+        self.label_13 = QLabel(self.page_bug)
+        self.label_13.setObjectName(u"label_13")
+        font11 = QFont()
+        font11.setFamilies([u"Segoe UI"])
+        font11.setPointSize(14)
+        self.label_13.setFont(font11)
+        self.label_13.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_19.addWidget(self.label_13)
+
         self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.verticalLayout_19.addItem(self.verticalSpacer_2)
 
         self.label_12 = QLabel(self.page_bug)
         self.label_12.setObjectName(u"label_12")
-        font11 = QFont()
-        font11.setFamilies([u"Segoe UI"])
-        font11.setPointSize(26)
-        self.label_12.setFont(font11)
+        font12 = QFont()
+        font12.setFamilies([u"Segoe UI"])
+        font12.setPointSize(26)
+        self.label_12.setFont(font12)
         self.label_12.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_19.addWidget(self.label_12)
@@ -673,22 +683,23 @@ class Ui_MainWindow(object):
         self.comboBox.setObjectName(u"comboBox")
         self.comboBox.setMinimumSize(QSize(0, 40))
         self.comboBox.setMaximumSize(QSize(16777215, 16777215))
-        font12 = QFont()
-        font12.setFamilies([u"Segoe UI"])
-        font12.setPointSize(20)
-        self.comboBox.setFont(font12)
+        font13 = QFont()
+        font13.setFamilies([u"Segoe UI"])
+        font13.setPointSize(20)
+        self.comboBox.setFont(font13)
 
         self.verticalLayout_19.addWidget(self.comboBox)
 
         self.bug_confirm = QPushButton(self.page_bug)
         self.bug_confirm.setObjectName(u"bug_confirm")
+        self.bug_confirm.setFont(font13)
         self.bug_confirm.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
-"	background-color:rgb(100,170,0)\n"
+"	background-color:rgb(170,0,70)\n"
 "}\n"
 "\n"
 "QPushButton:hover {\n"
-"	background-color: rgb(120,200,0);\n"
+"	background-color: rgb(200,0,90);\n"
 "}\n"
 "")
         self.bug_confirm.setFlat(True)
@@ -961,10 +972,7 @@ class Ui_MainWindow(object):
 
         self.label_5 = QLabel(self.frame_android_field)
         self.label_5.setObjectName(u"label_5")
-        font13 = QFont()
-        font13.setFamilies([u"Segoe UI"])
-        font13.setPointSize(14)
-        self.label_5.setFont(font13)
+        self.label_5.setFont(font11)
         self.label_5.setStyleSheet(u"color:rgb(255,255,255);")
 
         self.gridLayout_4.addWidget(self.label_5, 3, 0, 1, 3)
@@ -978,13 +986,13 @@ class Ui_MainWindow(object):
 
         self.label_8 = QLabel(self.frame_android_field)
         self.label_8.setObjectName(u"label_8")
-        self.label_8.setFont(font13)
+        self.label_8.setFont(font11)
 
         self.gridLayout_4.addWidget(self.label_8, 5, 0, 1, 1)
 
         self.label = QLabel(self.frame_android_field)
         self.label.setObjectName(u"label")
-        self.label.setFont(font13)
+        self.label.setFont(font11)
         self.label.setStyleSheet(u"color:rgb(255,255,255);")
 
         self.gridLayout_4.addWidget(self.label, 1, 0, 1, 3)
@@ -1122,7 +1130,7 @@ class Ui_MainWindow(object):
 
         self.label_6 = QLabel(self.frame_android_field)
         self.label_6.setObjectName(u"label_6")
-        self.label_6.setFont(font13)
+        self.label_6.setFont(font11)
         self.label_6.setStyleSheet(u"color:rgb(255,255,255);")
 
         self.gridLayout_4.addWidget(self.label_6, 4, 0, 1, 1)
@@ -1155,7 +1163,7 @@ class Ui_MainWindow(object):
 
         self.label_4 = QLabel(self.frame_android_field)
         self.label_4.setObjectName(u"label_4")
-        self.label_4.setFont(font13)
+        self.label_4.setFont(font11)
 
         self.gridLayout_4.addWidget(self.label_4, 6, 0, 1, 1)
 
@@ -1813,6 +1821,7 @@ class Ui_MainWindow(object):
         self.lab_about_home.setText(QCoreApplication.translate("MainWindow", u"About: Home", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Empty", None))
         self.label_14.setText(QCoreApplication.translate("MainWindow", u"Game Versions", None))
+        self.label_13.setText(QCoreApplication.translate("MainWindow", u"Current Version:", None))
         self.label_12.setText(QCoreApplication.translate("MainWindow", u"Vanilla Versions", None))
         self.bug_confirm.setText(QCoreApplication.translate("MainWindow", u"Confirm", None))
         self.bug_button.setText(QCoreApplication.translate("MainWindow", u" Change type", None))

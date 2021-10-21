@@ -134,6 +134,10 @@ def updateLines(self):
         self.ui.line_checkbox_snapshots.setText("Unchecked")
     self.ui.line_checkbox_snapshots.setChecked(ShowSnapshots)
 
+    # * Current Version
+    bufor = config.get("PROFILE", "version")
+    self.ui.label_13.setText(f"Current Version: {bufor}")
+
 
 def checkinternet(self):
     url = "http://www.github.com"
@@ -285,20 +289,19 @@ def play(self):
     uuid = token.replace("-", "")
     allocatedram = config.get("SETTINGS", "allocatedram")
     specialarg = config.get("SETTINGS", "specialarg")
-    jvmArguments = str(allocatedram)
-    if specialarg == "True":
-        jvmArguments += ""
+    jvmArguments = f"-Xmx{allocatedram}"
     options = {
         "username": username,
         "uuid": uuid,
         "token": token,
+        "jvmArguments": [jvmArguments],
         "executablePath": r"C:\Program Files\Java\jdk-16.0.2\bin\javaw.exe",  # The path to the java executable
     }
 
     callback = {
         "setStatus": lambda text: print(text),
     }
-    content = self.ui.comboBox.currentText()
+    content = config.get("PROFILE", "version")
     type = self.ui.label_12.text()
     local = False
     """if "local" in content:
@@ -325,11 +328,7 @@ def play(self):
         minecraft_launcher_lib.install.install_minecraft_version(
             version, versionPathh, callback=callback
         )
-        time.sleep(2)
-        minecraft_command = minecraft_launcher_lib.command.get_minecraft_command(
-            version, versionPath, options
-        )
-        subprocess.call(minecraft_command)
+        play(self)
     else:
         minecraft_command = minecraft_launcher_lib.command.get_minecraft_command(
             version, versionPathh, options
