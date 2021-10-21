@@ -3,15 +3,23 @@
 ################################################################################
 ## Form generated from reading UI file 'ui_main.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.2
+## Created by: Qt User Interface Compiler version 6.2.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
-
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFrame,
+    QGridLayout, QGroupBox, QHBoxLayout, QLabel,
+    QLineEdit, QMainWindow, QPushButton, QRadioButton,
+    QScrollBar, QSizePolicy, QSlider, QSpacerItem,
+    QStackedWidget, QTextEdit, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -20,7 +28,7 @@ class Ui_MainWindow(object):
         MainWindow.resize(800, 550)
         MainWindow.setMinimumSize(QSize(800, 550))
         font = QFont()
-        font.setFamily(u"Segoe UI")
+        font.setFamilies([u"Segoe UI"])
         font.setPointSize(12)
         MainWindow.setFont(font)
         MainWindow.setStyleSheet(u"color:rgb(255,255,255);")
@@ -67,7 +75,7 @@ class Ui_MainWindow(object):
         self.label_9.setMinimumSize(QSize(25, 25))
         self.label_9.setMaximumSize(QSize(25, 25))
         font1 = QFont()
-        font1.setFamily(u"Segoe UI")
+        font1.setFamilies([u"Segoe UI"])
         font1.setPointSize(24)
         self.label_9.setFont(font1)
         self.label_9.setPixmap(QPixmap(u"icons/1x/dragAsset 52.png"))
@@ -79,7 +87,7 @@ class Ui_MainWindow(object):
         self.lab_appname = QLabel(self.frame_appname)
         self.lab_appname.setObjectName(u"lab_appname")
         font2 = QFont()
-        font2.setFamily(u"Segoe UI Light")
+        font2.setFamilies([u"Segoe UI Light"])
         font2.setPointSize(24)
         self.lab_appname.setFont(font2)
         self.lab_appname.setStyleSheet(u"color:rgb(255,255,255);")
@@ -418,7 +426,7 @@ class Ui_MainWindow(object):
         self.lab_home_main_hed.setMinimumSize(QSize(0, 55))
         self.lab_home_main_hed.setMaximumSize(QSize(16777215, 100))
         font3 = QFont()
-        font3.setFamily(u"Segoe UI Semilight")
+        font3.setFamilies([u"Segoe UI Semilight"])
         font3.setPointSize(60)
         self.lab_home_main_hed.setFont(font3)
         self.lab_home_main_hed.setStyleSheet(u"QLabel {\n"
@@ -433,7 +441,7 @@ class Ui_MainWindow(object):
         self.lab_home_username.setObjectName(u"lab_home_username")
         self.lab_home_username.setMaximumSize(QSize(16777215, 80))
         font4 = QFont()
-        font4.setFamily(u"Segoe UI")
+        font4.setFamilies([u"Segoe UI"])
         font4.setPointSize(36)
         self.lab_home_username.setFont(font4)
         self.lab_home_username.setStyleSheet(u"color:rgb(255,255,255);")
@@ -452,7 +460,7 @@ class Ui_MainWindow(object):
         self.bn_play.setSizePolicy(sizePolicy)
         self.bn_play.setMaximumSize(QSize(16777215, 200))
         font5 = QFont()
-        font5.setFamily(u"Segoe UI")
+        font5.setFamilies([u"Segoe UI"])
         font5.setPointSize(60)
         self.bn_play.setFont(font5)
         self.bn_play.setStyleSheet(u"QPushButton {\n"
@@ -489,7 +497,7 @@ class Ui_MainWindow(object):
         self.label_2 = QLabel(self.frame_home_stat)
         self.label_2.setObjectName(u"label_2")
         font6 = QFont()
-        font6.setFamily(u"Segoe UI")
+        font6.setFamilies([u"Segoe UI"])
         font6.setPointSize(22)
         self.label_2.setFont(font6)
         self.label_2.setTextFormat(Qt.AutoText)
@@ -518,10 +526,9 @@ class Ui_MainWindow(object):
         self.label_7.setObjectName(u"label_7")
         self.label_7.setMaximumSize(QSize(16777215, 60))
         font7 = QFont()
-        font7.setFamily(u"Segoe UI")
+        font7.setFamilies([u"Segoe UI"])
         font7.setPointSize(20)
         font7.setBold(True)
-        font7.setWeight(75)
         self.label_7.setFont(font7)
         self.label_7.setAlignment(Qt.AlignCenter)
 
@@ -530,7 +537,7 @@ class Ui_MainWindow(object):
         self.error_lab = QLabel(self.frame_2)
         self.error_lab.setObjectName(u"error_lab")
         font8 = QFont()
-        font8.setFamily(u"Segoe UI")
+        font8.setFamilies([u"Segoe UI"])
         font8.setPointSize(16)
         self.error_lab.setFont(font8)
         self.error_lab.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
@@ -570,7 +577,7 @@ class Ui_MainWindow(object):
         self.text_about_home.setObjectName(u"text_about_home")
         self.text_about_home.setEnabled(True)
         font9 = QFont()
-        font9.setFamily(u"Segoe UI")
+        font9.setFamilies([u"Segoe UI"])
         font9.setPointSize(10)
         self.text_about_home.setFont(font9)
         self.text_about_home.setStyleSheet(u"color:rgb(255,255,255);")
@@ -613,7 +620,7 @@ class Ui_MainWindow(object):
         self.label_10 = QLabel(self.page_about_cloud)
         self.label_10.setObjectName(u"label_10")
         font10 = QFont()
-        font10.setFamily(u"Segoe UI")
+        font10.setFamilies([u"Segoe UI"])
         font10.setPointSize(30)
         self.label_10.setFont(font10)
         self.label_10.setStyleSheet(u"color:rgb(255,255,255);")
@@ -651,7 +658,7 @@ class Ui_MainWindow(object):
         self.label_13 = QLabel(self.page_bug)
         self.label_13.setObjectName(u"label_13")
         font11 = QFont()
-        font11.setFamily(u"Segoe UI")
+        font11.setFamilies([u"Segoe UI"])
         font11.setPointSize(14)
         self.label_13.setFont(font11)
         self.label_13.setAlignment(Qt.AlignCenter)
@@ -665,7 +672,7 @@ class Ui_MainWindow(object):
         self.label_12 = QLabel(self.page_bug)
         self.label_12.setObjectName(u"label_12")
         font12 = QFont()
-        font12.setFamily(u"Segoe UI")
+        font12.setFamilies([u"Segoe UI"])
         font12.setPointSize(26)
         self.label_12.setFont(font12)
         self.label_12.setAlignment(Qt.AlignCenter)
@@ -677,7 +684,7 @@ class Ui_MainWindow(object):
         self.comboBox.setMinimumSize(QSize(0, 40))
         self.comboBox.setMaximumSize(QSize(16777215, 16777215))
         font13 = QFont()
-        font13.setFamily(u"Segoe UI")
+        font13.setFamilies([u"Segoe UI"])
         font13.setPointSize(20)
         self.comboBox.setFont(font13)
 
@@ -1267,7 +1274,7 @@ class Ui_MainWindow(object):
         self.radioButton = QRadioButton(self.groupBox_clean)
         self.radioButton.setObjectName(u"radioButton")
         font14 = QFont()
-        font14.setFamily(u"Segoe UI")
+        font14.setFamilies([u"Segoe UI"])
         font14.setPointSize(9)
         self.radioButton.setFont(font14)
         self.radioButton.setStyleSheet(u"QRadioButton {\n"
@@ -1608,7 +1615,7 @@ class Ui_MainWindow(object):
         self.label_11.setObjectName(u"label_11")
         self.label_11.setMaximumSize(QSize(16777215, 50))
         font15 = QFont()
-        font15.setFamily(u"Segoe UI")
+        font15.setFamilies([u"Segoe UI"])
         font15.setPointSize(28)
         self.label_11.setFont(font15)
         self.label_11.setAlignment(Qt.AlignCenter)
@@ -1702,7 +1709,7 @@ class Ui_MainWindow(object):
         self.frame_tab = QFrame(self.frame_low)
         self.frame_tab.setObjectName(u"frame_tab")
         font16 = QFont()
-        font16.setFamily(u"Segoe UI")
+        font16.setFamilies([u"Segoe UI"])
         self.frame_tab.setFont(font16)
         self.frame_tab.setStyleSheet(u"background:rgb(51,51,51);")
         self.frame_tab.setFrameShape(QFrame.NoFrame)
@@ -1715,7 +1722,7 @@ class Ui_MainWindow(object):
         self.lab_tab.setObjectName(u"lab_tab")
         self.lab_tab.setEnabled(True)
         font17 = QFont()
-        font17.setFamily(u"Segoe UI Light")
+        font17.setFamilies([u"Segoe UI Light"])
         font17.setPointSize(12)
         self.lab_tab.setFont(font17)
         self.lab_tab.setStyleSheet(u"color:rgb(255,255,255);")

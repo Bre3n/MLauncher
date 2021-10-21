@@ -9,6 +9,7 @@ import ctypes
 import enlighten
 import threading
 import requests
+from multiprocessing import Process
 from pypresence import Presence
 import minecraft_launcher_lib
 from minecraft_launcher_lib.forge import (
@@ -375,6 +376,7 @@ def play(self):
     }
 
     if path.exists(f"{sciezkains}/{versionPath}") == False:
+        self.ui.bn_play.setText(f"Downloading")
         os.mkdir(f"{sciezkains}/{versionPath}")
         """with zipfile.ZipFile(f"{sciezkains}/.minecraft.zip", "r") as zipObj:
             zipObj.extractall(f"{sciezkains}/{versionPath}/.minecraft")"""
@@ -383,10 +385,33 @@ def play(self):
         )
         play(self)
     else:
+        self.ui.bn_play.setText(f"Playing")
+        setCurrentDiscordRpc(f"Minecraft {version}", f"Playing as {username}")
+        threading.Thread(target=lambda: playingcheck(self)).start()
         minecraft_command = minecraft_launcher_lib.command.get_minecraft_command(
             version, versionPathh, options
         )
-        subprocess.call(minecraft_command)
+        p = Process(target=runmc, args=(minecraft_command,))
+        p.start()
+
+
+def runmc(minecraft_command):
+    subprocess.call(minecraft_command)
+
+
+def playingcheck(self):
+    global iterablebool
+    time.sleep(20)
+    while iterablebool > 0:
+        config = configparser.ConfigParser()
+        config.read(f"{sciezkaver}/config.ini")
+        username = config.get("PROFILE", "username")
+        buforplay = "javaw.exe" in (i.name() for i in psutil.process_iter())
+        if buforplay == False:
+            if self.ui.bn_play.text() != "Downloading":
+                self.ui.bn_play.setText("Play")
+            setCurrentDiscordRpc("Home Page", f"Playing as {username}")
+        time.sleep(20)
 
 
 def downloadstuff(self):

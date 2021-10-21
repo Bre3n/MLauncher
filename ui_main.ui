@@ -980,7 +980,7 @@ QPushButton:hover {
                 <string notr="true"/>
                </property>
                <property name="currentIndex">
-                <number>6</number>
+                <number>0</number>
                </property>
                <widget class="QWidget" name="page_home">
                 <property name="styleSheet">
@@ -1110,7 +1110,7 @@ QPushButton:hover {
                       <property name="font">
                        <font>
                         <family>Segoe UI</family>
-                        <pointsize>72</pointsize>
+                        <pointsize>60</pointsize>
                        </font>
                       </property>
                       <property name="toolTip">
