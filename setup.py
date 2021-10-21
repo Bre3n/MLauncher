@@ -231,6 +231,6 @@ if __name__ == "__main__":
         shell = win32com.client.Dispatch("WScript.Shell")
         shortcut = shell.CreateShortCut(path)
         shortcut.Targetpath = target
-        # shortcut.IconLocation = icon
+        shortcut.IconLocation = icon
         shortcut.save()
         subprocess.call(["python", f"{sciezkaver}/main.py"])
