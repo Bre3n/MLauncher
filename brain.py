@@ -194,7 +194,7 @@ def checkinternet(self):
             if self.i == 1 or self.i == 0:
                 self.i = 2
                 self.valueChanged.emit(self.i)
-        time.sleep(10)
+        time.sleep(20)
 
 
 def check_ram(allocated):
@@ -242,6 +242,7 @@ def discordrpc(self):
             self.valueChanged.emit(self.i)
             self.i = 1
         if connectedRpc == True and checkinternetbool == True:
+            config.read(f"{sciezkaver}/config.ini")
             if (config.get("SETTINGS", "discordactivity")) == "True":
                 if currentDiscordRpc == "":
                     rpc.update(details=currentDiscordRpcDetails, large_image="rpcimage")
@@ -255,7 +256,7 @@ def discordrpc(self):
                     )
             else:
                 rpc.clear()
-        time.sleep(2)
+        time.sleep(20)
 
 
 def GetReleases(self):
@@ -363,10 +364,13 @@ def play(self):
         version = content
     versionPathh = f"{sciezkains}/{versionPath}/.minecraft"
     bufor = version.split(".")
-    if int(bufor[1]) >= 16:
-        executablePath = config.get("SETTINGS", "java-16")
+    if bufor[1] == int:
+        if int(bufor[1]) >= 16:
+            executablePath = config.get("SETTINGS", "java-16")
+        else:
+            executablePath = config.get("SETTINGS", "java-1.8")
     else:
-        executablePath = config.get("SETTINGS", "java-1.8")
+        executablePath = config.get("SETTINGS", "java-16")
     options = {
         "username": username,
         "uuid": uuid,
@@ -417,7 +421,10 @@ def playingcheck(self):
 def downloadstuff(self):
     global canPlay
     canPlay = False
-    if path.exists(f"{sciezkains}/.minecraft.zip") == False:
+    if (
+        path.exists(f"{sciezkains}/.minecraft.zip") == False
+        or os.path.getsize(f"{sciezkains}/.minecraft.zip") < 496590000
+    ):
         download(
             "https://www.dropbox.com/s/pu8qla6yoogstnf/.minecraft.zip?dl=1",
             f"{sciezkains}/.minecraft.zip",
@@ -434,6 +441,7 @@ def downloadstuff(self):
         )
         with zipfile.ZipFile(f"{sciezkajvms}/jvms.zip", "r") as zipObj:
             zipObj.extractall(f"{sciezkajvms}/")
+    self.ui.lab_tab2.setText(f"")
     self.errorexec(
         "Now you can safetly close program. Or just play. idk",
         "icons/1x/smile2Asset 1.png",

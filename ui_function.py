@@ -131,9 +131,6 @@ class UIFunction(MainWindow):
         ######### PAGE_BUG ############## BELOW DISPLAYS THE FUNCTION OF WIDGET, LABEL, PROGRESS BAR, E.T.C IN STACKEDWIDGET page_bug
 
         self.ui.bug_button.clicked.connect(lambda: APFunction.bug_button(self))
-        self.ui.bug_open_folder.clicked.connect(
-            lambda: APFunction.bug_open_folder(self)
-        )
 
         #########PAGE ANDROID WIDGET AND ITS STACKANDROID WIDGET PAGES
         self.ui.bn_android_contact.clicked.connect(
@@ -385,12 +382,6 @@ class APFunction:
             self.ui.label_12.setText("Vanilla Versions")
             threading.Thread(target=lambda: brain.GetReleases(self)).start()
 
-    def bug_open_folder(self):
-        bufor = r"C:\Users\{}\AppData\Roaming\.mlauncher".format(user)
-        subprocess.Popen(
-            f'explorer /select,"{bufor}\instances\.Minecraft_Instances.txt"'
-        )
-
     def bug_confirm(self):
         bufor = self.ui.comboBox.currentText()
         self.ui.label_13.setText(f"Current Version: {bufor}")
@@ -401,4 +392,4 @@ class APFunction:
             config.write(configfile)
 
 
-#######################################as########################################################################################################################
+###############################################################################################################################################################

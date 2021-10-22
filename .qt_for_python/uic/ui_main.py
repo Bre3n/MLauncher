@@ -669,6 +669,22 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_19.addItem(self.verticalSpacer_2)
 
+        self.bug_button = QPushButton(self.page_bug)
+        self.bug_button.setObjectName(u"bug_button")
+        self.bug_button.setFont(font6)
+        self.bug_button.setStyleSheet(u"QPushButton {\n"
+"	border: none;\n"
+"	background-color:rgb(100,170,0)\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"	background-color: rgb(120,200,0);\n"
+"}\n"
+"")
+        self.bug_button.setFlat(True)
+
+        self.verticalLayout_19.addWidget(self.bug_button)
+
         self.label_12 = QLabel(self.page_bug)
         self.label_12.setObjectName(u"label_12")
         font12 = QFont()
@@ -706,44 +722,24 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_19.addWidget(self.bug_confirm)
 
-        self.verticalSpacer_6 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.verticalLayout_19.addItem(self.verticalSpacer_6)
-
-        self.bug_button = QPushButton(self.page_bug)
-        self.bug_button.setObjectName(u"bug_button")
-        self.bug_button.setFont(font6)
-        self.bug_button.setStyleSheet(u"QPushButton {\n"
-"	border: none;\n"
-"	background-color:rgb(100,170,0)\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"	background-color: rgb(120,200,0);\n"
-"}\n"
-"")
-        self.bug_button.setFlat(True)
-
-        self.verticalLayout_19.addWidget(self.bug_button)
-
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.verticalLayout_19.addItem(self.verticalSpacer)
 
-        self.bug_open_folder = QPushButton(self.page_bug)
-        self.bug_open_folder.setObjectName(u"bug_open_folder")
-        self.bug_open_folder.setFont(font)
-        self.bug_open_folder.setStyleSheet(u"QPushButton {\n"
+        self.bn_instancesettings = QPushButton(self.page_bug)
+        self.bn_instancesettings.setObjectName(u"bn_instancesettings")
+        self.bn_instancesettings.setFont(font13)
+        self.bn_instancesettings.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
-"	background-color: rgb(170,120,35);\n"
+"	background-color: rgb(0,160,170);\n"
 "}\n"
 "QPushButton:hover {\n"
-"	background-color: rgb(191,150,80);\n"
+"	background-color: rgb(0,180,200);\n"
 "}\n"
 "")
-        self.bug_open_folder.setFlat(True)
+        self.bn_instancesettings.setFlat(True)
 
-        self.verticalLayout_19.addWidget(self.bug_open_folder)
+        self.verticalLayout_19.addWidget(self.bn_instancesettings)
 
 
         self.horizontalLayout_3.addLayout(self.verticalLayout_19)
@@ -1777,7 +1773,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(6)
         self.stackedWidget_android.setCurrentIndex(3)
 
 
@@ -1822,10 +1818,10 @@ class Ui_MainWindow(object):
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Empty", None))
         self.label_14.setText(QCoreApplication.translate("MainWindow", u"Game Versions", None))
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"Current Version:", None))
+        self.bug_button.setText(QCoreApplication.translate("MainWindow", u" Change type", None))
         self.label_12.setText(QCoreApplication.translate("MainWindow", u"Vanilla Versions", None))
         self.bug_confirm.setText(QCoreApplication.translate("MainWindow", u"Confirm", None))
-        self.bug_button.setText(QCoreApplication.translate("MainWindow", u" Change type", None))
-        self.bug_open_folder.setText(QCoreApplication.translate("MainWindow", u"Open Minecraft Versions folder", None))
+        self.bn_instancesettings.setText(QCoreApplication.translate("MainWindow", u"Instance settings", None))
 #if QT_CONFIG(tooltip)
         self.bn_android_contact.setToolTip("")
 #endif // QT_CONFIG(tooltip)
@@ -1879,6 +1875,9 @@ class Ui_MainWindow(object):
         self.frame_drag.setToolTip(QCoreApplication.translate("MainWindow", u"Drag", None))
 #endif // QT_CONFIG(tooltip)
         self.lab_tab2.setText("")
+#if QT_CONFIG(statustip)
+        self.bn_error.setStatusTip("")
+#endif // QT_CONFIG(statustip)
         self.bn_error.setText("")
     # retranslateUi
 

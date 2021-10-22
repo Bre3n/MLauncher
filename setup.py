@@ -230,9 +230,15 @@ if __name__ == "__main__":
             f = open(f"{sciezka}/cache/setup.txt", "r")
             bufor = f.read()
             bufor = bufor.replace("\\", "/")
-            os.remove(bufor)
+            try:
+                os.remove(bufor)
+            except Exception:
+                pass
             f.close()
-            os.remove(f"{sciezka}/cache/setup.txt")
+            try:
+                os.remove(f"{sciezka}/cache/setup.txt")
+            except Exception:
+                pass
         if (
             cwd != f"C:\\Users\{user}\\AppData\\Roaming\\.mlauncher\\bin"
             and cwd != f"C:\\Users\\{user}\\Desktop\\Projekty\\LauncherUi"
