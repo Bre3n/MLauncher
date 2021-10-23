@@ -79,6 +79,11 @@ if __name__ == "__main__":
     import math
     from os import path
     import win32com.client
+    import tkinter as tk
+    from tkinter import messagebox
+
+    root = tk.Tk()
+    root.withdraw()
 
     try:
         import configparser
@@ -249,13 +254,17 @@ if __name__ == "__main__":
             f.write(f"{cwd}\setup.py")
             f.close()
         if path.exists(f"{desktop}/MLauncher.lnk") == False:
-            path = os.path.join(desktop, "MLauncher.lnk")
-            target = f"{sciezkaver}\\setup.py"
-            icon = f"{sciezkaver}/icons/1x/icon.ico"
-            shell = win32com.client.Dispatch("WScript.Shell")
-            shortcut = shell.CreateShortCut(path)
-            shortcut.Targetpath = target
-            shortcut.IconLocation = icon
-            shortcut.save()
+            if path.exists(f"{sciezka}/cache/shortcut.txt") == False:
+                path = os.path.join(desktop, "MLauncher.lnk")
+                target = f"{sciezkaver}\\setup.py"
+                icon = f"{sciezkaver}/icons/1x/icon.ico"
+                shell = win32com.client.Dispatch("WScript.Shell")
+                shortcut = shell.CreateShortCut(path)
+                shortcut.Targetpath = target
+                shortcut.IconLocation = icon
+                shortcut.save()
+                f = open(f"{sciezka}/cache/shortcut.txt", "w")
+                f.write("Shortcut created")
+                f.close()
         os.chdir(f"{sciezkaver}/")
         subprocess.call(["python", f"{sciezkaver}/main.py"])

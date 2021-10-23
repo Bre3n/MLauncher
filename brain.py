@@ -26,6 +26,9 @@ from minecraft_launcher_lib.fabric import (
 from os import path
 import zipfile
 import subprocess
+import winshell
+import pythoncom
+import win32com.client
 
 user = os.getlogin()
 sciezka = f"C:/Users/{user}/AppData/Roaming/.mlauncher"
@@ -57,6 +60,19 @@ def download(url, pathh, self):
             self.ui.lab_tab2.setText(f"Downloading {i}/{math.ceil(dlen/2**20)}")
             print(chunk[-16:].hex().upper())
             f.write(chunk)
+
+
+def createshortcut():
+    desktop = winshell.desktop()
+    if os.path.exists(f"{desktop}/MLauncher.lnk") == False:
+        path = os.path.join(desktop, "MLauncher.lnk")
+        target = f"{sciezkaver}\\setup.py"
+        icon = f"{sciezkaver}/icons/1x/icon.ico"
+        shell = win32com.client.Dispatch("WScript.Shell")
+        shortcut = shell.CreateShortCut(path)
+        shortcut.Targetpath = target
+        shortcut.IconLocation = icon
+        shortcut.save()
 
 
 def createFiles():
@@ -315,6 +331,12 @@ def serverVersions(self):
     versions = configparser.ConfigParser()
     versions.read(f"{sciezkaver}/versions.ini")
     bufor = versions.sections()
+    self.ui.comboBox.addItems(bufor)
+
+
+def ForgeReleases(self):
+    self.ui.comboBox.clear()
+    bufor = minecraft_launcher_lib.forge.list_forge_versions()
     self.ui.comboBox.addItems(bufor)
 
 

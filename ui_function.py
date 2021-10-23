@@ -131,6 +131,8 @@ class UIFunction(MainWindow):
         ######### PAGE_BUG ############## BELOW DISPLAYS THE FUNCTION OF WIDGET, LABEL, PROGRESS BAR, E.T.C IN STACKEDWIDGET page_bug
 
         self.ui.bug_button.clicked.connect(lambda: APFunction.bug_button(self))
+        self.ui.bug_button2.clicked.connect(lambda: APFunction.bug_button2(self))
+        self.ui.bug_button3.clicked.connect(lambda: APFunction.bug_button3(self))
 
         #########PAGE ANDROID WIDGET AND ITS STACKANDROID WIDGET PAGES
         self.ui.bn_android_contact.clicked.connect(
@@ -162,6 +164,8 @@ class UIFunction(MainWindow):
         self.ui.bn_android_contact_save.clicked.connect(
             lambda: APFunction.saveContact(self)
         )
+
+        self.ui.bn_shortcut.clicked.connect(lambda: brain.createshortcut())
 
         #######ANDROID > PAGE GAMEPAD >>>>>>>>>>>>>>>>>>>
         self.ui.textEdit_gamepad.setVerticalScrollBar(
@@ -225,7 +229,6 @@ class UIFunction(MainWindow):
 # REMEMBER THE SOFTWARE UI HAS A FUNCTION WHOSE CODE SHOULD BE HERE
 class APFunction:
     # -----> ADDING NUMBER TO ILLUSTRATE THE CAPABILITY OF THE PROGRESS BAR WHEN THE 'START' BUTTON IS PRESSED
-
     ###########################
 
     # -----> FUNCTION IN ACCOUNT OF CONTACT PAGE IN ANDROID MENU
@@ -374,13 +377,16 @@ class APFunction:
         webbrowser.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
 
     def bug_button(self):
-        bufor = self.ui.label_12.text()
-        if bufor == "Vanilla Versions":
-            self.ui.label_12.setText("Server Versions")
-            threading.Thread(target=lambda: brain.serverVersions(self)).start()
-        else:
-            self.ui.label_12.setText("Vanilla Versions")
-            threading.Thread(target=lambda: brain.GetReleases(self)).start()
+        self.ui.label_12.setText("Vanilla Versions")
+        threading.Thread(target=lambda: brain.GetReleases(self)).start()
+
+    def bug_button2(self):
+        self.ui.label_12.setText("Forge Versions")
+        threading.Thread(target=lambda: brain.ForgeReleases(self)).start()
+
+    def bug_button3(self):
+        self.ui.label_12.setText("Server Versions")
+        threading.Thread(target=lambda: brain.serverVersions(self)).start()
 
     def bug_confirm(self):
         bufor = self.ui.comboBox.currentText()
