@@ -44,6 +44,8 @@ rpc = 0
 Lista = ""
 iterablebool = 5
 canPlay = True
+ForgeVersions = ""
+ServerVersions = ""
 
 
 def download(url, pathh, self):
@@ -88,16 +90,27 @@ def createFiles():
 
     # * CONFIG
     config.read(f"{sciezkaver}/config.ini")
+
+    # * JVMS
     if config.has_section("JVMS") == False:
         config.add_section("JVMS")
+    if config.has_option("JVMS", "java-1.8") == False:
+        config["JVMS"]["java-1.8"] = f"{sciezkajvms}/jre1.8.0_281/bin/javaw.exe"
+    if config.has_option("JVMS", "java-16") == False:
+        config["JVMS"]["java-16"] = f"{sciezkajvms}/jdk-16.0.2/bin/javaw.exe"
+    if config.has_option("JVMS", "specialarg-1.8") == False:
+        config["JVMS"][
+            "specialarg-1.8"
+        ] = "Dsun.rmi.dgc.server.gcInterval=2147483646 -XX:+UnlockExperimentalVMOptions -XX:G1NewSizePercent=20 -XX:G1ReservePercent=20 -XX:MaxGCPauseMillis=50 -XX:G1HeapRegionSize=32M"
+    if config.has_option("JVMS", "specialarg-16") == False:
+        config["JVMS"]["specialarg-16"] = "False"
+
+    # * SETTINGS
     if config.has_section("SETTINGS") == False:
         config.add_section("SETTINGS")
     if config.has_section("PROFILE") == False:
         config.add_section("PROFILE")
-    if config.has_option("SETTINGS", "java-1.8") == False:
-        config["SETTINGS"]["java-1.8"] = f"{sciezkajvms}/jre1.8.0_281/bin/javaw.exe"
-    if config.has_option("SETTINGS", "java-16") == False:
-        config["SETTINGS"]["java-16"] = f"{sciezkajvms}/jdk-16.0.2/bin/javaw.exe"
+
     if config.has_option("SETTINGS", "allocatedram") == False:
         config["SETTINGS"]["allocatedram"] = "2048M"
     if config.has_option("SETTINGS", "specialarg") == False:
@@ -106,6 +119,8 @@ def createFiles():
         config["SETTINGS"]["discordactivity"] = "True"
     if config.has_option("SETTINGS", "snapshots") == False:
         config["SETTINGS"]["snapshots"] = "False"
+
+    # * PROFILE
     if config.has_option("PROFILE", "uuid") == False:
         data = requests.get("https://www.uuidtools.com/api/generate/v4/count/1").json()
         config["PROFILE"]["uuid"] = data[0]
@@ -113,6 +128,10 @@ def createFiles():
         config["PROFILE"]["username"] = "Steve"
     if config.has_option("PROFILE", "version") == False:
         config["PROFILE"]["version"] = "1.17.1"
+    if config.has_option("PROFILE", "gameVersion") == False:
+        config["PROFILE"]["gameVersion"] = "Vanilla"
+
+    # * CHECK RAM UNIT
     ALLOCATEDRAM = config.get("SETTINGS", "AllocatedRam")
     if ALLOCATEDRAM[-1] == "G":
         ALLOCATEDRAM = str(int(ALLOCATEDRAM.replace("G", "")) * 1024) + "M"
@@ -318,33 +337,71 @@ def GetReleases(self):
             if key["type"] == "snapshot":
                 bufor = key["id"]
                 if bufor in buforlist:
-                    Releases.append(f"snapchot {bufor} <-- local installed")
+                    Releases.append(f"snapshot {bufor} <-- local installed")
                 else:
                     Releases.append(f"snapshot {bufor}")
     for i in range(int(len(Releases))):
         McVers.append(Releases[i])
+    global ServerVersions
+    global ForgeVersions
+    if ServerVersions == "":
+        versions = configparser.ConfigParser()
+        versions.read(f"{sciezkaver}/versions.ini")
+        ServerVersions = versions.sections()
+    if ForgeVersions == "":
+        ForgeVersions = minecraft_launcher_lib.forge.list_forge_versions()
     self.ui.comboBox.addItems(McVers)
 
 
 def serverVersions(self):
+    global ServerVersions
     self.ui.comboBox.clear()
-    versions = configparser.ConfigParser()
-    versions.read(f"{sciezkaver}/versions.ini")
-    bufor = versions.sections()
-    self.ui.comboBox.addItems(bufor)
+    if ServerVersions == "":
+        versions = configparser.ConfigParser()
+        versions.read(f"{sciezkaver}/versions.ini")
+        ServerVersions = versions.sections()
+    self.ui.comboBox.addItems(ServerVersions)
 
 
 def ForgeReleases(self):
+    global ForgeVersions
     self.ui.comboBox.clear()
-    bufor = minecraft_launcher_lib.forge.list_forge_versions()
-    self.ui.comboBox.addItems(bufor)
+    if ForgeVersions == "":
+        ForgeVersions = minecraft_launcher_lib.forge.list_forge_versions()
+    self.ui.comboBox.addItems(ForgeVersions)
 
 
 def playthread(self):
-    threading.Thread(target=lambda: play(self)).start()
+    config = configparser.ConfigParser()
+    config.read(f"{sciezkaver}/config.ini")
+    bufor = config["PROFILE"]["gameversion"]
+    if bufor == "Vanilla":
+        threading.Thread(target=lambda: playVanilla(self)).start()
+    # TODO: ADD FORGE AND SERVER
+    if bufor == "Forge":
+        pass
+    if bufor == "Server":
+        pass
 
 
-def play(self):
+def downloadingCount(self):
+    i = 0
+    time.sleep(1)
+    while True:
+        if self.ui.bn_play.text() == "Downloading":
+            i += 1
+            buff = "." * i
+            self.ui.lab_tab2.setText(f"Downloading {buff}")
+            if i == 3:
+                i = 0
+        else:
+            break
+        time.sleep(2)
+    self.ui.lab_tab2.setText(f"")
+
+#* TODO: ADD OPTIONAL INSTANCE BUTTON AND SUPPORT
+
+def playVanilla(self):
     global canPlay
     if canPlay == False:
         self.errorexec(
@@ -360,7 +417,8 @@ def play(self):
     uuid = token.replace("-", "")
     allocatedram = config.get("SETTINGS", "allocatedram")
     specialarg = config.get("SETTINGS", "specialarg")
-    jvmArguments = f"-Xmx{allocatedram}"
+    jvmArguments = []
+    jvmArguments.append(f"-Xmx{allocatedram}")
 
     callback = {
         "setStatus": lambda text: print(text),
@@ -368,8 +426,6 @@ def play(self):
     content = config.get("PROFILE", "version")
     type = self.ui.label_12.text()
     local = False
-    """if "local" in content:
-        local = True"""
     if type == "Vanilla Versions":
         content = (
             content.replace("release", "")
@@ -386,30 +442,49 @@ def play(self):
         version = content
     versionPathh = f"{sciezkains}/{versionPath}/.minecraft"
     bufor = version.split(".")
-    if bufor[1] == int:
+    if bufor[1] != int:
         if int(bufor[1]) >= 16:
-            executablePath = config.get("SETTINGS", "java-16")
+            executablePath = config.get("JVMS", "java-16")
         else:
-            executablePath = config.get("SETTINGS", "java-1.8")
+            executablePath = config.get("JVMS", "java-1.8")
     else:
-        executablePath = config.get("SETTINGS", "java-16")
+        executablePath = config.get("JVMS", "java-16")
+
+    if specialarg == "True":
+        if bufor[1] != int:
+            if int(bufor[1]) >= 16:
+                buf = config.get("JVMS", "specialarg-16")
+                buf = buf.split(" ")
+                for i in range(len(buf)):
+                    jvmArguments.append(buf[i])
+            else:
+                buf = config.get("JVMS", "specialarg-1.8")
+                buf = buf.split(" ")
+                for i in range(len(buf)):
+                    jvmArguments.append(buf[i])
+        else:
+            buf = config.get("JVMS", "specialarg-16")
+            buf = buf.split(" ")
+            for i in range(len(buf)):
+                jvmArguments.append(buf[i])
     options = {
         "username": username,
         "uuid": uuid,
         "token": token,
-        "jvmArguments": [jvmArguments],
+        "jvmArguments": jvmArguments,
         "executablePath": executablePath,
     }
 
     if path.exists(f"{sciezkains}/{versionPath}") == False:
         self.ui.bn_play.setText(f"Downloading")
+        threading.Thread(target=lambda: downloadingCount(self)).start()
         os.mkdir(f"{sciezkains}/{versionPath}")
-        """with zipfile.ZipFile(f"{sciezkains}/.minecraft.zip", "r") as zipObj:
-            zipObj.extractall(f"{sciezkains}/{versionPath}/.minecraft")"""
+        with zipfile.ZipFile(f"{sciezkains}/.minecraft.zip", "r") as zipObj:
+            zipObj.extractall(f"{sciezkains}/{versionPath}/.minecraft")
         minecraft_launcher_lib.install.install_minecraft_version(
             version, versionPathh, callback=callback
         )
-        play(self)
+        playVanilla(self)
     else:
         self.ui.bn_play.setText(f"Playing")
         setCurrentDiscordRpc(f"Minecraft {version}", f"Playing as {username}")
@@ -429,15 +504,15 @@ def playingcheck(self):
     global iterablebool
     time.sleep(20)
     while iterablebool > 0:
-        config = configparser.ConfigParser()
-        config.read(f"{sciezkaver}/config.ini")
-        username = config.get("PROFILE", "username")
         buforplay = "javaw.exe" in (i.name() for i in psutil.process_iter())
         if buforplay == False:
             if self.ui.bn_play.text() != "Downloading":
                 self.ui.bn_play.setText("Play")
+            config = configparser.ConfigParser()
+            config.read(f"{sciezkaver}/config.ini")
+            username = config.get("PROFILE", "username")
             setCurrentDiscordRpc("Home Page", f"Playing as {username}")
-        time.sleep(20)
+        time.sleep(10)
 
 
 def downloadstuff(self):
