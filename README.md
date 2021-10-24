@@ -1,4 +1,4 @@
-ni ma readme
+MLauncher od Mods/Minecraft/Multiplayer a nie od Mateusz idioci
 
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Bre3n/MLauncher/blob/master/setup.py)
