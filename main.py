@@ -266,6 +266,9 @@ class MainWindow(QMainWindow):
             lambda: UIFunction.buttonPressed(self, "bn_error")
         )
         self.ui.bn_play.clicked.connect(lambda: brain.playthread(self))
+        self.ui.bn_instancesettings.clicked.connect(
+            lambda: UIFunction.buttonPressed(self, "bn_instancesettings")
+        )
         #############################################################
 
         # -----> STACK PAGE FUNCTION

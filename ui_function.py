@@ -115,6 +115,10 @@ class UIFunction(MainWindow):
             self.ui.stackedWidget.setCurrentWidget(self.ui.page_error)
             self.ui.lab_tab.setText("Error Page")
 
+        elif buttonName == "bn_instancesettings":
+            self.ui.stackedWidget.setCurrentWidget(self.ui.page_about_bug)
+            self.ui.lab_tab.setText("Instance Settings")
+
         # ADD ANOTHER ELIF STATEMENT HERE FOR EXECTUITING A NEW MENU BUTTON STACK PAGE.
 
     ########################################################################################################################

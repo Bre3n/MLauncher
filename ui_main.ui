@@ -1667,11 +1667,37 @@ QPushButton:hover {
                    </layout>
                   </item>
                   <item>
+                   <widget class="QPushButton" name="bug_repair">
+                    <property name="font">
+                     <font>
+                      <family>Segoe UI</family>
+                      <pointsize>15</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QPushButton {
+	border: none;
+	background-color: rgb(50,150,50);
+}
+QPushButton:hover {
+	background-color: rgb(100,180,100);
+}
+</string>
+                    </property>
+                    <property name="text">
+                     <string>Repair instance</string>
+                    </property>
+                    <property name="flat">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
                    <widget class="QPushButton" name="bug_openfolder">
                     <property name="font">
                      <font>
                       <family>Segoe UI</family>
-                      <pointsize>20</pointsize>
+                      <pointsize>15</pointsize>
                      </font>
                     </property>
                     <property name="styleSheet">
