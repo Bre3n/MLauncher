@@ -325,7 +325,7 @@ class APFunction:
 
         with open(f"{sciezkaver}/config.ini", "w") as configfile:
             config.write(configfile)
-            
+
         threading.Thread(target=lambda: brain.GetReleases(self)).start()
 
     def deleteContact(self):
@@ -378,29 +378,14 @@ class APFunction:
         webbrowser.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
 
     def bug_button(self):
-        config = configparser.ConfigParser()
-        config.read(f"{sciezkaver}/config.ini")
-        config["PROFILE"]["gameversion"] = "Vanilla"
-        with open(f"{sciezkaver}/config.ini", "w") as configfile:
-            config.write(configfile)
         self.ui.label_12.setText("Vanilla Versions")
         threading.Thread(target=lambda: brain.GetReleases(self)).start()
 
     def bug_button2(self):
-        config = configparser.ConfigParser()
-        config.read(f"{sciezkaver}/config.ini")
-        config["PROFILE"]["gameversion"] = "Forge"
-        with open(f"{sciezkaver}/config.ini", "w") as configfile:
-            config.write(configfile)
         self.ui.label_12.setText("Forge Versions")
         threading.Thread(target=lambda: brain.ForgeReleases(self)).start()
 
     def bug_button3(self):
-        config = configparser.ConfigParser()
-        config.read(f"{sciezkaver}/config.ini")
-        config["PROFILE"]["gameversion"] = "Server"
-        with open(f"{sciezkaver}/config.ini", "w") as configfile:
-            config.write(configfile)
         self.ui.label_12.setText("Server Versions")
         threading.Thread(target=lambda: brain.serverVersions(self)).start()
 
@@ -409,6 +394,7 @@ class APFunction:
         self.ui.label_13.setText(f"Current Version: {bufor}")
         config = configparser.ConfigParser()
         config.read(f"{sciezkaver}/config.ini")
+        config["PROFILE"]["gameversion"] = self.ui.label_12.text()
         config["PROFILE"]["version"] = bufor
         with open(f"{sciezkaver}/config.ini", "w") as configfile:
             config.write(configfile)

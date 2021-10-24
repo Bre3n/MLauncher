@@ -1,5 +1,4 @@
 import configparser
-import multiprocessing
 import os
 import time
 import json
@@ -87,6 +86,10 @@ def createFiles():
         os.mkdir(f"{sciezka}/cache")
     if path.exists(f"{sciezka}/jvms") == False:
         os.mkdir(f"{sciezka}/jvms")
+    if path.exists(f"{sciezka}/minecraft-folders") == False:
+        os.mkdir(f"{sciezka}/minecraft-folders")
+    if path.exists(f"{sciezka}/minecraft-folders/saves") == False:
+        os.mkdir(f"{sciezka}/minecraft-folders/saves")
 
     # * CONFIG
     config.read(f"{sciezkaver}/config.ini")
@@ -353,6 +356,16 @@ def GetReleases(self):
     self.ui.comboBox.addItems(McVers)
 
 
+def clearList(self):
+    global Lista
+    global ServerVersions
+    global ForgeVersions
+    Lista = ""
+    ServerVersions = ""
+    ForgeVersions = ""
+    GetReleases(self)
+
+
 def serverVersions(self):
     global ServerVersions
     self.ui.comboBox.clear()
@@ -375,12 +388,12 @@ def playthread(self):
     config = configparser.ConfigParser()
     config.read(f"{sciezkaver}/config.ini")
     bufor = config["PROFILE"]["gameversion"]
-    if bufor == "Vanilla":
+    if bufor == "Vanilla Versions":
         threading.Thread(target=lambda: playVanilla(self)).start()
     # TODO: ADD FORGE AND SERVER
-    if bufor == "Forge":
+    if bufor == "Forge Versions":
         pass
-    if bufor == "Server":
+    if bufor == "Server Versions":
         pass
 
 
@@ -399,7 +412,9 @@ def downloadingCount(self):
         time.sleep(2)
     self.ui.lab_tab2.setText(f"")
 
-#* TODO: ADD OPTIONAL INSTANCE BUTTON AND SUPPORT
+
+# * TODO: ADD OPTIONAL INSTANCE BUTTON AND SUPPORT
+
 
 def playVanilla(self):
     global canPlay
@@ -478,9 +493,45 @@ def playVanilla(self):
     if path.exists(f"{sciezkains}/{versionPath}") == False:
         self.ui.bn_play.setText(f"Downloading")
         threading.Thread(target=lambda: downloadingCount(self)).start()
-        os.mkdir(f"{sciezkains}/{versionPath}")
-        with zipfile.ZipFile(f"{sciezkains}/.minecraft.zip", "r") as zipObj:
-            zipObj.extractall(f"{sciezkains}/{versionPath}/.minecraft")
+        os.mkdir(f"{sciezkains}/{versionPath}/")
+        os.mkdir(f"{sciezkains}/{versionPath}/.minecraft")
+        if path.exists(f"{sciezkains}/shared") == False:
+            os.mkdir(f"{sciezkains}/shared")
+            os.mkdir(f"{sciezkains}/shared/.minecraft")
+            with zipfile.ZipFile(f"{sciezkains}/.minecraft.zip", "r") as zipObj:
+                zipObj.extractall(f"{sciezkains}/shared/.minecraft")
+        subprocess.check_call(
+            'mklink /J "%s" "%s"'
+            % (
+                f"{sciezkains}/{versionPath}/.minecraft/saves",
+                f"{sciezka}/minecraft-folders/saves",
+            ),
+            shell=True,
+        )
+        subprocess.check_call(
+            'mklink /J "%s" "%s"'
+            % (
+                f"{sciezkains}/{versionPath}/.minecraft/assets",
+                f"{sciezkains}/shared/.minecraft/assets",
+            ),
+            shell=True,
+        )
+        subprocess.check_call(
+            'mklink /J "%s" "%s"'
+            % (
+                f"{sciezkains}/{versionPath}/.minecraft/runtime",
+                f"{sciezkains}/shared/.minecraft/runtime",
+            ),
+            shell=True,
+        )
+        subprocess.check_call(
+            'mklink /J "%s" "%s"'
+            % (
+                f"{sciezkains}/{versionPath}/.minecraft/libraries",
+                f"{sciezkains}/shared/.minecraft/libraries",
+            ),
+            shell=True,
+        )
         minecraft_launcher_lib.install.install_minecraft_version(
             version, versionPathh, callback=callback
         )
@@ -492,8 +543,16 @@ def playVanilla(self):
         minecraft_command = minecraft_launcher_lib.command.get_minecraft_command(
             version, versionPathh, options
         )
-        p = Process(target=runmc, args=(minecraft_command,))
-        p.start()
+        clearList(self)
+        try:
+            p = Process(target=runmc, args=(minecraft_command,))
+            p.start()
+        except Exception:
+            self.errorexec(
+                "Somthing weird ocured with this instance. Please use repair button in instance settings",
+                "icons/1x/smile2Asset 1.png",
+                "Ok",
+            )
 
 
 def runmc(minecraft_command):
