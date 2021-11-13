@@ -78,7 +78,7 @@ if __name__ == "__main__":
     import time
     import math
     from os import path
-    import win32com.client
+
     import tkinter as tk
     from tkinter import messagebox
 
@@ -96,6 +96,7 @@ if __name__ == "__main__":
         import pypresence
         import winshell
         import pythoncom
+        import win32com.client
     except ImportError:
         os.system(f"pip install doctext")
         os.system(f"pip install requests")
