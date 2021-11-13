@@ -58,7 +58,15 @@ def download(url, pathh, self):
     ) as ctr, open(pathh, "wb", buffering=2 ** 24) as f:
         for chunk in r.iter_content(chunk_size=2 ** 20):
             i += 1
-            self.ui.lab_tab2.setText(f"Downloading {i}/{math.ceil(dlen/2**20)}")
+            bufor_download = math.ceil(dlen / 2 ** 20)
+            percentage_one = round(bufor_download / 100)
+            percentage = i // percentage_one
+            visual_percentage = ("█" * (percentage // 10)) + (
+                "  " * (10 - (percentage // 10))
+            )
+            self.ui.lab_tab2.setText(
+                f"Downloading {percentage}% |{visual_percentage}| {i}/{bufor_download}"
+            )
             print(chunk[-16:].hex().upper())
             f.write(chunk)
 

@@ -1,3 +1,6 @@
+filelink = "https://raw.githubusercontent.com/Bre3n/MLauncher/master/files/links.txt"
+
+
 def downloader(url, path, var):
     if var == 1:
         MANAGER = enlighten.get_manager()
@@ -141,7 +144,7 @@ if __name__ == "__main__":
     logger.debug(f"DEBUG: Starting")
 
     downloader(
-        "https://raw.githubusercontent.com/Bre3n/MLauncher/master/files/links.txt",
+        filelink,
         txtFile,
         0,
     )

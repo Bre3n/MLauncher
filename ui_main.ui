@@ -1479,7 +1479,7 @@ QScrollBar::sub-page:vertical {
                      </font>
                     </property>
                     <property name="text">
-                     <string>TextLabel</string>
+                     <string>[Instance name]</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -1499,7 +1499,7 @@ QScrollBar::sub-page:vertical {
                          </font>
                         </property>
                         <property name="text">
-                         <string>TextLabel</string>
+                         <string>[is shared?]</string>
                         </property>
                         <property name="alignment">
                          <set>Qt::AlignCenter</set>
@@ -1515,7 +1515,7 @@ QScrollBar::sub-page:vertical {
                          </font>
                         </property>
                         <property name="text">
-                         <string>TextLabel</string>
+                         <string>[is separete?]</string>
                         </property>
                         <property name="alignment">
                          <set>Qt::AlignCenter</set>
@@ -1531,7 +1531,7 @@ QScrollBar::sub-page:vertical {
                          </font>
                         </property>
                         <property name="text">
-                         <string>TextLabel</string>
+                         <string>[optifine installed?]</string>
                         </property>
                         <property name="alignment">
                          <set>Qt::AlignCenter</set>
