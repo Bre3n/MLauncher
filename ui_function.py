@@ -118,6 +118,7 @@ class UIFunction(MainWindow):
         elif buttonName == "bn_instancesettings":
             self.ui.stackedWidget.setCurrentWidget(self.ui.page_about_bug)
             self.ui.lab_tab.setText("Instance Settings")
+            brain.instancesettings(self)
 
         # ADD ANOTHER ELIF STATEMENT HERE FOR EXECTUITING A NEW MENU BUTTON STACK PAGE.
 

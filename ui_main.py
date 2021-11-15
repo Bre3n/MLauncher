@@ -1187,6 +1187,35 @@ class Ui_MainWindow(object):
         self.line_checkbox_rpc.setObjectName(u"line_checkbox_rpc")
         self.line_checkbox_rpc.setEnabled(False)
         self.line_checkbox_rpc.setFont(font)
+        self.line_checkbox_rpc.setStyleSheet(u"QCheckBox {\n"
+"    color:rgb(255,255,255);\n"
+"}\n"
+"\n"
+"QCheckBox::indicator {\n"
+"    width: 10px;\n"
+"    height: 10px;\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:unchecked {\n"
+"    border:2px solid rgb(51,51,51);\n"
+"	background:rgb(91,90,90);\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:unchecked:pressed {\n"
+"	border:2px solid rgb(51,51,51);\n"
+"   	background:rgb(0,143,170);\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:checked {\n"
+"	background-color:rgb(0,143,170);\n"
+"    border: 2px solid rgb(51,51,51);\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:checked:pressed {\n"
+"    border:2px solid rgb(51,51,51);\n"
+"	background:rgb(91,90,90);\n"
+"}\n"
+"")
 
         self.gridLayout_4.addWidget(self.line_checkbox_rpc, 5, 3, 1, 1)
 
@@ -1194,7 +1223,35 @@ class Ui_MainWindow(object):
         self.line_checkbox_arg.setObjectName(u"line_checkbox_arg")
         self.line_checkbox_arg.setEnabled(False)
         self.line_checkbox_arg.setFont(font)
-        self.line_checkbox_arg.setStyleSheet(u"color:rgb(255,255,255);")
+        self.line_checkbox_arg.setStyleSheet(u"QCheckBox {\n"
+"    color:rgb(255,255,255);\n"
+"}\n"
+"\n"
+"QCheckBox::indicator {\n"
+"    width: 10px;\n"
+"    height: 10px;\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:unchecked {\n"
+"    border:2px solid rgb(51,51,51);\n"
+"	background:rgb(91,90,90);\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:unchecked:pressed {\n"
+"	border:2px solid rgb(51,51,51);\n"
+"   	background:rgb(0,143,170);\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:checked {\n"
+"	background-color:rgb(0,143,170);\n"
+"    border: 2px solid rgb(51,51,51);\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:checked:pressed {\n"
+"    border:2px solid rgb(51,51,51);\n"
+"	background:rgb(91,90,90);\n"
+"}\n"
+"")
         self.line_checkbox_arg.setTristate(False)
 
         self.gridLayout_4.addWidget(self.line_checkbox_arg, 4, 3, 1, 1)
@@ -1338,6 +1395,35 @@ class Ui_MainWindow(object):
         self.line_checkbox_snapshots.setObjectName(u"line_checkbox_snapshots")
         self.line_checkbox_snapshots.setEnabled(False)
         self.line_checkbox_snapshots.setFont(font)
+        self.line_checkbox_snapshots.setStyleSheet(u"QCheckBox {\n"
+"    color:rgb(255,255,255);\n"
+"}\n"
+"\n"
+"QCheckBox::indicator {\n"
+"    width: 10px;\n"
+"    height: 10px;\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:unchecked {\n"
+"    border:2px solid rgb(51,51,51);\n"
+"	background:rgb(91,90,90);\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:unchecked:pressed {\n"
+"	border:2px solid rgb(51,51,51);\n"
+"   	background:rgb(0,143,170);\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:checked {\n"
+"	background-color:rgb(0,143,170);\n"
+"    border: 2px solid rgb(51,51,51);\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:checked:pressed {\n"
+"    border:2px solid rgb(51,51,51);\n"
+"	background:rgb(91,90,90);\n"
+"}\n"
+"")
 
         self.gridLayout_4.addWidget(self.line_checkbox_snapshots, 6, 3, 1, 1)
 
@@ -1991,7 +2077,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(5)
+        self.stackedWidget.setCurrentIndex(8)
         self.stackedWidget_android.setCurrentIndex(0)
 
 
@@ -2035,10 +2121,10 @@ class Ui_MainWindow(object):
         self.lab_about_home.setText(QCoreApplication.translate("MainWindow", u"About: Home", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Empty", None))
         self.label_15.setText(QCoreApplication.translate("MainWindow", u"Instance settings", None))
-        self.label_16.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.label_19.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.label_18.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.label_17.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.label_16.setText(QCoreApplication.translate("MainWindow", u"[Instance name]", None))
+        self.label_19.setText(QCoreApplication.translate("MainWindow", u"[is shared?]", None))
+        self.label_18.setText(QCoreApplication.translate("MainWindow", u"[is separete?]", None))
+        self.label_17.setText(QCoreApplication.translate("MainWindow", u"[optifine installed?]", None))
         self.lb_bug_open.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.bug_sharedsaves.setText(QCoreApplication.translate("MainWindow", u"Shared saves", None))
         self.bug_separate.setText(QCoreApplication.translate("MainWindow", u"Separate Instance", None))
@@ -2083,7 +2169,7 @@ class Ui_MainWindow(object):
         self.bn_android_contact_delete.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
         self.bn_android_contact_save.setText(QCoreApplication.translate("MainWindow", u"Save", None))
         self.line_checkbox_snapshots.setText(QCoreApplication.translate("MainWindow", u"Unchecked", None))
-        self.bn_shortcut.setText(QCoreApplication.translate("MainWindow", u"Create shortcut", None))
+        self.bn_shortcut.setText(QCoreApplication.translate("MainWindow", u"Create shortcut on desktop", None))
         self.lab_person_icon.setText("")
         self.lab_gamepad.setText(QCoreApplication.translate("MainWindow", u"GamePad", None))
         self.groupBox_clean.setTitle(QCoreApplication.translate("MainWindow", u"Review", None))

@@ -465,7 +465,7 @@ def playVanilla(self):
         version = content
     versionPathh = f"{sciezkains}/{versionPath}/.minecraft"
     bufor = version.split(".")
-    if bufor[1] != int:
+    if bufor[1] == int:
         if int(bufor[1]) >= 16:
             executablePath = config.get("JVMS", "java-16")
         else:
@@ -585,6 +585,7 @@ def playingcheck(self):
 def downloadstuff(self):
     global canPlay
     canPlay = False
+    buforstuff = False
     if (
         path.exists(f"{sciezkains}/.minecraft.zip") == False
         or os.path.getsize(f"{sciezkains}/.minecraft.zip") < 496590000
@@ -594,21 +595,53 @@ def downloadstuff(self):
             f"{sciezkains}/.minecraft.zip",
             self,
         )
-    if (
-        path.exists(f"{sciezkajvms}/jre1.8.0_281") == False
-        or path.exists(f"{sciezkajvms}/jdk-16.0.2") == False
-    ):
-        download(
-            "https://www.dropbox.com/s/spdx9qinhsr66n4/jvms.zip?dl=1",
-            f"{sciezkajvms}/jvms.zip",
-            self,
-        )
-        with zipfile.ZipFile(f"{sciezkajvms}/jvms.zip", "r") as zipObj:
+    if path.exists(f"{sciezkajvms}/jre1.8.0_281") == False:
+        if path.exists(f"{sciezkajvms}/jvm1_8.zip") == False:
+            download(
+                "https://www.dropbox.com/s/xji1r8xbvnsw9tq/jre1.8.0_281.zip?dl=1",
+                f"{sciezkajvms}/jvm1_8.zip",
+                self,
+            )
+            buforstuff = True
+        with zipfile.ZipFile(f"{sciezkajvms}/jvm1_8.zip", "r") as zipObj:
+            zipObj.extractall(f"{sciezkajvms}/")
+    if path.exists(f"{sciezkajvms}/jdk-16.0.2") == False:
+        if path.exists(f"{sciezkajvms}/jvm16.zip") == False:
+            download(
+                "https://www.dropbox.com/s/gpwdxcsiogj77c8/jdk-16.0.2.zip?dl=1",
+                f"{sciezkajvms}/jvm16.zip",
+                self,
+            )
+            buforstuff = True
+        with zipfile.ZipFile(f"{sciezkajvms}/jvm16.zip", "r") as zipObj:
             zipObj.extractall(f"{sciezkajvms}/")
     self.ui.lab_tab2.setText(f"")
-    self.errorexec(
-        "Now you can safetly close program. Or just play. idk",
-        "icons/1x/smile2Asset 1.png",
-        "Ok",
-    )
+    if buforstuff == True:
+        self.errorexec(
+            "Now you can safetly close program. Or just play. idk",
+            "icons/1x/smile2Asset 1.png",
+            "Ok",
+        )
     canPlay = True
+
+
+class instancesettings:
+    def __init__(self, selfui):
+        bufor = (
+            selfui.ui.label_13.text()
+            .replace("release", "")
+            .replace("snapshot", "")
+            .replace("<-- local installed", "")
+            .replace("local", "")
+            .replace("Current Version:", "")
+            .replace(" ", "")
+        )
+        selfui.ui.label_16.setText(bufor)
+        selfui.ui.bug_openfolder.clicked.connect(lambda: self.openFolder(bufor))
+
+    def openFolder(self, inspath):
+        buforinstance = f"{sciezkains}/{inspath}/.minecraft"
+        buforinstance = r'explorer /select,"{}"'.format(buforinstance).replace(
+            "/", "\\"
+        )
+        subprocess.Popen(buforinstance)

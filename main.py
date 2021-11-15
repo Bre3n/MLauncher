@@ -190,11 +190,15 @@ class MainWindow(QMainWindow):
             or path.exists(f"{sciezkajvms}/jre1.8.0_281") == False
             or path.exists(f"{sciezkajvms}/jdk-16.0.2") == False
         ):
-            self.errorexec(
-                "Getting necessary stuff... We are downloading files in the background, even if you close laucher. Feel free to using launcher",
-                "icons/1x/smile2Asset 1.png",
-                "Ok",
-            )
+            if (
+                path.exists(f"{sciezkajvms}/jvm1_8.zip") == False
+                or path.exists(f"{sciezkajvms}/jvm16.zip") == False
+            ):
+                self.errorexec(
+                    "Getting necessary stuff... We are downloading files in the background, even if you close laucher. Feel free to using launcher",
+                    "icons/1x/smile2Asset 1.png",
+                    "Ok",
+                )
             threading.Thread(target=lambda: brain.downloadstuff(self)).start()
 
         self.i = 0
