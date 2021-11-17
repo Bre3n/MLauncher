@@ -660,6 +660,30 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.verticalLayout_22 = QVBoxLayout()
         self.verticalLayout_22.setObjectName(u"verticalLayout_22")
+        self.lineEdit = QLineEdit(self.verticalLayoutWidget)
+        self.lineEdit.setObjectName(u"lineEdit")
+        sizePolicy.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
+        self.lineEdit.setSizePolicy(sizePolicy)
+        self.lineEdit.setFont(font12)
+        self.lineEdit.setAutoFillBackground(True)
+        self.lineEdit.setStyleSheet(u"QLineEdit {\n"
+"	color:rgb(255,255,255);\n"
+"	border:2px solid rgb(51,51,51);\n"
+"	border-radius:4px;\n"
+"	background:rgb(51,51,51);\n"
+"}\n"
+"\n"
+"QLineEdit:disabled {\n"
+"	color:rgb(255,255,255);\n"
+"	border:2px solid rgb(112,112,112);\n"
+"	border-radius:4px;\n"
+"	background:rgb(112,112,112);\n"
+"}")
+        self.lineEdit.setEchoMode(QLineEdit.Normal)
+        self.lineEdit.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_22.addWidget(self.lineEdit)
+
         self.label_19 = QLabel(self.verticalLayoutWidget)
         self.label_19.setObjectName(u"label_19")
         font13 = QFont()
@@ -700,6 +724,20 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_21 = QVBoxLayout()
         self.verticalLayout_21.setObjectName(u"verticalLayout_21")
+        self.pushButton = QPushButton(self.verticalLayoutWidget)
+        self.pushButton.setObjectName(u"pushButton")
+        self.pushButton.setFont(font13)
+        self.pushButton.setStyleSheet(u"QPushButton {\n"
+"	border: none;\n"
+"	background-color: rgb(50,150,50);\n"
+"}\n"
+"QPushButton:hover {\n"
+"	background-color: rgb(100,180,100);\n"
+"}\n"
+"")
+
+        self.verticalLayout_21.addWidget(self.pushButton)
+
         self.bug_sharedsaves = QPushButton(self.verticalLayoutWidget)
         self.bug_sharedsaves.setObjectName(u"bug_sharedsaves")
         self.bug_sharedsaves.setFont(font13)
@@ -2077,7 +2115,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(8)
+        self.stackedWidget.setCurrentIndex(5)
         self.stackedWidget_android.setCurrentIndex(0)
 
 
@@ -2122,10 +2160,25 @@ class Ui_MainWindow(object):
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Empty", None))
         self.label_15.setText(QCoreApplication.translate("MainWindow", u"Instance settings", None))
         self.label_16.setText(QCoreApplication.translate("MainWindow", u"[Instance name]", None))
+#if QT_CONFIG(tooltip)
+        self.lineEdit.setToolTip("")
+#endif // QT_CONFIG(tooltip)
+#if QT_CONFIG(statustip)
+        self.lineEdit.setStatusTip("")
+#endif // QT_CONFIG(statustip)
+#if QT_CONFIG(whatsthis)
+        self.lineEdit.setWhatsThis("")
+#endif // QT_CONFIG(whatsthis)
+#if QT_CONFIG(accessibility)
+        self.lineEdit.setAccessibleName("")
+#endif // QT_CONFIG(accessibility)
+        self.lineEdit.setText("")
+        self.lineEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Instance Custom Name", None))
         self.label_19.setText(QCoreApplication.translate("MainWindow", u"[is shared?]", None))
         self.label_18.setText(QCoreApplication.translate("MainWindow", u"[is separete?]", None))
         self.label_17.setText(QCoreApplication.translate("MainWindow", u"[optifine installed?]", None))
         self.lb_bug_open.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"PushButton", None))
         self.bug_sharedsaves.setText(QCoreApplication.translate("MainWindow", u"Shared saves", None))
         self.bug_separate.setText(QCoreApplication.translate("MainWindow", u"Separate Instance", None))
         self.bug_optifine.setText(QCoreApplication.translate("MainWindow", u"Optifine", None))

@@ -59,8 +59,8 @@ def download(url, pathh, self):
         for chunk in r.iter_content(chunk_size=2 ** 20):
             i += 1
             bufor_download = math.ceil(dlen / 2 ** 20)
-            percentage_one = round(bufor_download / 100)
-            percentage = i // percentage_one
+            percentage_one = bufor_download / 100
+            percentage = int(round(i // percentage_one))
             visual_percentage = ("█" * (percentage // 10)) + (
                 "  " * (10 - (percentage // 10))
             )
@@ -557,7 +557,7 @@ def playVanilla(self):
             p.start()
         except Exception:
             self.errorexec(
-                "Somthing weird ocured with this instance. Please use repair button in instance settings",
+                "Something weird occured with this instance. Please use repair button in instance settings",
                 "icons/1x/smile2Asset 1.png",
                 "Ok",
             )
@@ -596,7 +596,10 @@ def downloadstuff(self):
             self,
         )
     if path.exists(f"{sciezkajvms}/jre1.8.0_281") == False:
-        if path.exists(f"{sciezkajvms}/jvm1_8.zip") == False:
+        if (
+            path.exists(f"{sciezkajvms}/jvm1_8.zip") == False
+            or os.path.getsize(f"{sciezkajvms}/jvm1_8.zip") < 78355000
+        ):
             download(
                 "https://www.dropbox.com/s/xji1r8xbvnsw9tq/jre1.8.0_281.zip?dl=1",
                 f"{sciezkajvms}/jvm1_8.zip",
@@ -606,7 +609,10 @@ def downloadstuff(self):
         with zipfile.ZipFile(f"{sciezkajvms}/jvm1_8.zip", "r") as zipObj:
             zipObj.extractall(f"{sciezkajvms}/")
     if path.exists(f"{sciezkajvms}/jdk-16.0.2") == False:
-        if path.exists(f"{sciezkajvms}/jvm16.zip") == False:
+        if (
+            path.exists(f"{sciezkajvms}/jvm16.zip") == False
+            or os.path.getsize(f"{sciezkajvms}/jvm16.zip") < 184262000
+        ):
             download(
                 "https://www.dropbox.com/s/gpwdxcsiogj77c8/jdk-16.0.2.zip?dl=1",
                 f"{sciezkajvms}/jvm16.zip",
@@ -615,13 +621,18 @@ def downloadstuff(self):
             buforstuff = True
         with zipfile.ZipFile(f"{sciezkajvms}/jvm16.zip", "r") as zipObj:
             zipObj.extractall(f"{sciezkajvms}/")
-    self.ui.lab_tab2.setText(f"")
     if buforstuff == True:
-        self.errorexec(
-            "Now you can safetly close program. Or just play. idk",
-            "icons/1x/smile2Asset 1.png",
-            "Ok",
-        )
+        self.ui.lab_tab2.setText(f"DOWNLOADED")
+        time.sleep(1)
+        self.ui.lab_tab2.setText(f"")
+        time.sleep(0.5)
+        self.ui.lab_tab2.setText(f"DOWNLOADED")
+        time.sleep(1)
+        self.ui.lab_tab2.setText(f"")
+        time.sleep(0.5)
+        self.ui.lab_tab2.setText(f"DOWNLOADED")
+        time.sleep(1)
+        self.ui.lab_tab2.setText(f"")
     canPlay = True
 
 
@@ -638,6 +649,40 @@ class instancesettings:
         )
         selfui.ui.label_16.setText(bufor)
         selfui.ui.bug_openfolder.clicked.connect(lambda: self.openFolder(bufor))
+        settings_ins = configparser.ConfigParser()
+        settings_ins.read(f"{sciezkains}/settings_ins.ini")
+        if (
+            path.exists(f"{sciezkains}/settings_ins.ini") == False
+            or settings_ins.has_section(f"{bufor}") == False
+            or settings_ins.has_option(f"{bufor}", "isshared") == False
+            or settings_ins.has_option(f"{bufor}", "isseparate") == False
+            or settings_ins.has_option(f"{bufor}", "isoptifine") == False
+        ):
+            if settings_ins.has_section(f"{bufor}") == False:
+                settings_ins.add_section(f"{bufor}")
+            if settings_ins.has_option(f"{bufor}", "isshared") == False:
+                settings_ins[f"{bufor}"]["isshared"] = "no"
+            if settings_ins.has_option(f"{bufor}", "isseparate") == False:
+                settings_ins[f"{bufor}"]["isseparate"] = "yes"
+            if settings_ins.has_option(f"{bufor}", "isoptifine") == False:
+                settings_ins[f"{bufor}"]["isoptifine"] = "no"
+            with open(f"{sciezkains}/settings_ins.ini", "w") as configfile:
+                settings_ins.write(configfile)
+        isshared = settings_ins.get(f"{bufor}", "isshared")
+        isseparate = settings_ins.get(f"{bufor}", "isseparate")
+        isoptifine = settings_ins.get(f"{bufor}", "isoptifine")
+        if isshared == "yes":
+            selfui.ui.label_19.setText("Save Shared")
+        else:
+            selfui.ui.label_19.setText("Save Not Shared")
+        if isseparate == "yes":
+            selfui.ui.label_18.setText("Instance Separate")
+        else:
+            selfui.ui.label_18.setText("Instance Not Separate")
+        if isoptifine == "yes":
+            selfui.ui.label_17.setText("Optifine Installed")
+        else:
+            selfui.ui.label_17.setText("Optifine Not Installed")
 
     def openFolder(self, inspath):
         buforinstance = f"{sciezkains}/{inspath}/.minecraft"

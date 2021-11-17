@@ -980,7 +980,7 @@ QPushButton:hover {
                 <string notr="true"/>
                </property>
                <property name="currentIndex">
-                <number>8</number>
+                <number>5</number>
                </property>
                <widget class="QWidget" name="page_home">
                 <property name="styleSheet">
@@ -1491,6 +1491,64 @@ QScrollBar::sub-page:vertical {
                     <item>
                      <layout class="QVBoxLayout" name="verticalLayout_22">
                       <item>
+                       <widget class="QLineEdit" name="lineEdit">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="font">
+                         <font>
+                          <family>Segoe UI</family>
+                          <pointsize>18</pointsize>
+                         </font>
+                        </property>
+                        <property name="toolTip">
+                         <string/>
+                        </property>
+                        <property name="statusTip">
+                         <string/>
+                        </property>
+                        <property name="whatsThis">
+                         <string/>
+                        </property>
+                        <property name="accessibleName">
+                         <string/>
+                        </property>
+                        <property name="autoFillBackground">
+                         <bool>true</bool>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">QLineEdit {
+	color:rgb(255,255,255);
+	border:2px solid rgb(51,51,51);
+	border-radius:4px;
+	background:rgb(51,51,51);
+}
+
+QLineEdit:disabled {
+	color:rgb(255,255,255);
+	border:2px solid rgb(112,112,112);
+	border-radius:4px;
+	background:rgb(112,112,112);
+}</string>
+                        </property>
+                        <property name="text">
+                         <string/>
+                        </property>
+                        <property name="echoMode">
+                         <enum>QLineEdit::Normal</enum>
+                        </property>
+                        <property name="alignment">
+                         <set>Qt::AlignCenter</set>
+                        </property>
+                        <property name="placeholderText">
+                         <string>Instance Custom Name</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
                        <widget class="QLabel" name="label_19">
                         <property name="font">
                          <font>
@@ -1571,6 +1629,29 @@ QScrollBar::sub-page:vertical {
                     </item>
                     <item>
                      <layout class="QVBoxLayout" name="verticalLayout_21">
+                      <item>
+                       <widget class="QPushButton" name="pushButton">
+                        <property name="font">
+                         <font>
+                          <family>Segoe UI</family>
+                          <pointsize>20</pointsize>
+                         </font>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">QPushButton {
+	border: none;
+	background-color: rgb(50,150,50);
+}
+QPushButton:hover {
+	background-color: rgb(100,180,100);
+}
+</string>
+                        </property>
+                        <property name="text">
+                         <string>PushButton</string>
+                        </property>
+                       </widget>
+                      </item>
                       <item>
                        <widget class="QPushButton" name="bug_sharedsaves">
                         <property name="font">
