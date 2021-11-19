@@ -6,5 +6,5 @@ UI redesigned from <a href="https://github.com/anjalp/Minimalistic-Flat-Modern-G
 MLauncher od Mods/Minecraft/Multiplayer a nie od Mateusz idioci
 
 
-<a gref="https://github.dev/Bre3n/MLauncher"><img src="https://ashgrennan.com/post/how-do-i-rename-a-local-git-branch/tl2.png" width="10%" height="10%">
+<a href="https://github.dev/Bre3n/MLauncher"><img src="https://ashgrennan.com/post/how-do-i-rename-a-local-git-branch/tl2.png" width="80px" height="80px">
 <br>[Open in browser]</a>
