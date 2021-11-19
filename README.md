@@ -6,4 +6,5 @@ UI redesigned from <a href="https://github.com/anjalp/Minimalistic-Flat-Modern-G
 MLauncher od Mods/Minecraft/Multiplayer a nie od Mateusz idioci
 
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Bre3n/MLauncher/blob/master/setup.py)
+<a gref="https://github.dev/Bre3n/MLauncher"><img src="https://ashgrennan.com/post/how-do-i-rename-a-local-git-branch/tl2.png" width="10%" height="10%">
+<br>[Open in browser]</a>
