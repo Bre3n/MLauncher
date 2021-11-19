@@ -1491,7 +1491,10 @@ QScrollBar::sub-page:vertical {
                     <item>
                      <layout class="QVBoxLayout" name="verticalLayout_22">
                       <item>
-                       <widget class="QLineEdit" name="lineEdit">
+                       <widget class="QLineEdit" name="bug_line_customname">
+                        <property name="enabled">
+                         <bool>false</bool>
+                        </property>
                         <property name="sizePolicy">
                          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                           <horstretch>0</horstretch>
@@ -1517,7 +1520,7 @@ QScrollBar::sub-page:vertical {
                          <string/>
                         </property>
                         <property name="autoFillBackground">
-                         <bool>true</bool>
+                         <bool>false</bool>
                         </property>
                         <property name="styleSheet">
                          <string notr="true">QLineEdit {
@@ -1630,7 +1633,7 @@ QLineEdit:disabled {
                     <item>
                      <layout class="QVBoxLayout" name="verticalLayout_21">
                       <item>
-                       <widget class="QPushButton" name="pushButton">
+                       <widget class="QPushButton" name="bug_bn_customname">
                         <property name="font">
                          <font>
                           <family>Segoe UI</family>
@@ -1648,7 +1651,10 @@ QPushButton:hover {
 </string>
                         </property>
                         <property name="text">
-                         <string>PushButton</string>
+                         <string>Save name</string>
+                        </property>
+                        <property name="flat">
+                         <bool>true</bool>
                         </property>
                        </widget>
                       </item>
@@ -1796,6 +1802,29 @@ QPushButton:hover {
                     </property>
                     <property name="flat">
                      <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="bug_bn_delete">
+                    <property name="font">
+                     <font>
+                      <family>Segoe UI</family>
+                      <pointsize>15</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QPushButton {
+	border: none;
+	background-color: rgb(255,50,50);
+}
+QPushButton:hover {
+	background-color: rgb(214,45,45);
+}
+</string>
+                    </property>
+                    <property name="text">
+                     <string>Delete Instance</string>
                     </property>
                    </widget>
                   </item>

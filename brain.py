@@ -45,6 +45,7 @@ iterablebool = 5
 canPlay = True
 ForgeVersions = ""
 ServerVersions = ""
+deleteInstance = False
 
 
 def download(url, pathh, self):
@@ -141,6 +142,14 @@ def createFiles():
         config["PROFILE"]["version"] = "1.17.1"
     if config.has_option("PROFILE", "gameVersion") == False:
         config["PROFILE"]["gameVersion"] = "Vanilla"
+
+    # * CREATE INSTANCE SETTINGS
+    settings_ins = configparser.ConfigParser()
+    settings_ins.read(f"{sciezkains}/settings_ins.ini")
+    if settings_ins.has_section("CUSTOM NAMES") == False:
+        settings_ins.add_section("CUSTOM NAMES")
+        with open(f"{sciezkains}/settings_ins.ini", "w") as configfile:
+            settings_ins.write(configfile)
 
     # * CHECK RAM UNIT
     ALLOCATEDRAM = config.get("SETTINGS", "AllocatedRam")
@@ -435,6 +444,9 @@ def playVanilla(self):
         return 0
     config = configparser.ConfigParser()
     config.read(f"{sciezkaver}/config.ini")
+    settings_ins = configparser.ConfigParser()
+    settings_ins.read(f"{sciezkains}/settings_ins.ini")
+
     username = config.get("PROFILE", "username")
     token = config.get("PROFILE", "uuid")
     uuid = token.replace("-", "")
@@ -446,24 +458,21 @@ def playVanilla(self):
     callback = {
         "setStatus": lambda text: print(text),
     }
+
     content = config.get("PROFILE", "version")
-    type = self.ui.label_12.text()
-    local = False
-    if type == "Vanilla Versions":
-        content = (
-            content.replace("release", "")
-            .replace("snapshot", "")
-            .replace("<-- local installed", "")
-            .replace("local", "")
-            .replace(" ", "")
-        )
-    versionPath = content.replace(" ", "-")
-    if local == True:
-        content = content.split("-")
-        version = content[1]
-    else:
-        version = content
+    versionPath = (
+        content.replace("release", "")
+        .replace("snapshot", "")
+        .replace("<-- local installed", "")
+        .replace("local", "")
+        .replace(" ", "")
+        .replace(" ", "-")
+    )
+    version = versionPath
     versionPathh = f"{sciezkains}/{versionPath}/.minecraft"
+
+    if settings_ins.has_option("CUSTOM NAMES", f"{versionPath}") == True:
+        version = config.get("CUSTOM NAMES", f"{versionPath}")
     bufor = version.split(".")
     if bufor[1] == int:
         if int(bufor[1]) >= 16:
@@ -540,9 +549,34 @@ def playVanilla(self):
             ),
             shell=True,
         )
+
+        # * run installation
+
         minecraft_launcher_lib.install.install_minecraft_version(
             version, versionPathh, callback=callback
         )
+
+        # * create instance settings_ins
+        if (
+            path.exists(f"{sciezkains}/settings_ins.ini") == False
+            or settings_ins.has_section(f"{bufor}") == False
+            or settings_ins.has_option(f"{bufor}", "isshared") == False
+            or settings_ins.has_option(f"{bufor}", "isseparate") == False
+            or settings_ins.has_option(f"{bufor}", "isoptifine") == False
+        ):
+            if settings_ins.has_section(f"{bufor}") == False:
+                settings_ins.add_section(f"{bufor}")
+            if settings_ins.has_option(f"{bufor}", "isshared") == False:
+                settings_ins[f"{bufor}"]["isshared"] = "no"
+            if settings_ins.has_option(f"{bufor}", "isseparate") == False:
+                settings_ins[f"{bufor}"]["isseparate"] = "yes"
+            if settings_ins.has_option(f"{bufor}", "isoptifine") == False:
+                settings_ins[f"{bufor}"]["isoptifine"] = "no"
+            with open(f"{sciezkains}/settings_ins.ini", "w") as configfile:
+                settings_ins.write(configfile)
+
+        # * play minecraft
+
         playVanilla(self)
     else:
         self.ui.bn_play.setText(f"Playing")
@@ -636,8 +670,11 @@ def downloadstuff(self):
     canPlay = True
 
 
+# * INSTANCE SETTINGS
 class instancesettings:
     def __init__(self, selfui):
+        global deleteInstance
+        deleteInstance = False
         bufor = (
             selfui.ui.label_13.text()
             .replace("release", "")
@@ -648,7 +685,77 @@ class instancesettings:
             .replace(" ", "")
         )
         selfui.ui.label_16.setText(bufor)
-        selfui.ui.bug_openfolder.clicked.connect(lambda: self.openFolder(bufor))
+
+        if selfui.ui.label_16.text().startswith("s_") == True:
+
+            # * Change lineedit visibility
+            not_resize = selfui.ui.bug_line_customname.sizePolicy()
+            not_resize.setRetainSizeWhenHidden(True)
+            selfui.ui.bug_line_customname.setSizePolicy(not_resize)
+            selfui.ui.bug_line_customname.setVisible(False)
+
+            # * Change bn visibility
+            not_resize = selfui.ui.bug_bn_customname.sizePolicy()
+            not_resize.setRetainSizeWhenHidden(True)
+            selfui.ui.bug_bn_customname.setSizePolicy(not_resize)
+            selfui.ui.bug_bn_customname.setVisible(False)
+            selfui.ui.bug_line_customname.setEnabled(False)
+        else:
+            selfui.ui.bug_line_customname.setText("")
+            selfui.ui.bug_line_customname.setEnabled(False)
+            selfui.ui.bug_line_customname.setPlaceholderText(f"Name: {bufor}")
+            selfui.ui.bug_line_customname.setEnabled(True)
+            selfui.ui.bug_bn_customname.setVisible(True)
+            selfui.ui.bug_line_customname.setVisible(True)
+
+        # * BUTTONS
+
+        # * bug_openfolder
+        if path.exists(f"{sciezkains}/{bufor}") == False:
+            selfui.ui.bug_openfolder.setText(
+                "Can't open instance folder, because instance is not installed"
+            )
+            selfui.ui.bug_openfolder.setStyleSheet(
+                "QPushButton {\nborder: none;background-color: rgb(50,150,50);}QPushButton:hover {background-color: rgb(255,50,50);}"
+            )
+        else:
+            selfui.ui.bug_openfolder.clicked.connect(lambda: self.openFolder(bufor, selfui))
+            selfui.ui.bug_openfolder.setText("Open folder")
+            selfui.ui.bug_openfolder.setStyleSheet(
+                "QPushButton {\nborder: none;background-color: rgb(50,150,50);}QPushButton:hover {background-color: rgb(100,180,100);}"
+            )
+
+        # * bug_repair
+        if path.exists(f"{sciezkains}/{bufor}") == False:
+            selfui.ui.bug_repair.setText(
+                "Can't repair this instance, because instance is not installed"
+            )
+            selfui.ui.bug_repair.setStyleSheet(
+                "QPushButton {\nborder: none;background-color: rgb(50,150,50);}QPushButton:hover {background-color: rgb(255,50,50);}"
+            )
+        else:
+            selfui.ui.bug_repair.clicked.connect(lambda: self.repairInstance(bufor, selfui))
+            selfui.ui.bug_repair.setText("Repair Instance")
+            selfui.ui.bug_repair.setStyleSheet(
+                "QPushButton {\nborder: none;background-color: rgb(50,150,50);}QPushButton:hover {background-color: rgb(100,180,100);}"
+            )
+
+        # * bug_bn_customname
+
+        selfui.ui.bug_bn_customname.clicked.connect(
+            lambda: self.bnCustomName(bufor, selfui)
+        )
+
+        # * bug_bn_delete
+        if path.exists(f"{sciezkains}/{bufor}") == True:
+            selfui.ui.bug_bn_delete.setEnabled(True)
+            selfui.ui.bug_bn_delete.clicked.connect(
+                lambda: self.bnDelete(bufor, selfui)
+            )
+        else:
+            selfui.ui.bug_bn_delete.setEnabled(False)
+            selfui.ui.bug_bn_delete.setText("Can't delete bacause instance is not found")
+
         settings_ins = configparser.ConfigParser()
         settings_ins.read(f"{sciezkains}/settings_ins.ini")
         if (
@@ -671,22 +778,83 @@ class instancesettings:
         isshared = settings_ins.get(f"{bufor}", "isshared")
         isseparate = settings_ins.get(f"{bufor}", "isseparate")
         isoptifine = settings_ins.get(f"{bufor}", "isoptifine")
+
+        # * SAVES
         if isshared == "yes":
             selfui.ui.label_19.setText("Save Shared")
+            selfui.ui.bug_sharedsaves.setText("Split saves")
+            selfui.ui.bug_sharedsaves.setStyleSheet(
+                "QPushButton {\nborder: none;background-color: rgb(50,150,50);}QPushButton:hover {background-color: rgb(255,50,50);}"
+            )
         else:
             selfui.ui.label_19.setText("Save Not Shared")
+            selfui.ui.bug_sharedsaves.setText("Connect saves")
+
+        # * INSTANCE
         if isseparate == "yes":
             selfui.ui.label_18.setText("Instance Separate")
+            selfui.ui.bug_separate.setText("Split Instance")
+            selfui.ui.bug_separate.setStyleSheet(
+                "QPushButton {\nborder: none;background-color: rgb(50,150,50);}QPushButton:hover {background-color: rgb(255,50,50);}"
+            )
         else:
             selfui.ui.label_18.setText("Instance Not Separate")
+            selfui.ui.bug_separate.setText("Connect Instance")
+
+        # * Optifine
         if isoptifine == "yes":
             selfui.ui.label_17.setText("Optifine Installed")
+            selfui.ui.bug_optifine.setText("Uninstall Optifine")
+            selfui.ui.bug_optifine.setStyleSheet(
+                "QPushButton {\nborder: none;background-color: rgb(50,150,50);}QPushButton:hover {background-color: rgb(255,50,50);}"
+            )
         else:
             selfui.ui.label_17.setText("Optifine Not Installed")
+            selfui.ui.bug_optifine.setText("Install Optifine")
 
-    def openFolder(self, inspath):
-        buforinstance = f"{sciezkains}/{inspath}/.minecraft"
-        buforinstance = r'explorer /select,"{}"'.format(buforinstance).replace(
-            "/", "\\"
-        )
-        subprocess.Popen(buforinstance)
+    def openFolder(self, version, selfui):
+            buforinstance = f"{sciezkains}/{version}/.minecraft"
+            buforinstance = r'explorer /select,"{}"'.format(buforinstance).replace(
+                "/", "\\"
+            )
+            subprocess.Popen(buforinstance)
+
+    def bnDelete(self, version, selfui):
+        global deleteInstance
+        if deleteInstance == False:
+            deleteInstance = True
+            selfui.errorexec(
+                "Saved instance will be deleted, If you want it, click one more time on delete button",
+                "icons/1x/smile2Asset 1.png",
+                "Ok",
+            )
+        else:
+            deleteInstance = False
+            os.remove(f"{sciezkains}/{version}")
+
+    def bnCustomName(self, version, selfui):
+        bufor = selfui.ui.bug_line_customname.text()
+        if " " in bufor or "." in bufor:
+            selfui.errorexec(
+                'Invalid characters in custom name (" ", ".")',
+                "icons/1x/smile2Asset 1.png",
+                "Ok",
+            )
+            selfui.ui.bug_line_customname.setText(selfui.ui.labe_16.text())
+            return 0
+
+        settings_ins = configparser.ConfigParser()
+        settings_ins.read(f"{sciezkains}/settings_ins.ini")
+        bufor2 = selfui.ui.label_16.text()
+        bufor3 = bufor2
+        if settings_ins.has_option("CUSTOM NAMES", f"{bufor2}") == True:
+            bufor3 = settings_ins.get("CUSTOM NAMES", f"{bufor2}")
+            settings_ins.remove_option("CUSTOM NAMES", f"{bufor2}")
+        settings_ins["CUSTOM NAMES"][f"{bufor}"] = bufor3
+        with open(f"{sciezkains}/settings_ins.ini", "w") as configfile:
+            settings_ins.write(configfile)
+
+        selfui.ui.label_16.setText(bufor)
+
+    def repairInstance(self, version, selfui):
+        pass
