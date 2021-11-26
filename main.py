@@ -185,24 +185,12 @@ class MainWindow(QMainWindow):
         config.read(f"{sciezkaver}/config.ini")
         username = config.get("PROFILE", "username")
         if (
-            path.exists(f"{sciezkains}/.minecraft.zip") == False
-            or os.path.getsize(f"{sciezkains}/.minecraft.zip") < 496590000
-            or path.exists(f"{sciezkajvms}/jre1.8.0_281") == False
+            path.exists(f"{sciezkajvms}/jre1.8.0_281") == False
             or path.exists(f"{sciezkajvms}/jdk-16.0.2") == False
             or os.path.getsize(f"{sciezkajvms}/jvm1_8.zip") < 78355000
             or os.path.getsize(f"{sciezkajvms}/jvm16.zip") < 184262000
+            or path.exists(f"{sciezkains}/shared/.minecraft") == False
         ):
-            if (
-                path.exists(f"{sciezkajvms}/jvm1_8.zip") == False
-                or path.exists(f"{sciezkajvms}/jvm16.zip") == False
-                or os.path.getsize(f"{sciezkajvms}/jvm1_8.zip") < 78355000
-                or os.path.getsize(f"{sciezkajvms}/jvm16.zip") < 184262000
-            ):
-                self.errorexec(
-                    "Getting necessary stuff... We are downloading files in the background, even if you close laucher. Feel free to using launcher",
-                    "icons/1x/smile2Asset 1.png",
-                    "Ok",
-                )
             threading.Thread(target=lambda: brain.downloadstuff(self)).start()
 
         self.i = 0
