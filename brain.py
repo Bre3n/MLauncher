@@ -9,6 +9,7 @@ import ctypes
 import enlighten
 import threading
 import requests
+import webbrowser
 from multiprocessing import Process
 from pypresence import Presence
 import minecraft_launcher_lib
@@ -17,18 +18,14 @@ from minecraft_launcher_lib.forge import (
     run_forge_installer,
     supports_automatic_install,
 )
-from minecraft_launcher_lib.fabric import (
-    install_fabric,
-    get_all_minecraft_versions,
-    get_stable_minecraft_versions,
-    get_latest_loader_version,
-)
 from os import path
 import zipfile
 import subprocess
 import winshell
 import pythoncom
 import win32com.client
+from os import listdir
+from os.path import isfile, join
 
 user = os.getlogin()
 sciezka = f"C:/Users/{user}/AppData/Roaming/.mlauncher"
@@ -45,11 +42,14 @@ Lista = ""
 iterablebool = 5
 canPlay = True
 ForgeVersions = ""
+ForgeVersionss = ""
 ServerVersions = ""
 deleteInstance = False
+ProgressBarMc_value = 1
+ProgressBarMc_total = 2
 
 
-def download(url, pathh, self):
+def download(url, pathh, self, value):
     MANAGER = enlighten.get_manager()
     i = 0
     r = requests.get(url, stream=True)
@@ -60,16 +60,31 @@ def download(url, pathh, self):
     ) as ctr, open(pathh, "wb", buffering=2 ** 24) as f:
         for chunk in r.iter_content(chunk_size=2 ** 20):
             i += 1
-            bufor_download = math.ceil(dlen / 2 ** 20)
-            percentage_one = bufor_download / 100
-            percentage = int(round(i // percentage_one))
-            visual_percentage = ("█" * (percentage // 10)) + (
-                "  " * (10 - (percentage // 10))
-            )
-            self.ui.lab_tab2.setText(
-                f"Downloading {percentage}% |{visual_percentage}| {i}/{bufor_download}"
-            )
-            print(chunk[-16:].hex().upper())
+            if dlen != None:
+                bufor_download = math.ceil(dlen / 2 ** 20)
+                percentage_one = bufor_download / 100
+                percentage = int(round(i // percentage_one))
+                visual_percentage = ("█" * (percentage // 10)) + (
+                    "  " * (10 - (percentage // 10))
+                )
+                self.ui.lab_tab2.setText(
+                    f"Downloading {percentage}% |{visual_percentage}| {i}/{bufor_download}"
+                )
+            else:
+                if value != 0:
+                    percentage_one = value / 100
+                    percentage = int(round(i // percentage_one))
+                    visual_percentage = ("█" * (percentage // 10)) + (
+                        "  " * (10 - (percentage // 10))
+                    )
+                    self.ui.lab_tab2.setText(
+                        f"Downloading {percentage}% |{visual_percentage}| {i}/~{value}"
+                    )
+                else:
+                    self.ui.lab_tab2.setText(
+                        f"Downloading ???% |????? no info ?????| {i}/?"
+                    )
+            # print(chunk[-16:].hex().upper())
             f.write(chunk)
 
 
@@ -109,14 +124,14 @@ def createFiles():
         config.add_section("JVMS")
     if config.has_option("JVMS", "java-1.8") == False:
         config["JVMS"]["java-1.8"] = f"{sciezkajvms}/jre1.8.0_281/bin/javaw.exe"
-    if config.has_option("JVMS", "java-16") == False:
-        config["JVMS"]["java-16"] = f"{sciezkajvms}/jdk-16.0.2/bin/javaw.exe"
+    if config.has_option("JVMS", "java-17") == False:
+        config["JVMS"]["java-17"] = f"{sciezkajvms}/jdk-17.0.2/bin/javaw.exe"
     if config.has_option("JVMS", "specialarg-1.8") == False:
         config["JVMS"][
             "specialarg-1.8"
         ] = "Dsun.rmi.dgc.server.gcInterval=2147483646 -XX:+UnlockExperimentalVMOptions -XX:G1NewSizePercent=20 -XX:G1ReservePercent=20 -XX:MaxGCPauseMillis=50 -XX:G1HeapRegionSize=32M"
-    if config.has_option("JVMS", "specialarg-16") == False:
-        config["JVMS"]["specialarg-16"] = "False"
+    if config.has_option("JVMS", "specialarg-17") == False:
+        config["JVMS"]["specialarg-17"] = "False"
 
     # * SETTINGS
     if config.has_section("SETTINGS") == False:
@@ -143,14 +158,6 @@ def createFiles():
         config["PROFILE"]["version"] = "1.17.1"
     if config.has_option("PROFILE", "gameVersion") == False:
         config["PROFILE"]["gameVersion"] = "Vanilla"
-
-    # * CREATE INSTANCE SETTINGS
-    settings_ins = configparser.ConfigParser()
-    settings_ins.read(f"{sciezkains}/settings_ins.ini")
-    if settings_ins.has_section("CUSTOM NAMES") == False:
-        settings_ins.add_section("CUSTOM NAMES")
-        with open(f"{sciezkains}/settings_ins.ini", "w") as configfile:
-            settings_ins.write(configfile)
 
     # * CHECK RAM UNIT
     ALLOCATEDRAM = config.get("SETTINGS", "AllocatedRam")
@@ -291,27 +298,28 @@ def discordrpc(self):
     config.read(f"{sciezkaver}/config.ini")
     while iterablebool > 0:
         bufor = "Discord.exe" in (i.name() for i in psutil.process_iter())
-        if bufor == False:
-            break
-        if connectedRpc == False and checkinternetbool == True:
-            self.i = 10
-            self.valueChanged.emit(self.i)
-            self.i = 1
-        if connectedRpc == True and checkinternetbool == True:
-            config.read(f"{sciezkaver}/config.ini")
-            if (config.get("SETTINGS", "discordactivity")) == "True":
-                if currentDiscordRpc == "":
-                    rpc.update(details=currentDiscordRpcDetails, large_image="rpcimage")
-                elif currentDiscordRpc == "quit()":
-                    rpc.clear()
+        if bufor != False:
+            if connectedRpc == False and checkinternetbool == True:
+                self.i = 10
+                self.valueChanged.emit(self.i)
+                self.i = 1
+            if connectedRpc == True and checkinternetbool == True:
+                config.read(f"{sciezkaver}/config.ini")
+                if (config.get("SETTINGS", "discordactivity")) == "True":
+                    if currentDiscordRpc == "":
+                        rpc.update(
+                            details=currentDiscordRpcDetails, large_image="rpcimage"
+                        )
+                    elif currentDiscordRpc == "quit()":
+                        rpc.clear()
+                    else:
+                        rpc.update(
+                            state=currentDiscordRpc,
+                            details=currentDiscordRpcDetails,
+                            large_image="rpcimage",
+                        )
                 else:
-                    rpc.update(
-                        state=currentDiscordRpc,
-                        details=currentDiscordRpcDetails,
-                        large_image="rpcimage",
-                    )
-            else:
-                rpc.clear()
+                    rpc.clear()
         time.sleep(20)
 
 
@@ -319,8 +327,6 @@ def GetReleases(self):
     self.ui.comboBox.clear()
     config = configparser.ConfigParser()
     config.read(f"{sciezkaver}/config.ini")
-    settings_ins = configparser.ConfigParser()
-    settings_ins.read(f"{sciezkains}/settings_ins.ini")
 
     if config.get("SETTINGS", "snapshots") == "True":
         var = True
@@ -344,8 +350,6 @@ def GetReleases(self):
     for i in range(int(len(bufor))):
         if path.exists(f"{sciezka}/instances/{bufor[i]}/.minecraft") == True:
             buforlist.append(bufor[i])
-            if settings_ins.has_option("CUSTOM NAMES", f"{bufor[i]}") == True:
-                customlist.append(bufor[i])
     if var == False:
         for key in VersionsA:
             if key["type"] == "release":
@@ -374,7 +378,6 @@ def GetReleases(self):
     for i in range(int(len(Releases))):
         McVers.append(Releases[i])
     global ServerVersions
-    global ForgeVersions
     if ServerVersions == "":
         versions = configparser.ConfigParser()
         versions.read(f"{sciezkaver}/versions.ini")
@@ -403,9 +406,8 @@ def serverVersions(self):
 
 
 def ForgeReleases(self):
-    settings_ins = configparser.ConfigParser()
-    settings_ins.read(f"{sciezkains}/settings_ins.ini")
     global ForgeVersions
+    global ForgeVersionss
     customlist = []
     buforlist = []
     bufor = [
@@ -415,18 +417,21 @@ def ForgeReleases(self):
     ]
     for i in range(int(len(bufor))):
         if path.exists(f"{sciezka}/instances/{bufor[i]}/.minecraft") == True:
-            buforlist.append(bufor[i])
-            if settings_ins.has_option("CUSTOM NAMES", f"{bufor[i]}") == True:
-                customlist.append(bufor[i])
+            buforr = bufor[i].replace("f-", "")
+            buforlist.append(buforr)
     self.ui.comboBox.clear()
     if ForgeVersions == "":
         ForgeVersions = []
-        ForgeVersionss = minecraft_launcher_lib.forge.list_forge_versions()
+        if ForgeVersionss == "":
+            ForgeVersionss = minecraft_launcher_lib.forge.list_forge_versions()
         for i in range(len(ForgeVersionss)):
-            if ForgeVersionss[i] in buforlist:
-                ForgeVersions.append(f"{ForgeVersionss[i]} <-- local installed")
-            else:
-                ForgeVersions.append(f"{ForgeVersionss[i]}")
+            niewytrzymam = ForgeVersionss[i].split("-")
+            niewytrzymam = niewytrzymam[0].split(".")
+            if int(niewytrzymam[1]) >= 13:
+                if ForgeVersionss[i] in buforlist:
+                    ForgeVersions.append(f"{ForgeVersionss[i]} <-- local installed")
+                else:
+                    ForgeVersions.append(f"{ForgeVersionss[i]}")
     self.ui.comboBox.addItems(ForgeVersions)
 
 
@@ -438,31 +443,38 @@ def playthread(self):
         threading.Thread(target=lambda: playVanilla(self, 1)).start()
     # TODO: ADD FORGE AND SERVER
     if bufor == "Forge Versions":
-        threading.Thread(target=lambda: playForge(self)).start()
+        threading.Thread(target=lambda: playForge(self, 1)).start()
     if bufor == "Server Versions":
         pass
 
 
 def downloadingCount(self):
     i = 0
-    time.sleep(1)
     while True:
+        time.sleep(0.5)
         if self.ui.bn_play.text() == "Downloading":
-            i += 1
-            buff = "." * i
-            self.ui.lab_tab2.setText(f"Downloading {buff}")
-            if i == 3:
-                i = 0
+            global ProgressBarMc_value
+            global ProgressBarMc_total
+            percentage_one = ProgressBarMc_total / 100
+            percentage = int(round(ProgressBarMc_value // percentage_one))
+            visual_percentage = ("█" * (percentage // 10)) + (
+                "  " * (10 - (percentage // 10))
+            )
+            if ProgressBarMc_value == ProgressBarMc_total:
+                self.ui.lab_tab2.setText(f" ")
+            else:
+                self.ui.lab_tab2.setText(
+                    f"Downloading {percentage}% |{visual_percentage}| {ProgressBarMc_value}/{ProgressBarMc_total}"
+                )
         else:
             break
-        time.sleep(2)
     self.ui.lab_tab2.setText(f"")
 
 
 # * TODO: ADD OPTIONAL INSTANCE BUTTON AND SUPPORT
 
 
-def playForge(self):
+def playForge(self, var):
     global canPlay
     if canPlay == False:
         self.errorexec(
@@ -470,11 +482,9 @@ def playForge(self):
             "icons/1x/smile2Asset 1.png",
             "Ok",
         )
-        return 0
+        return
     config = configparser.ConfigParser()
     config.read(f"{sciezkaver}/config.ini")
-    settings_ins = configparser.ConfigParser()
-    settings_ins.read(f"{sciezkains}/settings_ins.ini")
 
     username = config.get("PROFILE", "username")
     token = config.get("PROFILE", "uuid")
@@ -484,8 +494,12 @@ def playForge(self):
     jvmArguments = []
     jvmArguments.append(f"-Xmx{allocatedram}")
 
+    max_value = [0]
+
     callback = {
         "setStatus": lambda text: print(text),
+        "setProgress": lambda value: ProgressBarMc(value, max_value[0], self),
+        "setMax": lambda value: ProgressBarMcMaximum(max_value, value),
     }
 
     content = config.get("PROFILE", "version")
@@ -497,24 +511,23 @@ def playForge(self):
         .replace(" ", "")
     )
     version = versionPath
-    versionPath = version[:7] + "forge-" + version[7:]
+    versionPath = "f-" + version
     versionPathh = f"{sciezkains}/{versionPath}/.minecraft"
 
-    if settings_ins.has_option("CUSTOM NAMES", f"{versionPath}") == True:
-        version = config.get("CUSTOM NAMES", f"{versionPath}")
-    bufor = version.split(".")
-    if bufor[1] == int:
+    bufor = version.split("-")
+    bufor = bufor[0].split(".")
+    if bufor[1]:
         if int(bufor[1]) >= 16:
-            executablePath = config.get("JVMS", "java-16")
+            executablePath = config.get("JVMS", "java-17")
         else:
             executablePath = config.get("JVMS", "java-1.8")
     else:
-        executablePath = config.get("JVMS", "java-16")
+        executablePath = config.get("JVMS", "java-17")
 
     if specialarg == "True":
         if bufor[1] != int:
             if int(bufor[1]) >= 16:
-                buf = config.get("JVMS", "specialarg-16")
+                buf = config.get("JVMS", "specialarg-17")
                 buf = buf.split(" ")
                 for i in range(len(buf)):
                     jvmArguments.append(buf[i])
@@ -524,7 +537,7 @@ def playForge(self):
                 for i in range(len(buf)):
                     jvmArguments.append(buf[i])
         else:
-            buf = config.get("JVMS", "specialarg-16")
+            buf = config.get("JVMS", "specialarg-17")
             buf = buf.split(" ")
             for i in range(len(buf)):
                 jvmArguments.append(buf[i])
@@ -535,19 +548,17 @@ def playForge(self):
         "jvmArguments": jvmArguments,
         "executablePath": executablePath,
     }
+    settings_ins = configparser.ConfigParser()
+    settings_ins.read(f"{sciezkains}/{versionPath}/settings_ins.ini")
 
-    if path.exists(f"{sciezkains}/{versionPath}") == False:
+    if path.exists(f"{sciezkains}/{versionPath}") == False or var == 0 or var == 2:
         self.ui.bn_play.setText(f"Downloading")
         threading.Thread(target=lambda: downloadingCount(self)).start()
         os.mkdir(f"{sciezkains}/{versionPath}/")
         os.mkdir(f"{sciezkains}/{versionPath}/.minecraft")
-        subprocess.check_call(
-            'mklink /J "%s" "%s"'
-            % (
-                f"{sciezkains}/{versionPath}/.minecraft/saves",
-                f"{sciezka}/minecraft-folders/saves",
-            ),
-            shell=True,
+        shutil.copy(
+            f"C:/Users/{user}/AppData/Roaming/.minecraft/launcher_profiles.json",
+            f"{sciezkains}/{versionPath}/.minecraft/launcher_profiles.json",
         )
         subprocess.check_call(
             'mklink /J "%s" "%s"'
@@ -575,16 +586,40 @@ def playForge(self):
         )
 
         # * run installation
-
-        if supports_automatic_install(version):
-            install_forge_version(version, versionPathh, callback=callback)
-        else:
-            playVanilla(self, 0)
-            run_forge_installer(version)
+        try:
+            if (
+                path.exists(
+                    f"{sciezkains}/shared/.minecraft/libraries/net/minecraftforge/ForgeAutoRenamingTool/0.1.17/ForgeAutoRenamingTool-0.1.17-all.jar"
+                )
+                and path.exists(
+                    f"{sciezkains}/shared/.minecraft/libraries/net/minecraftforge/ForgeAutoRenamingTool/0.1.17/ForgeAutoRenamingTool-0.1.17.jar"
+                )
+                == False
+            ):
+                shutil.move(
+                    f"{sciezkains}/shared/.minecraft/libraries/net/minecraftforge/ForgeAutoRenamingTool/0.1.17/ForgeAutoRenamingTool-0.1.17-all.jar",
+                    f"{sciezkains}/shared/.minecraft/libraries/net/minecraftforge/ForgeAutoRenamingTool/0.1.17/ForgeAutoRenamingTool-0.1.17.jar",
+                )
+            if supports_automatic_install(version):
+                versionPathh = versionPathh.replace("/", "\\")
+                install_forge_version(version, versionPathh, callback=callback)
+            else:
+                xxx = config.get("JVMS", "java-1.8")
+                playVanilla(self, 0)
+                run_forge_installer(version, xxx)
+        except Exception:
+            shutil.rmtree(f"{sciezkains}/{versionPath}/")
+            self.errorexec(
+                "Something weird occured with forge instalation. Try again or wait for fix :(",
+                "icons/1x/errorAsset 55.png",
+                "Ok",
+            )
+            self.ui.bn_play.setText(f"Play")
+            return
 
         # * create instance settings_ins
         if (
-            path.exists(f"{sciezkains}/settings_ins.ini") == False
+            path.exists(f"{sciezkains}/{versionPath}/settings_ins.ini") == False
             or settings_ins.has_section(f"{version}") == False
             or settings_ins.has_option(f"{version}", "gametype") == False
             or settings_ins.has_option(f"{version}", "isshared") == False
@@ -601,23 +636,28 @@ def playForge(self):
                 settings_ins[f"{version}"]["isseparate"] = "yes"
             if settings_ins.has_option(f"{version}", "isoptifine") == False:
                 settings_ins[f"{version}"]["isoptifine"] = "no"
-            with open(f"{sciezkains}/settings_ins.ini", "w") as configfile:
+            with open(
+                f"{sciezkains}/{versionPath}/settings_ins.ini", "w"
+            ) as configfile:
                 settings_ins.write(configfile)
 
         # * play minecraft
-
-        playForge(self)
+        if var == 1:
+            playForge(self, 1)
     else:
         self.ui.bn_play.setText(f"Playing")
         setCurrentDiscordRpc(f"Minecraft {version}", f"Playing as {username}")
         threading.Thread(target=lambda: playingcheck(self)).start()
-        version = version[:7] + "forge" + version[:7] + version[7:]
+        version = minecraft_launcher_lib.utils.get_installed_versions(f"{versionPathh}")
+        try:
+            version = version[1]["id"]
+        except Exception:
+            version = version[0]["id"]
         minecraft_command = minecraft_launcher_lib.command.get_minecraft_command(
             version, versionPathh, options
         )
         clearList(self)
         try:
-            print(minecraft_launcher_lib.utils.get_minecraft_news(20))
             subprocess.call(minecraft_command)
         except Exception:
             self.errorexec(
@@ -625,6 +665,17 @@ def playForge(self):
                 "icons/1x/errorAsset 55.png",
                 "Ok",
             )
+
+
+def ProgressBarMc(value, total, self):
+    global ProgressBarMc_value
+    global ProgressBarMc_total
+    ProgressBarMc_value = value
+    ProgressBarMc_total = total
+
+
+def ProgressBarMcMaximum(max_value, value):
+    max_value[0] = value
 
 
 def playVanilla(self, var):
@@ -635,11 +686,9 @@ def playVanilla(self, var):
             "icons/1x/smile2Asset 1.png",
             "Ok",
         )
-        return 0
+        return
     config = configparser.ConfigParser()
     config.read(f"{sciezkaver}/config.ini")
-    settings_ins = configparser.ConfigParser()
-    settings_ins.read(f"{sciezkains}/settings_ins.ini")
 
     username = config.get("PROFILE", "username")
     token = config.get("PROFILE", "uuid")
@@ -649,44 +698,49 @@ def playVanilla(self, var):
     jvmArguments = []
     jvmArguments.append(f"-Xmx{allocatedram}")
 
+    max_value = [0]
+
     callback = {
         "setStatus": lambda text: print(text),
+        "setProgress": lambda value: ProgressBarMc(value, max_value[0], self),
+        "setMax": lambda value: ProgressBarMcMaximum(max_value, value),
     }
 
     content = config.get("PROFILE", "version")
-    if var == 0:
+    """if var == 0:
         content = content.split('-')
-        content = content[0]
+        content = content[0]"""
     versionPath = (
         content.replace("release", "")
         .replace("snapshot", "")
         .replace("<-- local installed", "")
         .replace("local", "")
         .replace(" ", "")
-        .replace(" ", "-")
     )
     version = versionPath
     #! adssadsdaasd
+
     if var == 0:
-        content = content.split('-')
-        content = content[0]
+        versionPath = versionPath.split("-")
+        versionPath = f"{versionPath[0]}" + "-forge-" + f"{versionPath[1]}"
     versionPathh = f"{sciezkains}/{versionPath}/.minecraft"
 
-    if settings_ins.has_option("CUSTOM NAMES", f"{versionPath}") == True:
-        version = config.get("CUSTOM NAMES", f"{versionPath}")
     bufor = version.split(".")
+    if var == 0:
+        version = version.split("-")
+        version = version[0]
     if bufor[1] == int:
         if int(bufor[1]) >= 16:
-            executablePath = config.get("JVMS", "java-16")
+            executablePath = config.get("JVMS", "java-17")
         else:
             executablePath = config.get("JVMS", "java-1.8")
     else:
-        executablePath = config.get("JVMS", "java-16")
+        executablePath = config.get("JVMS", "java-17")
 
     if specialarg == "True":
         if bufor[1] != int:
             if int(bufor[1]) >= 16:
-                buf = config.get("JVMS", "specialarg-16")
+                buf = config.get("JVMS", "specialarg-17")
                 buf = buf.split(" ")
                 for i in range(len(buf)):
                     jvmArguments.append(buf[i])
@@ -696,7 +750,7 @@ def playVanilla(self, var):
                 for i in range(len(buf)):
                     jvmArguments.append(buf[i])
         else:
-            buf = config.get("JVMS", "specialarg-16")
+            buf = config.get("JVMS", "specialarg-17")
             buf = buf.split(" ")
             for i in range(len(buf)):
                 jvmArguments.append(buf[i])
@@ -708,43 +762,47 @@ def playVanilla(self, var):
         "executablePath": executablePath,
     }
 
-    if path.exists(f"{sciezkains}/{versionPath}") == False:
+    settings_ins = configparser.ConfigParser()
+    settings_ins.read(f"{sciezkains}/{versionPath}/settings_ins.ini")
+
+    if path.exists(f"{sciezkains}/{versionPath}") == False or var == 0 or var == 2:
         self.ui.bn_play.setText(f"Downloading")
         threading.Thread(target=lambda: downloadingCount(self)).start()
-        os.mkdir(f"{sciezkains}/{versionPath}/")
-        os.mkdir(f"{sciezkains}/{versionPath}/.minecraft")
-        subprocess.check_call(
-            'mklink /J "%s" "%s"'
-            % (
-                f"{sciezkains}/{versionPath}/.minecraft/saves",
-                f"{sciezka}/minecraft-folders/saves",
-            ),
-            shell=True,
-        )
-        subprocess.check_call(
-            'mklink /J "%s" "%s"'
-            % (
-                f"{sciezkains}/{versionPath}/.minecraft/assets",
-                f"{sciezkains}/shared/.minecraft/assets",
-            ),
-            shell=True,
-        )
-        subprocess.check_call(
-            'mklink /J "%s" "%s"'
-            % (
-                f"{sciezkains}/{versionPath}/.minecraft/runtime",
-                f"{sciezkains}/shared/.minecraft/runtime",
-            ),
-            shell=True,
-        )
-        subprocess.check_call(
-            'mklink /J "%s" "%s"'
-            % (
-                f"{sciezkains}/{versionPath}/.minecraft/libraries",
-                f"{sciezkains}/shared/.minecraft/libraries",
-            ),
-            shell=True,
-        )
+        if path.exists(f"{sciezkains}/{versionPath}/") == False:
+            os.mkdir(f"{sciezkains}/{versionPath}/")
+            os.mkdir(f"{sciezkains}/{versionPath}/.minecraft")
+            subprocess.check_call(
+                'mklink /J "%s" "%s"'
+                % (
+                    f"{sciezkains}/{versionPath}/.minecraft/saves",
+                    f"{sciezka}/minecraft-folders/saves",
+                ),
+                shell=True,
+            )
+            subprocess.check_call(
+                'mklink /J "%s" "%s"'
+                % (
+                    f"{sciezkains}/{versionPath}/.minecraft/assets",
+                    f"{sciezkains}/shared/.minecraft/assets",
+                ),
+                shell=True,
+            )
+            subprocess.check_call(
+                'mklink /J "%s" "%s"'
+                % (
+                    f"{sciezkains}/{versionPath}/.minecraft/runtime",
+                    f"{sciezkains}/shared/.minecraft/runtime",
+                ),
+                shell=True,
+            )
+            subprocess.check_call(
+                'mklink /J "%s" "%s"'
+                % (
+                    f"{sciezkains}/{versionPath}/.minecraft/libraries",
+                    f"{sciezkains}/shared/.minecraft/libraries",
+                ),
+                shell=True,
+            )
 
         # * run installation
 
@@ -754,7 +812,7 @@ def playVanilla(self, var):
 
         # * create instance settings_ins
         if (
-            path.exists(f"{sciezkains}/settings_ins.ini") == False
+            path.exists(f"{sciezkains}/{versionPath}/settings_ins.ini") == False
             or settings_ins.has_section(f"{version}") == False
             or settings_ins.has_option(f"{version}", "gametype") == False
             or settings_ins.has_option(f"{version}", "isshared") == False
@@ -766,12 +824,14 @@ def playVanilla(self, var):
             if settings_ins.has_option(f"{version}", "gametype") == False:
                 settings_ins[f"{version}"]["gametype"] = "Vanilla"
             if settings_ins.has_option(f"{version}", "isshared") == False:
-                settings_ins[f"{version}"]["isshared"] = "no"
+                settings_ins[f"{version}"]["isshared"] = "yes"
             if settings_ins.has_option(f"{version}", "isseparate") == False:
                 settings_ins[f"{version}"]["isseparate"] = "yes"
             if settings_ins.has_option(f"{version}", "isoptifine") == False:
                 settings_ins[f"{version}"]["isoptifine"] = "no"
-            with open(f"{sciezkains}/settings_ins.ini", "w") as configfile:
+            with open(
+                f"{sciezkains}/{versionPath}/settings_ins.ini", "w"
+            ) as configfile:
                 settings_ins.write(configfile)
 
         # * play minecraft
@@ -781,23 +841,23 @@ def playVanilla(self, var):
         self.ui.bn_play.setText(f"Playing")
         setCurrentDiscordRpc(f"Minecraft {version}", f"Playing as {username}")
         threading.Thread(target=lambda: playingcheck(self)).start()
+        version = minecraft_launcher_lib.utils.get_installed_versions(f"{versionPathh}")
+        try:
+            version = version[1]["id"]
+        except Exception:
+            version = version[0]["id"]
         minecraft_command = minecraft_launcher_lib.command.get_minecraft_command(
             version, versionPathh, options
         )
         clearList(self)
         try:
-            p = Process(target=runmc, args=(minecraft_command,))
-            p.start()
+            subprocess.call(minecraft_command)
         except Exception:
             self.errorexec(
                 "Something weird occured with this instance. Please use repair button in instance settings",
                 "icons/1x/errorAsset 55.png",
                 "Ok",
             )
-
-
-def runmc(minecraft_command):
-    subprocess.call(minecraft_command)
 
 
 def playingcheck(self):
@@ -812,6 +872,7 @@ def playingcheck(self):
             config.read(f"{sciezkaver}/config.ini")
             username = config.get("PROFILE", "username")
             setCurrentDiscordRpc("Home Page", f"Playing as {username}")
+            return
         time.sleep(10)
 
 
@@ -829,39 +890,14 @@ def downloadstuff(self):
         or path.exists(f"{sciezkains}/shared/.minecraft") == False
     ):
         if path.exists(f"{sciezkains}/shared/.minecraft") == False:
-            os.mkdir(f"{sciezkains}/shared/.minecraft")
-            if path.exists(f"C:/Users/{user}/AppData/Roaming/.minecraft") == True:
-                # * .MINECRAFT EXISTS
-                self.ui.lab_tab2.setText(f"COPYING FROM EXISTING FOLDER")
-                if (
-                    path.exists(f"C:/Users/{user}/AppData/Roaming/.minecraft/assets")
-                    == True
-                ):
-                    shutil.copytree(
-                        f"C:/Users/{user}/AppData/Roaming/.minecraft/assets",
-                        f"{sciezkains}/shared/.minecraft/assets",
-                    )
-                if (
-                    path.exists(f"C:/Users/{user}/AppData/Roaming/.minecraft/libraries")
-                    == True
-                ):
-                    shutil.copytree(
-                        f"C:/Users/{user}/AppData/Roaming/.minecraft/libraries",
-                        f"{sciezkains}/shared/.minecraft/libraries",
-                    )
-                os.mkdir(f"{sciezkains}/shared/.minecraft/runtime")
-                progress = "COPIED"
-            elif (
-                path.exists(f"{sciezkains}/shared/.minecraft.zip") == False
-                or os.path.getsize(f"{sciezkains}/shared/.minecraft.zip") < 497370000
-            ):
-                # * AHVE TO DOWNLOAD
-                download(
-                    "https://www.dropbox.com/s/1f8ipykii17o2u4/.minecraft.zip?dl=1",
-                    f"{sciezkains}/shared/.minecraft.zip",
-                    self,
-                )
-        if path.exists(f"{sciezkains}/shared/.minecraft") == False:
+            # * AHVE TO DOWNLOAD
+            download(
+                "https://www.dropbox.com/s/1f8ipykii17o2u4/.minecraft.zip?dl=1",
+                f"{sciezkains}/shared/.minecraft.zip",
+                self,
+                30000,
+            )
+        if path.exists(f"{sciezkains}/shared/.minecraft.zip") == True:
             self.ui.lab_tab2.setText(f"UNZIPPING")
             with zipfile.ZipFile(f"{sciezkains}/shared/.minecraft.zip", "r") as zipObj:
                 zipObj.extractall(f"{sciezkains}/shared/.minecraft")
@@ -876,25 +912,27 @@ def downloadstuff(self):
                 "https://www.dropbox.com/s/xji1r8xbvnsw9tq/jre1.8.0_281.zip?dl=1",
                 f"{sciezkajvms}/jvm1_8.zip",
                 self,
+                0,
             )
         self.ui.lab_tab2.setText(f"UNZIPPING")
         with zipfile.ZipFile(f"{sciezkajvms}/jvm1_8.zip", "r") as zipObj:
             zipObj.extractall(f"{sciezkajvms}/")
         progress = "DOWNLOADED"
 
-    # * JAVA 16
-    if path.exists(f"{sciezkajvms}/jdk-16.0.2") == False:
+    # * JAVA 17
+    if path.exists(f"{sciezkajvms}/jdk-17.0.2") == False:
         if (
-            path.exists(f"{sciezkajvms}/jvm16.zip") == False
-            or os.path.getsize(f"{sciezkajvms}/jvm16.zip") < 184262000
+            path.exists(f"{sciezkajvms}/jvm17.zip") == False
+            or os.path.getsize(f"{sciezkajvms}/jvm17.zip") < 184262000
         ):
             download(
-                "https://www.dropbox.com/s/gpwdxcsiogj77c8/jdk-16.0.2.zip?dl=1",
-                f"{sciezkajvms}/jvm16.zip",
+                "https://www.dropbox.com/s/8nviopyiwtj7mtb/jdk-17.0.2_windows-x64_bin.zip?dl=1",
+                f"{sciezkajvms}/jvm17.zip",
                 self,
+                0,
             )
         self.ui.lab_tab2.setText(f"UNZIPPING")
-        with zipfile.ZipFile(f"{sciezkajvms}/jvm16.zip", "r") as zipObj:
+        with zipfile.ZipFile(f"{sciezkajvms}/jvm17.zip", "r") as zipObj:
             zipObj.extractall(f"{sciezkajvms}/")
         progress = "DOWNLOADED"
 
@@ -915,6 +953,8 @@ def downloadstuff(self):
 # * INSTANCE SETTINGS
 class instancesettings:
     def __init__(self, selfui):
+        config = configparser.ConfigParser()
+        config.read(f"{sciezkaver}/config.ini")
         global deleteInstance
         deleteInstance = False
         bufor = (
@@ -926,6 +966,8 @@ class instancesettings:
             .replace("Current Version:", "")
             .replace(" ", "")
         )
+        if config.get("PROFILE", "gameversion") == "Forge Versions":
+            bufor = "f-" + bufor
         selfui.ui.label_16.setText(bufor)
 
         if selfui.ui.label_16.text().startswith("s_") == True:
@@ -961,6 +1003,10 @@ class instancesettings:
                 "QPushButton {\nborder: none;background-color: rgb(50,150,50);}QPushButton:hover {background-color: rgb(255,50,50);}"
             )
         else:
+            try:
+                selfui.ui.bug_openfolder.clicked.disconnect()
+            except Exception:
+                pass
             selfui.ui.bug_openfolder.clicked.connect(
                 lambda: self.openFolder(bufor, selfui)
             )
@@ -978,26 +1024,31 @@ class instancesettings:
                 "QPushButton {\nborder: none;background-color: rgb(50,150,50);}QPushButton:hover {background-color: rgb(255,50,50);}"
             )
         else:
+            try:
+                selfui.ui.bug_repair.clicked.disconnect()
+            except Exception:
+                pass
             selfui.ui.bug_repair.clicked.connect(
-                lambda: self.repairInstance(bufor, selfui)
+                lambda: threading.Thread(
+                    target=lambda: self.repairInstance(bufor, selfui)
+                ).start()
             )
             selfui.ui.bug_repair.setText("Repair Instance")
             selfui.ui.bug_repair.setStyleSheet(
                 "QPushButton {\nborder: none;background-color: rgb(50,150,50);}QPushButton:hover {background-color: rgb(100,180,100);}"
             )
 
-        # * bug_bn_customname
-
-        selfui.ui.bug_bn_customname.clicked.connect(
-            lambda: self.bnCustomName(bufor, selfui)
-        )
-
         # * bug_bn_delete
         if path.exists(f"{sciezkains}/{bufor}") == True:
             selfui.ui.bug_bn_delete.setEnabled(True)
+            try:
+                selfui.ui.bug_bn_delete.clicked.disconnect()
+            except Exception:
+                pass
             selfui.ui.bug_bn_delete.clicked.connect(
                 lambda: self.bnDelete(bufor, selfui)
             )
+            selfui.ui.bug_bn_delete.setText("Delete Instance")
         else:
             selfui.ui.bug_bn_delete.setEnabled(False)
             selfui.ui.bug_bn_delete.setText(
@@ -1005,9 +1056,9 @@ class instancesettings:
             )
 
         settings_ins = configparser.ConfigParser()
-        settings_ins.read(f"{sciezkains}/settings_ins.ini")
+        settings_ins.read(f"{sciezkains}/{bufor}/settings_ins.ini")
         if (
-            path.exists(f"{sciezkains}/settings_ins.ini") == False
+            path.exists(f"{sciezkains}/{bufor}/settings_ins.ini") == False
             or settings_ins.has_section(f"{bufor}") == False
             or settings_ins.has_option(f"{bufor}", "isshared") == False
             or settings_ins.has_option(f"{bufor}", "isseparate") == False
@@ -1021,13 +1072,21 @@ class instancesettings:
                 settings_ins[f"{bufor}"]["isseparate"] = "yes"
             if settings_ins.has_option(f"{bufor}", "isoptifine") == False:
                 settings_ins[f"{bufor}"]["isoptifine"] = "no"
-            with open(f"{sciezkains}/settings_ins.ini", "w") as configfile:
+            with open(f"{sciezkains}/{bufor}/settings_ins.ini", "w") as configfile:
                 settings_ins.write(configfile)
         isshared = settings_ins.get(f"{bufor}", "isshared")
         isseparate = settings_ins.get(f"{bufor}", "isseparate")
         isoptifine = settings_ins.get(f"{bufor}", "isoptifine")
 
         # * SAVES
+        try:
+            selfui.ui.bug_sharedsaves.clicked.disconnect()
+        except Exception:
+            pass
+        selfui.ui.bug_sharedsaves.clicked.connect(
+            lambda: self.sharedSaves(bufor, selfui)
+        )
+
         if isshared == "yes":
             selfui.ui.label_19.setText("Save Shared")
             selfui.ui.bug_sharedsaves.setText("Split saves")
@@ -1050,6 +1109,12 @@ class instancesettings:
             selfui.ui.bug_separate.setText("Connect Instance")
 
         # * Optifine
+        try:
+            selfui.ui.bug_optifine.clicked.disconnect()
+        except Exception:
+            pass
+        selfui.ui.bug_optifine.clicked.connect(lambda: self.bnOptifine(selfui))
+
         if isoptifine == "yes":
             selfui.ui.label_17.setText("Optifine Installed")
             selfui.ui.bug_optifine.setText("Uninstall Optifine")
@@ -1059,6 +1124,55 @@ class instancesettings:
         else:
             selfui.ui.label_17.setText("Optifine Not Installed")
             selfui.ui.bug_optifine.setText("Install Optifine")
+
+    def sharedSaves(self, version, selfui):
+        buforinstance = f"{sciezkains}/{version}/.minecraft"
+        settings_ins = configparser.ConfigParser()
+        settings_ins.read(f"{sciezkains}/{version}/settings_ins.ini")
+        isshared = settings_ins.get(f"{version}", "isshared")
+        if isshared == "yes":
+            try:
+                os.remove(f"{buforinstance}/saves")
+            except Exception:
+                shutil.rmtree(f"{buforinstance}/saves")
+            os.mkdir(f"{buforinstance}/saves")
+            selfui.ui.label_19.setText("Save Not Shared")
+            selfui.ui.bug_sharedsaves.setText("Connect saves")
+            settings_ins[f"{version}"]["isshared"] = "no"
+        else:
+            onlyfiles = [
+                f
+                for f in listdir(f"{buforinstance}/saves")
+                if isfile(join(f"{buforinstance}/saves", f))
+            ]
+            for i in onlyfiles:
+                print(i)
+                shutil.move(
+                    f"{sciezkains}/{version}/.minecraft/saves/{i}",
+                    f"{sciezka}/minecraft-folders/saves/{i}",
+                )
+            try:
+                os.remove(f"{buforinstance}/saves")
+            except Exception:
+                shutil.rmtree(f"{buforinstance}/saves")
+            print("asdd")
+            subprocess.check_call(
+                'mklink /J "%s" "%s"'
+                % (
+                    f"{sciezkains}/{version}/.minecraft/saves",
+                    f"{sciezka}/minecraft-folders/saves",
+                ),
+                shell=True,
+            )
+            selfui.ui.label_19.setText("Save Shared")
+            selfui.ui.bug_sharedsaves.setText("Split saves")
+            selfui.ui.bug_sharedsaves.setStyleSheet(
+                "QPushButton {\nborder: none;background-color: rgb(50,150,50);}QPushButton:hover {background-color: rgb(255,50,50);}"
+            )
+            settings_ins[f"{version}"]["isshared"] = "yes"
+
+        with open(f"{sciezkains}/{version}/settings_ins.ini", "w") as configfile:
+            settings_ins.write(configfile)
 
     def openFolder(self, version, selfui):
         buforinstance = f"{sciezkains}/{version}/.minecraft"
@@ -1078,57 +1192,29 @@ class instancesettings:
             )
         else:
             deleteInstance = False
-            os.remove(f"{sciezkains}/{version}")
-
-    def bnCustomName(self, version, selfui):
-        bufor = selfui.ui.bug_line_customname.text()
-
-        # * ERRORS
-        if " " in bufor or "." in bufor:
-            selfui.errorexec(
-                'Invalid characters in custom name (" ", ".")',
-                "icons/1x/errorAsset 55.png",
-                "Ok",
-            )
-            return 0
-        if len(bufor) > 10:
-            selfui.errorexec(
-                "Maximum number of characters exceeded",
-                "icons/1x/errorAsset 55.png",
-                "Ok",
-            )
-            return 0
-        if bufor == "":
-            selfui.errorexec(
-                "Custom instance name cannot be blank",
-                "icons/1x/errorAsset 55.png",
-                "Ok",
-            )
-            return 0
-
-        settings_ins = configparser.ConfigParser()
-        settings_ins.read(f"{sciezkains}/settings_ins.ini")
-        bufor2 = selfui.ui.label_16.text()
-        bufor3 = bufor2
-        if settings_ins.has_option("CUSTOM NAMES", f"{bufor2}") == True:
-
-            bufor3 = settings_ins.get("CUSTOM NAMES", f"{bufor2}")
-            settings_ins.remove_option("CUSTOM NAMES", f"{bufor2}")
-        settings_ins["CUSTOM NAMES"][f"{bufor}"] = bufor3
-
-        # * REPLACING OLD SECTION
-        if settings_ins.has_section(f"{bufor2}") == True:
-
-            items = settings_ins.items(f"{bufor2}")
-            settings_ins.add_section(f"{bufor}")
-            for item in items:
-                settings_ins.set(f"{bufor}", item[0], item[1])
-            settings_ins.remove_section(f"{bufor2}")
-
-        with open(f"{sciezkains}/settings_ins.ini", "w") as configfile:
-            settings_ins.write(configfile)
-
-        selfui.ui.label_16.setText(bufor)
+            shutil.rmtree(f"{sciezkains}/{version}")
+            instancesettings(selfui)
 
     def repairInstance(self, version, selfui):
-        pass
+        selfui.ui.bn_play.setText(f"Downloading")
+        buforinstance = f"{sciezkains}/{version}/.minecraft"
+        max_value = [0]
+
+        callback = {
+            "setStatus": lambda text: print(text),
+            "setProgress": lambda value: ProgressBarMc(value, max_value[0], selfui),
+            "setMax": lambda value: ProgressBarMcMaximum(max_value, value),
+        }
+        threading.Thread(target=lambda: downloadingCount(selfui)).start()
+        if version.startswith("f-"):
+            version = version.replace("f-", "")
+            versionPathh = buforinstance.replace("/", "\\")
+            install_forge_version(version, versionPathh, callback=callback)
+        else:
+            minecraft_launcher_lib.install.install_minecraft_version(
+                version, buforinstance, callback=callback
+            )
+        selfui.ui.bn_play.setText(f"Play")
+
+    def bnOptifine(self, selfui):
+        webbrowser.open("https://optifine.net/downloads")

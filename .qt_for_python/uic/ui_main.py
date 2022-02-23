@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'ui_main.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.2.0
+## Created by: Qt User Interface Compiler version 6.2.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -667,31 +667,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.verticalLayout_22 = QVBoxLayout()
         self.verticalLayout_22.setObjectName(u"verticalLayout_22")
-        self.bug_line_customname = QLineEdit(self.verticalLayoutWidget)
-        self.bug_line_customname.setObjectName(u"bug_line_customname")
-        self.bug_line_customname.setEnabled(False)
-        sizePolicy.setHeightForWidth(self.bug_line_customname.sizePolicy().hasHeightForWidth())
-        self.bug_line_customname.setSizePolicy(sizePolicy)
-        self.bug_line_customname.setFont(font12)
-        self.bug_line_customname.setAutoFillBackground(False)
-        self.bug_line_customname.setStyleSheet(u"QLineEdit {\n"
-"	color:rgb(255,255,255);\n"
-"	border:2px solid rgb(51,51,51);\n"
-"	border-radius:4px;\n"
-"	background:rgb(51,51,51);\n"
-"}\n"
-"\n"
-"QLineEdit:disabled {\n"
-"	color:rgb(255,255,255);\n"
-"	border:2px solid rgb(112,112,112);\n"
-"	border-radius:4px;\n"
-"	background:rgb(112,112,112);\n"
-"}")
-        self.bug_line_customname.setEchoMode(QLineEdit.Normal)
-        self.bug_line_customname.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout_22.addWidget(self.bug_line_customname)
-
         self.label_19 = QLabel(self.verticalLayoutWidget)
         self.label_19.setObjectName(u"label_19")
         font13 = QFont()
@@ -701,13 +676,6 @@ class Ui_MainWindow(object):
         self.label_19.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_22.addWidget(self.label_19)
-
-        self.label_18 = QLabel(self.verticalLayoutWidget)
-        self.label_18.setObjectName(u"label_18")
-        self.label_18.setFont(font13)
-        self.label_18.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout_22.addWidget(self.label_18)
 
         self.label_17 = QLabel(self.verticalLayoutWidget)
         self.label_17.setObjectName(u"label_17")
@@ -732,21 +700,6 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_21 = QVBoxLayout()
         self.verticalLayout_21.setObjectName(u"verticalLayout_21")
-        self.bug_bn_customname = QPushButton(self.verticalLayoutWidget)
-        self.bug_bn_customname.setObjectName(u"bug_bn_customname")
-        self.bug_bn_customname.setFont(font13)
-        self.bug_bn_customname.setStyleSheet(u"QPushButton {\n"
-"	border: none;\n"
-"	background-color: rgb(50,150,50);\n"
-"}\n"
-"QPushButton:hover {\n"
-"	background-color: rgb(100,180,100);\n"
-"}\n"
-"")
-        self.bug_bn_customname.setFlat(True)
-
-        self.verticalLayout_21.addWidget(self.bug_bn_customname)
-
         self.bug_sharedsaves = QPushButton(self.verticalLayoutWidget)
         self.bug_sharedsaves.setObjectName(u"bug_sharedsaves")
         self.bug_sharedsaves.setFont(font13)
@@ -761,21 +714,6 @@ class Ui_MainWindow(object):
         self.bug_sharedsaves.setFlat(True)
 
         self.verticalLayout_21.addWidget(self.bug_sharedsaves)
-
-        self.bug_separate = QPushButton(self.verticalLayoutWidget)
-        self.bug_separate.setObjectName(u"bug_separate")
-        self.bug_separate.setFont(font13)
-        self.bug_separate.setStyleSheet(u"QPushButton {\n"
-"	border: none;\n"
-"	background-color: rgb(50,150,50);\n"
-"}\n"
-"QPushButton:hover {\n"
-"	background-color: rgb(100,180,100);\n"
-"}\n"
-"")
-        self.bug_separate.setFlat(True)
-
-        self.verticalLayout_21.addWidget(self.bug_separate)
 
         self.bug_optifine = QPushButton(self.verticalLayoutWidget)
         self.bug_optifine.setObjectName(u"bug_optifine")
@@ -2183,27 +2121,10 @@ class Ui_MainWindow(object):
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Empty", None))
         self.label_15.setText(QCoreApplication.translate("MainWindow", u"Instance settings", None))
         self.label_16.setText(QCoreApplication.translate("MainWindow", u"[Instance name]", None))
-#if QT_CONFIG(tooltip)
-        self.bug_line_customname.setToolTip("")
-#endif // QT_CONFIG(tooltip)
-#if QT_CONFIG(statustip)
-        self.bug_line_customname.setStatusTip("")
-#endif // QT_CONFIG(statustip)
-#if QT_CONFIG(whatsthis)
-        self.bug_line_customname.setWhatsThis("")
-#endif // QT_CONFIG(whatsthis)
-#if QT_CONFIG(accessibility)
-        self.bug_line_customname.setAccessibleName("")
-#endif // QT_CONFIG(accessibility)
-        self.bug_line_customname.setText("")
-        self.bug_line_customname.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Instance Custom Name", None))
         self.label_19.setText(QCoreApplication.translate("MainWindow", u"[is shared?]", None))
-        self.label_18.setText(QCoreApplication.translate("MainWindow", u"[is separete?]", None))
         self.label_17.setText(QCoreApplication.translate("MainWindow", u"[optifine installed?]", None))
         self.lb_bug_open.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.bug_bn_customname.setText(QCoreApplication.translate("MainWindow", u"Save name", None))
         self.bug_sharedsaves.setText(QCoreApplication.translate("MainWindow", u"Shared saves", None))
-        self.bug_separate.setText(QCoreApplication.translate("MainWindow", u"Separate Instance", None))
         self.bug_optifine.setText(QCoreApplication.translate("MainWindow", u"Optifine", None))
         self.bug_repair.setText(QCoreApplication.translate("MainWindow", u"Repair instance", None))
         self.bug_openfolder.setText(QCoreApplication.translate("MainWindow", u"Open folder", None))

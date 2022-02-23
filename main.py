@@ -186,9 +186,9 @@ class MainWindow(QMainWindow):
         username = config.get("PROFILE", "username")
         if (
             path.exists(f"{sciezkajvms}/jre1.8.0_281") == False
-            or path.exists(f"{sciezkajvms}/jdk-16.0.2") == False
+            or path.exists(f"{sciezkajvms}/jdk-17.0.2") == False
             or os.path.getsize(f"{sciezkajvms}/jvm1_8.zip") < 78355000
-            or os.path.getsize(f"{sciezkajvms}/jvm16.zip") < 184262000
+            or os.path.getsize(f"{sciezkajvms}/jvm17.zip") < 170000000
             or path.exists(f"{sciezkains}/shared/.minecraft") == False
         ):
             threading.Thread(target=lambda: brain.downloadstuff(self)).start()
@@ -196,6 +196,7 @@ class MainWindow(QMainWindow):
         self.i = 0
         self.valueChanged.connect(self.changetheme)
         threading.Thread(target=lambda: brain.GetReleases(self)).start()
+        threading.Thread(target=lambda: brain.ForgeReleases(self)).start()
 
         brain.updateLines(self)
         threading.Thread(target=lambda: brain.checkinternet(self)).start()

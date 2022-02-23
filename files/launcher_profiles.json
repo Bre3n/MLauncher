@@ -1,0 +1,25 @@
+{
+  "profiles": {
+    "Bre3n": {
+      "name": "Steve",
+      "lastVersionId": "1.18.1"
+    }
+  },
+  "selectedProfile": "Steve",
+  "clientToken": "19f9d989-5d34-4441-bc99-5737ae40e3b6",
+  "authenticationDatabase": {
+    "b91b8a1f5f3e3c39b45fb2878de2d158": {
+      "displayName": "Steve",
+      "accessToken": "b91b8a1f-5f3e-3c39-b45f-b2878de2d158",
+      "userid": "Steve",
+      "uuid": "b91b8a1f-5f3e-3c39-b45f-b2878de2d158",
+      "username": "Steve"
+    }
+  },
+  "selectedUser": "b91b8a1f5f3e3c39b45fb2878de2d158",
+  "launcherVersion": {
+    "name": "Minecraft Launcher",
+    "format": 21,
+    "profilesFormat": 1
+  }
+}
