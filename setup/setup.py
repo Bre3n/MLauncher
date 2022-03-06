@@ -35,22 +35,6 @@ def downloader(url, path, var):
                     f.write(data)
 
 
-def check_ram(allocated):
-    byte = psutil.virtual_memory().total
-    while True:
-        if byte < 1024:
-            size = f"{byte:.2f}"
-            size = round(float(size)) * 1024
-            break
-        byte = byte / 1024
-    bufor = int(size * 0.8)
-    if int(allocated.replace("M", "")) > bufor:
-        print(
-            f"Cannot asing more ram than {bufor}MB (80% of amount of available RAM ({size}) )"
-        )
-        exit()
-
-
 def pliki(sciezka):
     i = 0
     pathh = f"{sciezka}/logs-setup"
@@ -146,133 +130,139 @@ if __name__ == "__main__":
     coloredlogs.install(level="DEBUG", logger=logger)
 
     logger.debug(f"DEBUG: Starting")
+    try:
+        downloader(
+            filelink,
+            txtFile,
+            0,
+        )
 
-    downloader(
-        filelink,
-        txtFile,
-        0,
-    )
+        logger.debug(f"DEBUG: Downloaded version file")
+        with open(txtFile) as f:
+            content = f.readlines()
+            content = [x.strip() for x in content]
+        os.remove(f"{sciezkaver}/ver.txt")
 
-    logger.debug(f"DEBUG: Downloaded version file")
-    with open(txtFile) as f:
-        content = f.readlines()
-        content = [x.strip() for x in content]
-    os.remove(f"{sciezkaver}/ver.txt")
-
-    if path.exists(f"{sciezkaver}/version.txt") == False:
-        f = open(f"{sciezkaver}/version.txt", "w")
-        for i in range(int(len(content) / 2)):
-            f.write(f"{content[i]}\n")
-        f.close()
-        logger.info(f"INFO: Version file didn't exist")
-        logger.warning(f"WARNING: Restarting!")
-        os.execv(sys.executable, ["python"] + sys.argv)
-    else:
-        logger.debug(f"DEBUG: Starting version comparing")
-        with open(f"{sciezkaver}/version.txt") as f:
-            contentv = f.readlines()
-            contentv = [x.strip() for x in contentv]
-        if int(len(content) / 2) != int(len(contentv)):
-            print(int(len(content) / 2))
-            print(int(len(contentv)))
-            logger.critical(f"CRITICAL: FILES DON'T HAVE SAME NUMER OF LINES!")
-            logger.debug(f"DEBUG: Overwritting wrong file with 'None' lines")
+        if path.exists(f"{sciezkaver}/version.txt") == False:
             f = open(f"{sciezkaver}/version.txt", "w")
             for i in range(int(len(content) / 2)):
-                f.write("None\n")
-        with open(f"{sciezkaver}/version.txt") as f:
-            contentv = f.readlines()
-            contentv = [x.strip() for x in contentv]
-        for i in range(int(len(content) / 2)):
-            if content[i] != contentv[i]:
-                logger.warning(
-                    f"WARNING: Lines didn't match   {content[i]}!={contentv[i]}"
-                )
+                f.write(f"{content[i]}\n")
+            f.close()
+            logger.info(f"INFO: Version file didn't exist")
+            logger.warning(f"WARNING: Restarting!")
+            os.execv(sys.executable, ["python"] + sys.argv)
+        else:
+            logger.debug(f"DEBUG: Starting version comparing")
+            with open(f"{sciezkaver}/version.txt") as f:
+                contentv = f.readlines()
+                contentv = [x.strip() for x in contentv]
+            if int(len(content) / 2) != int(len(contentv)):
+                print(int(len(content) / 2))
+                print(int(len(contentv)))
+                logger.critical(f"CRITICAL: FILES DON'T HAVE SAME NUMER OF LINES!")
+                logger.debug(f"DEBUG: Overwritting wrong file with 'None' lines")
+                f = open(f"{sciezkaver}/version.txt", "w")
+                for i in range(int(len(content) / 2)):
+                    f.write("None\n")
+            with open(f"{sciezkaver}/version.txt") as f:
+                contentv = f.readlines()
+                contentv = [x.strip() for x in contentv]
+            for i in range(int(len(content) / 2)):
+                if content[i] != contentv[i]:
+                    logger.warning(
+                        f"WARNING: Lines didn't match   {content[i]}!={contentv[i]}"
+                    )
+                    bufor = content[i].replace(" ", "")
+                    bufor = bufor.split("==")
+                    checkzip = bufor[0].split(".")
+                    logger.debug(f"DEBUG: Downloading   {bufor[0]}")
+                    downloader(
+                        content[i + (int(len(content) / 2))],
+                        f"{sciezkaver}/{bufor[0]}",
+                        1,
+                    )
+                    print(" ")
+                    logger.debug(f"DEBUG: Download complete")
+                    if checkzip[1] == "zip":
+                        logger.info(f"INFO: Detected zip file. Extractings")
+                        with zipfile.ZipFile(f"{sciezkaver}/{bufor[0]}", "r") as zipObj:
+                            zipObj.extractall(f"{sciezkaver}/{checkzip[0]}")
+                        os.remove(f"{sciezkaver}/{bufor[0]}")
+            f = open(f"{sciezkaver}/version.txt", "w")
+            for i in range(int(len(content) / 2)):
+                f.write(f"{content[i]}\n")
+            f.close()
+            logger.debug(f"DEBUG: Overwritting old version file")
+            logger.debug(f"DEBUG: Comparing files in directory")
+            for i in range(int(len(content) / 2)):
                 bufor = content[i].replace(" ", "")
                 bufor = bufor.split("==")
                 checkzip = bufor[0].split(".")
-                logger.debug(f"DEBUG: Downloading   {bufor[0]}")
-                downloader(
-                    content[i + (int(len(content) / 2))],
-                    f"{sciezkaver}/{bufor[0]}",
-                    1,
-                )
-                print(" ")
-                logger.debug(f"DEBUG: Download complete")
+                buforr = bufor[0]
                 if checkzip[1] == "zip":
-                    logger.info(f"INFO: Detected zip file. Extractings")
-                    with zipfile.ZipFile(f"{sciezkaver}/{bufor[0]}", "r") as zipObj:
-                        zipObj.extractall(f"{sciezkaver}/{checkzip[0]}")
-                    os.remove(f"{sciezkaver}/{bufor[0]}")
-        f = open(f"{sciezkaver}/version.txt", "w")
-        for i in range(int(len(content) / 2)):
-            f.write(f"{content[i]}\n")
-        f.close()
-        logger.debug(f"DEBUG: Overwritting old version file")
-        logger.debug(f"DEBUG: Comparing files in directory")
-        for i in range(int(len(content) / 2)):
-            bufor = content[i].replace(" ", "")
-            bufor = bufor.split("==")
-            checkzip = bufor[0].split(".")
-            buforr = bufor[0]
-            if checkzip[1] == "zip":
-                bufor[0] = checkzip[0]
-            if path.exists(f"{sciezkaver}/{bufor[0]}") == False:
-                logger.warning(
-                    f"WARNING: There is no file named   {bufor[0]}   in directory"
-                )
-                logger.debug(f"DEBUG: Downloading   {bufor[0]}")
-                downloader(
-                    content[i + (int(len(content) / 2))],
-                    f"{sciezkaver}/{buforr}",
-                    1,
-                )
-                print(" ")
-                logger.debug(f"DEBUG: Download complete")
-                if checkzip[1] == "zip":
-                    logger.info(f"INFO: Detected zip file. Extracting")
-                    with zipfile.ZipFile(f"{sciezkaver}/{buforr}", "r") as zipObj:
-                        zipObj.extractall(f"{sciezkaver}/{checkzip[0]}")
-                    os.remove(f"{sciezkaver}/{buforr}")
-        logger.debug(f"DEBUG: Program process complete")
+                    bufor[0] = checkzip[0]
+                if path.exists(f"{sciezkaver}/{bufor[0]}") == False:
+                    logger.warning(
+                        f"WARNING: There is no file named   {bufor[0]}   in directory"
+                    )
+                    logger.debug(f"DEBUG: Downloading   {bufor[0]}")
+                    downloader(
+                        content[i + (int(len(content) / 2))],
+                        f"{sciezkaver}/{buforr}",
+                        1,
+                    )
+                    print(" ")
+                    logger.debug(f"DEBUG: Download complete")
+                    if checkzip[1] == "zip":
+                        logger.info(f"INFO: Detected zip file. Extracting")
+                        with zipfile.ZipFile(f"{sciezkaver}/{buforr}", "r") as zipObj:
+                            zipObj.extractall(f"{sciezkaver}/{checkzip[0]}")
+                        os.remove(f"{sciezkaver}/{buforr}")
+            logger.debug(f"DEBUG: Program process complete")
 
-        logging.shutdown()
-        desktop = winshell.desktop()
-        cwd = os.getcwd()
-        if path.exists(f"{sciezka}/cache/setup.txt"):
-            f = open(f"{sciezka}/cache/setup.txt", "r")
-            bufor = f.read()
-            bufor = bufor.replace("\\", "/")
-            try:
-                os.remove(bufor)
-            except Exception:
-                pass
-            f.close()
-            try:
-                os.remove(f"{sciezka}/cache/setup.txt")
-            except Exception:
-                pass
-        if (
-            cwd != f"C:\\Users\{user}\\AppData\\Roaming\\.mlauncher\\bin"
-            and cwd != f"C:\\Users\\{user}\\Desktop\\Projekty\\LauncherUi\\setup"
-        ):
-            if path.exists(f"{sciezka}/cache") == False:
-                os.mkdir(f"{sciezka}/cache")
-            f = open(f"{sciezka}/cache/setup.txt", "w")
-            f.write(f"{cwd}\setup.py")
-            f.close()
-        if path.exists(f"{desktop}/MLauncher.lnk") == False:
-            if path.exists(f"{sciezka}/cache/shortcut.txt") == False:
-                path = os.path.join(desktop, "MLauncher.lnk")
-                target = f"{sciezkaver}\\setup.py"
-                icon = f"{sciezkaver}/icons/1x/icon.ico"
-                shell = win32com.client.Dispatch("WScript.Shell")
-                shortcut = shell.CreateShortCut(path)
-                shortcut.Targetpath = target
-                shortcut.IconLocation = icon
-                shortcut.save()
-                f = open(f"{sciezka}/cache/shortcut.txt", "w")
-                f.write("Shortcut created")
+            logging.shutdown()
+            desktop = winshell.desktop()
+            cwd = os.getcwd()
+            if path.exists(f"{sciezka}/cache/setup.txt"):
+                f = open(f"{sciezka}/cache/setup.txt", "r")
+                bufor = f.read()
+                bufor = bufor.replace("\\", "/")
+                try:
+                    os.remove(bufor)
+                except Exception:
+                    pass
                 f.close()
-        os.chdir(f"{sciezkaver}/")
+                try:
+                    os.remove(f"{sciezka}/cache/setup.txt")
+                except Exception:
+                    pass
+            if (
+                cwd != f"C:\\Users\{user}\\AppData\\Roaming\\.mlauncher\\bin"
+                and cwd != f"C:\\Users\\{user}\\Desktop\\Projekty\\LauncherUi\\setup"
+            ):
+                if path.exists(f"{sciezka}/cache") == False:
+                    os.mkdir(f"{sciezka}/cache")
+                f = open(f"{sciezka}/cache/setup.txt", "w")
+                f.write(f"{cwd}\setup.py")
+                f.close()
+            if path.exists(f"{desktop}/MLauncher.lnk") == False:
+                if path.exists(f"{sciezka}/cache/shortcut.txt") == False:
+                    path = os.path.join(desktop, "MLauncher.lnk")
+                    target = f"{sciezkaver}\\setup.py"
+                    icon = f"{sciezkaver}/icons/1x/icon.ico"
+                    shell = win32com.client.Dispatch("WScript.Shell")
+                    shortcut = shell.CreateShortCut(path)
+                    shortcut.Targetpath = target
+                    shortcut.IconLocation = icon
+                    shortcut.save()
+                    f = open(f"{sciezka}/cache/shortcut.txt", "w")
+                    f.write("Shortcut created")
+                    f.close()
+            os.chdir(f"{sciezkaver}/")
+    except ConnectionError:
+        os.system("cls")
+        print("Connection Error, can't check for updates")
+        print("Starting offline mode in 3s")
+        time.sleep(3)
+    if path.exists(f"{sciezkaver}/main.py"):
         subprocess.call(["python", f"{sciezkaver}/main.py"])

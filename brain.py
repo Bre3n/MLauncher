@@ -1,31 +1,32 @@
 import configparser
+import ctypes
+import json
+import math
 import os
 import shutil
-import time
-import json
-import psutil
-import math
-import ctypes
-import enlighten
+import subprocess
 import threading
-import requests
+import time
 import webbrowser
-from multiprocessing import Process
-from pypresence import Presence
+import zipfile
+from os import listdir, path
+from os.path import isfile, join
+from PySide2 import QtGui, QtCore
+from PySide2.QtWidgets import QFileDialog, QLabel, QAction, QMainWindow, QApplication
+
+import enlighten
 import minecraft_launcher_lib
+import psutil
+import pythoncom
+import requests
+import win32com.client
+import winshell
 from minecraft_launcher_lib.forge import (
     install_forge_version,
     run_forge_installer,
     supports_automatic_install,
 )
-from os import path
-import zipfile
-import subprocess
-import winshell
-import pythoncom
-import win32com.client
-from os import listdir
-from os.path import isfile, join
+from pypresence import Presence
 
 user = os.getlogin()
 sciezka = f"C:/Users/{user}/AppData/Roaming/.mlauncher"
@@ -47,6 +48,7 @@ ServerVersions = ""
 deleteInstance = False
 ProgressBarMc_value = 1
 ProgressBarMc_total = 2
+articleURL = [1, 2, 3, 4, 5]
 
 
 def download(url, pathh, self, value):
@@ -109,6 +111,8 @@ def createFiles():
         open(f"{sciezka}/instances/.Minecraft_Instances.txt", "w").close()
     if path.exists(f"{sciezka}/cache") == False:
         os.mkdir(f"{sciezka}/cache")
+    if path.exists(f"{sciezka}/cache/img") == False:
+        os.mkdir(f"{sciezka}/cache/img")
     if path.exists(f"{sciezka}/jvms") == False:
         os.mkdir(f"{sciezka}/jvms")
     if path.exists(f"{sciezka}/minecraft-folders") == False:
@@ -233,6 +237,7 @@ def updateLines(self):
     # * Current Version
     bufor = config.get("PROFILE", "version")
     self.ui.label_13.setText(f"Current Version: {bufor}")
+    self.ui.label_2.setText(f"Current Version: {bufor}")
 
 
 def iterablebooldef(var):
@@ -242,12 +247,12 @@ def iterablebooldef(var):
 
 def checkinternet(self):
     global iterablebool
-    url = "http://www.github.com"
     global checkinternetbool
     while iterablebool > 0:
+        self.ui.bn_play.text()
         iterablebool = iterablebool
         try:
-            request = requests.get(url, timeout=5)
+            request = requests.get("http://www.google.com", timeout=5)
             checkinternetbool = True
             if self.i == 2:
                 self.i = 1
@@ -297,6 +302,7 @@ def discordrpc(self):
     config = configparser.ConfigParser()
     config.read(f"{sciezkaver}/config.ini")
     while iterablebool > 0:
+        self.ui.bn_play.text()
         bufor = "Discord.exe" in (i.name() for i in psutil.process_iter())
         if bufor != False:
             if connectedRpc == False and checkinternetbool == True:
@@ -324,65 +330,68 @@ def discordrpc(self):
 
 
 def GetReleases(self):
-    self.ui.comboBox.clear()
-    config = configparser.ConfigParser()
-    config.read(f"{sciezkaver}/config.ini")
+    try:
+        self.ui.comboBox.clear()
+        config = configparser.ConfigParser()
+        config.read(f"{sciezkaver}/config.ini")
 
-    if config.get("SETTINGS", "snapshots") == "True":
-        var = True
-    else:
-        var = False
-    global Lista
-    Releases = []
-    McVers = []
-    buforlist = []
-    customlist = []
-    if Lista == "":
-        Lista = requests.get(
-            "https://launchermeta.mojang.com/mc/game/version_manifest.json"
-        ).json()
-    VersionsA = Lista["versions"]
-    bufor = [
-        name
-        for name in os.listdir(f"{sciezka}/instances")
-        if os.path.isdir(os.path.join(f"{sciezka}/instances", name))
-    ]
-    for i in range(int(len(bufor))):
-        if path.exists(f"{sciezka}/instances/{bufor[i]}/.minecraft") == True:
-            buforlist.append(bufor[i])
-    if var == False:
-        for key in VersionsA:
-            if key["type"] == "release":
-                bufor = key["id"]
-                if bufor in buforlist:
-                    Releases.append(f"release {bufor} <-- local installed")
-                    buforlist.remove(bufor)
-                else:
-                    Releases.append(f"release {bufor}")
-    else:
-        for key in VersionsA:
-            if key["type"] == "release":
-                bufor = key["id"]
-                if bufor in buforlist:
-                    Releases.append(f"release {bufor} <-- local installed")
-                    buforlist.remove(bufor)
-                else:
-                    Releases.append(f"release {bufor}")
-            if key["type"] == "snapshot":
-                bufor = key["id"]
-                if bufor in buforlist:
-                    Releases.append(f"snapshot {bufor} <-- local installed")
-                    buforlist.remove(bufor)
-                else:
-                    Releases.append(f"snapshot {bufor}")
-    for i in range(int(len(Releases))):
-        McVers.append(Releases[i])
-    global ServerVersions
-    if ServerVersions == "":
-        versions = configparser.ConfigParser()
-        versions.read(f"{sciezkaver}/versions.ini")
-        ServerVersions = versions.sections()
-    self.ui.comboBox.addItems(McVers)
+        if config.get("SETTINGS", "snapshots") == "True":
+            var = True
+        else:
+            var = False
+        global Lista
+        Releases = []
+        McVers = []
+        buforlist = []
+        customlist = []
+        if Lista == "":
+            Lista = requests.get(
+                "https://launchermeta.mojang.com/mc/game/version_manifest.json"
+            ).json()
+        VersionsA = Lista["versions"]
+        bufor = [
+            name
+            for name in os.listdir(f"{sciezka}/instances")
+            if os.path.isdir(os.path.join(f"{sciezka}/instances", name))
+        ]
+        for i in range(int(len(bufor))):
+            if path.exists(f"{sciezka}/instances/{bufor[i]}/.minecraft") == True:
+                buforlist.append(bufor[i])
+        if var == False:
+            for key in VersionsA:
+                if key["type"] == "release":
+                    bufor = key["id"]
+                    if bufor in buforlist:
+                        Releases.append(f"release {bufor} <-- local installed")
+                        buforlist.remove(bufor)
+                    else:
+                        Releases.append(f"release {bufor}")
+        else:
+            for key in VersionsA:
+                if key["type"] == "release":
+                    bufor = key["id"]
+                    if bufor in buforlist:
+                        Releases.append(f"release {bufor} <-- local installed")
+                        buforlist.remove(bufor)
+                    else:
+                        Releases.append(f"release {bufor}")
+                if key["type"] == "snapshot":
+                    bufor = key["id"]
+                    if bufor in buforlist:
+                        Releases.append(f"snapshot {bufor} <-- local installed")
+                        buforlist.remove(bufor)
+                    else:
+                        Releases.append(f"snapshot {bufor}")
+        for i in range(int(len(Releases))):
+            McVers.append(Releases[i])
+        global ServerVersions
+        if ServerVersions == "":
+            versions = configparser.ConfigParser()
+            versions.read(f"{sciezkaver}/versions.ini")
+            ServerVersions = versions.sections()
+        self.ui.comboBox.addItems(McVers)
+    except Exception:
+        pass
 
 
 def clearList(self):
@@ -405,34 +414,39 @@ def serverVersions(self):
     self.ui.comboBox.addItems(ServerVersions)
 
 
-def ForgeReleases(self):
+def ForgeReleases(self, var):
     global ForgeVersions
     global ForgeVersionss
-    customlist = []
-    buforlist = []
-    bufor = [
-        name
-        for name in os.listdir(f"{sciezka}/instances")
-        if os.path.isdir(os.path.join(f"{sciezka}/instances", name))
-    ]
-    for i in range(int(len(bufor))):
-        if path.exists(f"{sciezka}/instances/{bufor[i]}/.minecraft") == True:
-            buforr = bufor[i].replace("f-", "")
-            buforlist.append(buforr)
-    self.ui.comboBox.clear()
-    if ForgeVersions == "":
-        ForgeVersions = []
-        if ForgeVersionss == "":
-            ForgeVersionss = minecraft_launcher_lib.forge.list_forge_versions()
-        for i in range(len(ForgeVersionss)):
-            niewytrzymam = ForgeVersionss[i].split("-")
-            niewytrzymam = niewytrzymam[0].split(".")
-            if int(niewytrzymam[1]) >= 13:
-                if ForgeVersionss[i] in buforlist:
-                    ForgeVersions.append(f"{ForgeVersionss[i]} <-- local installed")
-                else:
-                    ForgeVersions.append(f"{ForgeVersionss[i]}")
-    self.ui.comboBox.addItems(ForgeVersions)
+    global buforlist
+    try:
+        customlist = []
+        buforlist = []
+        bufor = [
+            name
+            for name in os.listdir(f"{sciezka}/instances")
+            if os.path.isdir(os.path.join(f"{sciezka}/instances", name))
+        ]
+        for i in range(int(len(bufor))):
+            if path.exists(f"{sciezka}/instances/{bufor[i]}/.minecraft") == True:
+                buforr = bufor[i].replace("f-", "")
+                buforlist.append(buforr)
+        if ForgeVersions == "":
+            ForgeVersions = []
+            if ForgeVersionss == "":
+                ForgeVersionss = minecraft_launcher_lib.forge.list_forge_versions()
+            for i in range(len(ForgeVersionss)):
+                niewytrzymam = ForgeVersionss[i].split("-")
+                niewytrzymam = niewytrzymam[0].split(".")
+                if int(niewytrzymam[1]) >= 13:
+                    if ForgeVersionss[i] in buforlist:
+                        ForgeVersions.append(f"{ForgeVersionss[i]} <-- local installed")
+                    else:
+                        ForgeVersions.append(f"{ForgeVersionss[i]}")
+        if var == 1:
+            self.ui.comboBox.clear()
+            self.ui.comboBox.addItems(ForgeVersions)
+    except Exception:
+        pass
 
 
 def playthread(self):
@@ -469,9 +483,6 @@ def downloadingCount(self):
         else:
             break
     self.ui.lab_tab2.setText(f"")
-
-
-# * TODO: ADD OPTIONAL INSTANCE BUTTON AND SUPPORT
 
 
 def playForge(self, var):
@@ -516,12 +527,12 @@ def playForge(self, var):
 
     bufor = version.split("-")
     bufor = bufor[0].split(".")
-    if bufor[1]:
+    try:
         if int(bufor[1]) >= 16:
             executablePath = config.get("JVMS", "java-17")
         else:
             executablePath = config.get("JVMS", "java-1.8")
-    else:
+    except Exception:
         executablePath = config.get("JVMS", "java-17")
 
     if specialarg == "True":
@@ -557,7 +568,7 @@ def playForge(self, var):
         os.mkdir(f"{sciezkains}/{versionPath}/")
         os.mkdir(f"{sciezkains}/{versionPath}/.minecraft")
         shutil.copy(
-            f"C:/Users/{user}/AppData/Roaming/.minecraft/launcher_profiles.json",
+            f"{sciezkaver}/launcher_profiles.json",
             f"{sciezkains}/{versionPath}/.minecraft/launcher_profiles.json",
         )
         subprocess.check_call(
@@ -729,12 +740,12 @@ def playVanilla(self, var):
     if var == 0:
         version = version.split("-")
         version = version[0]
-    if bufor[1] == int:
+    try:
         if int(bufor[1]) >= 16:
             executablePath = config.get("JVMS", "java-17")
         else:
             executablePath = config.get("JVMS", "java-1.8")
-    else:
+    except Exception:
         executablePath = config.get("JVMS", "java-17")
 
     if specialarg == "True":
@@ -771,6 +782,10 @@ def playVanilla(self, var):
         if path.exists(f"{sciezkains}/{versionPath}/") == False:
             os.mkdir(f"{sciezkains}/{versionPath}/")
             os.mkdir(f"{sciezkains}/{versionPath}/.minecraft")
+            shutil.copy(
+                f"{sciezkaver}/launcher_profiles.json",
+                f"{sciezkains}/{versionPath}/.minecraft/launcher_profiles.json",
+            )
             subprocess.check_call(
                 'mklink /J "%s" "%s"'
                 % (
@@ -950,6 +965,106 @@ def downloadstuff(self):
     self.ui.lab_tab2.setText(f"")
 
 
+def newsScroll(self, var):
+    index = self.ui.stackedWidget_2.currentIndex()
+    if var == 1:
+        if index == 4:
+            self.ui.stackedWidget_2.setCurrentIndex(0)
+        else:
+            self.ui.stackedWidget_2.setCurrentIndex(index + 1)
+    else:
+        if index == 0:
+            self.ui.stackedWidget_2.setCurrentIndex(4)
+        else:
+            self.ui.stackedWidget_2.setCurrentIndex(index - 1)
+    index = self.ui.stackedWidget_2.currentIndex()
+    self.ui.news_index.setText(f"{index+1}/5")
+    if index == 0:
+        self.ui.news_latest.setText("Latest")
+    else:
+        self.ui.news_latest.setText("")
+
+
+def newsOpen(self):
+    global articleURL
+    index = self.ui.stackedWidget_2.currentIndex()
+    webbrowser.open(f"https://www.minecraft.net{articleURL[index]}")
+
+
+def news(self):
+    global articleURL
+    try:
+        bufor = minecraft_launcher_lib.utils.get_minecraft_news(5)
+        bufor = bufor["article_grid"]
+        title = [1, 2, 3, 4, 5]
+        sub_title = [1, 2, 3, 4, 5]
+        imageURL = [1, 2, 3, 4, 5]
+        articleURL = [1, 2, 3, 4, 5]
+        header = {"user-agent": f"launcher/4.5"}
+
+        for i in range(5):
+            number = bufor[i]
+            default_tile = number["default_tile"]
+            title[i] = default_tile["title"]
+            sub_title[i] = default_tile["sub_header"]
+            image_buf = default_tile["image"]
+            imageURL[i] = image_buf["imageURL"]
+            articleURL[i] = number["article_url"]
+
+            img_data = requests.get(
+                f"https://www.minecraft.net{imageURL[i]}", headers=header
+            ).content
+            with open(f"{sciezka}/cache/img/{i}.png", "wb") as handler:
+                handler.write(img_data)
+
+        self.ui.news_1.setText(title[0])
+        self.ui.news_2.setText(title[1])
+        self.ui.news_3.setText(title[2])
+        self.ui.news_4.setText(title[3])
+        self.ui.news_5.setText(title[4])
+        self.ui.news_1_2.setText(sub_title[0])
+        self.ui.news_2_2.setText(sub_title[1])
+        self.ui.news_3_2.setText(sub_title[2])
+        self.ui.news_4_2.setText(sub_title[3])
+        self.ui.news_5_2.setText(sub_title[4])
+
+        img = QtGui.QPixmap(f"{sciezka}/cache/img/0.png")
+        lbl = QLabel(self)
+        lbl.setPixmap(img)
+        self.ui.verticalLayout_28.addWidget(lbl)
+        #############
+        img = QtGui.QPixmap(f"{sciezka}/cache/img/1.png")
+        lbl = QLabel(self)
+        lbl.setPixmap(img)
+        self.ui.verticalLayout_29.addWidget(lbl)
+        #############
+        img = QtGui.QPixmap(f"{sciezka}/cache/img/2.png")
+        lbl = QLabel(self)
+        lbl.setPixmap(img)
+        self.ui.verticalLayout_30.addWidget(lbl)
+        #############
+        img = QtGui.QPixmap(f"{sciezka}/cache/img/3.png")
+        lbl = QLabel(self)
+        lbl.setPixmap(img)
+        self.ui.verticalLayout_31.addWidget(lbl)
+        #############
+        img = QtGui.QPixmap(f"{sciezka}/cache/img/4.png")
+        lbl = QLabel(self)
+        lbl.setPixmap(img)
+        self.ui.verticalLayout_32.addWidget(lbl)
+    except Exception:
+        self.ui.news_1.setText("No information from server")
+        self.ui.news_2.setText("No information from server")
+        self.ui.news_3.setText("No information from server")
+        self.ui.news_4.setText("No information from server")
+        self.ui.news_5.setText("No information from server")
+        self.ui.news_1_2.setText("")
+        self.ui.news_2_2.setText("")
+        self.ui.news_3_2.setText("")
+        self.ui.news_4_2.setText("")
+        self.ui.news_5_2.setText("")
+
+
 # * INSTANCE SETTINGS
 class instancesettings:
     def __init__(self, selfui):
@@ -968,29 +1083,13 @@ class instancesettings:
         )
         if config.get("PROFILE", "gameversion") == "Forge Versions":
             bufor = "f-" + bufor
+
         selfui.ui.label_16.setText(bufor)
 
-        if selfui.ui.label_16.text().startswith("s_") == True:
-
-            # * Change lineedit visibility
-            not_resize = selfui.ui.bug_line_customname.sizePolicy()
-            not_resize.setRetainSizeWhenHidden(True)
-            selfui.ui.bug_line_customname.setSizePolicy(not_resize)
-            selfui.ui.bug_line_customname.setVisible(False)
-
-            # * Change bn visibility
-            not_resize = selfui.ui.bug_bn_customname.sizePolicy()
-            not_resize.setRetainSizeWhenHidden(True)
-            selfui.ui.bug_bn_customname.setSizePolicy(not_resize)
-            selfui.ui.bug_bn_customname.setVisible(False)
-            selfui.ui.bug_line_customname.setEnabled(False)
-        else:
-            selfui.ui.bug_line_customname.setText("")
-            selfui.ui.bug_line_customname.setEnabled(False)
-            selfui.ui.bug_line_customname.setPlaceholderText(f"Name: {bufor}")
-            selfui.ui.bug_line_customname.setEnabled(True)
-            selfui.ui.bug_bn_customname.setVisible(True)
-            selfui.ui.bug_line_customname.setVisible(True)
+        # * Change lineedit visibility
+        """not_resize = selfui.ui.bug_line_customname.sizePolicy()
+        not_resize.setRetainSizeWhenHidden(True)
+        selfui.ui.bug_line_customname.setSizePolicy(not_resize)"""
 
         # * BUTTONS
 
@@ -1097,24 +1196,37 @@ class instancesettings:
             selfui.ui.label_19.setText("Save Not Shared")
             selfui.ui.bug_sharedsaves.setText("Connect saves")
 
-        # * INSTANCE
-        if isseparate == "yes":
-            selfui.ui.label_18.setText("Instance Separate")
-            selfui.ui.bug_separate.setText("Split Instance")
-            selfui.ui.bug_separate.setStyleSheet(
-                "QPushButton {\nborder: none;background-color: rgb(50,150,50);}QPushButton:hover {background-color: rgb(255,50,50);}"
-            )
-        else:
-            selfui.ui.label_18.setText("Instance Not Separate")
-            selfui.ui.bug_separate.setText("Connect Instance")
-
         # * Optifine
-        try:
-            selfui.ui.bug_optifine.clicked.disconnect()
-        except Exception:
-            pass
-        selfui.ui.bug_optifine.clicked.connect(lambda: self.bnOptifine(selfui))
 
+        versionOptifine = minecraft_launcher_lib.utils.get_installed_versions(
+            f"{sciezkains}/{bufor}/.minecraft"
+        )
+        for i in range(len(versionOptifine)):
+            if (versionOptifine[i]["id"]).lower().find("optifine") != -1:
+                selfui.ui.label_17.setText("Optifine Installed")
+                selfui.ui.bug_optifine.setText("Uninstall Optifine")
+                selfui.ui.bug_optifine.setStyleSheet(
+                    "QPushButton {\nborder: none;background-color: rgb(50,150,50);}QPushButton:hover {background-color: rgb(255,50,50);}"
+                )
+                try:
+                    selfui.ui.bug_optifine.clicked.disconnect()
+                except Exception:
+                    pass
+                selfui.ui.bug_optifine.clicked.connect(
+                    lambda: self.bnOptifine(selfui, bufor)
+                )
+            else:
+                selfui.ui.label_17.setText("Optifine Not Installed")
+                selfui.ui.bug_optifine.setText("Install Optifine")
+                try:
+                    selfui.ui.bug_optifine.clicked.disconnect()
+                except Exception:
+                    pass
+                selfui.ui.bug_optifine.clicked.connect(
+                    lambda: self.bnOptifine(selfui, bufor)
+                )
+
+        """
         if isoptifine == "yes":
             selfui.ui.label_17.setText("Optifine Installed")
             selfui.ui.bug_optifine.setText("Uninstall Optifine")
@@ -1123,7 +1235,7 @@ class instancesettings:
             )
         else:
             selfui.ui.label_17.setText("Optifine Not Installed")
-            selfui.ui.bug_optifine.setText("Install Optifine")
+            selfui.ui.bug_optifine.setText("Install Optifine")"""
 
     def sharedSaves(self, version, selfui):
         buforinstance = f"{sciezkains}/{version}/.minecraft"
@@ -1216,5 +1328,57 @@ class instancesettings:
             )
         selfui.ui.bn_play.setText(f"Play")
 
-    def bnOptifine(self, selfui):
-        webbrowser.open("https://optifine.net/downloads")
+    def bnOptifine(self, selfui, version):
+        if selfui.ui.bug_optifine.text() == "Install Optifine":
+            webbrowser.open("https://optifine.net/downloads")
+        else:
+            versionOptifine = minecraft_launcher_lib.utils.get_installed_versions(
+                f"{sciezkains}/{version}/.minecraft"
+            )
+            for i in range(len(versionOptifine)):
+                if (versionOptifine[i]["id"]).lower().find("optifine") != -1:
+                    bufor = versionOptifine[i]["id"]
+                    shutil.rmtree(f"{sciezkains}/{version}/.minecraft/versions/{bufor}")
+                    selfui.ui.label_17.setText("Optifine Not Installed")
+                    selfui.ui.bug_optifine.setText("Install Optifine")
+
+
+class forge_mods:
+    def __init__(self, selfui):
+        forge_installed = []
+        for i in range(len(ForgeVersionss)):
+            if ForgeVersionss[i] in buforlist:
+                forge_installed.append(ForgeVersionss[i])
+        selfui.ui.comboBox_2.clear()
+        selfui.ui.comboBox_2.addItems(forge_installed)
+        bufor = [
+            name
+            for name in os.listdir(f"{sciezka}/instances")
+            if os.path.isdir(os.path.join(f"{sciezka}/instances", name))
+        ]
+        for i in range(int(len(bufor))):
+            if path.exists(f"{sciezka}/instances/{bufor[i]}/.minecraft") == True:
+                buforr = bufor[i].replace("f-", "")
+                buforlist.append(buforr)
+
+    def set_mod(selfui):
+        bufor = selfui.ui.comboBox_2.currentText()
+        selfui.ui.label_20.setText(bufor)
+        onlyfiles = [
+            f
+            for f in listdir(f"{sciezka}/instances/{'f-'+bufor}/.minecraft/mods")
+            if isfile(join(f"{sciezka}/instances/{'f-'+bufor}/.minecraft/mods", f))
+        ]
+        selfui.ui.comboBox_3.clear()
+        if onlyfiles:
+            selfui.ui.comboBox_3.addItems(onlyfiles)
+        else:
+            selfui.ui.comboBox_3.addItem("No mods")
+
+    def delete_mod(selfui):
+        bufor = selfui.ui.label_20.text()
+        bufor_mod = selfui.ui.comboBox_3.currentText()
+        if bufor_mod != "No mods":
+            os.remove(f"{sciezka}/instances/{'f-'+bufor}/.minecraft/mods/{bufor_mod}")
+            index = selfui.ui.comboBox_3.findText(bufor_mod)
+            selfui.ui.comboBox_3.removeItem(index)

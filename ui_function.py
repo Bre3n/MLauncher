@@ -5,7 +5,7 @@ import threading
 import subprocess
 
 import brain
-from main import *  # IMPORTING THE MAIN.PY FILE
+from main import *
 
 user = os.getlogin()
 sciezka = f"C:/Users/{user}/AppData/Roaming/.mlauncher"
@@ -14,20 +14,12 @@ config = configparser.ConfigParser()
 config.read(f"{sciezkaver}/config.ini")
 deleteBufor = False
 
-GLOBAL_STATE = 0  # NECESSERY FOR CHECKING WEATHER THE WINDWO IS FULL SCREEN OR NOT
-GLOBAL_TITLE_BAR = (
-    True  # NECESSERY FOR CHECKING WEATHER THE WINDWO IS FULL SCREEN OR NOT
-)
-init = False  # NECRESSERY FOR INITITTION OF THE WINDOW.
+GLOBAL_STATE = 0
+GLOBAL_TITLE_BAR = True
+init = False
 
-# tab_Buttons = ['bn_home', 'bn_bug', 'bn_android', 'bn_cloud'] #BUTTONS IN MAIN TAB
-# android_buttons = ['bn_android_contact', 'bn_android_game', 'bn_android_clean', 'bn_android_world'] #BUTTONS IN ANDROID STACKPAGE
 
-# THIS CLASS HOUSES ALL FUNCTION NECESSERY FOR OUR PROGRAMME TO RUN.a
 class UIFunction(MainWindow):
-
-    # ----> INITIAL FUNCTION TO LOAD THE FRONT STACK WIDGET AND TAB BUTTON I.E. HOME PAGE
-    # INITIALISING THE WELCOME PAGE TO: HOME PAGE IN THE STACKEDWIDGET, SETTING THE BOTTOM LABEL AS THE PAGE NAME, SETTING THE BUTTON STYLE.
     def initStackTab(self):
         global init
         if init == False:
@@ -36,18 +28,9 @@ class UIFunction(MainWindow):
             self.ui.frame_home.setStyleSheet("background:rgb(91,90,90)")
             init = True
 
-    ################################################################################################
-
-    # ------> SETING THE APPLICATION NAME IN OUR CUSTOME MADE TAB, WHERE LABEL NAMED: lab_appname()
     def labelTitle(self, appName):
         self.ui.lab_appname.setText(appName)
 
-    ################################################################################################zxc
-
-    ################################################################################################
-
-    # ----> RETURN STATUS MAX OR RESTROE
-    # NECESSERY OFR THE MAXIMISE FUNCTION TRO WORK.
     def returStatus():
         return GLOBAL_STATE
 
@@ -55,55 +38,38 @@ class UIFunction(MainWindow):
         global GLOBAL_STATE
         GLOBAL_STATE = status
 
-    # -----> DEFAULT ACTION FUNCTIONa
     def constantFunction(self):
-        # -----> DOUBLE CLICK RESULT IN MAXIMISE OF WINDOW
         def maxDoubleClick(stateMouse):
             if stateMouse.type() == QtCore.QEvent.MouseButtonDblClick:
                 pass
 
-        # ----> REMOVE NORMAL TITLE BAR
         if True:
             self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
             self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
             self.ui.frame_appname.mouseDoubleClickEvent = maxDoubleClick
 
-        # SINCE THERE IS NO WINDOWS TOPBAR, THE CLOSE MIN, MAX BUTTON ARE ABSENT AND SO THERE IS A NEED FOR THE ALTERNATIVE BUTTONS IN OUR
-        # DIALOG BOX, WHICH IS CARRIED OUT BY THE BELOW CODE
-        # -----> MINIMIZE BUTTON FUNCTION
         self.ui.bn_min.clicked.connect(lambda: self.showMinimized())
 
-        # -----> CLOSE APPLICATION FUNCTION BUTTON
         self.ui.bn_close.clicked.connect(lambda: self.closeprogram())
 
-    ################################################################################################################
-
-    # ----> BUTTON IN TAB PRESSED EXECUTES THE CORRESPONDING PAGE IN STACKEDWIDGET PAGES
     def buttonPressed(self, buttonName):
-        # ------> THIS LINE CLEARS THE BG OF PREVIOUS TABS I.E. FROM THE LITER COLOR TO THE SAME BG COLOR I.E. TO CHANGE THE HIGHLIGHT.
         for each in self.ui.frame_bottom_west.findChildren(QFrame):
             each.setStyleSheet("background:rgb(51,51,51)")
 
         if buttonName == "bn_home":
             self.ui.stackedWidget.setCurrentWidget(self.ui.page_home)
             self.ui.lab_tab.setText("Home")
-            self.ui.frame_home.setStyleSheet(
-                "background:rgb(91,90,90)"
-            )  # SETS THE BACKGROUND OF THE CLICKED BUTTON TO LITER COLOR THAN THE REST
+            self.ui.frame_home.setStyleSheet("background:rgb(91,90,90)")
 
         elif buttonName == "bn_bug":
             self.ui.stackedWidget.setCurrentWidget(self.ui.page_bug)
             self.ui.lab_tab.setText("Game")
-            self.ui.frame_bug.setStyleSheet(
-                "background:rgb(91,90,90)"
-            )  # SETS THE BACKGROUND OF THE CLICKED BUTTON TO LITER COLOR THAN THE REST
+            self.ui.frame_bug.setStyleSheet("background:rgb(91,90,90)")
 
         elif buttonName == "bn_android":
             self.ui.stackedWidget.setCurrentWidget(self.ui.page_android)
             self.ui.lab_tab.setText("Settings")
-            self.ui.frame_android.setStyleSheet(
-                "background:rgb(91,90,90)"
-            )  # SETS THE BACKGROUND OF THE CLICKED BUTTON TO LITER COLOR THAN THE REST
+            self.ui.frame_android.setStyleSheet("background:rgb(91,90,90)")
             UIFunction.androidStackPages(self, "page_contact")
 
         elif buttonName == "bn_github":
@@ -119,6 +85,11 @@ class UIFunction(MainWindow):
             self.ui.stackedWidget.setCurrentWidget(self.ui.page_about_bug)
             self.ui.lab_tab.setText("Instance Settings")
             brain.instancesettings(self)
+
+        elif buttonName == "bn_mods":
+            self.ui.stackedWidget.setCurrentWidget(self.ui.page_forge_mods)
+            self.ui.lab_tab.setText("Forge Mods")
+            brain.forge_mods(self)
 
         # ADD ANOTHER ELIF STATEMENT HERE FOR EXECTUITING A NEW MENU BUTTON STACK PAGE.
 
@@ -359,7 +330,7 @@ class APFunction:
         else:
             self.ui.line_checkbox_arg.setText("Checked")
             self.errorexec(
-                "Recommended if you have alocated more than 2GB RAM",
+                "Recommended if you have alocated more than 2GB RAM\n(May cause starting problems)",
                 "icons/1x/errorAsset 55.png",
                 "Ok",
             )
@@ -388,7 +359,7 @@ class APFunction:
 
     def bug_button2(self):
         self.ui.label_12.setText("Forge Versions")
-        threading.Thread(target=lambda: brain.ForgeReleases(self)).start()
+        threading.Thread(target=lambda: brain.ForgeReleases(self, 1)).start()
 
     def bug_button3(self):
         self.ui.label_12.setText("Server Versions")
@@ -397,12 +368,10 @@ class APFunction:
     def bug_confirm(self):
         bufor = self.ui.comboBox.currentText()
         self.ui.label_13.setText(f"Current Version: {bufor}")
+        self.ui.label_2.setText(f"Current Version: {bufor}")
         config = configparser.ConfigParser()
         config.read(f"{sciezkaver}/config.ini")
         config["PROFILE"]["gameversion"] = self.ui.label_12.text()
         config["PROFILE"]["version"] = bufor
         with open(f"{sciezkaver}/config.ini", "w") as configfile:
             config.write(configfile)
-
-
-###############################################################################################################################################################
