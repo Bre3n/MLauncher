@@ -11,8 +11,6 @@ import webbrowser
 import zipfile
 from os import listdir, path
 from os.path import isfile, join
-from PySide2 import QtGui, QtCore
-from PySide2.QtWidgets import QFileDialog, QLabel, QAction, QMainWindow, QApplication
 
 import enlighten
 import minecraft_launcher_lib
@@ -27,9 +25,11 @@ from minecraft_launcher_lib.forge import (
     supports_automatic_install,
 )
 from pypresence import Presence
+from PySide2 import QtCore, QtGui
+from PySide2.QtWidgets import QAction, QApplication, QFileDialog, QLabel, QMainWindow
 
-user = os.getlogin()
-sciezka = f"C:/Users/{user}/AppData/Roaming/.mlauncher"
+roaming = os.getenv("APPDATA")
+sciezka = f"{roaming}/.mlauncher"
 sciezkaver = f"{sciezka}/bin"
 sciezkains = f"{sciezka}/instances"
 sciezkajvms = f"{sciezka}/jvms"
@@ -450,6 +450,14 @@ def ForgeReleases(self, var):
 
 
 def playthread(self):
+    global canPlay
+    if canPlay == False:
+        self.errorexec(
+            "All the necessary stuff you need have not been downloaded yet! Please wait",
+            "icons/1x/smile2Asset 1.png",
+            "Ok",
+        )
+        return
     config = configparser.ConfigParser()
     config.read(f"{sciezkaver}/config.ini")
     bufor = config["PROFILE"]["gameversion"]
@@ -482,18 +490,20 @@ def downloadingCount(self):
                 )
         else:
             break
+    self.ui.lab_tab2.setText("Downloaded")
+    time.sleep(1)
+    self.ui.lab_tab2.setText(f"")
+    time.sleep(0.5)
+    self.ui.lab_tab2.setText("Downloaded")
+    time.sleep(1)
+    self.ui.lab_tab2.setText(f"")
+    time.sleep(0.5)
+    self.ui.lab_tab2.setText("Downloaded")
+    time.sleep(1)
     self.ui.lab_tab2.setText(f"")
 
 
 def playForge(self, var):
-    global canPlay
-    if canPlay == False:
-        self.errorexec(
-            "All the necessary stuff you need have not been downloaded yet! Please wait",
-            "icons/1x/smile2Asset 1.png",
-            "Ok",
-        )
-        return
     config = configparser.ConfigParser()
     config.read(f"{sciezkaver}/config.ini")
 
@@ -690,14 +700,6 @@ def ProgressBarMcMaximum(max_value, value):
 
 
 def playVanilla(self, var):
-    global canPlay
-    if canPlay == False:
-        self.errorexec(
-            "All the necessary stuff you need have not been downloaded yet! Please wait",
-            "icons/1x/smile2Asset 1.png",
-            "Ok",
-        )
-        return
     config = configparser.ConfigParser()
     config.read(f"{sciezkaver}/config.ini")
 
@@ -1000,7 +1002,7 @@ def news(self):
         sub_title = [1, 2, 3, 4, 5]
         imageURL = [1, 2, 3, 4, 5]
         articleURL = [1, 2, 3, 4, 5]
-        header = {"user-agent": f"launcher/4.5"}
+        header = {"user-agent": f"launcher"}
 
         for i in range(5):
             number = bufor[i]
@@ -1029,28 +1031,38 @@ def news(self):
         self.ui.news_5_2.setText(sub_title[4])
 
         img = QtGui.QPixmap(f"{sciezka}/cache/img/0.png")
+        img = img.scaled(225, 225)
         lbl = QLabel(self)
         lbl.setPixmap(img)
+        lbl.mousePressEvent = lambda x: newsOpen(self)
         self.ui.verticalLayout_28.addWidget(lbl)
         #############
         img = QtGui.QPixmap(f"{sciezka}/cache/img/1.png")
+        img = img.scaled(225, 225)
         lbl = QLabel(self)
         lbl.setPixmap(img)
+        lbl.mousePressEvent = lambda x: newsOpen(self)
         self.ui.verticalLayout_29.addWidget(lbl)
         #############
         img = QtGui.QPixmap(f"{sciezka}/cache/img/2.png")
+        img = img.scaled(225, 225)
         lbl = QLabel(self)
         lbl.setPixmap(img)
+        lbl.mousePressEvent = lambda x: newsOpen(self)
         self.ui.verticalLayout_30.addWidget(lbl)
         #############
         img = QtGui.QPixmap(f"{sciezka}/cache/img/3.png")
+        img = img.scaled(225, 225)
         lbl = QLabel(self)
         lbl.setPixmap(img)
+        lbl.mousePressEvent = lambda x: newsOpen(self)
         self.ui.verticalLayout_31.addWidget(lbl)
         #############
         img = QtGui.QPixmap(f"{sciezka}/cache/img/4.png")
+        img = img.scaled(225, 225)
         lbl = QLabel(self)
         lbl.setPixmap(img)
+        lbl.mousePressEvent = lambda x: newsOpen(self)
         self.ui.verticalLayout_32.addWidget(lbl)
     except Exception:
         self.ui.news_1.setText("No information from server")
@@ -1326,6 +1338,7 @@ class instancesettings:
             minecraft_launcher_lib.install.install_minecraft_version(
                 version, buforinstance, callback=callback
             )
+
         selfui.ui.bn_play.setText(f"Play")
 
     def bnOptifine(self, selfui, version):
@@ -1350,7 +1363,10 @@ class forge_mods:
             if ForgeVersionss[i] in buforlist:
                 forge_installed.append(ForgeVersionss[i])
         selfui.ui.comboBox_2.clear()
-        selfui.ui.comboBox_2.addItems(forge_installed)
+        if not forge_installed:
+            selfui.ui.comboBox_2.addItem("No forge version installed")
+        else:
+            selfui.ui.comboBox_2.addItems(forge_installed)
         bufor = [
             name
             for name in os.listdir(f"{sciezka}/instances")
@@ -1361,24 +1377,44 @@ class forge_mods:
                 buforr = bufor[i].replace("f-", "")
                 buforlist.append(buforr)
 
-    def set_mod(selfui):
-        bufor = selfui.ui.comboBox_2.currentText()
-        selfui.ui.label_20.setText(bufor)
+    def set_mod(self):
+        bufor = self.ui.comboBox_2.currentText()
+        if bufor == "No forge version installed":
+            return
+        self.ui.label_20.setText(self.ui.comboBox_2.currentText())
+        forge_mods.reload_mods(self)
+
+    def reload_mods(self):
+        bufor = self.ui.label_20.text()
         onlyfiles = [
             f
             for f in listdir(f"{sciezka}/instances/{'f-'+bufor}/.minecraft/mods")
             if isfile(join(f"{sciezka}/instances/{'f-'+bufor}/.minecraft/mods", f))
         ]
-        selfui.ui.comboBox_3.clear()
+        self.ui.comboBox_3.clear()
         if onlyfiles:
-            selfui.ui.comboBox_3.addItems(onlyfiles)
+            self.ui.comboBox_3.addItems(onlyfiles)
         else:
-            selfui.ui.comboBox_3.addItem("No mods")
+            self.ui.comboBox_3.addItem("No mods")
 
-    def delete_mod(selfui):
-        bufor = selfui.ui.label_20.text()
-        bufor_mod = selfui.ui.comboBox_3.currentText()
+    def delete_mod(self):
+        bufor = self.ui.label_20.text()
+        if not bufor:
+            return
+        bufor_mod = self.ui.comboBox_3.currentText()
         if bufor_mod != "No mods":
             os.remove(f"{sciezka}/instances/{'f-'+bufor}/.minecraft/mods/{bufor_mod}")
-            index = selfui.ui.comboBox_3.findText(bufor_mod)
-            selfui.ui.comboBox_3.removeItem(index)
+            index = self.ui.comboBox_3.findText(bufor_mod)
+            self.ui.comboBox_3.removeItem(index)
+
+    def openFolder(selfui):
+        bufor = selfui.ui.label_20.text()
+        if bufor != "":
+            buforinstance = f"{sciezka}/instances/{'f-'+bufor}/.minecraft/mods"
+            buforinstance = r'explorer /select,"{}"'.format(buforinstance).replace(
+                "/", "\\"
+            )
+            subprocess.Popen(buforinstance)
+            selfui.ui.bn_mod_openFolder.setText("Open mods folder")
+        else:
+            selfui.ui.bn_mod_openFolder.setText("Open mods folder (SELECT VERSION)")

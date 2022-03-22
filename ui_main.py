@@ -529,6 +529,7 @@ class Ui_MainWindow(object):
         self.frame_home_stat.setSizePolicy(sizePolicy)
         self.frame_home_stat.setMinimumSize(QSize(220, 0))
         self.frame_home_stat.setMaximumSize(QSize(250, 16777215))
+        self.frame_home_stat.setStyleSheet(u"background:rgb(80,80,80);")
         self.frame_home_stat.setFrameShape(QFrame.NoFrame)
         self.frame_home_stat.setFrameShadow(QFrame.Plain)
         self.verticalLayout_6 = QVBoxLayout(self.frame_home_stat)
@@ -974,7 +975,7 @@ class Ui_MainWindow(object):
         self.comboBox_2 = QComboBox(self.page_forge_mods)
         self.comboBox_2.setObjectName(u"comboBox_2")
         font14 = QFont()
-        font14.setFamily(u"Segoe UI")
+        font14.setFamily(u"Courier New")
         font14.setPointSize(20)
         self.comboBox_2.setFont(font14)
         self.comboBox_2.setStyleSheet(u"QComboBox {\n"
@@ -1068,7 +1069,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout_37.setObjectName(u"horizontalLayout_37")
         self.line_mod_name = QLineEdit(self.page_forge_mods)
         self.line_mod_name.setObjectName(u"line_mod_name")
-        self.line_mod_name.setFont(font14)
+        font16 = QFont()
+        font16.setFamily(u"Courier New")
+        font16.setPointSize(16)
+        self.line_mod_name.setFont(font16)
         self.line_mod_name.setStyleSheet(u"QLineEdit {\n"
 "padding:2px;\n"
 "	color:rgb(255,255,255);\n"
@@ -1088,7 +1092,7 @@ class Ui_MainWindow(object):
 
         self.line_mod_version = QLineEdit(self.page_forge_mods)
         self.line_mod_version.setObjectName(u"line_mod_version")
-        self.line_mod_version.setFont(font14)
+        self.line_mod_version.setFont(font16)
         self.line_mod_version.setStyleSheet(u"QLineEdit {\n"
 "padding:2px;\n"
 "	color:rgb(255,255,255);\n"
@@ -1135,6 +1139,36 @@ class Ui_MainWindow(object):
 
 
         self.verticalLayout_33.addLayout(self.horizontalLayout_36)
+
+        self.scrollArea = QScrollArea(self.page_forge_mods)
+        self.scrollArea.setObjectName(u"scrollArea")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.scrollArea.sizePolicy().hasHeightForWidth())
+        self.scrollArea.setSizePolicy(sizePolicy3)
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollAreaWidgetContents = QWidget()
+        self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 696, 128))
+        sizePolicy.setHeightForWidth(self.scrollAreaWidgetContents.sizePolicy().hasHeightForWidth())
+        self.scrollAreaWidgetContents.setSizePolicy(sizePolicy)
+        self.verticalLayout_34 = QVBoxLayout(self.scrollAreaWidgetContents)
+        self.verticalLayout_34.setObjectName(u"verticalLayout_34")
+        self.label_22 = QLabel(self.scrollAreaWidgetContents)
+        self.label_22.setObjectName(u"label_22")
+        sizePolicy.setHeightForWidth(self.label_22.sizePolicy().hasHeightForWidth())
+        self.label_22.setSizePolicy(sizePolicy)
+        font17 = QFont()
+        font17.setFamily(u"Courier New")
+        self.label_22.setFont(font17)
+        self.label_22.setWordWrap(True)
+
+        self.verticalLayout_34.addWidget(self.label_22)
+
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+
+        self.verticalLayout_33.addWidget(self.scrollArea)
 
         self.horizontalLayout_38 = QHBoxLayout()
         self.horizontalLayout_38.setObjectName(u"horizontalLayout_38")
@@ -1217,6 +1251,23 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_4.addLayout(self.verticalLayout_33)
 
+        self.bn_mod_openFolder = QPushButton(self.page_forge_mods)
+        self.bn_mod_openFolder.setObjectName(u"bn_mod_openFolder")
+        font18 = QFont()
+        font18.setFamily(u"Courier New")
+        font18.setPointSize(18)
+        self.bn_mod_openFolder.setFont(font18)
+        self.bn_mod_openFolder.setStyleSheet(u"QPushButton {\n"
+"	border: none;\n"
+"	background-color: rgb(170,120,35);\n"
+"}\n"
+"QPushButton:hover {\n"
+"	background-color: rgb(191,150,80);\n"
+"}\n"
+"")
+
+        self.verticalLayout_4.addWidget(self.bn_mod_openFolder)
+
 
         self.horizontalLayout_29.addLayout(self.verticalLayout_4)
 
@@ -1237,10 +1288,10 @@ class Ui_MainWindow(object):
         self.label_15 = QLabel(self.verticalLayoutWidget)
         self.label_15.setObjectName(u"label_15")
         self.label_15.setMinimumSize(QSize(0, 50))
-        font16 = QFont()
-        font16.setFamily(u"Segoe UI")
-        font16.setPointSize(26)
-        self.label_15.setFont(font16)
+        font19 = QFont()
+        font19.setFamily(u"Segoe UI")
+        font19.setPointSize(26)
+        self.label_15.setFont(font19)
         self.label_15.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_20.addWidget(self.label_15)
@@ -1258,7 +1309,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_22.setObjectName(u"verticalLayout_22")
         self.label_19 = QLabel(self.verticalLayoutWidget)
         self.label_19.setObjectName(u"label_19")
-        self.label_19.setFont(font14)
+        font20 = QFont()
+        font20.setFamily(u"Segoe UI")
+        font20.setPointSize(20)
+        self.label_19.setFont(font20)
         self.label_19.setStyleSheet(u"background:rgb(75,75,75);")
         self.label_19.setAlignment(Qt.AlignCenter)
 
@@ -1266,7 +1320,7 @@ class Ui_MainWindow(object):
 
         self.label_17 = QLabel(self.verticalLayoutWidget)
         self.label_17.setObjectName(u"label_17")
-        self.label_17.setFont(font14)
+        self.label_17.setFont(font20)
         self.label_17.setStyleSheet(u"background:rgb(75,75,75);")
         self.label_17.setAlignment(Qt.AlignCenter)
 
@@ -1274,7 +1328,7 @@ class Ui_MainWindow(object):
 
         self.lb_bug_open = QLabel(self.verticalLayoutWidget)
         self.lb_bug_open.setObjectName(u"lb_bug_open")
-        self.lb_bug_open.setFont(font14)
+        self.lb_bug_open.setFont(font20)
         self.lb_bug_open.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_22.addWidget(self.lb_bug_open)
@@ -1290,7 +1344,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_21.setObjectName(u"verticalLayout_21")
         self.bug_sharedsaves = QPushButton(self.verticalLayoutWidget)
         self.bug_sharedsaves.setObjectName(u"bug_sharedsaves")
-        self.bug_sharedsaves.setFont(font14)
+        self.bug_sharedsaves.setFont(font20)
         self.bug_sharedsaves.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color: rgb(50,150,50);\n"
@@ -1305,7 +1359,7 @@ class Ui_MainWindow(object):
 
         self.bug_optifine = QPushButton(self.verticalLayoutWidget)
         self.bug_optifine.setObjectName(u"bug_optifine")
-        self.bug_optifine.setFont(font14)
+        self.bug_optifine.setFont(font20)
         self.bug_optifine.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color: rgb(50,150,50);\n"
@@ -1330,10 +1384,10 @@ class Ui_MainWindow(object):
 
         self.bug_repair = QPushButton(self.verticalLayoutWidget)
         self.bug_repair.setObjectName(u"bug_repair")
-        font17 = QFont()
-        font17.setFamily(u"Segoe UI")
-        font17.setPointSize(15)
-        self.bug_repair.setFont(font17)
+        font21 = QFont()
+        font21.setFamily(u"Segoe UI")
+        font21.setPointSize(15)
+        self.bug_repair.setFont(font21)
         self.bug_repair.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color: rgb(50,150,50);\n"
@@ -1348,7 +1402,7 @@ class Ui_MainWindow(object):
 
         self.bug_openfolder = QPushButton(self.verticalLayoutWidget)
         self.bug_openfolder.setObjectName(u"bug_openfolder")
-        self.bug_openfolder.setFont(font17)
+        self.bug_openfolder.setFont(font21)
         self.bug_openfolder.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color: rgb(50,150,50);\n"
@@ -1363,7 +1417,7 @@ class Ui_MainWindow(object):
 
         self.bug_bn_delete = QPushButton(self.verticalLayoutWidget)
         self.bug_bn_delete.setObjectName(u"bug_bn_delete")
-        self.bug_bn_delete.setFont(font17)
+        self.bug_bn_delete.setFont(font21)
         self.bug_bn_delete.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color: rgb(255,50,50);\n"
@@ -1427,10 +1481,10 @@ class Ui_MainWindow(object):
         self.bug_button2 = QPushButton(self.page_bug)
         self.bug_button2.setObjectName(u"bug_button2")
         self.bug_button2.setMinimumSize(QSize(230, 40))
-        font18 = QFont()
-        font18.setFamily(u"Courier New")
-        font18.setPointSize(24)
-        self.bug_button2.setFont(font18)
+        font22 = QFont()
+        font22.setFamily(u"Courier New")
+        font22.setPointSize(24)
+        self.bug_button2.setFont(font22)
         self.bug_button2.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color:rgb(100,170,0)\n"
@@ -1447,10 +1501,10 @@ class Ui_MainWindow(object):
         self.bug_button3 = QPushButton(self.page_bug)
         self.bug_button3.setObjectName(u"bug_button3")
         self.bug_button3.setMinimumSize(QSize(230, 40))
-        font19 = QFont()
-        font19.setFamily(u"SimSun")
-        font19.setPointSize(22)
-        self.bug_button3.setFont(font19)
+        font23 = QFont()
+        font23.setFamily(u"SimSun")
+        font23.setPointSize(22)
+        self.bug_button3.setFont(font23)
         self.bug_button3.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color:rgb(100,170,0)\n"
@@ -1468,7 +1522,7 @@ class Ui_MainWindow(object):
 
         self.label_12 = QLabel(self.page_bug)
         self.label_12.setObjectName(u"label_12")
-        self.label_12.setFont(font16)
+        self.label_12.setFont(font19)
         self.label_12.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_19.addWidget(self.label_12)
@@ -1477,7 +1531,7 @@ class Ui_MainWindow(object):
         self.comboBox.setObjectName(u"comboBox")
         self.comboBox.setMinimumSize(QSize(0, 40))
         self.comboBox.setMaximumSize(QSize(16777215, 16777215))
-        self.comboBox.setFont(font14)
+        self.comboBox.setFont(font20)
         self.comboBox.setStyleSheet(u"QComboBox {\n"
 "	border: 2px solid rgb(51,51,51);\n"
 "	border-radius: 5px;	\n"
@@ -1531,7 +1585,7 @@ class Ui_MainWindow(object):
 
         self.bug_confirm = QPushButton(self.page_bug)
         self.bug_confirm.setObjectName(u"bug_confirm")
-        self.bug_confirm.setFont(font14)
+        self.bug_confirm.setFont(font20)
         self.bug_confirm.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color:rgb(170,0,70)\n"
@@ -1551,7 +1605,7 @@ class Ui_MainWindow(object):
 
         self.bn_instancesettings = QPushButton(self.page_bug)
         self.bn_instancesettings.setObjectName(u"bn_instancesettings")
-        self.bn_instancesettings.setFont(font14)
+        self.bn_instancesettings.setFont(font20)
         self.bn_instancesettings.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color: rgb(0,160,170);\n"
@@ -2205,10 +2259,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_12.setObjectName(u"verticalLayout_12")
         self.radioButton = QRadioButton(self.groupBox_clean)
         self.radioButton.setObjectName(u"radioButton")
-        font20 = QFont()
-        font20.setFamily(u"Segoe UI")
-        font20.setPointSize(9)
-        self.radioButton.setFont(font20)
+        font24 = QFont()
+        font24.setFamily(u"Segoe UI")
+        font24.setPointSize(9)
+        self.radioButton.setFont(font24)
         self.radioButton.setStyleSheet(u"QRadioButton {\n"
 "	background:rgb(91,90,90);\n"
 "    color:white;\n"
@@ -2234,7 +2288,7 @@ class Ui_MainWindow(object):
 
         self.radioButton_2 = QRadioButton(self.groupBox_clean)
         self.radioButton_2.setObjectName(u"radioButton_2")
-        self.radioButton_2.setFont(font20)
+        self.radioButton_2.setFont(font24)
         self.radioButton_2.setStyleSheet(u"QRadioButton {\n"
 "	background:rgb(91,90,90);\n"
 "    color:white;\n"
@@ -2259,7 +2313,7 @@ class Ui_MainWindow(object):
 
         self.radioButton_3 = QRadioButton(self.groupBox_clean)
         self.radioButton_3.setObjectName(u"radioButton_3")
-        self.radioButton_3.setFont(font20)
+        self.radioButton_3.setFont(font24)
         self.radioButton_3.setStyleSheet(u"QRadioButton {\n"
 "	background:rgb(91,90,90);\n"
 "    color:white;\n"
@@ -2284,7 +2338,7 @@ class Ui_MainWindow(object):
 
         self.radioButton_4 = QRadioButton(self.groupBox_clean)
         self.radioButton_4.setObjectName(u"radioButton_4")
-        self.radioButton_4.setFont(font20)
+        self.radioButton_4.setFont(font24)
         self.radioButton_4.setStyleSheet(u"QRadioButton {\n"
 "	background:rgb(91,90,90);\n"
 "    color:white;\n"
@@ -2309,7 +2363,7 @@ class Ui_MainWindow(object):
 
         self.checkBox = QCheckBox(self.groupBox_clean)
         self.checkBox.setObjectName(u"checkBox")
-        self.checkBox.setFont(font20)
+        self.checkBox.setFont(font24)
         self.checkBox.setStyleSheet(u"QCheckBox {\n"
 "    color:rgb(255,255,255);\n"
 "}\n"
@@ -2346,7 +2400,7 @@ class Ui_MainWindow(object):
 
         self.checkBox_4 = QCheckBox(self.groupBox_clean)
         self.checkBox_4.setObjectName(u"checkBox_4")
-        self.checkBox_4.setFont(font20)
+        self.checkBox_4.setFont(font24)
         self.checkBox_4.setStyleSheet(u"QCheckBox {\n"
 "    color:rgb(255,255,255);\n"
 "}\n"
@@ -2383,7 +2437,7 @@ class Ui_MainWindow(object):
 
         self.checkBox_2 = QCheckBox(self.groupBox_clean)
         self.checkBox_2.setObjectName(u"checkBox_2")
-        self.checkBox_2.setFont(font20)
+        self.checkBox_2.setFont(font24)
         self.checkBox_2.setStyleSheet(u"QCheckBox {\n"
 "    color:rgb(255,255,255);\n"
 "}\n"
@@ -2419,7 +2473,7 @@ class Ui_MainWindow(object):
 
         self.checkBox_3 = QCheckBox(self.groupBox_clean)
         self.checkBox_3.setObjectName(u"checkBox_3")
-        self.checkBox_3.setFont(font20)
+        self.checkBox_3.setFont(font24)
         self.checkBox_3.setStyleSheet(u"QCheckBox {\n"
 "    color:rgb(255,255,255);\n"
 "}\n"
@@ -2470,7 +2524,7 @@ class Ui_MainWindow(object):
         self.groupBox.setObjectName(u"groupBox")
         self.groupBox.setMinimumSize(QSize(250, 300))
         self.groupBox.setMaximumSize(QSize(250, 300))
-        self.groupBox.setFont(font20)
+        self.groupBox.setFont(font24)
         self.groupBox.setStyleSheet(u"QGroupBox{\n"
 "	border:1px solid rgb(51,51,51);	\n"
 "	border-radius:4px;\n"
@@ -2546,10 +2600,10 @@ class Ui_MainWindow(object):
         self.label_11 = QLabel(self.page_android_world)
         self.label_11.setObjectName(u"label_11")
         self.label_11.setMaximumSize(QSize(16777215, 50))
-        font21 = QFont()
-        font21.setFamily(u"Segoe UI")
-        font21.setPointSize(28)
-        self.label_11.setFont(font21)
+        font25 = QFont()
+        font25.setFamily(u"Segoe UI")
+        font25.setPointSize(28)
+        self.label_11.setFont(font25)
         self.label_11.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_14.addWidget(self.label_11)
@@ -2583,10 +2637,10 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_14.addLayout(self.horizontalLayout_30)
 
-        self.pushButton_magic = QPushButton(self.page_android_world)
-        self.pushButton_magic.setObjectName(u"pushButton_magic")
-        self.pushButton_magic.setFont(font)
-        self.pushButton_magic.setStyleSheet(u"QPushButton {\n"
+        self.pushButton_issue = QPushButton(self.page_android_world)
+        self.pushButton_issue.setObjectName(u"pushButton_issue")
+        self.pushButton_issue.setFont(font11)
+        self.pushButton_issue.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color: rgb(110,110,110)\n"
 "}\n"
@@ -2596,11 +2650,11 @@ class Ui_MainWindow(object):
 "\n"
 "")
 
-        self.verticalLayout_14.addWidget(self.pushButton_magic)
+        self.verticalLayout_14.addWidget(self.pushButton_issue)
 
         self.pushButton_github = QPushButton(self.page_android_world)
         self.pushButton_github.setObjectName(u"pushButton_github")
-        self.pushButton_github.setFont(font)
+        self.pushButton_github.setFont(font11)
         self.pushButton_github.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color: rgb(110,110,110)\n"
@@ -2640,9 +2694,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_11.setContentsMargins(0, 0, 0, 0)
         self.frame_tab = QFrame(self.frame_low)
         self.frame_tab.setObjectName(u"frame_tab")
-        font22 = QFont()
-        font22.setFamily(u"Segoe UI")
-        self.frame_tab.setFont(font22)
+        font26 = QFont()
+        font26.setFamily(u"Segoe UI")
+        self.frame_tab.setFont(font26)
         self.frame_tab.setStyleSheet(u"background:rgb(51,51,51);")
         self.frame_tab.setFrameShape(QFrame.NoFrame)
         self.frame_tab.setFrameShadow(QFrame.Plain)
@@ -2655,10 +2709,10 @@ class Ui_MainWindow(object):
         self.lab_tab.setEnabled(True)
         sizePolicy1.setHeightForWidth(self.lab_tab.sizePolicy().hasHeightForWidth())
         self.lab_tab.setSizePolicy(sizePolicy1)
-        font23 = QFont()
-        font23.setFamily(u"Segoe UI Light")
-        font23.setPointSize(12)
-        self.lab_tab.setFont(font23)
+        font27 = QFont()
+        font27.setFamily(u"Segoe UI Light")
+        font27.setPointSize(12)
+        self.lab_tab.setFont(font27)
         self.lab_tab.setStyleSheet(u"color:rgb(255,255,255);")
 
         self.horizontalLayout_12.addWidget(self.lab_tab)
@@ -2778,9 +2832,11 @@ class Ui_MainWindow(object):
         self.bn_mod_set.setText(QCoreApplication.translate("MainWindow", u"Set Version", None))
         self.label_21.setText(QCoreApplication.translate("MainWindow", u"       [MOD NAME]        [MOD VERSION [OPTIONAL]]", None))
         self.line_mod_name.setPlaceholderText("")
-        self.line_mod_version.setPlaceholderText("")
+        self.line_mod_version.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Without .jar", None))
         self.bn_mod_setmod.setText(QCoreApplication.translate("MainWindow", u"Download Mod", None))
+        self.label_22.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Downloading mods are in alpha and may totally change. For now there is no official API from CurseForge so all have to be manual. There is many bugs that are resource-intensive and hard to fix. As soon as he shows up an official API, will be implemented to installer.</p></body></html>", None))
         self.bn_mod_del.setText(QCoreApplication.translate("MainWindow", u"Delete Mod", None))
+        self.bn_mod_openFolder.setText(QCoreApplication.translate("MainWindow", u"Open mods folder", None))
         self.label_15.setText(QCoreApplication.translate("MainWindow", u"Instance settings", None))
         self.label_16.setText(QCoreApplication.translate("MainWindow", u"[Instance name]", None))
         self.label_19.setText(QCoreApplication.translate("MainWindow", u"[is shared?]", None))
@@ -2846,7 +2902,7 @@ class Ui_MainWindow(object):
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"Information:", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Version:", None))
         self.label_version.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.pushButton_magic.setText(QCoreApplication.translate("MainWindow", u"Magic!", None))
+        self.pushButton_issue.setText(QCoreApplication.translate("MainWindow", u"Report an issue", None))
         self.pushButton_github.setText(QCoreApplication.translate("MainWindow", u"Github", None))
         self.lab_tab.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><br/></p></body></html>", None))
 #if QT_CONFIG(tooltip)

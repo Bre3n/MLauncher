@@ -3,10 +3,12 @@ import ctypes
 import os
 import sys
 import threading
+from os import close, path
 
 from pypresence import Presence
-from os import close, path
+
 import brain
+import forge_mods
 
 ctypes.windll.user32.ShowWindow(ctypes.windll.kernel32.GetConsoleWindow(), 0)
 
@@ -156,9 +158,13 @@ class MainWindow(QMainWindow):
 
         self.ui.bn_mod_set.clicked.connect(lambda: brain.forge_mods.set_mod(self))
         self.ui.bn_mod_del.clicked.connect(lambda: brain.forge_mods.delete_mod(self))
+        self.ui.bn_mod_setmod.clicked.connect(lambda:forge_mods.down_mod(self))
+        self.ui.bn_mod_openFolder.clicked.connect(
+            lambda: brain.forge_mods.openFolder(self)
+        )
 
-        user = os.getlogin()
-        sciezka = f"C:/Users/{user}/AppData/Roaming/.mlauncher"
+        roaming = os.getenv("APPDATA")
+        sciezka = f"{roaming}/.mlauncher"
         sciezkaver = f"{sciezka}/bin"
         sciezkains = f"{sciezka}/instances"
         sciezkajvms = f"{sciezka}/jvms"
@@ -229,6 +235,7 @@ class MainWindow(QMainWindow):
         self.ui.bn_mods.clicked.connect(
             lambda: UIFunction.buttonPressed(self, "bn_mods")
         )
+
         #############################################################
 
         UIFunction.stackPage(self)

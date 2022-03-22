@@ -98,6 +98,8 @@ if __name__ == "__main__":
         os.system(f"pip install pypresence -U")
         os.system(f"pip install winshell -U")
         os.system(f"pip install pywin32 -U")
+        os.system(f"pip install selenium -U")
+        os.system(f"pip install edgedriver-autoinstaller -U")
         os.execv(sys.executable, ["python"] + sys.argv)
 
     os.system(f"pip install minecraft-launcher-lib -U")
@@ -107,10 +109,10 @@ if __name__ == "__main__":
     os.system("cls")
 
     now_date = str(datetime.date.today())
-    user = os.getlogin()
     buffor = False
-    sciezka = f"C:/Users/{user}/AppData/Roaming/.mlauncher"
-    temp = f"C:/Users/{user}/AppData/Local/Temp"
+    user = os.getlogin()
+    roaming = os.getenv("APPDATA")
+    sciezka = f"{roaming}/.mlauncher"
 
     sciezkaver = f"{sciezka}/bin"
     txtFile = f"{sciezkaver}/ver.txt"
@@ -237,7 +239,7 @@ if __name__ == "__main__":
                 except Exception:
                     pass
             if (
-                cwd != f"C:\\Users\{user}\\AppData\\Roaming\\.mlauncher\\bin"
+                cwd != f"{roaming}\\.mlauncher\\bin"
                 and cwd != f"C:\\Users\\{user}\\Desktop\\Projekty\\LauncherUi\\setup"
             ):
                 if path.exists(f"{sciezka}/cache") == False:
@@ -265,4 +267,4 @@ if __name__ == "__main__":
         print("Starting offline mode in 3s")
         time.sleep(3)
     if path.exists(f"{sciezkaver}/main.py"):
-        subprocess.call(["python", f"{sciezkaver}/main.py"])
+        subprocess.call(['"python"', f'"{sciezkaver}/main.py"'])

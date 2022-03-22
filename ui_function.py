@@ -1,14 +1,14 @@
 import configparser
 import os
-import webbrowser
-import threading
 import subprocess
+import threading
+import webbrowser
 
 import brain
 from main import *
 
-user = os.getlogin()
-sciezka = f"C:/Users/{user}/AppData/Roaming/.mlauncher"
+roaming = os.getenv("APPDATA")
+sciezka = f"{roaming}/.mlauncher"
 sciezkaver = f"{sciezka}/bin"
 config = configparser.ConfigParser()
 config.read(f"{sciezkaver}/config.ini")
@@ -160,8 +160,8 @@ class UIFunction(MainWindow):
             lambda: APFunction.pushButton_github(self)
         )
 
-        self.ui.pushButton_magic.clicked.connect(
-            lambda: APFunction.pushButton_magic(self)
+        self.ui.pushButton_issue.clicked.connect(
+            lambda: APFunction.pushButton_issue(self)
         )
 
     ################################################################################################################################
@@ -179,14 +179,20 @@ class UIFunction(MainWindow):
             self.ui.frame_android_contact.setStyleSheet("background:rgb(91,90,90)")
 
         elif page == "page_game":
-            self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_game)
+            pass
+        
+            '''self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_game)
             self.ui.lab_tab.setText("Settings > GamePad")
-            self.ui.frame_android_game.setStyleSheet("background:rgb(91,90,90)")
+            self.ui.frame_android_game.setStyleSheet("background:rgb(91,90,90)")'''
+            
 
         elif page == "page_clean":
-            self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_clean)
+            pass
+        
+            '''self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_clean)
             self.ui.lab_tab.setText("Settings > Clean")
-            self.ui.frame_android_clean.setStyleSheet("background:rgb(91,90,90)")
+            self.ui.frame_android_clean.setStyleSheet("background:rgb(91,90,90)")'''
+            
 
         elif page == "page_world":
             self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_world)
@@ -350,8 +356,8 @@ class APFunction:
     def pushButton_github(self):
         webbrowser.open("https://github.com/Bre3n/MLauncher")
 
-    def pushButton_magic(self):
-        webbrowser.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+    def pushButton_issue(self):
+        webbrowser.open("https://github.com/Bre3n/MLauncher/issues")
 
     def bug_button(self):
         self.ui.label_12.setText("Vanilla Versions")
