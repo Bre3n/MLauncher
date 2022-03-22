@@ -1,20 +1,22 @@
 main.py == 1.4.8
 setup.py == 1.3.2
+brain.py == 1.3.8
+forge_mods.py == 1.0
 ui_main.py == 1.4.8
 ui_function.py == 1.4.8
 ui_dialog.py == 1.3
 ui_error.py == 1.3
 icons.zip == 1.1
 versions.ini == 1.3
-brain.py == 1.3.8
 launcher_profiles.json == 1.0
 https://raw.githubusercontent.com/Bre3n/MLauncher/master/main.py
 https://raw.githubusercontent.com/Bre3n/MLauncher/master/setup/setup.py
+https://raw.githubusercontent.com/Bre3n/MLauncher/master/brain.py
+https://raw.githubusercontent.com/Bre3n/MLauncher/master/forge_mods.py
 https://raw.githubusercontent.com/Bre3n/MLauncher/master/ui_main.py
 https://raw.githubusercontent.com/Bre3n/MLauncher/master/ui_function.py
 https://raw.githubusercontent.com/Bre3n/MLauncher/master/ui_dialog.py
 https://raw.githubusercontent.com/Bre3n/MLauncher/master/ui_error.py
 https://raw.githubusercontent.com/Bre3n/MLauncher/master/files/icons.zip
 https://raw.githubusercontent.com/Bre3n/MLauncher/master/files/versions.INI
-https://raw.githubusercontent.com/Bre3n/MLauncher/master/brain.py
 https://raw.githubusercontent.com/Bre3n/MLauncher/master/files/launcher_profiles.json
