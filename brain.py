@@ -12,7 +12,7 @@ import zipfile
 from os import listdir, path
 from os.path import isfile, join
 
-import enlighten
+from clint.textui import progress
 import minecraft_launcher_lib
 import psutil
 import pythoncom
@@ -41,7 +41,6 @@ connectedRpc = False
 rpc = 0
 Lista = ""
 iterablebool = 5
-canPlay = True
 ForgeVersions = ""
 ForgeVersionss = ""
 ServerVersions = ""
@@ -52,7 +51,32 @@ articleURL = [1, 2, 3, 4, 5]
 
 
 def download(url, pathh, self, value):
-    MANAGER = enlighten.get_manager()
+    r = requests.get(url, stream=True)
+    i = 5
+    percentagebufor = 0
+    with open(pathh, "wb") as f:
+        total_length = int(r.headers.get("content-length")) or None
+        for chunk in progress.bar(
+            r.iter_content(chunk_size=1024), expected_size=(total_length / 1024) + 1
+        ):
+            if chunk:
+                i = i + 1
+                if total_length != None:
+                    lenght = int(round((total_length / 1024) + 1))
+                    percentage = int(round(i / ((total_length / 1024) + 1) * 100))
+                    visual_percentage = ("█" * (percentage // 10)) + (
+                        "  " * (10 - (percentage // 10))
+                    )
+                    percentageModulus = percentage % 1
+                    if percentageModulus == 0 and percentagebufor != percentage:
+                        self.ui.lab_tab2.setText(
+                            f"Downloading {percentage}% |{visual_percentage}| {i}/{lenght}"
+                        )
+                        percentagebufor = percentage
+                f.write(chunk)
+                f.flush()
+
+    """MANAGER = enlighten.get_manager()
     i = 0
     r = requests.get(url, stream=True)
     assert r.status_code == 200, r.status_code
@@ -87,7 +111,7 @@ def download(url, pathh, self, value):
                         f"Downloading ???% |????? no info ?????| {i}/?"
                     )
             # print(chunk[-16:].hex().upper())
-            f.write(chunk)
+            f.write(chunk)"""
 
 
 def createshortcut():
@@ -161,7 +185,7 @@ def createFiles():
     if config.has_option("PROFILE", "version") == False:
         config["PROFILE"]["version"] = "1.17.1"
     if config.has_option("PROFILE", "gameVersion") == False:
-        config["PROFILE"]["gameVersion"] = "Vanilla"
+        config["PROFILE"]["gameVersion"] = "Vanilla Versions"
 
     # * CHECK RAM UNIT
     ALLOCATEDRAM = config.get("SETTINGS", "AllocatedRam")
@@ -450,8 +474,7 @@ def ForgeReleases(self, var):
 
 
 def playthread(self):
-    global canPlay
-    if canPlay == False:
+    if self.closebool == False:
         self.errorexec(
             "All the necessary stuff you need have not been downloaded yet! Please wait",
             "icons/1x/smile2Asset 1.png",
@@ -608,7 +631,7 @@ def playForge(self, var):
 
         # * run installation
         try:
-            if (
+            """if (
                 path.exists(
                     f"{sciezkains}/shared/.minecraft/libraries/net/minecraftforge/ForgeAutoRenamingTool/0.1.17/ForgeAutoRenamingTool-0.1.17-all.jar"
                 )
@@ -620,23 +643,26 @@ def playForge(self, var):
                 shutil.move(
                     f"{sciezkains}/shared/.minecraft/libraries/net/minecraftforge/ForgeAutoRenamingTool/0.1.17/ForgeAutoRenamingTool-0.1.17-all.jar",
                     f"{sciezkains}/shared/.minecraft/libraries/net/minecraftforge/ForgeAutoRenamingTool/0.1.17/ForgeAutoRenamingTool-0.1.17.jar",
-                )
+                )"""
+            self.closebool = False
             if supports_automatic_install(version):
                 versionPathh = versionPathh.replace("/", "\\")
                 install_forge_version(version, versionPathh, callback=callback)
             else:
-                xxx = config.get("JVMS", "java-1.8")
+                xxx = config.get("JVMS", "java-1.17")
                 playVanilla(self, 0)
+                print(xxx)
                 run_forge_installer(version, xxx)
-        except Exception:
-            shutil.rmtree(f"{sciezkains}/{versionPath}/")
+        except Exception as e:
+            # shutil.rmtree(f"{sciezkains}/{versionPath}/")
             self.errorexec(
-                "Something weird occured with forge instalation. Try again or wait for fix :(",
+                f"Something weird occured with forge instalation. Try again or wait for fix :( {e}",
                 "icons/1x/errorAsset 55.png",
                 "Ok",
             )
             self.ui.bn_play.setText(f"Play")
             return
+        self.closebool = True
 
         # * create instance settings_ins
         if (
@@ -822,11 +848,11 @@ def playVanilla(self, var):
             )
 
         # * run installation
-
+        self.closebool = False
         minecraft_launcher_lib.install.install_minecraft_version(
             version, versionPathh, callback=callback
         )
-
+        self.closebool = True
         # * create instance settings_ins
         if (
             path.exists(f"{sciezkains}/{versionPath}/settings_ins.ini") == False
@@ -894,8 +920,7 @@ def playingcheck(self):
 
 
 def downloadstuff(self):
-    global canPlay
-    canPlay = False
+    self.closebool = False
     progress = "DOWNLOADED"
     if path.exists(f"{sciezkains}/shared") == False:
         os.mkdir(f"{sciezkains}/shared")
@@ -953,7 +978,7 @@ def downloadstuff(self):
             zipObj.extractall(f"{sciezkajvms}/")
         progress = "DOWNLOADED"
 
-    canPlay = True
+    self.closebool = True
     self.ui.lab_tab2.setText(progress)
     time.sleep(1)
     self.ui.lab_tab2.setText(f"")
@@ -1332,8 +1357,8 @@ class instancesettings:
         threading.Thread(target=lambda: downloadingCount(selfui)).start()
         if version.startswith("f-"):
             version = version.replace("f-", "")
-            versionPathh = buforinstance.replace("/", "\\")
-            install_forge_version(version, versionPathh, callback=callback)
+            # versionPathh = buforinstance.replace("/", "\\")
+            install_forge_version(version, buforinstance, callback=callback)
         else:
             minecraft_launcher_lib.install.install_minecraft_version(
                 version, buforinstance, callback=callback

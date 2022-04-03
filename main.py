@@ -158,10 +158,11 @@ class MainWindow(QMainWindow):
 
         self.ui.bn_mod_set.clicked.connect(lambda: brain.forge_mods.set_mod(self))
         self.ui.bn_mod_del.clicked.connect(lambda: brain.forge_mods.delete_mod(self))
-        self.ui.bn_mod_setmod.clicked.connect(lambda:forge_mods.down_mod(self))
+        self.ui.bn_mod_setmod.clicked.connect(lambda: forge_mods.down_mod(self))
         self.ui.bn_mod_openFolder.clicked.connect(
             lambda: brain.forge_mods.openFolder(self)
         )
+        self.ui.webWidget.load(QtCore.QUrl(""))
 
         roaming = os.getenv("APPDATA")
         sciezka = f"{roaming}/.mlauncher"
@@ -315,7 +316,7 @@ class MainWindow(QMainWindow):
                     "icons/1x/errorAsset 55.png",
                     "Ok",
                 )
-            )
+            ).start()
 
 
 ##############################################################

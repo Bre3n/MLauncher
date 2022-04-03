@@ -30,7 +30,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
-    <string notr="true">background:rgb(91,90,90);</string>
+    <string notr="true">background:rgb(91,90,90);border-top-left-radius:10px;border-top-right-radius:10px;</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="spacing">
@@ -55,6 +55,9 @@
         <width>16777215</width>
         <height>55</height>
        </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-top-left-radius:10px;border-top-right-radius:10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
@@ -113,6 +116,9 @@
           </property>
           <item>
            <widget class="QFrame" name="frame_appname">
+            <property name="styleSheet">
+             <string notr="true">border-top-right-radius:0px;</string>
+            </property>
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>
             </property>
@@ -203,6 +209,9 @@
           </item>
           <item>
            <widget class="QFrame" name="frame_user">
+            <property name="styleSheet">
+             <string notr="true">border-top-left-radius:0px;border-top-right-radius:0px;</string>
+            </property>
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>
             </property>
@@ -277,6 +286,9 @@
               <height>55</height>
              </size>
             </property>
+            <property name="styleSheet">
+             <string notr="true">border-top-left-radius:0px;border-top-right-radius:0px;</string>
+            </property>
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>
             </property>
@@ -347,6 +359,9 @@
               <width>55</width>
               <height>55</height>
              </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-top-left-radius:0px;border-top-right-radius:0px;</string>
             </property>
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>
@@ -428,6 +443,9 @@ QPushButton:pressed {
               <height>55</height>
              </size>
             </property>
+            <property name="styleSheet">
+             <string notr="true">border-top-left-radius:0px;</string>
+            </property>
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>
             </property>
@@ -502,6 +520,9 @@ QPushButton:pressed {
     </item>
     <item>
      <widget class="QFrame" name="frame_bottom">
+      <property name="styleSheet">
+       <string notr="true">border-top-left-radius:0px;border-top-right-radius:0px;</string>
+      </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
       </property>
@@ -1050,7 +1071,7 @@ QPushButton:hover {
                 <string notr="true"/>
                </property>
                <property name="currentIndex">
-                <number>0</number>
+                <number>8</number>
                </property>
                <widget class="QWidget" name="page_home">
                 <property name="styleSheet">
@@ -1189,7 +1210,7 @@ QPushButton:hover {
                       <property name="styleSheet">
                        <string notr="true">QPushButton {
 background-color: rgb(30,100,140);
-border: none;
+border-radius: 10px;
 }
 QPushButton:hover {
 	background-color: rgb(70,140,190);
@@ -2367,8 +2388,8 @@ QPushButton:hover {
                          <rect>
                           <x>0</x>
                           <y>0</y>
-                          <width>696</width>
-                          <height>128</height>
+                          <width>100</width>
+                          <height>410</height>
                          </rect>
                         </property>
                         <property name="sizePolicy">
@@ -3082,7 +3103,7 @@ QPushButton:hover {
 </string>
                        </property>
                        <property name="text">
-                        <string>Confirm</string>
+                        <string>Set version</string>
                        </property>
                        <property name="flat">
                         <bool>true</bool>
@@ -3302,7 +3323,7 @@ QPushButton:pressed {
                      </widget>
                     </item>
                     <item>
-                     <widget class="QFrame" name="frame_android_game">
+                     <widget class="QFrame" name="frame_android_faq">
                       <property name="minimumSize">
                        <size>
                         <width>80</width>
@@ -3338,7 +3359,7 @@ QPushButton:pressed {
                         <number>0</number>
                        </property>
                        <item>
-                        <widget class="QPushButton" name="bn_android_game">
+                        <widget class="QPushButton" name="bn_android_faq">
                          <property name="minimumSize">
                           <size>
                            <width>80</width>
@@ -3569,7 +3590,7 @@ QPushButton:pressed {
                     <string notr="true">background:rgb(91,90,90);</string>
                    </property>
                    <property name="currentIndex">
-                    <number>0</number>
+                    <number>2</number>
                    </property>
                    <widget class="QWidget" name="page_android_contact">
                     <property name="styleSheet">
@@ -4262,7 +4283,7 @@ QPushButton:disabled {
                      </item>
                     </layout>
                    </widget>
-                   <widget class="QWidget" name="page_android_game">
+                   <widget class="QWidget" name="page_android_faq">
                     <property name="styleSheet">
                      <string notr="true">background:rgb(91,90,90);</string>
                     </property>
@@ -4283,113 +4304,7 @@ QPushButton:disabled {
                       <number>5</number>
                      </property>
                      <item>
-                      <widget class="QLabel" name="lab_gamepad">
-                       <property name="minimumSize">
-                        <size>
-                         <width>0</width>
-                         <height>55</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>16777215</width>
-                         <height>55</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>Segoe UI</family>
-                         <pointsize>24</pointsize>
-                        </font>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true">color:rgb(255,255,255);</string>
-                       </property>
-                       <property name="text">
-                        <string>GamePad</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QFrame" name="frame_textbar">
-                       <property name="styleSheet">
-                        <string notr="true">background:rgb(91,90,90);</string>
-                       </property>
-                       <property name="frameShape">
-                        <enum>QFrame::StyledPanel</enum>
-                       </property>
-                       <property name="frameShadow">
-                        <enum>QFrame::Raised</enum>
-                       </property>
-                       <layout class="QHBoxLayout" name="horizontalLayout_26">
-                        <property name="spacing">
-                         <number>0</number>
-                        </property>
-                        <property name="leftMargin">
-                         <number>5</number>
-                        </property>
-                        <property name="topMargin">
-                         <number>0</number>
-                        </property>
-                        <property name="rightMargin">
-                         <number>0</number>
-                        </property>
-                        <property name="bottomMargin">
-                         <number>0</number>
-                        </property>
-                        <item>
-                         <widget class="QTextEdit" name="textEdit_gamepad">
-                          <property name="font">
-                           <font>
-                            <family>Segoe UI</family>
-                            <pointsize>12</pointsize>
-                           </font>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">color:rgb(255,255,255);</string>
-                          </property>
-                          <property name="frameShape">
-                           <enum>QFrame::NoFrame</enum>
-                          </property>
-                          <property name="frameShadow">
-                           <enum>QFrame::Plain</enum>
-                          </property>
-                          <property name="verticalScrollBarPolicy">
-                           <enum>Qt::ScrollBarAsNeeded</enum>
-                          </property>
-                          <property name="horizontalScrollBarPolicy">
-                           <enum>Qt::ScrollBarAlwaysOff</enum>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QScrollBar" name="vsb_gamepad">
-                          <property name="styleSheet">
-                           <string notr="true">QScrollBar:vertical {
-	background:rgb(51,51,51);
-    width:20px;
-    margin: 0px 0px 0px 0px;
-}
-QScrollBar::handle:vertical {
-    background:rgb(0,143,170);
-}
-QScrollBar::add-page:vertical {
- 	background:rgb(51,51,51);
-}
-QScrollBar::sub-page:vertical {
- 	background:rgb(51,51,51);
-}</string>
-                          </property>
-                          <property name="orientation">
-                           <enum>Qt::Vertical</enum>
-                          </property>
-                          <property name="invertedControls">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
-                        </item>
-                       </layout>
-                      </widget>
+                      <widget class="QWebEngineView" name="webWidget" native="true"/>
                      </item>
                     </layout>
                    </widget>
@@ -4413,528 +4328,6 @@ QScrollBar::sub-page:vertical {
                      <property name="spacing">
                       <number>5</number>
                      </property>
-                     <item row="0" column="5">
-                      <spacer name="horizontalSpacer_7">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>40</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                     <item row="0" column="0">
-                      <widget class="QGroupBox" name="groupBox_clean">
-                       <property name="minimumSize">
-                        <size>
-                         <width>250</width>
-                         <height>300</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>250</width>
-                         <height>300</height>
-                        </size>
-                       </property>
-                       <property name="sizeIncrement">
-                        <size>
-                         <width>0</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>Segoe UI</family>
-                         <pointsize>10</pointsize>
-                        </font>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true">QGroupBox{
-	border:1px solid rgb(51,51,51);	
-	border-radius:4px;
-	color:white;
-	background:rgb(91,90,90);
-}
-</string>
-                       </property>
-                       <property name="title">
-                        <string>Review</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                       </property>
-                       <property name="flat">
-                        <bool>false</bool>
-                       </property>
-                       <property name="checkable">
-                        <bool>false</bool>
-                       </property>
-                       <layout class="QVBoxLayout" name="verticalLayout_12">
-                        <item>
-                         <widget class="QRadioButton" name="radioButton">
-                          <property name="font">
-                           <font>
-                            <family>Segoe UI</family>
-                            <pointsize>9</pointsize>
-                           </font>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">QRadioButton {
-	background:rgb(91,90,90);
-    color:white;
-}
-QRadioButton::indicator {
-    width:10px;
-    height:10px;
-    border-radius: 7px;
-}
-QRadioButton::indicator:checked {
-    background-color:rgb(0,143,170);
-    border: 2px solid rgb(51,51,51);
-}
-
-QRadioButton::indicator:unchecked {
-    background-color:rgb(91,90,90);
-    border:2px solid rgb(51,51,51);
-}</string>
-                          </property>
-                          <property name="text">
-                           <string>Clean History</string>
-                          </property>
-                          <property name="autoRepeat">
-                           <bool>false</bool>
-                          </property>
-                          <property name="autoExclusive">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QRadioButton" name="radioButton_2">
-                          <property name="font">
-                           <font>
-                            <family>Segoe UI</family>
-                            <pointsize>9</pointsize>
-                           </font>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">QRadioButton {
-	background:rgb(91,90,90);
-    color:white;
-}
-QRadioButton::indicator {
-    width:10px;
-    height:10px;
-    border-radius: 7px;
-}
-QRadioButton::indicator:checked {
-    background-color:rgb(0,143,170);
-    border: 2px solid rgb(51,51,51);
-}
-
-QRadioButton::indicator:unchecked {
-    background-color:rgb(91,90,90);
-    border:2px solid rgb(51,51,51);
-}</string>
-                          </property>
-                          <property name="text">
-                           <string>Clean Password</string>
-                          </property>
-                          <property name="autoExclusive">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QRadioButton" name="radioButton_3">
-                          <property name="font">
-                           <font>
-                            <family>Segoe UI</family>
-                            <pointsize>9</pointsize>
-                           </font>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">QRadioButton {
-	background:rgb(91,90,90);
-    color:white;
-}
-QRadioButton::indicator {
-    width:10px;
-    height:10px;
-    border-radius: 7px;
-}
-QRadioButton::indicator:checked {
-    background-color:rgb(0,143,170);
-    border: 2px solid rgb(51,51,51);
-}
-
-QRadioButton::indicator:unchecked {
-    background-color:rgb(91,90,90);
-    border:2px solid rgb(51,51,51);
-}</string>
-                          </property>
-                          <property name="text">
-                           <string>Clean Chache</string>
-                          </property>
-                          <property name="autoExclusive">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QRadioButton" name="radioButton_4">
-                          <property name="font">
-                           <font>
-                            <family>Segoe UI</family>
-                            <pointsize>9</pointsize>
-                           </font>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">QRadioButton {
-	background:rgb(91,90,90);
-    color:white;
-}
-QRadioButton::indicator {
-    width:10px;
-    height:10px;
-    border-radius: 7px;
-}
-QRadioButton::indicator:checked {
-    background-color:rgb(0,143,170);
-    border: 2px solid rgb(51,51,51);
-}
-
-QRadioButton::indicator:unchecked {
-    background-color:rgb(91,90,90);
-    border:2px solid rgb(51,51,51);
-}</string>
-                          </property>
-                          <property name="text">
-                           <string>Clean Bookmarks</string>
-                          </property>
-                          <property name="autoExclusive">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QCheckBox" name="checkBox">
-                          <property name="font">
-                           <font>
-                            <family>Segoe UI</family>
-                            <pointsize>9</pointsize>
-                           </font>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">QCheckBox {
-    color:rgb(255,255,255);
-}
-
-QCheckBox::indicator {
-    width: 10px;
-    height: 10px;
-}
-
-QCheckBox::indicator:unchecked {
-    border:2px solid rgb(51,51,51);
-	background:rgb(91,90,90);
-}
-
-QCheckBox::indicator:unchecked:pressed {
-	border:2px solid rgb(51,51,51);
-   	background:rgb(0,143,170);
-}
-
-QCheckBox::indicator:checked {
-	background-color:rgb(0,143,170);
-    border: 2px solid rgb(51,51,51);
-}
-
-QCheckBox::indicator:checked:pressed {
-    border:2px solid rgb(51,51,51);
-	background:rgb(91,90,90);
-}
-
-</string>
-                          </property>
-                          <property name="text">
-                           <string>Did you liked the UI</string>
-                          </property>
-                          <property name="tristate">
-                           <bool>false</bool>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QCheckBox" name="checkBox_4">
-                          <property name="font">
-                           <font>
-                            <family>Segoe UI</family>
-                            <pointsize>9</pointsize>
-                           </font>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">QCheckBox {
-    color:rgb(255,255,255);
-}
-
-QCheckBox::indicator {
-    width: 10px;
-    height: 10px;
-}
-
-QCheckBox::indicator:unchecked {
-    border:2px solid rgb(51,51,51);
-	background:rgb(91,90,90);
-}
-
-QCheckBox::indicator:unchecked:pressed {
-	border:2px solid rgb(51,51,51);
-   	background:rgb(0,143,170);
-}
-
-QCheckBox::indicator:checked {
-	background-color:rgb(0,143,170);
-    border: 2px solid rgb(51,51,51);
-}
-
-QCheckBox::indicator:checked:pressed {
-    border:2px solid rgb(51,51,51);
-	background:rgb(91,90,90);
-}
-
-</string>
-                          </property>
-                          <property name="text">
-                           <string>Did you like the Color Scheme</string>
-                          </property>
-                          <property name="tristate">
-                           <bool>false</bool>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QCheckBox" name="checkBox_2">
-                          <property name="font">
-                           <font>
-                            <family>Segoe UI</family>
-                            <pointsize>9</pointsize>
-                           </font>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">QCheckBox {
-    color:rgb(255,255,255);
-}
-
-QCheckBox::indicator {
-    width: 10px;
-    height: 10px;
-}
-
-QCheckBox::indicator:unchecked {
-    border:2px solid rgb(51,51,51);
-	background:rgb(91,90,90);
-}
-
-QCheckBox::indicator:unchecked:pressed {
-	border:2px solid rgb(51,51,51);
-   	background:rgb(0,143,170);
-}
-
-QCheckBox::indicator:checked {
-	background-color:rgb(0,143,170);
-    border: 2px solid rgb(51,51,51);
-}
-
-QCheckBox::indicator:checked:pressed {
-    border:2px solid rgb(51,51,51);
-	background:rgb(91,90,90);
-}
-
-</string>
-                          </property>
-                          <property name="text">
-                           <string>Did you like Custome Buttons</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QCheckBox" name="checkBox_3">
-                          <property name="font">
-                           <font>
-                            <family>Segoe UI</family>
-                            <pointsize>9</pointsize>
-                           </font>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">QCheckBox {
-    color:rgb(255,255,255);
-}
-
-QCheckBox::indicator {
-    width: 10px;
-    height: 10px;
-}
-
-QCheckBox::indicator:unchecked {
-    border:2px solid rgb(51,51,51);
-	background:rgb(91,90,90);
-}
-
-QCheckBox::indicator:unchecked:pressed {
-	border:2px solid rgb(51,51,51);
-   	background:rgb(0,143,170);
-}
-
-QCheckBox::indicator:checked {
-	background-color:rgb(0,143,170);
-    border: 2px solid rgb(51,51,51);
-}
-
-QCheckBox::indicator:checked:pressed {
-    border:2px solid rgb(51,51,51);
-	background:rgb(91,90,90);
-}
-
-</string>
-                          </property>
-                          <property name="text">
-                           <string>Did you like the Stacked Window</string>
-                          </property>
-                         </widget>
-                        </item>
-                       </layout>
-                      </widget>
-                     </item>
-                     <item row="0" column="1" rowspan="2" colspan="2">
-                      <widget class="QLabel" name="lab_clean">
-                       <property name="styleSheet">
-                        <string notr="true"/>
-                       </property>
-                       <property name="text">
-                        <string/>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="2" column="0" rowspan="2">
-                      <spacer name="verticalSpacer_5">
-                       <property name="orientation">
-                        <enum>Qt::Vertical</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>20</width>
-                         <height>40</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                     <item row="0" column="3">
-                      <widget class="QGroupBox" name="groupBox">
-                       <property name="minimumSize">
-                        <size>
-                         <width>250</width>
-                         <height>300</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>250</width>
-                         <height>300</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>Segoe UI</family>
-                         <pointsize>9</pointsize>
-                        </font>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true">QGroupBox{
-	border:1px solid rgb(51,51,51);	
-	border-radius:4px;
-	color:white;
-	background:rgb(91,90,90);
-}
-</string>
-                       </property>
-                       <property name="title">
-                        <string>Sliders</string>
-                       </property>
-                       <layout class="QGridLayout" name="gridLayout_6">
-                        <item row="0" column="0">
-                         <widget class="QSlider" name="horizontalSlider_2">
-                          <property name="styleSheet">
-                           <string notr="true">QSlider::groove:horizontal {
-    height:5px;
-    background: rgb(51,51,51);
-}
-
-QSlider::handle:horizontal {
-    background:rgb(0,143,170);
-    width: 10px;
-margin:-8px 0
-}
-
-QSlider::add-page:horizondal {
-    background:rgb(51,51,51);
-}
-
-QSlider::sub-page:horizondal {
-    background:rgb(51,51,51);
-}</string>
-                          </property>
-                          <property name="orientation">
-                           <enum>Qt::Horizontal</enum>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="0" column="2">
-                         <widget class="QSlider" name="verticalSlider">
-                          <property name="styleSheet">
-                           <string notr="true">QSlider::groove:vertical {
-    background: red;
-    width:5px
-}
-
-QSlider::handle:vertical {
-    height: 10px;
-    background:rgb(0,143,170);
-	margin:0 -8px
-}
-
-QSlider::add-page:vertical {
-    background:rgb(51,51,51);
-}
-
-QSlider::sub-page:vertical {
-    background:rgb(51,51,51);
-}</string>
-                          </property>
-                          <property name="tracking">
-                           <bool>true</bool>
-                          </property>
-                          <property name="orientation">
-                           <enum>Qt::Vertical</enum>
-                          </property>
-                          <property name="invertedAppearance">
-                           <bool>false</bool>
-                          </property>
-                          <property name="invertedControls">
-                           <bool>false</bool>
-                          </property>
-                          <property name="tickPosition">
-                           <enum>QSlider::NoTicks</enum>
-                          </property>
-                         </widget>
-                        </item>
-                       </layout>
-                      </widget>
-                     </item>
                     </layout>
                    </widget>
                    <widget class="QWidget" name="page_android_world">
@@ -5011,15 +4404,17 @@ QSlider::sub-page:vertical {
                         </layout>
                        </item>
                        <item>
-                        <widget class="QPushButton" name="pushButton_issue">
-                         <property name="font">
-                          <font>
-                           <family>Segoe UI</family>
-                           <pointsize>16</pointsize>
-                          </font>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">QPushButton {
+                        <layout class="QVBoxLayout" name="verticalLayout_35">
+                         <item>
+                          <widget class="QPushButton" name="pushButton_faq">
+                           <property name="font">
+                            <font>
+                             <family>Segoe UI</family>
+                             <pointsize>16</pointsize>
+                            </font>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">QPushButton {
 	border: none;
 	background-color: rgb(110,110,110)
 }
@@ -5028,22 +4423,22 @@ QPushButton:hover {
 }
 
 </string>
-                         </property>
-                         <property name="text">
-                          <string>Report an issue</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QPushButton" name="pushButton_github">
-                         <property name="font">
-                          <font>
-                           <family>Segoe UI</family>
-                           <pointsize>16</pointsize>
-                          </font>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">QPushButton {
+                           </property>
+                           <property name="text">
+                            <string>FAQ</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QPushButton" name="pushButton_issue">
+                           <property name="font">
+                            <font>
+                             <family>Segoe UI</family>
+                             <pointsize>16</pointsize>
+                            </font>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">QPushButton {
 	border: none;
 	background-color: rgb(110,110,110)
 }
@@ -5052,11 +4447,37 @@ QPushButton:hover {
 }
 
 </string>
-                         </property>
-                         <property name="text">
-                          <string>Github</string>
-                         </property>
-                        </widget>
+                           </property>
+                           <property name="text">
+                            <string>Report an issue</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QPushButton" name="pushButton_github">
+                           <property name="font">
+                            <font>
+                             <family>Segoe UI</family>
+                             <pointsize>16</pointsize>
+                            </font>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">QPushButton {
+	border: none;
+	background-color: rgb(110,110,110)
+}
+QPushButton:hover {
+	background-color: rgb(125,125,125);
+}
+
+</string>
+                           </property>
+                           <property name="text">
+                            <string>Github</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
                        </item>
                       </layout>
                      </item>
@@ -5142,6 +4563,22 @@ QPushButton:hover {
                 <property name="bottomMargin">
                  <number>0</number>
                 </property>
+                <item>
+                 <spacer name="horizontalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Maximum</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>15</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
                 <item>
                  <widget class="QLabel" name="lab_tab">
                   <property name="enabled">
@@ -5278,6 +4715,14 @@ QPushButton:hover {
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QWebEngineView</class>
+   <extends>QWidget</extends>
+   <header>PySide2.QtWebEngineWidgets</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -114,8 +114,8 @@ class UIFunction(MainWindow):
         self.ui.bn_android_contact.clicked.connect(
             lambda: UIFunction.androidStackPages(self, "page_contact")
         )
-        self.ui.bn_android_game.clicked.connect(
-            lambda: UIFunction.androidStackPages(self, "page_game")
+        self.ui.bn_android_faq.clicked.connect(
+            lambda: UIFunction.androidStackPages(self, "page_faq")
         )
         self.ui.bn_android_clean.clicked.connect(
             lambda: UIFunction.androidStackPages(self, "page_clean")
@@ -143,12 +143,6 @@ class UIFunction(MainWindow):
 
         self.ui.bn_shortcut.clicked.connect(lambda: brain.createshortcut())
 
-        #######ANDROID > PAGE GAMEPAD >>>>>>>>>>>>>>>>>>>
-        self.ui.textEdit_gamepad.setVerticalScrollBar(
-            self.ui.vsb_gamepad
-        )  # SETTING THE TEXT FILED AREA A SCROLL BAR
-        self.ui.textEdit_gamepad.setText("Type Here Something, or paste something here")
-
         ######ANDROID > PAGE CLEAN >>>>>>>>>>>>>>>>>>>>>>
         # NOTHING HER
         ##########PAGE: ABOUT HOME #############
@@ -172,18 +166,19 @@ class UIFunction(MainWindow):
         # ------> THIS LINE CLEARS THE BG COLOR OF PREVIOUS TABS
         for each in self.ui.frame_android_menu.findChildren(QFrame):
             each.setStyleSheet("background:rgb(51,51,51)")
+            
+
 
         if page == "page_contact":
             self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_contact)
             self.ui.lab_tab.setText("Settings > Profile")
             self.ui.frame_android_contact.setStyleSheet("background:rgb(91,90,90)")
 
-        elif page == "page_game":
-            pass
-        
-            '''self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_game)
-            self.ui.lab_tab.setText("Settings > GamePad")
-            self.ui.frame_android_game.setStyleSheet("background:rgb(91,90,90)")'''
+            
+        elif page == "page_faq":
+            self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_faq)
+            self.ui.lab_tab.setText("Settings > FAQ")
+            self.ui.frame_android_faq.setStyleSheet("background:rgb(91,90,90)")
             
 
         elif page == "page_clean":
@@ -228,7 +223,7 @@ class APFunction:
         self.ui.bn_bug.setEnabled(False)
         self.ui.bn_android.setEnabled(False)
         self.ui.bn_android_contact.setEnabled(False)
-        self.ui.bn_android_game.setEnabled(False)
+        self.ui.bn_android_faq.setEnabled(False)
         self.ui.bn_android_clean.setEnabled(False)
         self.ui.bn_android_world.setEnabled(False)
 
@@ -248,7 +243,7 @@ class APFunction:
         self.ui.bn_bug.setEnabled(True)
         self.ui.bn_android.setEnabled(True)
         self.ui.bn_android_contact.setEnabled(True)
-        self.ui.bn_android_game.setEnabled(True)
+        self.ui.bn_android_faq.setEnabled(True)
         self.ui.bn_android_clean.setEnabled(True)
         self.ui.bn_android_world.setEnabled(True)
 

@@ -7,7 +7,7 @@ import brain
 import threading
 
 import requests
-from msedge.selenium_tools import Edge, EdgeOptions
+#from msedge.selenium_tools import Edge, EdgeOptions
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options

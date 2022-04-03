@@ -1,35 +1,26 @@
-# dfsdfssdf
-
 filelink = "https://raw.githubusercontent.com/Bre3n/MLauncher/master/files/links.txt"
 
 
 def downloader(url, path, var):
+    r = requests.get(url, stream=True)
     if var == 1:
-        MANAGER = enlighten.get_manager()
-        r = requests.get(url, stream=True)
-        assert r.status_code == 200, r.status_code
-        dlen = int(r.headers.get("Content-Length", "0")) or None
-
-        with MANAGER.counter(
-            color="green",
-            total=dlen and math.ceil(dlen / 2 ** 20),
-            unit="MiB",
-            leave=False,
-        ) as ctr, open(path, "wb", buffering=2 ** 24) as f:
-            for chunk in r.iter_content(chunk_size=2 ** 20):
-                print(chunk[-16:].hex().upper())
-                f.write(chunk)
-                ctr.update()
+        with open(path, "wb") as f:
+            total_length = int(r.headers.get("content-length"))
+            for chunk in progress.bar(
+                r.iter_content(chunk_size=1024), expected_size=(total_length / 1024) + 1
+            ):
+                if chunk:
+                    f.write(chunk)
+                    f.flush()
     else:
         with open(path, "wb") as f:
-            response = requests.get(url, stream=True)
-            total = response.headers.get("content-length")
+            total = r.headers.get("content-length")
 
             if total is None:
-                f.write(response.content)
+                f.write(r.content)
             else:
                 total = int(total)
-                for data in response.iter_content(
+                for data in r.iter_content(
                     chunk_size=max(int(total / 1000), 1024 * 1024)
                 ):
                     f.write(data)
@@ -81,11 +72,14 @@ if __name__ == "__main__":
         import coloredlogs
         import PySide2
         import requests
-        import enlighten
+        from clint.textui import progress
         import pypresence
         import winshell
         import pythoncom
         import win32com.client
+        import selenium
+        import chromedriver_autoinstaller
+        import Custom_Widgets
     except ImportError:
         os.system(f"pip install doctext -U")
         os.system(f"pip install requests -U")
@@ -93,13 +87,15 @@ if __name__ == "__main__":
         os.system(f"pip install zipfile -U")
         os.system(f"pip install coloredlogs -U")
         os.system(f"pip install configparser -U")
-        os.system(f"pip install enlighten -U")
+        os.system(f"pip install clint -U")
         os.system(f"pip install psutil -U")
         os.system(f"pip install pypresence -U")
         os.system(f"pip install winshell -U")
         os.system(f"pip install pywin32 -U")
         os.system(f"pip install selenium -U")
-        os.system(f"pip install edgedriver-autoinstaller -U")
+        # os.system(f"pip install edgedriver-autoinstaller -U")
+        os.system(f"pip install chromedriver_autoinstaller -U")
+        os.system(f"pip install QT-PyQt-PySide-Custom-Widgets -U")
         os.execv(sys.executable, ["python"] + sys.argv)
 
     os.system(f"pip install minecraft-launcher-lib -U")
@@ -159,8 +155,6 @@ if __name__ == "__main__":
                 contentv = f.readlines()
                 contentv = [x.strip() for x in contentv]
             if int(len(content) / 2) != int(len(contentv)):
-                print(int(len(content) / 2))
-                print(int(len(contentv)))
                 logger.critical(f"CRITICAL: FILES DON'T HAVE SAME NUMER OF LINES!")
                 logger.debug(f"DEBUG: Overwritting wrong file with 'None' lines")
                 f = open(f"{sciezkaver}/version.txt", "w")
@@ -263,8 +257,16 @@ if __name__ == "__main__":
             os.chdir(f"{sciezkaver}/")
     except ConnectionError:
         os.system("cls")
-        print("Connection Error, can't check for updates")
-        print("Starting offline mode in 3s")
-        time.sleep(3)
+        logger.error(f"ERROR: Connection Error, can't check for updates")
+        if path.exists(f"{sciezkaver}/main.py"):
+            logger.debug(f"DEBUG: Starting offline mode in 3s")
+            time.sleep(3)
+            subprocess.call(["python", f'"{sciezkaver}/main.py"'])
+        else:
+            logger.critical(
+                f"CRITICAL: Can't download required files, check your internet connection and try again"
+            )
     if path.exists(f"{sciezkaver}/main.py"):
-        subprocess.call(['"python"', f'"{sciezkaver}/main.py"'])
+        subprocess.call(["python", f'"{sciezkaver}/main.py"'])
+    else:
+        logger.critical(f"CRITICAL: Something weird occured, try again")
