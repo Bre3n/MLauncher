@@ -2,6 +2,10 @@
 
 Work in progress
 
+If you want to check this project, download latest release and run "setup.py"
+
+!!! MAKE SURE YOU HAVE PYTHON IN YOUR SYSTEM PATH !!!
+
 UI redesigned from <a href="https://github.com/anjalp/Minimalistic-Flat-Modern-GUI-Template" target="_blank" style="text-decoration:none;">anjalp repository</a>
 
 
