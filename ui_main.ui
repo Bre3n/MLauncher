@@ -269,6 +269,22 @@
                </property>
               </widget>
              </item>
+             <item>
+              <spacer name="horizontalSpacer_14">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Fixed</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>10</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
             </layout>
            </widget>
           </item>
@@ -328,8 +344,14 @@
                <property name="styleSheet">
                 <string notr="true">QPushButton {
 	border: none;
+	background-color: rgba(0,0,0,0);
 }
-</string>
+QPushButton:hover {
+	background-color: rgb(0,143,150);
+}
+QPushButton:pressed {	
+	background-color: rgba(0,0,0,0);
+}</string>
                </property>
                <property name="icon">
                 <iconset>
@@ -1071,7 +1093,7 @@ QPushButton:hover {
                 <string notr="true"/>
                </property>
                <property name="currentIndex">
-                <number>3</number>
+                <number>0</number>
                </property>
                <widget class="QWidget" name="page_home">
                 <property name="styleSheet">
@@ -1220,7 +1242,7 @@ background:rgba(0,0,0,0);</string>
                       <property name="font">
                        <font>
                         <family>Segoe UI</family>
-                        <pointsize>70</pointsize>
+                        <pointsize>-1</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
                         <stylestrategy>PreferAntialias</stylestrategy>
@@ -1231,10 +1253,12 @@ background:rgba(0,0,0,0);</string>
                       </property>
                       <property name="styleSheet">
                        <string notr="true">QPushButton {
+font-size:80px;
 background-color: rgba(30,100,140,0.75);
 border-radius: 10px;
 }
 QPushButton:hover {
+font-size:90px;
 	background-color: rgba(70,140,190,0.75);
 }
 </string>

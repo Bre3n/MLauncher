@@ -88,14 +88,14 @@ class UIFunction(MainWindow):
 
         elif buttonName == "bn_mods":
             self.ui.stackedWidget.setCurrentWidget(self.ui.page_forge_mods)
-            #self.ui.stackedWidget_3.setCurrentWidget(self.ui.page_forge_mods_install)
+            # self.ui.stackedWidget_3.setCurrentWidget(self.ui.page_forge_mods_install)
             if self.ui.stackedWidget_3.currentIndex == 0:
                 self.ui.lab_tab.setText("Forge Mods > Download")
             else:
                 self.ui.lab_tab.setText("Forge Mods > Curseforge")
             self.ui.lab_tab.setText("Forge Mods")
             brain.forge_mods(self)
-        
+
         elif buttonName == "bn_mods_nextPage":
             self.ui.stackedWidget_3.setCurrentWidget(self.ui.page_forge_mods_web)
             self.ui.lab_tab.setText("Forge Mods > Curseforge")
@@ -103,6 +103,10 @@ class UIFunction(MainWindow):
         elif buttonName == "bn_mods_previousPage":
             self.ui.stackedWidget_3.setCurrentWidget(self.ui.page_forge_mods_download)
             self.ui.lab_tab.setText("Forge Mods > Download")
+
+        elif buttonName == "bn_profile":
+            self.ui.stackedWidget.setCurrentWidget(self.ui.page_android)
+            UIFunction.androidStackPages(self, "page_contact")
 
         # ADD ANOTHER ELIF STATEMENT HERE FOR EXECTUITING A NEW MENU BUTTON STACK PAGE.
 
@@ -179,28 +183,23 @@ class UIFunction(MainWindow):
         # ------> THIS LINE CLEARS THE BG COLOR OF PREVIOUS TABS
         for each in self.ui.frame_android_menu.findChildren(QFrame):
             each.setStyleSheet("background:rgb(51,51,51)")
-            
-
 
         if page == "page_contact":
             self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_contact)
             self.ui.lab_tab.setText("Settings > Profile")
             self.ui.frame_android_contact.setStyleSheet("background:rgb(91,90,90)")
 
-            
         elif page == "page_faq":
             self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_faq)
             self.ui.lab_tab.setText("Settings > FAQ")
             self.ui.frame_android_faq.setStyleSheet("background:rgb(91,90,90)")
-            
 
         elif page == "page_clean":
             pass
-        
-            '''self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_clean)
+
+            """self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_clean)
             self.ui.lab_tab.setText("Settings > Clean")
-            self.ui.frame_android_clean.setStyleSheet("background:rgb(91,90,90)")'''
-            
+            self.ui.frame_android_clean.setStyleSheet("background:rgb(91,90,90)")"""
 
         elif page == "page_world":
             self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_world)
@@ -248,7 +247,7 @@ class APFunction:
                 "icons/1x/errorAsset 55.png",
                 "Ok",
             )
-            return 
+            return
         self.ui.line_android_name.setEnabled(False)
         self.ui.line_android_adress.setEnabled(False)
         self.ui.line_checkbox_arg.setEnabled(False)
@@ -267,7 +266,7 @@ class APFunction:
         self.ui.bn_android_world.setEnabled(True)
 
         # * USERNAME
-        
+
         self.ui.lab_user.setText(username)
         self.ui.lab_home_username.setText(username)
         config["PROFILE"]["username"] = username

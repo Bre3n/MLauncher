@@ -596,7 +596,9 @@ def playForge(self, var):
     settings_ins.read(f"{sciezkains}/{versionPath}/settings_ins.ini")
 
     if path.exists(f"{sciezkains}/{versionPath}") == False or var == 0 or var == 2:
-        self.ui.bn_play.setStyleSheet("QPushButton {font-size:55px;background-color: rgba(30,100,140,0.7);border-radius: 10px;}QPushButton:hover {font-size:55px;background-color: rgba(70,140,190,0.7);}")
+        self.ui.bn_play.setStyleSheet(
+            "QPushButton {font-size:55px;background-color: rgba(30,100,140,0.7);border-radius: 10px;}QPushButton:hover {font-size:65px;background-color: rgba(70,140,190,0.7);}"
+        )
         self.ui.bn_play.setText(f"Downloading")
         threading.Thread(target=lambda: downloadingCount(self)).start()
         os.mkdir(f"{sciezkains}/{versionPath}/")
@@ -661,7 +663,9 @@ def playForge(self, var):
                 "icons/1x/errorAsset 55.png",
                 "Ok",
             )
-            self.ui.bn_play.setStyleSheet("QPushButton {font-size:70px;background-color: rgba(30,100,140,0.7);border-radius: 10px;}QPushButton:hover {font-size:70px;background-color: rgba(70,140,190,0.7);}")
+            self.ui.bn_play.setStyleSheet(
+                "QPushButton {font-size:80px;background-color: rgba(30,100,140,0.7);border-radius: 10px;}QPushButton:hover {font-size:90px;background-color: rgba(70,140,190,0.7);}"
+            )
             self.ui.bn_play.setText(f"Play")
             return
         self.closebool = True
@@ -694,7 +698,9 @@ def playForge(self, var):
         if var == 1:
             playForge(self, 1)
     else:
-        self.ui.bn_play.setStyleSheet("QPushButton {font-size:55px;background-color: rgba(30,100,140,0.7);border-radius: 10px;}QPushButton:hover {font-size:55px;background-color: rgba(70,140,190,0.7);}")
+        self.ui.bn_play.setStyleSheet(
+            "QPushButton {font-size:70px;background-color: rgba(30,100,140,0.7);border-radius: 10px;}QPushButton:hover {font-size:80px;background-color: rgba(70,140,190,0.7);}"
+        )
         self.ui.bn_play.setText(f"Playing")
         setCurrentDiscordRpc(f"Minecraft {version}", f"Playing as {username}")
         threading.Thread(target=lambda: playingcheck(self)).start()
@@ -808,7 +814,9 @@ def playVanilla(self, var):
     settings_ins.read(f"{sciezkains}/{versionPath}/settings_ins.ini")
 
     if path.exists(f"{sciezkains}/{versionPath}") == False or var == 0 or var == 2:
-        self.ui.bn_play.setStyleSheet("QPushButton {font-size:55px;background-color: rgba(30,100,140,0.7);border-radius: 10px;}QPushButton:hover {font-size:55px;background-color: rgba(70,140,190,0.7);}")
+        self.ui.bn_play.setStyleSheet(
+            "QPushButton {font-size:55px;background-color: rgba(30,100,140,0.7);border-radius: 10px;}QPushButton:hover {font-size:65px;background-color: rgba(70,140,190,0.7);}"
+        )
         self.ui.bn_play.setText(f"Downloading")
         threading.Thread(target=lambda: downloadingCount(self)).start()
         if path.exists(f"{sciezkains}/{versionPath}/") == False:
@@ -885,7 +893,9 @@ def playVanilla(self, var):
         if var == 1:
             playVanilla(self, 1)
     else:
-        self.ui.bn_play.setStyleSheet("QPushButton {font-size:55px;background-color: rgba(30,100,140,0.7);border-radius: 10px;}QPushButton:hover {font-size:70px;background-color: rgba(70,140,190,0.7);}")
+        self.ui.bn_play.setStyleSheet(
+            "QPushButton {font-size:70px;background-color: rgba(30,100,140,0.7);border-radius: 10px;}QPushButton:hover {font-size:80px;background-color: rgba(70,140,190,0.7);}"
+        )
         self.ui.bn_play.setText(f"Playing")
         setCurrentDiscordRpc(f"Minecraft {version}", f"Playing as {username}")
         threading.Thread(target=lambda: playingcheck(self)).start()
@@ -1350,7 +1360,9 @@ class instancesettings:
             instancesettings(selfui)
 
     def repairInstance(self, version, selfui):
-        selfui.ui.bn_play.setStylesheet("QPushButton {font-size:55px;background-color: rgba(30,100,140,0.7);border-radius: 10px;}QPushButton:hover {font-size:55px;background-color: rgba(70,140,190,0.7);}")
+        selfui.ui.bn_play.setStylesheet(
+            "QPushButton {font-size:55px;background-color: rgba(30,100,140,0.7);border-radius: 10px;}QPushButton:hover {font-size:65px;background-color: rgba(70,140,190,0.7);}"
+        )
         selfui.ui.bn_play.setText(f"Downloading")
         buforinstance = f"{sciezkains}/{version}/.minecraft"
         max_value = [0]
@@ -1369,7 +1381,9 @@ class instancesettings:
             minecraft_launcher_lib.install.install_minecraft_version(
                 version, buforinstance, callback=callback
             )
-        selfui.ui.bn_play.setStylesheet("QPushButton {font-size:70px;background-color: rgba(30,100,140,0.7);border-radius: 10px;}QPushButton:hover {font-size:70px;background-color: rgba(70,140,190,0.7);}")
+        selfui.ui.bn_play.setStylesheet(
+            "QPushButton {font-size:80px;background-color: rgba(30,100,140,0.7);border-radius: 10px;}QPushButton:hover {font-size:90px;background-color: rgba(70,140,190,0.7);}"
+        )
         selfui.ui.bn_play.setText(f"Play")
 
     def bnOptifine(self, selfui, version):

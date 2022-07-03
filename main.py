@@ -165,7 +165,7 @@ class MainWindow(QMainWindow):
             self.ui.page_home.setStyleSheet("background: url(icons/main_page_2.jpg);")
         else:
             self.ui.page_home.setStyleSheet("background: url(icons/main_page_3.jpg);")
-        
+
         self.ui.stackedWidget_2.setCurrentIndex(0)
         self.ui.stackedWidget_3.setCurrentWidget(self.ui.page_forge_mods_download)
         self.ui.bn_mod_set.clicked.connect(lambda: brain.forge_mods.set_mod(self))
@@ -235,6 +235,9 @@ class MainWindow(QMainWindow):
 
         self.ui.bn_home.clicked.connect(
             lambda: UIFunction.buttonPressed(self, "bn_home")
+        )
+        self.ui.bn_profile.clicked.connect(
+            lambda: UIFunction.buttonPressed(self, "bn_profile")
         )
         self.ui.bn_bug.clicked.connect(lambda: UIFunction.buttonPressed(self, "bn_bug"))
         self.ui.bn_android.clicked.connect(

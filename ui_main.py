@@ -114,6 +114,10 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_9.addWidget(self.lab_user)
 
+        self.horizontalSpacer_14 = QSpacerItem(10, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_9.addItem(self.horizontalSpacer_14)
+
 
         self.horizontalLayout_4.addWidget(self.frame_user)
 
@@ -134,8 +138,14 @@ class Ui_MainWindow(object):
         self.bn_profile.setMaximumSize(QSize(55, 55))
         self.bn_profile.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
+"	background-color: rgba(0,0,0,0);\n"
 "}\n"
-"")
+"QPushButton:hover {\n"
+"	background-color: rgb(0,143,150);\n"
+"}\n"
+"QPushButton:pressed {	\n"
+"	background-color: rgba(0,0,0,0);\n"
+"}")
         icon = QIcon()
         icon.addFile(u"icons/1x/peple.png", QSize(), QIcon.Normal, QIcon.Off)
         self.bn_profile.setIcon(icon)
@@ -504,16 +514,17 @@ class Ui_MainWindow(object):
         self.bn_play.setMaximumSize(QSize(16777215, 200))
         font5 = QFont()
         font5.setFamily(u"Segoe UI")
-        font5.setPointSize(70)
         font5.setBold(True)
         font5.setWeight(75)
         font5.setStyleStrategy(QFont.PreferAntialias)
         self.bn_play.setFont(font5)
         self.bn_play.setStyleSheet(u"QPushButton {\n"
+"font-size:80px;\n"
 "background-color: rgba(30,100,140,0.75);\n"
 "border-radius: 10px;\n"
 "}\n"
 "QPushButton:hover {\n"
+"font-size:90px;\n"
 "	background-color: rgba(70,140,190,0.75);\n"
 "}\n"
 "")
@@ -2670,7 +2681,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(0)
         self.stackedWidget_2.setCurrentIndex(0)
         self.stackedWidget_3.setCurrentIndex(1)
         self.stackedWidget_android.setCurrentIndex(1)
