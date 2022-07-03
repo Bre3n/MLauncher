@@ -241,8 +241,14 @@ class APFunction:
         self.ui.bn_android_world.setEnabled(False)
 
     def saveContact(self):
-        self.ui.lab_user.setText(self.ui.line_android_name.text())
-        self.ui.lab_home_username.setText(self.ui.line_android_name.text())
+        username = self.ui.line_android_name.text()
+        if len(username) > 15:
+            self.errorexec(
+                "Your nickname is too long!\nMax 15 characters",
+                "icons/1x/errorAsset 55.png",
+                "Ok",
+            )
+            return 
         self.ui.line_android_name.setEnabled(False)
         self.ui.line_android_adress.setEnabled(False)
         self.ui.line_checkbox_arg.setEnabled(False)
@@ -261,7 +267,9 @@ class APFunction:
         self.ui.bn_android_world.setEnabled(True)
 
         # * USERNAME
-        username = self.ui.line_android_name.text()
+        
+        self.ui.lab_user.setText(username)
+        self.ui.lab_home_username.setText(username)
         config["PROFILE"]["username"] = username
         brain.setCurrentDiscordRpc("Home Page", f"Playing as {username}")
 

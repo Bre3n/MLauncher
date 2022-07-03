@@ -444,9 +444,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout_19 = QHBoxLayout(self.page_home)
         self.horizontalLayout_19.setSpacing(0)
         self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
-        self.horizontalLayout_19.setContentsMargins(0, 5, 0, 5)
+        self.horizontalLayout_19.setContentsMargins(0, 0, 0, 0)
         self.frame_home_main = QFrame(self.page_home)
         self.frame_home_main.setObjectName(u"frame_home_main")
+        self.frame_home_main.setStyleSheet(u"background:rgba(0,0,0,0.0);")
         self.frame_home_main.setFrameShape(QFrame.NoFrame)
         self.frame_home_main.setFrameShadow(QFrame.Plain)
         self.verticalLayout_5 = QVBoxLayout(self.frame_home_main)
@@ -458,14 +459,20 @@ class Ui_MainWindow(object):
         self.lab_home_main_hed.setMinimumSize(QSize(0, 55))
         self.lab_home_main_hed.setMaximumSize(QSize(16777215, 100))
         font3 = QFont()
-        font3.setFamily(u"Segoe UI Semilight")
-        font3.setPointSize(55)
+        font3.setFamily(u"Segoe UI Semibold")
+        font3.setPointSize(65)
+        font3.setBold(True)
+        font3.setWeight(75)
+        font3.setKerning(True)
         self.lab_home_main_hed.setFont(font3)
         self.lab_home_main_hed.setStyleSheet(u"QLabel {\n"
 "	color:rgb(255,255,255);\n"
+"	background:rgba(0,0,0,0);\n"
 "}")
         self.lab_home_main_hed.setTextFormat(Qt.RichText)
+        self.lab_home_main_hed.setScaledContents(False)
         self.lab_home_main_hed.setAlignment(Qt.AlignCenter)
+        self.lab_home_main_hed.setTextInteractionFlags(Qt.NoTextInteraction)
 
         self.verticalLayout_5.addWidget(self.lab_home_main_hed)
 
@@ -473,13 +480,17 @@ class Ui_MainWindow(object):
         self.lab_home_username.setObjectName(u"lab_home_username")
         self.lab_home_username.setMaximumSize(QSize(16777215, 80))
         font4 = QFont()
-        font4.setFamily(u"Segoe UI")
-        font4.setPointSize(36)
+        font4.setFamily(u"Segoe UI Semibold")
+        font4.setPointSize(40)
+        font4.setBold(True)
+        font4.setWeight(75)
         self.lab_home_username.setFont(font4)
-        self.lab_home_username.setStyleSheet(u"color:rgb(255,255,255);")
+        self.lab_home_username.setStyleSheet(u"color:rgb(255,255,255);\n"
+"background:rgba(0,0,0,0);")
         self.lab_home_username.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
         self.lab_home_username.setWordWrap(True)
         self.lab_home_username.setMargin(5)
+        self.lab_home_username.setTextInteractionFlags(Qt.NoTextInteraction)
 
         self.verticalLayout_5.addWidget(self.lab_home_username)
 
@@ -493,18 +504,28 @@ class Ui_MainWindow(object):
         self.bn_play.setMaximumSize(QSize(16777215, 200))
         font5 = QFont()
         font5.setFamily(u"Segoe UI")
-        font5.setPointSize(55)
+        font5.setPointSize(70)
+        font5.setBold(True)
+        font5.setWeight(75)
+        font5.setStyleStrategy(QFont.PreferAntialias)
         self.bn_play.setFont(font5)
         self.bn_play.setStyleSheet(u"QPushButton {\n"
-"background-color: rgb(30,100,140);\n"
+"background-color: rgba(30,100,140,0.75);\n"
 "border-radius: 10px;\n"
 "}\n"
 "QPushButton:hover {\n"
-"	background-color: rgb(70,140,190);\n"
+"	background-color: rgba(70,140,190,0.75);\n"
 "}\n"
 "")
 
         self.verticalLayout_5.addWidget(self.bn_play)
+
+        self.horizontalLayout_31 = QHBoxLayout()
+        self.horizontalLayout_31.setObjectName(u"horizontalLayout_31")
+        self.horizontalLayout_31.setSizeConstraint(QLayout.SetDefaultConstraint)
+        self.horizontalSpacer_13 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_31.addItem(self.horizontalSpacer_13)
 
         self.label_2 = QLabel(self.frame_home_main)
         self.label_2.setObjectName(u"label_2")
@@ -513,20 +534,28 @@ class Ui_MainWindow(object):
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
         self.label_2.setSizePolicy(sizePolicy1)
-        self.label_2.setMaximumSize(QSize(16777215, 20))
-        font6 = QFont()
-        font6.setFamily(u"Segoe UI")
-        font6.setPointSize(10)
-        self.label_2.setFont(font6)
+        self.label_2.setMaximumSize(QSize(16777215, 25))
+        self.label_2.setFont(font)
+        self.label_2.setStyleSheet(u"background:rgba(0,0,0,0.40);\n"
+"border-radius: 5px;")
         self.label_2.setAlignment(Qt.AlignCenter)
+        self.label_2.setMargin(3)
 
-        self.verticalLayout_5.addWidget(self.label_2)
+        self.horizontalLayout_31.addWidget(self.label_2)
+
+        self.horizontalSpacer_12 = QSpacerItem(40, 2, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_31.addItem(self.horizontalSpacer_12)
+
+
+        self.verticalLayout_5.addLayout(self.horizontalLayout_31)
 
 
         self.horizontalLayout_19.addWidget(self.frame_home_main)
 
         self.vert_divide = QFrame(self.page_home)
         self.vert_divide.setObjectName(u"vert_divide")
+        self.vert_divide.setStyleSheet(u"background:rgba(0,0,0,0)")
         self.vert_divide.setFrameShape(QFrame.VLine)
         self.vert_divide.setFrameShadow(QFrame.Sunken)
 
@@ -538,13 +567,13 @@ class Ui_MainWindow(object):
         self.frame_home_stat.setSizePolicy(sizePolicy)
         self.frame_home_stat.setMinimumSize(QSize(220, 0))
         self.frame_home_stat.setMaximumSize(QSize(250, 16777215))
-        self.frame_home_stat.setStyleSheet(u"background:rgb(80,80,80);")
+        self.frame_home_stat.setStyleSheet(u"background:rgba(80,80,80,0.7);")
         self.frame_home_stat.setFrameShape(QFrame.NoFrame)
         self.frame_home_stat.setFrameShadow(QFrame.Plain)
         self.verticalLayout_6 = QVBoxLayout(self.frame_home_stat)
         self.verticalLayout_6.setSpacing(5)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
-        self.verticalLayout_6.setContentsMargins(5, 5, 5, 5)
+        self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_34 = QHBoxLayout()
         self.horizontalLayout_34.setObjectName(u"horizontalLayout_34")
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
@@ -554,12 +583,15 @@ class Ui_MainWindow(object):
         self.news_latest = QLabel(self.frame_home_stat)
         self.news_latest.setObjectName(u"news_latest")
         self.news_latest.setFont(font)
+        self.news_latest.setAutoFillBackground(False)
+        self.news_latest.setStyleSheet(u"background:rgba(80,80,80,0);")
 
         self.horizontalLayout_34.addWidget(self.news_latest)
 
         self.news_index = QLabel(self.frame_home_stat)
         self.news_index.setObjectName(u"news_index")
         self.news_index.setFont(font)
+        self.news_index.setStyleSheet(u"background:rgba(80,80,80,0);")
 
         self.horizontalLayout_34.addWidget(self.news_index)
 
@@ -570,6 +602,9 @@ class Ui_MainWindow(object):
         self.stackedWidget_2.setObjectName(u"stackedWidget_2")
         sizePolicy.setHeightForWidth(self.stackedWidget_2.sizePolicy().hasHeightForWidth())
         self.stackedWidget_2.setSizePolicy(sizePolicy)
+        self.stackedWidget_2.setStyleSheet(u"background:rgba(80,80,80,0.3);\n"
+"border-top-left-radius: 10px;\n"
+"border-bottom-left-radius: 10px;")
         self.page_news_1 = QWidget()
         self.page_news_1.setObjectName(u"page_news_1")
         self.verticalLayout_23 = QVBoxLayout(self.page_news_1)
@@ -580,10 +615,12 @@ class Ui_MainWindow(object):
 
         self.news_1 = QLabel(self.page_news_1)
         self.news_1.setObjectName(u"news_1")
-        font7 = QFont()
-        font7.setFamily(u"Segoe UI")
-        font7.setPointSize(18)
-        self.news_1.setFont(font7)
+        font6 = QFont()
+        font6.setFamily(u"Segoe UI")
+        font6.setPointSize(18)
+        font6.setBold(True)
+        font6.setWeight(75)
+        self.news_1.setFont(font6)
         self.news_1.setStyleSheet(u"")
         self.news_1.setAlignment(Qt.AlignCenter)
         self.news_1.setWordWrap(True)
@@ -601,10 +638,10 @@ class Ui_MainWindow(object):
 
         self.news_1_2 = QLabel(self.page_news_1)
         self.news_1_2.setObjectName(u"news_1_2")
-        font8 = QFont()
-        font8.setFamily(u"Segoe UI")
-        font8.setPointSize(14)
-        self.news_1_2.setFont(font8)
+        font7 = QFont()
+        font7.setFamily(u"Segoe UI")
+        font7.setPointSize(14)
+        self.news_1_2.setFont(font7)
         self.news_1_2.setAlignment(Qt.AlignCenter)
         self.news_1_2.setWordWrap(True)
 
@@ -625,7 +662,7 @@ class Ui_MainWindow(object):
 
         self.news_2 = QLabel(self.page_news_2)
         self.news_2.setObjectName(u"news_2")
-        self.news_2.setFont(font7)
+        self.news_2.setFont(font6)
         self.news_2.setAlignment(Qt.AlignCenter)
         self.news_2.setWordWrap(True)
 
@@ -642,7 +679,7 @@ class Ui_MainWindow(object):
 
         self.news_2_2 = QLabel(self.page_news_2)
         self.news_2_2.setObjectName(u"news_2_2")
-        self.news_2_2.setFont(font8)
+        self.news_2_2.setFont(font7)
         self.news_2_2.setAlignment(Qt.AlignCenter)
         self.news_2_2.setWordWrap(True)
 
@@ -663,7 +700,7 @@ class Ui_MainWindow(object):
 
         self.news_3 = QLabel(self.page_news_3)
         self.news_3.setObjectName(u"news_3")
-        self.news_3.setFont(font7)
+        self.news_3.setFont(font6)
         self.news_3.setAlignment(Qt.AlignCenter)
         self.news_3.setWordWrap(True)
 
@@ -680,7 +717,7 @@ class Ui_MainWindow(object):
 
         self.news_3_2 = QLabel(self.page_news_3)
         self.news_3_2.setObjectName(u"news_3_2")
-        self.news_3_2.setFont(font8)
+        self.news_3_2.setFont(font7)
         self.news_3_2.setAlignment(Qt.AlignCenter)
         self.news_3_2.setWordWrap(True)
 
@@ -701,7 +738,7 @@ class Ui_MainWindow(object):
 
         self.news_4 = QLabel(self.page_news_4)
         self.news_4.setObjectName(u"news_4")
-        self.news_4.setFont(font7)
+        self.news_4.setFont(font6)
         self.news_4.setAlignment(Qt.AlignCenter)
         self.news_4.setWordWrap(True)
 
@@ -718,7 +755,7 @@ class Ui_MainWindow(object):
 
         self.news_4_2 = QLabel(self.page_news_4)
         self.news_4_2.setObjectName(u"news_4_2")
-        self.news_4_2.setFont(font8)
+        self.news_4_2.setFont(font7)
         self.news_4_2.setAlignment(Qt.AlignCenter)
         self.news_4_2.setWordWrap(True)
 
@@ -739,7 +776,7 @@ class Ui_MainWindow(object):
 
         self.news_5 = QLabel(self.page_news_5)
         self.news_5.setObjectName(u"news_5")
-        self.news_5.setFont(font7)
+        self.news_5.setFont(font6)
         self.news_5.setAlignment(Qt.AlignCenter)
         self.news_5.setWordWrap(True)
 
@@ -756,7 +793,7 @@ class Ui_MainWindow(object):
 
         self.news_5_2 = QLabel(self.page_news_5)
         self.news_5_2.setObjectName(u"news_5_2")
-        self.news_5_2.setFont(font8)
+        self.news_5_2.setFont(font7)
         self.news_5_2.setAlignment(Qt.AlignCenter)
         self.news_5_2.setWordWrap(True)
 
@@ -772,13 +809,13 @@ class Ui_MainWindow(object):
 
         self.bn_news_open = QPushButton(self.frame_home_stat)
         self.bn_news_open.setObjectName(u"bn_news_open")
-        self.bn_news_open.setFont(font8)
+        self.bn_news_open.setFont(font7)
         self.bn_news_open.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
-"	background-color: rgb(170,120,35);\n"
+"	background-color: rgba(170,120,35,0.75);\n"
 "}\n"
 "QPushButton:hover {\n"
-"	background-color: rgb(191,150,80);\n"
+"	background-color: rgba(191,150,80,0.75);\n"
 "}\n"
 "")
 
@@ -788,16 +825,16 @@ class Ui_MainWindow(object):
         self.horizontalLayout_33.setObjectName(u"horizontalLayout_33")
         self.bn_news_previous = QPushButton(self.frame_home_stat)
         self.bn_news_previous.setObjectName(u"bn_news_previous")
-        font9 = QFont()
-        font9.setFamily(u"Segoe UI")
-        font9.setPointSize(22)
-        self.bn_news_previous.setFont(font9)
+        font8 = QFont()
+        font8.setFamily(u"Segoe UI")
+        font8.setPointSize(22)
+        self.bn_news_previous.setFont(font8)
         self.bn_news_previous.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
-"	background-color: rgb(50,150,50);\n"
+"	background-color: rgba(50,150,50,0.75);\n"
 "}\n"
 "QPushButton:hover {\n"
-"	background-color: rgb(100,180,100);\n"
+"	background-color: rgba(100,180,100,0.75);\n"
 "}\n"
 "")
 
@@ -805,13 +842,13 @@ class Ui_MainWindow(object):
 
         self.bn_news_next = QPushButton(self.frame_home_stat)
         self.bn_news_next.setObjectName(u"bn_news_next")
-        self.bn_news_next.setFont(font9)
+        self.bn_news_next.setFont(font8)
         self.bn_news_next.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
-"	background-color: rgb(50,150,50);\n"
+"	background-color: rgba(50,150,50,0.75);\n"
 "}\n"
 "QPushButton:hover {\n"
-"	background-color: rgb(100,180,100);\n"
+"	background-color: rgba(100,180,100,0.75);\n"
 "}\n"
 "")
 
@@ -839,22 +876,22 @@ class Ui_MainWindow(object):
         self.label_7 = QLabel(self.frame_2)
         self.label_7.setObjectName(u"label_7")
         self.label_7.setMaximumSize(QSize(16777215, 60))
-        font10 = QFont()
-        font10.setFamily(u"Segoe UI")
-        font10.setPointSize(20)
-        font10.setBold(True)
-        font10.setWeight(75)
-        self.label_7.setFont(font10)
+        font9 = QFont()
+        font9.setFamily(u"Segoe UI")
+        font9.setPointSize(20)
+        font9.setBold(True)
+        font9.setWeight(75)
+        self.label_7.setFont(font9)
         self.label_7.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_17.addWidget(self.label_7)
 
         self.error_lab = QLabel(self.frame_2)
         self.error_lab.setObjectName(u"error_lab")
-        font11 = QFont()
-        font11.setFamily(u"Segoe UI")
-        font11.setPointSize(16)
-        self.error_lab.setFont(font11)
+        font10 = QFont()
+        font10.setFamily(u"Segoe UI")
+        font10.setPointSize(16)
+        self.error_lab.setFont(font10)
         self.error_lab.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
         self.error_lab.setWordWrap(True)
 
@@ -891,7 +928,10 @@ class Ui_MainWindow(object):
         self.text_about_home = QTextEdit(self.frame_about_home)
         self.text_about_home.setObjectName(u"text_about_home")
         self.text_about_home.setEnabled(True)
-        self.text_about_home.setFont(font6)
+        font11 = QFont()
+        font11.setFamily(u"Segoe UI")
+        font11.setPointSize(10)
+        self.text_about_home.setFont(font11)
         self.text_about_home.setStyleSheet(u"color:rgb(255,255,255);")
         self.text_about_home.setFrameShape(QFrame.NoFrame)
         self.text_about_home.setFrameShadow(QFrame.Plain)
@@ -968,7 +1008,7 @@ class Ui_MainWindow(object):
         self.bn_mods_nextPage.setObjectName(u"bn_mods_nextPage")
         sizePolicy2.setHeightForWidth(self.bn_mods_nextPage.sizePolicy().hasHeightForWidth())
         self.bn_mods_nextPage.setSizePolicy(sizePolicy2)
-        self.bn_mods_nextPage.setFont(font11)
+        self.bn_mods_nextPage.setFont(font10)
         self.bn_mods_nextPage.setStyleSheet(u"background:rgb(80,80,80);border-radius:22%;")
         icon8 = QIcon()
         icon8.addFile(u"icons/1x/next-page-icon.png", QSize(), QIcon.Normal, QIcon.Off)
@@ -1192,7 +1232,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 682, 107))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 100, 410))
         sizePolicy.setHeightForWidth(self.scrollAreaWidgetContents.sizePolicy().hasHeightForWidth())
         self.scrollAreaWidgetContents.setSizePolicy(sizePolicy)
         self.verticalLayout_34 = QVBoxLayout(self.scrollAreaWidgetContents)
@@ -1327,7 +1367,7 @@ class Ui_MainWindow(object):
         self.bn_mods_previousPage.setObjectName(u"bn_mods_previousPage")
         sizePolicy2.setHeightForWidth(self.bn_mods_previousPage.sizePolicy().hasHeightForWidth())
         self.bn_mods_previousPage.setSizePolicy(sizePolicy2)
-        self.bn_mods_previousPage.setFont(font11)
+        self.bn_mods_previousPage.setFont(font10)
         self.bn_mods_previousPage.setStyleSheet(u"background:rgb(80,80,80);border-radius:22%;")
         icon9 = QIcon()
         icon9.addFile(u"icons/1x/previous-page-icon.png", QSize(), QIcon.Normal, QIcon.Off)
@@ -1411,7 +1451,12 @@ class Ui_MainWindow(object):
         self.label_24.setObjectName(u"label_24")
         sizePolicy2.setHeightForWidth(self.label_24.sizePolicy().hasHeightForWidth())
         self.label_24.setSizePolicy(sizePolicy2)
-        self.label_24.setFont(font12)
+        font19 = QFont()
+        font19.setFamily(u"Courier New")
+        font19.setPointSize(24)
+        font19.setBold(True)
+        font19.setWeight(75)
+        self.label_24.setFont(font19)
         self.label_24.setAlignment(Qt.AlignCenter)
 
         self.horizontalLayout_40.addWidget(self.label_24)
@@ -1457,17 +1502,20 @@ class Ui_MainWindow(object):
         self.label_15 = QLabel(self.verticalLayoutWidget)
         self.label_15.setObjectName(u"label_15")
         self.label_15.setMinimumSize(QSize(0, 50))
-        font19 = QFont()
-        font19.setFamily(u"Segoe UI")
-        font19.setPointSize(26)
-        self.label_15.setFont(font19)
+        font20 = QFont()
+        font20.setFamily(u"Segoe UI")
+        font20.setPointSize(26)
+        self.label_15.setFont(font20)
         self.label_15.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_20.addWidget(self.label_15)
 
         self.label_16 = QLabel(self.verticalLayoutWidget)
         self.label_16.setObjectName(u"label_16")
-        self.label_16.setFont(font7)
+        font21 = QFont()
+        font21.setFamily(u"Segoe UI")
+        font21.setPointSize(18)
+        self.label_16.setFont(font21)
         self.label_16.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_20.addWidget(self.label_16)
@@ -1478,10 +1526,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_22.setObjectName(u"verticalLayout_22")
         self.label_19 = QLabel(self.verticalLayoutWidget)
         self.label_19.setObjectName(u"label_19")
-        font20 = QFont()
-        font20.setFamily(u"Segoe UI")
-        font20.setPointSize(20)
-        self.label_19.setFont(font20)
+        font22 = QFont()
+        font22.setFamily(u"Segoe UI")
+        font22.setPointSize(20)
+        self.label_19.setFont(font22)
         self.label_19.setStyleSheet(u"background:rgb(75,75,75);")
         self.label_19.setAlignment(Qt.AlignCenter)
 
@@ -1489,7 +1537,7 @@ class Ui_MainWindow(object):
 
         self.label_17 = QLabel(self.verticalLayoutWidget)
         self.label_17.setObjectName(u"label_17")
-        self.label_17.setFont(font20)
+        self.label_17.setFont(font22)
         self.label_17.setStyleSheet(u"background:rgb(75,75,75);")
         self.label_17.setAlignment(Qt.AlignCenter)
 
@@ -1497,7 +1545,7 @@ class Ui_MainWindow(object):
 
         self.lb_bug_open = QLabel(self.verticalLayoutWidget)
         self.lb_bug_open.setObjectName(u"lb_bug_open")
-        self.lb_bug_open.setFont(font20)
+        self.lb_bug_open.setFont(font22)
         self.lb_bug_open.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_22.addWidget(self.lb_bug_open)
@@ -1513,7 +1561,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_21.setObjectName(u"verticalLayout_21")
         self.bug_sharedsaves = QPushButton(self.verticalLayoutWidget)
         self.bug_sharedsaves.setObjectName(u"bug_sharedsaves")
-        self.bug_sharedsaves.setFont(font20)
+        self.bug_sharedsaves.setFont(font22)
         self.bug_sharedsaves.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color: rgb(50,150,50);\n"
@@ -1528,7 +1576,7 @@ class Ui_MainWindow(object):
 
         self.bug_optifine = QPushButton(self.verticalLayoutWidget)
         self.bug_optifine.setObjectName(u"bug_optifine")
-        self.bug_optifine.setFont(font20)
+        self.bug_optifine.setFont(font22)
         self.bug_optifine.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color: rgb(50,150,50);\n"
@@ -1553,10 +1601,10 @@ class Ui_MainWindow(object):
 
         self.bug_repair = QPushButton(self.verticalLayoutWidget)
         self.bug_repair.setObjectName(u"bug_repair")
-        font21 = QFont()
-        font21.setFamily(u"Segoe UI")
-        font21.setPointSize(15)
-        self.bug_repair.setFont(font21)
+        font23 = QFont()
+        font23.setFamily(u"Segoe UI")
+        font23.setPointSize(15)
+        self.bug_repair.setFont(font23)
         self.bug_repair.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color: rgb(50,150,50);\n"
@@ -1571,7 +1619,7 @@ class Ui_MainWindow(object):
 
         self.bug_openfolder = QPushButton(self.verticalLayoutWidget)
         self.bug_openfolder.setObjectName(u"bug_openfolder")
-        self.bug_openfolder.setFont(font21)
+        self.bug_openfolder.setFont(font23)
         self.bug_openfolder.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color: rgb(50,150,50);\n"
@@ -1586,7 +1634,7 @@ class Ui_MainWindow(object):
 
         self.bug_bn_delete = QPushButton(self.verticalLayoutWidget)
         self.bug_bn_delete.setObjectName(u"bug_bn_delete")
-        self.bug_bn_delete.setFont(font21)
+        self.bug_bn_delete.setFont(font23)
         self.bug_bn_delete.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color: rgb(255,50,50);\n"
@@ -1608,7 +1656,12 @@ class Ui_MainWindow(object):
         self.verticalLayout_7.setContentsMargins(5, 5, 5, 5)
         self.label_14 = QLabel(self.page_bug)
         self.label_14.setObjectName(u"label_14")
-        self.label_14.setFont(font4)
+        font24 = QFont()
+        font24.setFamily(u"Segoe UI")
+        font24.setPointSize(36)
+        font24.setBold(True)
+        font24.setWeight(75)
+        self.label_14.setFont(font24)
         self.label_14.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_7.addWidget(self.label_14)
@@ -1619,7 +1672,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_19.setObjectName(u"verticalLayout_19")
         self.label_13 = QLabel(self.page_bug)
         self.label_13.setObjectName(u"label_13")
-        self.label_13.setFont(font8)
+        self.label_13.setFont(font7)
         self.label_13.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_19.addWidget(self.label_13)
@@ -1633,7 +1686,7 @@ class Ui_MainWindow(object):
         self.bug_button = QPushButton(self.page_bug)
         self.bug_button.setObjectName(u"bug_button")
         self.bug_button.setMinimumSize(QSize(230, 40))
-        self.bug_button.setFont(font9)
+        self.bug_button.setFont(font8)
         self.bug_button.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color:rgb(100,170,0)\n"
@@ -1650,10 +1703,10 @@ class Ui_MainWindow(object):
         self.bug_button2 = QPushButton(self.page_bug)
         self.bug_button2.setObjectName(u"bug_button2")
         self.bug_button2.setMinimumSize(QSize(230, 40))
-        font22 = QFont()
-        font22.setFamily(u"Courier New")
-        font22.setPointSize(24)
-        self.bug_button2.setFont(font22)
+        font25 = QFont()
+        font25.setFamily(u"Courier New")
+        font25.setPointSize(24)
+        self.bug_button2.setFont(font25)
         self.bug_button2.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color:rgb(100,170,0)\n"
@@ -1670,10 +1723,10 @@ class Ui_MainWindow(object):
         self.bug_button3 = QPushButton(self.page_bug)
         self.bug_button3.setObjectName(u"bug_button3")
         self.bug_button3.setMinimumSize(QSize(230, 40))
-        font23 = QFont()
-        font23.setFamily(u"SimSun")
-        font23.setPointSize(22)
-        self.bug_button3.setFont(font23)
+        font26 = QFont()
+        font26.setFamily(u"SimSun")
+        font26.setPointSize(22)
+        self.bug_button3.setFont(font26)
         self.bug_button3.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color:rgb(100,170,0)\n"
@@ -1691,7 +1744,7 @@ class Ui_MainWindow(object):
 
         self.label_12 = QLabel(self.page_bug)
         self.label_12.setObjectName(u"label_12")
-        self.label_12.setFont(font19)
+        self.label_12.setFont(font20)
         self.label_12.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_19.addWidget(self.label_12)
@@ -1700,7 +1753,7 @@ class Ui_MainWindow(object):
         self.comboBox.setObjectName(u"comboBox")
         self.comboBox.setMinimumSize(QSize(0, 40))
         self.comboBox.setMaximumSize(QSize(16777215, 16777215))
-        self.comboBox.setFont(font20)
+        self.comboBox.setFont(font22)
         self.comboBox.setStyleSheet(u"QComboBox {\n"
 "	border: 2px solid rgb(51,51,51);\n"
 "	border-radius: 5px;	\n"
@@ -1754,7 +1807,7 @@ class Ui_MainWindow(object):
 
         self.bug_confirm = QPushButton(self.page_bug)
         self.bug_confirm.setObjectName(u"bug_confirm")
-        self.bug_confirm.setFont(font20)
+        self.bug_confirm.setFont(font22)
         self.bug_confirm.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color:rgb(170,0,70)\n"
@@ -1774,7 +1827,7 @@ class Ui_MainWindow(object):
 
         self.bn_instancesettings = QPushButton(self.page_bug)
         self.bn_instancesettings.setObjectName(u"bn_instancesettings")
-        self.bn_instancesettings.setFont(font20)
+        self.bn_instancesettings.setFont(font22)
         self.bn_instancesettings.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color: rgb(0,160,170);\n"
@@ -1998,7 +2051,7 @@ class Ui_MainWindow(object):
         self.gridLayout_4.setContentsMargins(5, 5, 5, 5)
         self.label_5 = QLabel(self.frame_android_field)
         self.label_5.setObjectName(u"label_5")
-        self.label_5.setFont(font8)
+        self.label_5.setFont(font7)
         self.label_5.setStyleSheet(u"color:rgb(255,255,255);")
 
         self.gridLayout_4.addWidget(self.label_5, 3, 0, 1, 3)
@@ -2027,13 +2080,13 @@ class Ui_MainWindow(object):
 
         self.label_4 = QLabel(self.frame_android_field)
         self.label_4.setObjectName(u"label_4")
-        self.label_4.setFont(font8)
+        self.label_4.setFont(font7)
 
         self.gridLayout_4.addWidget(self.label_4, 6, 0, 1, 1)
 
         self.label_6 = QLabel(self.frame_android_field)
         self.label_6.setObjectName(u"label_6")
-        self.label_6.setFont(font8)
+        self.label_6.setFont(font7)
         self.label_6.setStyleSheet(u"color:rgb(255,255,255);")
 
         self.gridLayout_4.addWidget(self.label_6, 4, 0, 1, 1)
@@ -2117,13 +2170,13 @@ class Ui_MainWindow(object):
 
         self.label_8 = QLabel(self.frame_android_field)
         self.label_8.setObjectName(u"label_8")
-        self.label_8.setFont(font8)
+        self.label_8.setFont(font7)
 
         self.gridLayout_4.addWidget(self.label_8, 5, 0, 1, 1)
 
         self.label = QLabel(self.frame_android_field)
         self.label.setObjectName(u"label")
-        self.label.setFont(font8)
+        self.label.setFont(font7)
         self.label.setStyleSheet(u"color:rgb(255,255,255);")
 
         self.gridLayout_4.addWidget(self.label, 1, 0, 1, 3)
@@ -2367,10 +2420,10 @@ class Ui_MainWindow(object):
         self.label_11 = QLabel(self.page_android_world)
         self.label_11.setObjectName(u"label_11")
         self.label_11.setMaximumSize(QSize(16777215, 50))
-        font24 = QFont()
-        font24.setFamily(u"Segoe UI")
-        font24.setPointSize(28)
-        self.label_11.setFont(font24)
+        font27 = QFont()
+        font27.setFamily(u"Segoe UI")
+        font27.setPointSize(28)
+        self.label_11.setFont(font27)
         self.label_11.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_14.addWidget(self.label_11)
@@ -2381,7 +2434,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_15.setObjectName(u"verticalLayout_15")
         self.label_3 = QLabel(self.page_android_world)
         self.label_3.setObjectName(u"label_3")
-        self.label_3.setFont(font4)
+        font28 = QFont()
+        font28.setFamily(u"Segoe UI")
+        font28.setPointSize(36)
+        self.label_3.setFont(font28)
         self.label_3.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_15.addWidget(self.label_3)
@@ -2393,7 +2449,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_16.setObjectName(u"verticalLayout_16")
         self.label_version = QLabel(self.page_android_world)
         self.label_version.setObjectName(u"label_version")
-        self.label_version.setFont(font4)
+        self.label_version.setFont(font28)
         self.label_version.setMargin(50)
 
         self.verticalLayout_16.addWidget(self.label_version)
@@ -2408,7 +2464,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_35.setObjectName(u"verticalLayout_35")
         self.pushButton_faq = QPushButton(self.page_android_world)
         self.pushButton_faq.setObjectName(u"pushButton_faq")
-        self.pushButton_faq.setFont(font11)
+        self.pushButton_faq.setFont(font10)
         self.pushButton_faq.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color: rgb(110,110,110)\n"
@@ -2423,7 +2479,7 @@ class Ui_MainWindow(object):
 
         self.pushButton_issue = QPushButton(self.page_android_world)
         self.pushButton_issue.setObjectName(u"pushButton_issue")
-        self.pushButton_issue.setFont(font11)
+        self.pushButton_issue.setFont(font10)
         self.pushButton_issue.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color: rgb(110,110,110)\n"
@@ -2438,7 +2494,7 @@ class Ui_MainWindow(object):
 
         self.pushButton_github = QPushButton(self.page_android_world)
         self.pushButton_github.setObjectName(u"pushButton_github")
-        self.pushButton_github.setFont(font11)
+        self.pushButton_github.setFont(font10)
         self.pushButton_github.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
 "	background-color: rgb(110,110,110)\n"
@@ -2481,9 +2537,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_11.setContentsMargins(0, 0, 0, 0)
         self.frame_tab = QFrame(self.frame_low)
         self.frame_tab.setObjectName(u"frame_tab")
-        font25 = QFont()
-        font25.setFamily(u"Segoe UI")
-        self.frame_tab.setFont(font25)
+        font29 = QFont()
+        font29.setFamily(u"Segoe UI")
+        self.frame_tab.setFont(font29)
         self.frame_tab.setStyleSheet(u"background:rgb(51,51,51);")
         self.frame_tab.setFrameShape(QFrame.NoFrame)
         self.frame_tab.setFrameShadow(QFrame.Plain)
@@ -2500,10 +2556,10 @@ class Ui_MainWindow(object):
         self.lab_tab.setEnabled(True)
         sizePolicy1.setHeightForWidth(self.lab_tab.sizePolicy().hasHeightForWidth())
         self.lab_tab.setSizePolicy(sizePolicy1)
-        font26 = QFont()
-        font26.setFamily(u"Segoe UI Light")
-        font26.setPointSize(12)
-        self.lab_tab.setFont(font26)
+        font30 = QFont()
+        font30.setFamily(u"Segoe UI Light")
+        font30.setPointSize(12)
+        self.lab_tab.setFont(font30)
         self.lab_tab.setStyleSheet(u"color:rgb(255,255,255);")
 
         self.horizontalLayout_12.addWidget(self.lab_tab)
@@ -2526,7 +2582,7 @@ class Ui_MainWindow(object):
         self.lab_tab2.setObjectName(u"lab_tab2")
         sizePolicy1.setHeightForWidth(self.lab_tab2.sizePolicy().hasHeightForWidth())
         self.lab_tab2.setSizePolicy(sizePolicy1)
-        self.lab_tab2.setFont(font6)
+        self.lab_tab2.setFont(font11)
 
         self.horizontalLayout_13.addWidget(self.lab_tab2)
 
@@ -2555,6 +2611,62 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.frame_bottom)
 
         MainWindow.setCentralWidget(self.centralwidget)
+        QWidget.setTabOrder(self.bn_min, self.bn_news_open)
+        QWidget.setTabOrder(self.bn_news_open, self.bn_close)
+        QWidget.setTabOrder(self.bn_close, self.frame_home)
+        QWidget.setTabOrder(self.frame_home, self.bn_home)
+        QWidget.setTabOrder(self.bn_home, self.bn_bug)
+        QWidget.setTabOrder(self.bn_bug, self.bn_mods)
+        QWidget.setTabOrder(self.bn_mods, self.frame_mods)
+        QWidget.setTabOrder(self.frame_mods, self.bn_android)
+        QWidget.setTabOrder(self.bn_android, self.bn_github)
+        QWidget.setTabOrder(self.bn_github, self.bn_play)
+        QWidget.setTabOrder(self.bn_play, self.bn_profile)
+        QWidget.setTabOrder(self.bn_profile, self.bn_news_previous)
+        QWidget.setTabOrder(self.bn_news_previous, self.bn_news_next)
+        QWidget.setTabOrder(self.bn_news_next, self.text_about_home)
+        QWidget.setTabOrder(self.text_about_home, self.bn_mods_nextPage)
+        QWidget.setTabOrder(self.bn_mods_nextPage, self.comboBox_2)
+        QWidget.setTabOrder(self.comboBox_2, self.bn_mod_set)
+        QWidget.setTabOrder(self.bn_mod_set, self.line_mod_name)
+        QWidget.setTabOrder(self.line_mod_name, self.line_mod_version)
+        QWidget.setTabOrder(self.line_mod_version, self.bn_mod_setmod)
+        QWidget.setTabOrder(self.bn_mod_setmod, self.scrollArea)
+        QWidget.setTabOrder(self.scrollArea, self.comboBox_3)
+        QWidget.setTabOrder(self.comboBox_3, self.bn_mod_del)
+        QWidget.setTabOrder(self.bn_mod_del, self.bn_mod_openFolder)
+        QWidget.setTabOrder(self.bn_mod_openFolder, self.bn_mods_previousPage)
+        QWidget.setTabOrder(self.bn_mods_previousPage, self.bn_mods_web_previous)
+        QWidget.setTabOrder(self.bn_mods_web_previous, self.bn_mods_web_forward)
+        QWidget.setTabOrder(self.bn_mods_web_forward, self.bn_mods_web_home)
+        QWidget.setTabOrder(self.bn_mods_web_home, self.bug_sharedsaves)
+        QWidget.setTabOrder(self.bug_sharedsaves, self.bug_optifine)
+        QWidget.setTabOrder(self.bug_optifine, self.bug_repair)
+        QWidget.setTabOrder(self.bug_repair, self.bug_openfolder)
+        QWidget.setTabOrder(self.bug_openfolder, self.bug_bn_delete)
+        QWidget.setTabOrder(self.bug_bn_delete, self.bug_button)
+        QWidget.setTabOrder(self.bug_button, self.bug_button2)
+        QWidget.setTabOrder(self.bug_button2, self.bug_button3)
+        QWidget.setTabOrder(self.bug_button3, self.comboBox)
+        QWidget.setTabOrder(self.comboBox, self.bug_confirm)
+        QWidget.setTabOrder(self.bug_confirm, self.bn_instancesettings)
+        QWidget.setTabOrder(self.bn_instancesettings, self.bn_android_contact)
+        QWidget.setTabOrder(self.bn_android_contact, self.bn_android_faq)
+        QWidget.setTabOrder(self.bn_android_faq, self.bn_android_clean)
+        QWidget.setTabOrder(self.bn_android_clean, self.bn_android_world)
+        QWidget.setTabOrder(self.bn_android_world, self.line_android_adress)
+        QWidget.setTabOrder(self.line_android_adress, self.line_checkbox_rpc)
+        QWidget.setTabOrder(self.line_checkbox_rpc, self.line_checkbox_arg)
+        QWidget.setTabOrder(self.line_checkbox_arg, self.line_android_name)
+        QWidget.setTabOrder(self.line_android_name, self.bn_android_contact_edit)
+        QWidget.setTabOrder(self.bn_android_contact_edit, self.bn_android_contact_delete)
+        QWidget.setTabOrder(self.bn_android_contact_delete, self.bn_android_contact_save)
+        QWidget.setTabOrder(self.bn_android_contact_save, self.line_checkbox_snapshots)
+        QWidget.setTabOrder(self.line_checkbox_snapshots, self.bn_shortcut)
+        QWidget.setTabOrder(self.bn_shortcut, self.pushButton_faq)
+        QWidget.setTabOrder(self.pushButton_faq, self.pushButton_issue)
+        QWidget.setTabOrder(self.pushButton_issue, self.pushButton_github)
+        QWidget.setTabOrder(self.pushButton_github, self.bn_error)
 
         self.retranslateUi(MainWindow)
 
@@ -2594,7 +2706,7 @@ class Ui_MainWindow(object):
         self.bn_mods.setText("")
         self.bn_android.setText("")
         self.lab_home_main_hed.setText(QCoreApplication.translate("MainWindow", u"Welcome", None))
-        self.lab_home_username.setText(QCoreApplication.translate("MainWindow", u"Username", None))
+        self.lab_home_username.setText(QCoreApplication.translate("MainWindow", u"Steve", None))
 #if QT_CONFIG(tooltip)
         self.bn_play.setToolTip("")
 #endif // QT_CONFIG(tooltip)
@@ -2602,8 +2714,8 @@ class Ui_MainWindow(object):
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Version", None))
         self.news_latest.setText(QCoreApplication.translate("MainWindow", u"Latest", None))
         self.news_index.setText(QCoreApplication.translate("MainWindow", u"1/5", None))
-        self.news_1.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.news_1_2.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.news_1.setText(QCoreApplication.translate("MainWindow", u"NEWS TITLE", None))
+        self.news_1_2.setText(QCoreApplication.translate("MainWindow", u"NEWS DESCRIPTION", None))
         self.news_2.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.news_2_2.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.news_3.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))

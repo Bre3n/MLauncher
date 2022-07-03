@@ -1085,19 +1085,16 @@ QPushButton:hover {
                   <number>0</number>
                  </property>
                  <property name="topMargin">
-                  <number>0</number>
+                  <number>5</number>
                  </property>
                  <property name="rightMargin">
                   <number>0</number>
                  </property>
                  <property name="bottomMargin">
-                  <number>0</number>
+                  <number>5</number>
                  </property>
                  <item>
                   <widget class="QFrame" name="frame_home_main">
-                   <property name="styleSheet">
-                    <string notr="true">background:rgba(0,0,0,0.0);</string>
-                   </property>
                    <property name="frameShape">
                     <enum>QFrame::NoFrame</enum>
                    </property>
@@ -1136,17 +1133,13 @@ QPushButton:hover {
                       </property>
                       <property name="font">
                        <font>
-                        <family>Segoe UI Semibold</family>
-                        <pointsize>65</pointsize>
-                        <weight>75</weight>
-                        <bold>true</bold>
-                        <kerning>true</kerning>
+                        <family>Segoe UI Semilight</family>
+                        <pointsize>55</pointsize>
                        </font>
                       </property>
                       <property name="styleSheet">
                        <string notr="true">QLabel {
 	color:rgb(255,255,255);
-	background:rgba(0,0,0,0);
 }</string>
                       </property>
                       <property name="text">
@@ -1155,14 +1148,8 @@ QPushButton:hover {
                       <property name="textFormat">
                        <enum>Qt::RichText</enum>
                       </property>
-                      <property name="scaledContents">
-                       <bool>false</bool>
-                      </property>
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
-                      </property>
-                      <property name="textInteractionFlags">
-                       <set>Qt::NoTextInteraction</set>
                       </property>
                      </widget>
                     </item>
@@ -1176,18 +1163,15 @@ QPushButton:hover {
                       </property>
                       <property name="font">
                        <font>
-                        <family>Segoe UI Semibold</family>
-                        <pointsize>40</pointsize>
-                        <weight>75</weight>
-                        <bold>true</bold>
+                        <family>Segoe UI</family>
+                        <pointsize>36</pointsize>
                        </font>
                       </property>
                       <property name="styleSheet">
-                       <string notr="true">color:rgb(255,255,255);
-background:rgba(0,0,0,0);</string>
+                       <string notr="true">color:rgb(255,255,255);</string>
                       </property>
                       <property name="text">
-                       <string>Steve</string>
+                       <string>Username</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignHCenter|Qt::AlignTop</set>
@@ -1197,9 +1181,6 @@ background:rgba(0,0,0,0);</string>
                       </property>
                       <property name="margin">
                        <number>5</number>
-                      </property>
-                      <property name="textInteractionFlags">
-                       <set>Qt::NoTextInteraction</set>
                       </property>
                      </widget>
                     </item>
@@ -1220,10 +1201,7 @@ background:rgba(0,0,0,0);</string>
                       <property name="font">
                        <font>
                         <family>Segoe UI</family>
-                        <pointsize>70</pointsize>
-                        <weight>75</weight>
-                        <bold>true</bold>
-                        <stylestrategy>PreferAntialias</stylestrategy>
+                        <pointsize>55</pointsize>
                        </font>
                       </property>
                       <property name="toolTip">
@@ -1231,11 +1209,11 @@ background:rgba(0,0,0,0);</string>
                       </property>
                       <property name="styleSheet">
                        <string notr="true">QPushButton {
-background-color: rgba(30,100,140,0.75);
+background-color: rgb(30,100,140);
 border-radius: 10px;
 }
 QPushButton:hover {
-	background-color: rgba(70,140,190,0.75);
+	background-color: rgb(70,140,190);
 }
 </string>
                       </property>
@@ -1245,81 +1223,38 @@ QPushButton:hover {
                      </widget>
                     </item>
                     <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_31">
-                      <property name="sizeConstraint">
-                       <enum>QLayout::SetDefaultConstraint</enum>
+                     <widget class="QLabel" name="label_2">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
                       </property>
-                      <item>
-                       <spacer name="horizontalSpacer_13">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>40</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_2">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>16777215</width>
-                          <height>25</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>Segoe UI</family>
-                          <pointsize>12</pointsize>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">background:rgba(0,0,0,0.40);
-border-radius: 5px;</string>
-                        </property>
-                        <property name="text">
-                         <string>Version</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignCenter</set>
-                        </property>
-                        <property name="margin">
-                         <number>3</number>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <spacer name="horizontalSpacer_12">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>40</width>
-                          <height>2</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                     </layout>
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>Segoe UI</family>
+                        <pointsize>10</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Version</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
+                     </widget>
                     </item>
                    </layout>
                   </widget>
                  </item>
                  <item>
                   <widget class="Line" name="vert_divide">
-                   <property name="styleSheet">
-                    <string notr="true">background:rgba(0,0,0,0)</string>
-                   </property>
                    <property name="orientation">
                     <enum>Qt::Vertical</enum>
                    </property>
@@ -1346,7 +1281,7 @@ border-radius: 5px;</string>
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">background:rgba(80,80,80,0.7);</string>
+                    <string notr="true">background:rgb(80,80,80);</string>
                    </property>
                    <property name="frameShape">
                     <enum>QFrame::NoFrame</enum>
@@ -1359,16 +1294,16 @@ border-radius: 5px;</string>
                      <number>5</number>
                     </property>
                     <property name="leftMargin">
-                     <number>0</number>
+                     <number>5</number>
                     </property>
                     <property name="topMargin">
-                     <number>0</number>
+                     <number>5</number>
                     </property>
                     <property name="rightMargin">
-                     <number>0</number>
+                     <number>5</number>
                     </property>
                     <property name="bottomMargin">
-                     <number>0</number>
+                     <number>5</number>
                     </property>
                     <item>
                      <layout class="QHBoxLayout" name="horizontalLayout_34">
@@ -1393,12 +1328,6 @@ border-radius: 5px;</string>
                           <pointsize>12</pointsize>
                          </font>
                         </property>
-                        <property name="autoFillBackground">
-                         <bool>false</bool>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">background:rgba(80,80,80,0);</string>
-                        </property>
                         <property name="text">
                          <string>Latest</string>
                         </property>
@@ -1411,9 +1340,6 @@ border-radius: 5px;</string>
                           <family>Segoe UI</family>
                           <pointsize>12</pointsize>
                          </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">background:rgba(80,80,80,0);</string>
                         </property>
                         <property name="text">
                          <string>1/5</string>
@@ -1429,11 +1355,6 @@ border-radius: 5px;</string>
                         <horstretch>0</horstretch>
                         <verstretch>0</verstretch>
                        </sizepolicy>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">background:rgba(80,80,80,0.3);
-border-top-left-radius: 10px;
-border-bottom-left-radius: 10px;</string>
                       </property>
                       <property name="currentIndex">
                        <number>0</number>
@@ -1459,15 +1380,13 @@ border-bottom-left-radius: 10px;</string>
                            <font>
                             <family>Segoe UI</family>
                             <pointsize>18</pointsize>
-                            <weight>75</weight>
-                            <bold>true</bold>
                            </font>
                           </property>
                           <property name="styleSheet">
                            <string notr="true"/>
                           </property>
                           <property name="text">
-                           <string>NEWS TITLE</string>
+                           <string>TextLabel</string>
                           </property>
                           <property name="alignment">
                            <set>Qt::AlignCenter</set>
@@ -1502,7 +1421,7 @@ border-bottom-left-radius: 10px;</string>
                            </font>
                           </property>
                           <property name="text">
-                           <string>NEWS DESCRIPTION</string>
+                           <string>TextLabel</string>
                           </property>
                           <property name="alignment">
                            <set>Qt::AlignCenter</set>
@@ -1548,8 +1467,6 @@ border-bottom-left-radius: 10px;</string>
                            <font>
                             <family>Segoe UI</family>
                             <pointsize>18</pointsize>
-                            <weight>75</weight>
-                            <bold>true</bold>
                            </font>
                           </property>
                           <property name="text">
@@ -1634,8 +1551,6 @@ border-bottom-left-radius: 10px;</string>
                            <font>
                             <family>Segoe UI</family>
                             <pointsize>18</pointsize>
-                            <weight>75</weight>
-                            <bold>true</bold>
                            </font>
                           </property>
                           <property name="text">
@@ -1720,8 +1635,6 @@ border-bottom-left-radius: 10px;</string>
                            <font>
                             <family>Segoe UI</family>
                             <pointsize>18</pointsize>
-                            <weight>75</weight>
-                            <bold>true</bold>
                            </font>
                           </property>
                           <property name="text">
@@ -1806,8 +1719,6 @@ border-bottom-left-radius: 10px;</string>
                            <font>
                             <family>Segoe UI</family>
                             <pointsize>18</pointsize>
-                            <weight>75</weight>
-                            <bold>true</bold>
                            </font>
                           </property>
                           <property name="text">
@@ -1884,10 +1795,10 @@ border-bottom-left-radius: 10px;</string>
                       <property name="styleSheet">
                        <string notr="true">QPushButton {
 	border: none;
-	background-color: rgba(170,120,35,0.75);
+	background-color: rgb(170,120,35);
 }
 QPushButton:hover {
-	background-color: rgba(191,150,80,0.75);
+	background-color: rgb(191,150,80);
 }
 </string>
                       </property>
@@ -1909,10 +1820,10 @@ QPushButton:hover {
                         <property name="styleSheet">
                          <string notr="true">QPushButton {
 	border: none;
-	background-color: rgba(50,150,50,0.75);
+	background-color: rgb(50,150,50);
 }
 QPushButton:hover {
-	background-color: rgba(100,180,100,0.75);
+	background-color: rgb(100,180,100);
 }
 </string>
                         </property>
@@ -1932,10 +1843,10 @@ QPushButton:hover {
                         <property name="styleSheet">
                          <string notr="true">QPushButton {
 	border: none;
-	background-color: rgba(50,150,50,0.75);
+	background-color: rgb(50,150,50);
 }
 QPushButton:hover {
-	background-color: rgba(100,180,100,0.75);
+	background-color: rgb(100,180,100);
 }
 </string>
                         </property>
@@ -2552,8 +2463,8 @@ QPushButton:hover {
                            <rect>
                             <x>0</x>
                             <y>0</y>
-                            <width>100</width>
-                            <height>410</height>
+                            <width>682</width>
+                            <height>107</height>
                            </rect>
                           </property>
                           <property name="sizePolicy">
@@ -2894,8 +2805,8 @@ QPushButton:hover {
                              <font>
                               <family>Courier New</family>
                               <pointsize>24</pointsize>
-                              <weight>75</weight>
-                              <bold>true</bold>
+                              <weight>50</weight>
+                              <bold>false</bold>
                              </font>
                             </property>
                             <property name="text">
@@ -3248,8 +3159,6 @@ QPushButton:hover {
                     <font>
                      <family>Segoe UI</family>
                      <pointsize>36</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
                     </font>
                    </property>
                    <property name="text">
@@ -5120,65 +5029,6 @@ QPushButton:hover {
    <container>1</container>
   </customwidget>
  </customwidgets>
- <tabstops>
-  <tabstop>bn_min</tabstop>
-  <tabstop>bn_news_open</tabstop>
-  <tabstop>bn_close</tabstop>
-  <tabstop>frame_home</tabstop>
-  <tabstop>bn_home</tabstop>
-  <tabstop>bn_bug</tabstop>
-  <tabstop>bn_mods</tabstop>
-  <tabstop>frame_mods</tabstop>
-  <tabstop>bn_android</tabstop>
-  <tabstop>bn_github</tabstop>
-  <tabstop>bn_play</tabstop>
-  <tabstop>bn_profile</tabstop>
-  <tabstop>bn_news_previous</tabstop>
-  <tabstop>bn_news_next</tabstop>
-  <tabstop>text_about_home</tabstop>
-  <tabstop>bn_mods_nextPage</tabstop>
-  <tabstop>comboBox_2</tabstop>
-  <tabstop>bn_mod_set</tabstop>
-  <tabstop>line_mod_name</tabstop>
-  <tabstop>line_mod_version</tabstop>
-  <tabstop>bn_mod_setmod</tabstop>
-  <tabstop>scrollArea</tabstop>
-  <tabstop>comboBox_3</tabstop>
-  <tabstop>bn_mod_del</tabstop>
-  <tabstop>bn_mod_openFolder</tabstop>
-  <tabstop>bn_mods_previousPage</tabstop>
-  <tabstop>bn_mods_web_previous</tabstop>
-  <tabstop>bn_mods_web_forward</tabstop>
-  <tabstop>bn_mods_web_home</tabstop>
-  <tabstop>bug_sharedsaves</tabstop>
-  <tabstop>bug_optifine</tabstop>
-  <tabstop>bug_repair</tabstop>
-  <tabstop>bug_openfolder</tabstop>
-  <tabstop>bug_bn_delete</tabstop>
-  <tabstop>bug_button</tabstop>
-  <tabstop>bug_button2</tabstop>
-  <tabstop>bug_button3</tabstop>
-  <tabstop>comboBox</tabstop>
-  <tabstop>bug_confirm</tabstop>
-  <tabstop>bn_instancesettings</tabstop>
-  <tabstop>bn_android_contact</tabstop>
-  <tabstop>bn_android_faq</tabstop>
-  <tabstop>bn_android_clean</tabstop>
-  <tabstop>bn_android_world</tabstop>
-  <tabstop>line_android_adress</tabstop>
-  <tabstop>line_checkbox_rpc</tabstop>
-  <tabstop>line_checkbox_arg</tabstop>
-  <tabstop>line_android_name</tabstop>
-  <tabstop>bn_android_contact_edit</tabstop>
-  <tabstop>bn_android_contact_delete</tabstop>
-  <tabstop>bn_android_contact_save</tabstop>
-  <tabstop>line_checkbox_snapshots</tabstop>
-  <tabstop>bn_shortcut</tabstop>
-  <tabstop>pushButton_faq</tabstop>
-  <tabstop>pushButton_issue</tabstop>
-  <tabstop>pushButton_github</tabstop>
-  <tabstop>bn_error</tabstop>
- </tabstops>
  <resources/>
  <connections/>
 </ui>

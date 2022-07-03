@@ -4,11 +4,13 @@ import os
 import sys
 import threading
 from os import close, path
+from random import randrange
 
 from pypresence import Presence
 
 import brain
-#import forge_mods
+
+# import forge_mods
 
 ctypes.windll.user32.ShowWindow(ctypes.windll.kernel32.GetConsoleWindow(), 0)
 from PySide2.QtWebEngineWidgets import QWebEnginePage, QWebEngineView
@@ -156,15 +158,28 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
         brain.createFiles()
 
+        random = randrange(3)
+        if random == 0:
+            self.ui.page_home.setStyleSheet("background: url(icons/main_page_1.jpg);")
+        elif random == 1:
+            self.ui.page_home.setStyleSheet("background: url(icons/main_page_2.jpg);")
+        else:
+            self.ui.page_home.setStyleSheet("background: url(icons/main_page_3.jpg);")
+        
+        self.ui.stackedWidget_2.setCurrentIndex(0)
         self.ui.stackedWidget_3.setCurrentWidget(self.ui.page_forge_mods_download)
         self.ui.bn_mod_set.clicked.connect(lambda: brain.forge_mods.set_mod(self))
         self.ui.bn_mod_del.clicked.connect(lambda: brain.forge_mods.delete_mod(self))
-        self.ui.bn_mod_setmod.clicked.connect(lambda: forge_mods.down_mod(self))
+
+        # self.ui.bn_mod_setmod.clicked.connect(lambda: forge_mods.down_mod(self))
+
         self.ui.bn_mod_openFolder.clicked.connect(
             lambda: brain.forge_mods.openFolder(self)
         )
 
-        self.ui.webWidget.load(QtCore.QUrl("https://mlauncher.readthedocs.io/en/latest/faq/index.html"))
+        self.ui.webWidget.load(
+            QtCore.QUrl("https://mlauncher.readthedocs.io/en/latest/faq/index.html")
+        )
         self.ui.webWidget_mods.load(
             QtCore.QUrl("https://www.curseforge.com/minecraft/mc-mods")
         )
