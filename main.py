@@ -178,7 +178,7 @@ class MainWindow(QMainWindow):
         )
 
         self.ui.webWidget.load(
-            QtCore.QUrl("https://mlauncher.readthedocs.io/en/latest/faq/index.html")
+            QtCore.QUrl("https://mlauncher.readthedocs.io/en/latest")
         )
         self.ui.webWidget_mods.load(
             QtCore.QUrl("https://www.curseforge.com/minecraft/mc-mods")

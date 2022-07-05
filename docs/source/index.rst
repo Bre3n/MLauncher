@@ -1,5 +1,6 @@
 Welcome to MLauncher!
 ==================================================
+Mlaucher is a Python Minecraft Launcher
 
 .. toctree::
    :maxdepth: 2
@@ -8,18 +9,5 @@ Welcome to MLauncher!
    settings/index
    instancesettings/index
    forge/index
-
-|
-------
-FAQ
-------
-
-.. toctree::
-   :maxdepth: 2
-
    faq/index
-|
-.. toctree::
-   :maxdepth: 2
-
    changelog

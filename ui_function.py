@@ -131,9 +131,11 @@ class UIFunction(MainWindow):
         self.ui.bn_android_contact.clicked.connect(
             lambda: UIFunction.androidStackPages(self, "page_contact")
         )
-        self.ui.bn_android_faq.clicked.connect(
-            lambda: UIFunction.androidStackPages(self, "page_faq")
+        self.ui.bn_android_doc.clicked.connect(
+            lambda: UIFunction.androidStackPages(self, "page_doc")
         )
+        self.ui.bn_faq.clicked.connect(lambda: UIFunction.androidStackPages(self, "page_faq"))
+        self.ui.bn_changelog.clicked.connect(lambda: UIFunction.androidStackPages(self, "page_changelog"))
         self.ui.bn_android_clean.clicked.connect(
             lambda: UIFunction.androidStackPages(self, "page_clean")
         )
@@ -189,9 +191,28 @@ class UIFunction(MainWindow):
             self.ui.lab_tab.setText("Settings > Profile")
             self.ui.frame_android_contact.setStyleSheet("background:rgb(91,90,90)")
 
+        elif page == "page_doc":
+            self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_faq)
+            self.ui.lab_tab.setText("Settings > Documentation")
+            self.ui.webWidget.load(
+            QtCore.QUrl("https://mlauncher.readthedocs.io/en/latest")
+        )
+            self.ui.frame_android_faq.setStyleSheet("background:rgb(91,90,90)")
+        
         elif page == "page_faq":
             self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_faq)
-            self.ui.lab_tab.setText("Settings > FAQ")
+            self.ui.lab_tab.setText("Settings > Documentation")
+            self.ui.webWidget.load(
+            QtCore.QUrl("https://mlauncher.readthedocs.io/en/latest/faq/index.html")
+        )
+            self.ui.frame_android_faq.setStyleSheet("background:rgb(91,90,90)")
+
+        elif page == "page_changelog":
+            self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_faq)
+            self.ui.lab_tab.setText("Settings > Documentation")
+            self.ui.webWidget.load(
+            QtCore.QUrl("https://mlauncher.readthedocs.io/en/latest/changelog.html")
+            )
             self.ui.frame_android_faq.setStyleSheet("background:rgb(91,90,90)")
 
         elif page == "page_clean":

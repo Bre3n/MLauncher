@@ -3,7 +3,10 @@ Installation
 
 .. warning::
 
-   Inicjacje przeprowadza się tylko raz! Przed podłączeniem jakiegokolwiek użytkownika do bazy danych!
+   MAKE SURE YOU HAVE PYTHON IN YOUR SYSTEM PATH!!!
+
+.. warning::
+   How to add Python to system path: https://www.youtube.com/watch?v=lezhrFdVSVY
 
 * Aby zainicjować tworzenie niezbędnych katalogów i tabel należy włączyć "setupDatabase.exe"
 * Po włączeniu należy wpisać adres bazy danych, użytkowanika i hasło do bazy.
