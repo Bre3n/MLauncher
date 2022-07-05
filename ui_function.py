@@ -282,7 +282,7 @@ class APFunction:
         self.ui.bn_bug.setEnabled(True)
         self.ui.bn_android.setEnabled(True)
         self.ui.bn_android_contact.setEnabled(True)
-        self.ui.bn_android_faq.setEnabled(True)
+        self.ui.bn_faq.setEnabled(True)
         self.ui.bn_android_clean.setEnabled(True)
         self.ui.bn_android_world.setEnabled(True)
 
@@ -299,6 +299,7 @@ class APFunction:
             (self.ui.line_android_adress.text()).upper()
         )
         bufor = self.ui.line_android_adress.text()
+        print(bufor)
         if bufor[-1] != "G" and bufor[-1] != "M":
             self.errorexec(
                 "'Max Ram' must have a unit. One of this two: 'G', 'M'. Settings will not be applied and saved!!!",
