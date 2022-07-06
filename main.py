@@ -208,8 +208,10 @@ class MainWindow(QMainWindow):
         threading.Thread(target=lambda: brain.ForgeReleases(self, 0)).start()
 
         brain.updateLines(self)
+        #! ACTIVE
         threading.Thread(target=lambda: brain.checkinternet(self)).start()
         brain.setCurrentDiscordRpc("Home Page", f"Playing as {username}")
+        #! ACTIVE
         threading.Thread(target=lambda: brain.discordrpc(self)).start()
         self.ui.bn_error.setVisible(False)
         with open(f"{sciezkaver}/version.txt") as f:

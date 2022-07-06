@@ -192,28 +192,28 @@ class UIFunction(MainWindow):
             self.ui.frame_android_contact.setStyleSheet("background:rgb(91,90,90)")
 
         elif page == "page_doc":
-            self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_faq)
+            self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_doc)
             self.ui.lab_tab.setText("Settings > Documentation")
             self.ui.webWidget.load(
             QtCore.QUrl("https://mlauncher.readthedocs.io/en/latest")
         )
-            self.ui.frame_android_faq.setStyleSheet("background:rgb(91,90,90)")
+            self.ui.frame_android_doc.setStyleSheet("background:rgb(91,90,90)")
         
         elif page == "page_faq":
-            self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_faq)
+            self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_doc)
             self.ui.lab_tab.setText("Settings > Documentation")
             self.ui.webWidget.load(
             QtCore.QUrl("https://mlauncher.readthedocs.io/en/latest/faq/index.html")
         )
-            self.ui.frame_android_faq.setStyleSheet("background:rgb(91,90,90)")
+            self.ui.frame_android_doc.setStyleSheet("background:rgb(91,90,90)")
 
         elif page == "page_changelog":
-            self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_faq)
+            self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_doc)
             self.ui.lab_tab.setText("Settings > Documentation")
             self.ui.webWidget.load(
             QtCore.QUrl("https://mlauncher.readthedocs.io/en/latest/changelog.html")
             )
-            self.ui.frame_android_faq.setStyleSheet("background:rgb(91,90,90)")
+            self.ui.frame_android_doc.setStyleSheet("background:rgb(91,90,90)")
 
         elif page == "page_clean":
             pass
@@ -256,7 +256,7 @@ class APFunction:
         self.ui.bn_bug.setEnabled(False)
         self.ui.bn_android.setEnabled(False)
         self.ui.bn_android_contact.setEnabled(False)
-        self.ui.bn_android_faq.setEnabled(False)
+        self.ui.bn_android_doc.setEnabled(False)
         self.ui.bn_android_clean.setEnabled(False)
         self.ui.bn_android_world.setEnabled(False)
 
@@ -282,7 +282,7 @@ class APFunction:
         self.ui.bn_bug.setEnabled(True)
         self.ui.bn_android.setEnabled(True)
         self.ui.bn_android_contact.setEnabled(True)
-        self.ui.bn_faq.setEnabled(True)
+        self.ui.bn_android_doc.setEnabled(True)
         self.ui.bn_android_clean.setEnabled(True)
         self.ui.bn_android_world.setEnabled(True)
 
@@ -295,11 +295,9 @@ class APFunction:
 
         # * Alocated Ram
 
-        self.ui.line_android_adress.setText(
-            (self.ui.line_android_adress.text()).upper()
-        )
-        bufor = self.ui.line_android_adress.text()
-        print(bufor)
+        bufor = self.ui.line_android_adress.text().upper()
+        bufor = bufor.replace("B", "")
+        self.ui.line_android_adress.setText(bufor)
         if bufor[-1] != "G" and bufor[-1] != "M":
             self.errorexec(
                 "'Max Ram' must have a unit. One of this two: 'G', 'M'. Settings will not be applied and saved!!!",

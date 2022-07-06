@@ -1093,7 +1093,7 @@ QPushButton:hover {
                 <string notr="true"/>
                </property>
                <property name="currentIndex">
-                <number>0</number>
+                <number>8</number>
                </property>
                <widget class="QWidget" name="page_home">
                 <property name="styleSheet">
@@ -3768,7 +3768,7 @@ QPushButton:pressed {
                      </widget>
                     </item>
                     <item>
-                     <widget class="QFrame" name="frame_android_faq">
+                     <widget class="QFrame" name="frame_android_doc">
                       <property name="minimumSize">
                        <size>
                         <width>80</width>
@@ -3837,7 +3837,7 @@ QPushButton:pressed {
                          </property>
                          <property name="icon">
                           <iconset>
-                           <normaloff>icons/1x/gameAsset 61.png</normaloff>icons/1x/gameAsset 61.png</iconset>
+                           <normaloff>icons/1x/worldAsset 60.png</normaloff>icons/1x/worldAsset 60.png</iconset>
                          </property>
                          <property name="iconSize">
                           <size>
@@ -4035,7 +4035,7 @@ QPushButton:pressed {
                     <string notr="true">background:rgb(91,90,90);</string>
                    </property>
                    <property name="currentIndex">
-                    <number>0</number>
+                    <number>1</number>
                    </property>
                    <widget class="QWidget" name="page_android_contact">
                     <property name="styleSheet">
@@ -4728,7 +4728,7 @@ QPushButton:disabled {
                      </item>
                     </layout>
                    </widget>
-                   <widget class="QWidget" name="page_android_faq">
+                   <widget class="QWidget" name="page_android_doc">
                     <property name="styleSheet">
                      <string notr="true">background:rgb(91,90,90);</string>
                     </property>

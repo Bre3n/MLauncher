@@ -1711,6 +1711,11 @@ class Ui_MainWindow(object):
 "QPushButton:hover {\n"
 "	background-color: rgb(120,200,0);\n"
 "}\n"
+"\n"
+"QPushButton:pressed {\n"
+"	background-color: rgb(120,200,0);\n"
+"font-size:30px;\n"
+"}\n"
 "")
         self.bug_button.setFlat(True)
 
@@ -1721,7 +1726,7 @@ class Ui_MainWindow(object):
         self.bug_button2.setMinimumSize(QSize(230, 40))
         font26 = QFont()
         font26.setFamily(u"Courier New")
-        font26.setPointSize(24)
+        font26.setPointSize(22)
         self.bug_button2.setFont(font26)
         self.bug_button2.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
@@ -1730,6 +1735,11 @@ class Ui_MainWindow(object):
 "\n"
 "QPushButton:hover {\n"
 "	background-color: rgb(120,200,0);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"	background-color: rgb(120,200,0);\n"
+"font-size:30px;\n"
 "}\n"
 "")
         self.bug_button2.setFlat(True)
@@ -1751,7 +1761,11 @@ class Ui_MainWindow(object):
 "QPushButton:hover {\n"
 "	background-color: rgb(120,200,0);\n"
 "}\n"
-"")
+"\n"
+"QPushButton:pressed {\n"
+"	background-color: rgb(120,200,0);\n"
+"font-size:30px;\n"
+"}")
 
         self.horizontalLayout_32.addWidget(self.bug_button3)
 
@@ -1832,6 +1846,11 @@ class Ui_MainWindow(object):
 "QPushButton:hover {\n"
 "	background-color: rgb(200,0,90);\n"
 "}\n"
+"\n"
+"QPushButton:pressed {\n"
+"	background-color: rgb(200,0,90);\n"
+"font-size:28px;\n"
+"}\n"
 "")
         self.bug_confirm.setFlat(True)
 
@@ -1851,7 +1870,10 @@ class Ui_MainWindow(object):
 "QPushButton:hover {\n"
 "	background-color: rgb(0,180,200);\n"
 "}\n"
-"")
+"QPushButton:pressed {\n"
+"	background-color: rgb(0,180,200);\n"
+"font-size:28px;\n"
+"}")
         self.bn_instancesettings.setFlat(True)
 
         self.verticalLayout_19.addWidget(self.bn_instancesettings)
@@ -1922,17 +1944,17 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_20.addWidget(self.frame_android_contact)
 
-        self.frame_android_faq = QFrame(self.frame_android_menu)
-        self.frame_android_faq.setObjectName(u"frame_android_faq")
-        self.frame_android_faq.setMinimumSize(QSize(80, 30))
-        self.frame_android_faq.setMaximumSize(QSize(80, 30))
-        self.frame_android_faq.setFrameShape(QFrame.NoFrame)
-        self.frame_android_faq.setFrameShadow(QFrame.Plain)
-        self.horizontalLayout_22 = QHBoxLayout(self.frame_android_faq)
+        self.frame_android_doc = QFrame(self.frame_android_menu)
+        self.frame_android_doc.setObjectName(u"frame_android_doc")
+        self.frame_android_doc.setMinimumSize(QSize(80, 30))
+        self.frame_android_doc.setMaximumSize(QSize(80, 30))
+        self.frame_android_doc.setFrameShape(QFrame.NoFrame)
+        self.frame_android_doc.setFrameShadow(QFrame.Plain)
+        self.horizontalLayout_22 = QHBoxLayout(self.frame_android_doc)
         self.horizontalLayout_22.setSpacing(0)
         self.horizontalLayout_22.setObjectName(u"horizontalLayout_22")
         self.horizontalLayout_22.setContentsMargins(0, 0, 0, 0)
-        self.bn_android_doc = QPushButton(self.frame_android_faq)
+        self.bn_android_doc = QPushButton(self.frame_android_doc)
         self.bn_android_doc.setObjectName(u"bn_android_doc")
         self.bn_android_doc.setMinimumSize(QSize(80, 30))
         self.bn_android_doc.setMaximumSize(QSize(80, 30))
@@ -1946,14 +1968,16 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {	\n"
 "	background-color: rgba(0,0,0,0);\n"
 "}")
-        self.bn_android_doc.setIcon(icon4)
+        icon12 = QIcon()
+        icon12.addFile(u"icons/1x/worldAsset 60.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bn_android_doc.setIcon(icon12)
         self.bn_android_doc.setIconSize(QSize(20, 13))
         self.bn_android_doc.setFlat(True)
 
         self.horizontalLayout_22.addWidget(self.bn_android_doc)
 
 
-        self.horizontalLayout_20.addWidget(self.frame_android_faq)
+        self.horizontalLayout_20.addWidget(self.frame_android_doc)
 
         self.frame_android_clean = QFrame(self.frame_android_menu)
         self.frame_android_clean.setObjectName(u"frame_android_clean")
@@ -1979,9 +2003,9 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {	\n"
 "	background-color: rgba(0,0,0,0);\n"
 "}")
-        icon12 = QIcon()
-        icon12.addFile(u"icons/1x/cleanAsset 59.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bn_android_clean.setIcon(icon12)
+        icon13 = QIcon()
+        icon13.addFile(u"icons/1x/cleanAsset 59.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bn_android_clean.setIcon(icon13)
         self.bn_android_clean.setFlat(True)
 
         self.horizontalLayout_23.addWidget(self.bn_android_clean)
@@ -2013,9 +2037,9 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {	\n"
 "	background-color: rgba(0,0,0,0);\n"
 "}")
-        icon13 = QIcon()
-        icon13.addFile(u"icons/1x/smile2Asset 1.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bn_android_world.setIcon(icon13)
+        icon14 = QIcon()
+        icon14.addFile(u"icons/1x/smile2Asset 1.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bn_android_world.setIcon(icon14)
         self.bn_android_world.setFlat(True)
 
         self.horizontalLayout_24.addWidget(self.bn_android_world)
@@ -2405,19 +2429,19 @@ class Ui_MainWindow(object):
         self.verticalLayout_10.addWidget(self.frame_android_bottom)
 
         self.stackedWidget_android.addWidget(self.page_android_contact)
-        self.page_android_faq = QWidget()
-        self.page_android_faq.setObjectName(u"page_android_faq")
-        self.page_android_faq.setStyleSheet(u"background:rgb(91,90,90);")
-        self.verticalLayout_11 = QVBoxLayout(self.page_android_faq)
+        self.page_android_doc = QWidget()
+        self.page_android_doc.setObjectName(u"page_android_doc")
+        self.page_android_doc.setStyleSheet(u"background:rgb(91,90,90);")
+        self.verticalLayout_11 = QVBoxLayout(self.page_android_doc)
         self.verticalLayout_11.setSpacing(5)
         self.verticalLayout_11.setObjectName(u"verticalLayout_11")
         self.verticalLayout_11.setContentsMargins(5, 5, 5, 5)
-        self.webWidget = QWebEngineView(self.page_android_faq)
+        self.webWidget = QWebEngineView(self.page_android_doc)
         self.webWidget.setObjectName(u"webWidget")
 
         self.verticalLayout_11.addWidget(self.webWidget)
 
-        self.stackedWidget_android.addWidget(self.page_android_faq)
+        self.stackedWidget_android.addWidget(self.page_android_doc)
         self.page_android_clean = QWidget()
         self.page_android_clean.setObjectName(u"page_android_clean")
         self.page_android_clean.setStyleSheet(u"background:rgb(91,90,90);")
@@ -2490,7 +2514,6 @@ class Ui_MainWindow(object):
 "QPushButton:hover {\n"
 "	background-color: rgb(125,125,125);\n"
 "}\n"
-"\n"
 "")
 
         self.verticalLayout_35.addWidget(self.bn_faq)
@@ -2623,9 +2646,9 @@ class Ui_MainWindow(object):
         self.bn_error.setObjectName(u"bn_error")
         self.bn_error.setEnabled(False)
         self.bn_error.setMaximumSize(QSize(25, 20))
-        icon14 = QIcon()
-        icon14.addFile(u"icons/1x/errorAsset 55.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bn_error.setIcon(icon14)
+        icon15 = QIcon()
+        icon15.addFile(u"icons/1x/errorAsset 55.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bn_error.setIcon(icon15)
         self.bn_error.setIconSize(QSize(25, 20))
         self.bn_error.setFlat(True)
 
@@ -2706,7 +2729,7 @@ class Ui_MainWindow(object):
         self.stackedWidget.setCurrentIndex(8)
         self.stackedWidget_2.setCurrentIndex(4)
         self.stackedWidget_3.setCurrentIndex(1)
-        self.stackedWidget_android.setCurrentIndex(3)
+        self.stackedWidget_android.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)

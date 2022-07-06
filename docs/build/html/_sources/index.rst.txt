@@ -7,6 +7,7 @@ Mlaucher is a Python Minecraft Launcher
 
    installation/index
    settings/index
+   play/index
    instancesettings/index
    forge/index
    faq/index
