@@ -1,6 +1,6 @@
 Changelog
 =========
-1.1
+1.1.x
 --------------------------
 New UI, better performance and general fixes
 

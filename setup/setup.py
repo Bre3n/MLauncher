@@ -264,7 +264,7 @@ if __name__ == "__main__":
             logger.critical(
                 f"CRITICAL: Can't download required files, check your internet connection and try again"
             )
-    if path.exists(f"{sciezkaver}/main.py"):
-        subprocess.call(["python", f"{sciezkaver}/main.py"])
+    if path.exists(f"{sciezkaver}/main.lnk"):
+        os.system(f"{sciezkaver}/main.lnk")
     else:
         logger.critical(f"CRITICAL: Something weird occured, try again")

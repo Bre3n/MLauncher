@@ -112,22 +112,17 @@ class errorUi(QDialog):
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
-        # -----> CLOSE APPLICATION FUNCTION BUTTON: CORRESPONDING TO THE bn_ok OF THE ERRORBOX
         self.e.bn_ok.clicked.connect(lambda: self.close())
 
-        # SAME AD DESCRIBED IN COMMEND (C2)
-        # ---> MOVING THE WINDOW WHEN LEFT MOUSE PRESSED AND DRAGGED OVER ERRORBOX TOPBAR
-        self.dragPos = self.pos()  # INITIAL POSOTION OF THE ERRORBOX
+        self.dragPos = self.pos()
 
         def moveWindow(event):
-            # MOVE WINDOW
             if event.buttons() == Qt.LeftButton:
                 self.move(self.pos() + event.globalPos() - self.dragPos)
                 self.dragPos = event.globalPos()
                 event.accept()
 
-        # WIDGET TO MOVE
-        self.e.frame_top.mouseMoveEvent = moveWindow  # CALLING THE FUNCTION TO CJANGE THE POSITION OF THE ERRORBOX DURING MOUSE DRAG
+        self.e.frame_top.mouseMoveEvent = moveWindow
         ################
 
     # ----> FUNCTION TO CAPTURE THE INITIAL POSITION OF THE MOUSE
@@ -170,6 +165,12 @@ class MainWindow(QMainWindow):
         self.ui.stackedWidget_3.setCurrentWidget(self.ui.page_forge_mods_download)
         self.ui.bn_mod_set.clicked.connect(lambda: brain.forge_mods.set_mod(self))
         self.ui.bn_mod_del.clicked.connect(lambda: brain.forge_mods.delete_mod(self))
+        self.ui.bn_openOptifine.clicked.connect(
+            lambda: webbrowser.open("https://optifine.net/downloads")
+        )
+        self.ui.bn_bug2.clicked.connect(
+            lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_about_bug)
+        )
 
         # self.ui.bn_mod_setmod.clicked.connect(lambda: forge_mods.down_mod(self))
 
@@ -182,6 +183,9 @@ class MainWindow(QMainWindow):
         )
         self.ui.webWidget_mods.load(
             QtCore.QUrl("https://www.curseforge.com/minecraft/mc-mods")
+        )
+        self.ui.webWidget_optifine.load(
+            QtCore.QUrl("https://www.youtube.com/embed/0mwTk-nJf8g?start=18")
         )
 
         roaming = os.getenv("APPDATA")

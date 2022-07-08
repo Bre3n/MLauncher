@@ -76,43 +76,6 @@ def download(url, pathh, self, value):
                 f.write(chunk)
                 f.flush()
 
-    """MANAGER = enlighten.get_manager()
-    i = 0
-    r = requests.get(url, stream=True)
-    assert r.status_code == 200, r.status_code
-    dlen = int(r.headers.get("Content-Length", "0")) or None
-    with MANAGER.counter(
-        color="green", total=dlen and math.ceil(dlen / 2 ** 20), unit="MiB", leave=False
-    ) as ctr, open(pathh, "wb", buffering=2 ** 24) as f:
-        for chunk in r.iter_content(chunk_size=2 ** 20):
-            i += 1
-            if dlen != None:
-                bufor_download = math.ceil(dlen / 2 ** 20)
-                percentage_one = bufor_download / 100
-                percentage = int(round(i // percentage_one))
-                visual_percentage = ("█" * (percentage // 10)) + (
-                    "  " * (10 - (percentage // 10))
-                )
-                self.ui.lab_tab2.setText(
-                    f"Downloading {percentage}% |{visual_percentage}| {i}/{bufor_download}"
-                )
-            else:
-                if value != 0:
-                    percentage_one = value / 100
-                    percentage = int(round(i // percentage_one))
-                    visual_percentage = ("█" * (percentage // 10)) + (
-                        "  " * (10 - (percentage // 10))
-                    )
-                    self.ui.lab_tab2.setText(
-                        f"Downloading {percentage}% |{visual_percentage}| {i}/~{value}"
-                    )
-                else:
-                    self.ui.lab_tab2.setText(
-                        f"Downloading ???% |????? no info ?????| {i}/?"
-                    )
-            # print(chunk[-16:].hex().upper())
-            f.write(chunk)"""
-
 
 def createshortcut():
     desktop = winshell.desktop()
@@ -701,7 +664,7 @@ def playForge(self, var):
         self.ui.bn_play.setStyleSheet(
             "QPushButton {font-size:70px;background-color: rgba(30,100,140,0.7);border-radius: 10px;}QPushButton:hover {font-size:80px;background-color: rgba(70,140,190,0.7);}"
         )
-        self.ui.bn_play.setText(f"Playing")
+        self.ui.bn_play.setText(f"Launched")
         setCurrentDiscordRpc(f"Minecraft {version}", f"Playing as {username}")
         threading.Thread(target=lambda: playingcheck(self)).start()
         version = minecraft_launcher_lib.utils.get_installed_versions(f"{versionPathh}")
@@ -896,7 +859,7 @@ def playVanilla(self, var):
         self.ui.bn_play.setStyleSheet(
             "QPushButton {font-size:70px;background-color: rgba(30,100,140,0.7);border-radius: 10px;}QPushButton:hover {font-size:80px;background-color: rgba(70,140,190,0.7);}"
         )
-        self.ui.bn_play.setText(f"Playing")
+        self.ui.bn_play.setText(f"Launched")
         setCurrentDiscordRpc(f"Minecraft {version}", f"Playing as {username}")
         threading.Thread(target=lambda: playingcheck(self)).start()
         version = minecraft_launcher_lib.utils.get_installed_versions(f"{versionPathh}")
@@ -1145,8 +1108,9 @@ class instancesettings:
 
         # * BUTTONS
 
+        pathExist = path.exists(f"{sciezkains}/{bufor}")
         # * bug_openfolder
-        if path.exists(f"{sciezkains}/{bufor}") == False:
+        if pathExist == False:
             selfui.ui.bug_openfolder.setText(
                 "Can't open instance folder, because instance is not installed"
             )
@@ -1167,7 +1131,7 @@ class instancesettings:
             )
 
         # * bug_repair
-        if path.exists(f"{sciezkains}/{bufor}") == False:
+        if pathExist == False:
             selfui.ui.bug_repair.setText(
                 "Can't repair this instance, because instance is not installed"
             )
@@ -1190,7 +1154,7 @@ class instancesettings:
             )
 
         # * bug_bn_delete
-        if path.exists(f"{sciezkains}/{bufor}") == True:
+        if pathExist == True:
             selfui.ui.bug_bn_delete.setEnabled(True)
             try:
                 selfui.ui.bug_bn_delete.clicked.disconnect()
@@ -1205,89 +1169,104 @@ class instancesettings:
             selfui.ui.bug_bn_delete.setText(
                 "Can't delete bacause instance is not found"
             )
-
-        settings_ins = configparser.ConfigParser()
-        settings_ins.read(f"{sciezkains}/{bufor}/settings_ins.ini")
-        if (
-            path.exists(f"{sciezkains}/{bufor}/settings_ins.ini") == False
-            or settings_ins.has_section(f"{bufor}") == False
-            or settings_ins.has_option(f"{bufor}", "isshared") == False
-            or settings_ins.has_option(f"{bufor}", "isseparate") == False
-            or settings_ins.has_option(f"{bufor}", "isoptifine") == False
-        ):
-            if settings_ins.has_section(f"{bufor}") == False:
-                settings_ins.add_section(f"{bufor}")
-            if settings_ins.has_option(f"{bufor}", "isshared") == False:
-                settings_ins[f"{bufor}"]["isshared"] = "no"
-            if settings_ins.has_option(f"{bufor}", "isseparate") == False:
-                settings_ins[f"{bufor}"]["isseparate"] = "yes"
-            if settings_ins.has_option(f"{bufor}", "isoptifine") == False:
-                settings_ins[f"{bufor}"]["isoptifine"] = "no"
-            with open(f"{sciezkains}/{bufor}/settings_ins.ini", "w") as configfile:
-                settings_ins.write(configfile)
-        isshared = settings_ins.get(f"{bufor}", "isshared")
-        isseparate = settings_ins.get(f"{bufor}", "isseparate")
-        isoptifine = settings_ins.get(f"{bufor}", "isoptifine")
-
-        # * SAVES
         try:
-            selfui.ui.bug_sharedsaves.clicked.disconnect()
+            selfui.ui.bug_optifine.clicked.disconnect()
         except Exception:
             pass
-        selfui.ui.bug_sharedsaves.clicked.connect(
-            lambda: self.sharedSaves(bufor, selfui)
-        )
+        if pathExist == True:
+            settings_ins = configparser.ConfigParser()
+            settings_ins.read(f"{sciezkains}/{bufor}/settings_ins.ini")
+            if (
+                path.exists(f"{sciezkains}/{bufor}/settings_ins.ini") == False
+                or settings_ins.has_section(f"{bufor}") == False
+                or settings_ins.has_option(f"{bufor}", "isshared") == False
+                or settings_ins.has_option(f"{bufor}", "isseparate") == False
+                or settings_ins.has_option(f"{bufor}", "isoptifine") == False
+            ):
+                if settings_ins.has_section(f"{bufor}") == False:
+                    settings_ins.add_section(f"{bufor}")
+                if settings_ins.has_option(f"{bufor}", "isshared") == False:
+                    settings_ins[f"{bufor}"]["isshared"] = "no"
+                if settings_ins.has_option(f"{bufor}", "isseparate") == False:
+                    settings_ins[f"{bufor}"]["isseparate"] = "yes"
+                if settings_ins.has_option(f"{bufor}", "isoptifine") == False:
+                    settings_ins[f"{bufor}"]["isoptifine"] = "no"
+                with open(f"{sciezkains}/{bufor}/settings_ins.ini", "w") as configfile:
+                    settings_ins.write(configfile)
+            isshared = settings_ins.get(f"{bufor}", "isshared")
+            isseparate = settings_ins.get(f"{bufor}", "isseparate")
+            isoptifine = settings_ins.get(f"{bufor}", "isoptifine")
 
-        if isshared == "yes":
-            selfui.ui.label_19.setText("Save Shared")
-            selfui.ui.bug_sharedsaves.setText("Split saves")
-            selfui.ui.bug_sharedsaves.setStyleSheet(
-                "QPushButton {\nborder: none;background-color: rgb(50,150,50);}QPushButton:hover {background-color: rgb(255,50,50);}"
+            # * SAVES
+            try:
+                selfui.ui.bug_sharedsaves.clicked.disconnect()
+            except Exception:
+                pass
+            selfui.ui.bug_sharedsaves.clicked.connect(
+                lambda: self.sharedSaves(bufor, selfui)
             )
-        else:
-            selfui.ui.label_19.setText("Save Not Shared")
-            selfui.ui.bug_sharedsaves.setText("Connect saves")
 
-        # * Optifine
+            if isshared == "yes":
+                selfui.ui.label_19.setText("Save Shared")
+                selfui.ui.bug_sharedsaves.setText("Split saves")
+                selfui.ui.bug_sharedsaves.setStyleSheet(
+                    "QPushButton {\nborder: none;background-color: rgb(50,150,50);}QPushButton:hover {background-color: rgb(255,50,50);}"
+                )
+            else:
+                selfui.ui.label_19.setText("Save Not Shared")
+                selfui.ui.bug_sharedsaves.setText("Connect saves")
 
-        versionOptifine = minecraft_launcher_lib.utils.get_installed_versions(
-            f"{sciezkains}/{bufor}/.minecraft"
-        )
-        for i in range(len(versionOptifine)):
-            if (versionOptifine[i]["id"]).lower().find("optifine") != -1:
+            # * Optifine
+
+            versionOptifine = minecraft_launcher_lib.utils.get_installed_versions(
+                f"{sciezkains}/{bufor}/.minecraft"
+            )
+            for i in range(len(versionOptifine)):
+                if (versionOptifine[i]["id"]).lower().find("optifine") != -1:
+                    selfui.ui.label_17.setText("Optifine Installed")
+                    selfui.ui.bug_optifine.setText("Uninstall Optifine")
+                    selfui.ui.bug_optifine.setStyleSheet(
+                        "QPushButton {\nborder: none;background-color: rgb(50,150,50);}QPushButton:hover {background-color: rgb(255,50,50);}"
+                    )
+                    selfui.ui.bug_optifine.clicked.connect(
+                        lambda: self.bnOptifine(selfui, bufor)
+                    )
+                else:
+                    selfui.ui.label_17.setText("Optifine Not Installed")
+                    selfui.ui.bug_optifine.setText("Install Optifine")
+                    if bufor.startswith("f"):
+                        selfui.ui.webWidget_optifine.hide()
+                        buforr = bufor.replace("f-", "").split("-")
+                        selfui.ui.label_26.setText(
+                            f"Download {buforr[0]} version and paste optifine file (.jar) into that path"
+                        )
+                        selfui.ui.label_25.setText(
+                            f"{sciezkains}/{bufor}/.minecraft/mods".replace("/", "\\")
+                        )
+                    else:
+                        selfui.ui.webWidget_optifine.show()
+                        selfui.ui.label_26.setText(
+                            "Copy and paste that path in optifine"
+                        )
+                        selfui.ui.label_25.setText(
+                            f"{sciezkains}/{bufor}/.minecraft".replace("/", "\\")
+                        )
+                    selfui.ui.bug_optifine.clicked.connect(
+                        lambda: selfui.ui.stackedWidget.setCurrentWidget(
+                            selfui.ui.page_optifine
+                        )
+                    )
+
+            """
+            if isoptifine == "yes":
                 selfui.ui.label_17.setText("Optifine Installed")
                 selfui.ui.bug_optifine.setText("Uninstall Optifine")
                 selfui.ui.bug_optifine.setStyleSheet(
                     "QPushButton {\nborder: none;background-color: rgb(50,150,50);}QPushButton:hover {background-color: rgb(255,50,50);}"
                 )
-                try:
-                    selfui.ui.bug_optifine.clicked.disconnect()
-                except Exception:
-                    pass
-                selfui.ui.bug_optifine.clicked.connect(
-                    lambda: self.bnOptifine(selfui, bufor)
-                )
             else:
                 selfui.ui.label_17.setText("Optifine Not Installed")
-                selfui.ui.bug_optifine.setText("Install Optifine")
-                try:
-                    selfui.ui.bug_optifine.clicked.disconnect()
-                except Exception:
-                    pass
-                selfui.ui.bug_optifine.clicked.connect(
-                    lambda: self.bnOptifine(selfui, bufor)
-                )
-
-        """
-        if isoptifine == "yes":
-            selfui.ui.label_17.setText("Optifine Installed")
-            selfui.ui.bug_optifine.setText("Uninstall Optifine")
-            selfui.ui.bug_optifine.setStyleSheet(
-                "QPushButton {\nborder: none;background-color: rgb(50,150,50);}QPushButton:hover {background-color: rgb(255,50,50);}"
-            )
-        else:
-            selfui.ui.label_17.setText("Optifine Not Installed")
-            selfui.ui.bug_optifine.setText("Install Optifine")"""
+                selfui.ui.bug_optifine.setText("Install Optifine")"""
 
     def sharedSaves(self, version, selfui):
         buforinstance = f"{sciezkains}/{version}/.minecraft"
@@ -1387,18 +1366,15 @@ class instancesettings:
         selfui.ui.bn_play.setText(f"Play")
 
     def bnOptifine(self, selfui, version):
-        if selfui.ui.bug_optifine.text() == "Install Optifine":
-            webbrowser.open("https://optifine.net/downloads")
-        else:
-            versionOptifine = minecraft_launcher_lib.utils.get_installed_versions(
-                f"{sciezkains}/{version}/.minecraft"
-            )
-            for i in range(len(versionOptifine)):
-                if (versionOptifine[i]["id"]).lower().find("optifine") != -1:
-                    bufor = versionOptifine[i]["id"]
-                    shutil.rmtree(f"{sciezkains}/{version}/.minecraft/versions/{bufor}")
-                    selfui.ui.label_17.setText("Optifine Not Installed")
-                    selfui.ui.bug_optifine.setText("Install Optifine")
+        versionOptifine = minecraft_launcher_lib.utils.get_installed_versions(
+            f"{sciezkains}/{version}/.minecraft"
+        )
+        for i in range(len(versionOptifine)):
+            if (versionOptifine[i]["id"]).lower().find("optifine") != -1:
+                bufor = versionOptifine[i]["id"]
+                shutil.rmtree(f"{sciezkains}/{version}/.minecraft/versions/{bufor}")
+                selfui.ui.label_17.setText("Optifine Not Installed")
+                selfui.ui.bug_optifine.setText("Install Optifine")
 
 
 class forge_mods:

@@ -1093,7 +1093,7 @@ QPushButton:hover {
                 <string notr="true"/>
                </property>
                <property name="currentIndex">
-                <number>8</number>
+                <number>9</number>
                </property>
                <widget class="QWidget" name="page_home">
                 <property name="styleSheet">
@@ -1189,41 +1189,84 @@ QPushButton:hover {
                      </widget>
                     </item>
                     <item>
-                     <widget class="QLabel" name="lab_home_username">
-                      <property name="maximumSize">
-                       <size>
-                        <width>16777215</width>
-                        <height>80</height>
-                       </size>
+                     <layout class="QHBoxLayout" name="horizontalLayout_44">
+                      <property name="spacing">
+                       <number>0</number>
                       </property>
-                      <property name="font">
-                       <font>
-                        <family>Segoe UI Semibold</family>
-                        <pointsize>40</pointsize>
-                        <weight>75</weight>
-                        <bold>true</bold>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">color:rgb(255,255,255);
-background:rgba(0,0,0,0);</string>
-                      </property>
-                      <property name="text">
-                       <string>Steve</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignHCenter|Qt::AlignTop</set>
-                      </property>
-                      <property name="wordWrap">
-                       <bool>true</bool>
-                      </property>
-                      <property name="margin">
-                       <number>5</number>
-                      </property>
-                      <property name="textInteractionFlags">
-                       <set>Qt::NoTextInteraction</set>
-                      </property>
-                     </widget>
+                      <item>
+                       <spacer name="horizontalSpacer_15">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="lab_home_username">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>16777215</width>
+                          <height>60</height>
+                         </size>
+                        </property>
+                        <property name="font">
+                         <font>
+                          <family>Segoe UI Semibold</family>
+                          <pointsize>40</pointsize>
+                          <weight>75</weight>
+                          <bold>true</bold>
+                         </font>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">color:rgb(255,255,255);
+background:rgba(0,0,0,0);
+background:rgba(0,0,0,0.30);
+border-radius: 5px;
+padding-bottom:1px;
+</string>
+                        </property>
+                        <property name="text">
+                         <string>Steve</string>
+                        </property>
+                        <property name="alignment">
+                         <set>Qt::AlignCenter</set>
+                        </property>
+                        <property name="wordWrap">
+                         <bool>true</bool>
+                        </property>
+                        <property name="margin">
+                         <number>5</number>
+                        </property>
+                        <property name="textInteractionFlags">
+                         <set>Qt::NoTextInteraction</set>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_16">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
                     </item>
                     <item>
                      <widget class="QPushButton" name="bn_play">
@@ -1444,6 +1487,22 @@ border-radius: 5px;</string>
                         </property>
                        </widget>
                       </item>
+                      <item>
+                       <spacer name="horizontalSpacer_20">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeType">
+                         <enum>QSizePolicy::Fixed</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>10</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
                      </layout>
                     </item>
                     <item>
@@ -1460,7 +1519,7 @@ border-top-left-radius: 10px;
 border-bottom-left-radius: 10px;</string>
                       </property>
                       <property name="currentIndex">
-                       <number>4</number>
+                       <number>0</number>
                       </property>
                       <widget class="QWidget" name="page_news_1">
                        <layout class="QVBoxLayout" name="verticalLayout_23">
@@ -1943,7 +2002,17 @@ QPushButton:hover {
 </string>
                         </property>
                         <property name="text">
-                         <string>&lt;</string>
+                         <string/>
+                        </property>
+                        <property name="icon">
+                         <iconset>
+                          <normaloff>icons/1x/whiteBack.png</normaloff>icons/1x/whiteBack.png</iconset>
+                        </property>
+                        <property name="iconSize">
+                         <size>
+                          <width>32</width>
+                          <height>32</height>
+                         </size>
                         </property>
                        </widget>
                       </item>
@@ -1966,7 +2035,17 @@ QPushButton:hover {
 </string>
                         </property>
                         <property name="text">
-                         <string>&gt;</string>
+                         <string/>
+                        </property>
+                        <property name="icon">
+                         <iconset>
+                          <normaloff>icons/1x/whiteForward.png</normaloff>icons/1x/whiteForward.png</iconset>
+                        </property>
+                        <property name="iconSize">
+                         <size>
+                          <width>32</width>
+                          <height>32</height>
+                         </size>
                         </property>
                        </widget>
                       </item>
@@ -2259,7 +2338,15 @@ QScrollBar::sub-page:vertical {
                            </font>
                           </property>
                           <property name="styleSheet">
-                           <string notr="true">background:rgb(80,80,80);border-radius:22%;</string>
+                           <string notr="true">QPushButton {
+	border: none;
+	border-radius:22%;
+	background-color: rgb(50,150,50);
+}
+QPushButton:hover {
+	background-color: rgb(100,180,100);
+}
+</string>
                           </property>
                           <property name="text">
                            <string/>
@@ -2280,6 +2367,27 @@ QScrollBar::sub-page:vertical {
                          </widget>
                         </item>
                        </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="label_10">
+                       <property name="font">
+                        <font>
+                         <family>Segoe UI Black</family>
+                         <pointsize>14</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color:red;</string>
+                       </property>
+                       <property name="text">
+                        <string>DOWLOADING MODS ARE CURRENTLY DISABLED !!!</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                       </property>
                       </widget>
                      </item>
                      <item>
@@ -2399,6 +2507,9 @@ QComboBox::drop-down {
                          </item>
                          <item>
                           <widget class="QPushButton" name="bn_mod_set">
+                           <property name="enabled">
+                            <bool>true</bool>
+                           </property>
                            <property name="sizePolicy">
                             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                              <horstretch>0</horstretch>
@@ -2453,6 +2564,9 @@ QPushButton:hover {
                         <layout class="QHBoxLayout" name="horizontalLayout_37">
                          <item>
                           <widget class="QLineEdit" name="line_mod_name">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
                            <property name="font">
                             <font>
                              <family>Courier New</family>
@@ -2482,6 +2596,9 @@ QLineEdit:disabled {
                          </item>
                          <item>
                           <widget class="QLineEdit" name="line_mod_version">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
                            <property name="font">
                             <font>
                              <family>Courier New</family>
@@ -2511,6 +2628,9 @@ QLineEdit:disabled {
                          </item>
                          <item>
                           <widget class="QPushButton" name="bn_mod_setmod">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
                            <property name="sizePolicy">
                             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                              <horstretch>0</horstretch>
@@ -2678,6 +2798,9 @@ QComboBox::drop-down {
                          </item>
                          <item>
                           <widget class="QPushButton" name="bn_mod_del">
+                           <property name="enabled">
+                            <bool>true</bool>
+                           </property>
                            <property name="sizePolicy">
                             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                              <horstretch>0</horstretch>
@@ -2764,7 +2887,15 @@ QPushButton:hover {
                              </font>
                             </property>
                             <property name="styleSheet">
-                             <string notr="true">background:rgb(80,80,80);border-radius:22%;</string>
+                             <string notr="true">QPushButton {
+	border: none;
+	border-radius:22%;
+	background-color: rgb(50,150,50);
+}
+QPushButton:hover {
+	background-color: rgb(100,180,100);
+}
+</string>
                             </property>
                             <property name="text">
                              <string/>
@@ -3247,6 +3378,218 @@ QPushButton:hover {
                   </item>
                  </layout>
                 </widget>
+               </widget>
+               <widget class="QWidget" name="page_optifine">
+                <layout class="QVBoxLayout" name="verticalLayout_37">
+                 <item>
+                  <widget class="QFrame" name="frame_5">
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_39">
+                    <item>
+                     <layout class="QVBoxLayout" name="verticalLayout_38">
+                      <item>
+                       <layout class="QHBoxLayout" name="horizontalLayout_47">
+                        <item>
+                         <widget class="QPushButton" name="bn_bug2">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>48</width>
+                            <height>48</height>
+                           </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QPushButton {
+	border: none;
+	border-radius:22.5%;
+	background-color: rgb(50,150,50);
+}
+QPushButton:hover {
+	background-color: rgb(100,180,100);
+}
+</string>
+                          </property>
+                          <property name="text">
+                           <string/>
+                          </property>
+                          <property name="icon">
+                           <iconset>
+                            <normaloff>icons/1x/whiteBack.png</normaloff>icons/1x/whiteBack.png</iconset>
+                          </property>
+                          <property name="iconSize">
+                           <size>
+                            <width>48</width>
+                            <height>48</height>
+                           </size>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QPushButton" name="bn_openOptifine">
+                          <property name="font">
+                           <font>
+                            <family>Segoe UI</family>
+                            <pointsize>24</pointsize>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QPushButton {
+	border: none;
+	background-color: rgb(50,150,50);
+}
+QPushButton:hover {
+font-size:34px;
+	background-color: rgb(100,180,100);
+}
+</string>
+                          </property>
+                          <property name="text">
+                           <string>Open optifine.net</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <spacer name="horizontalSpacer_19">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeType">
+                           <enum>QSizePolicy::Fixed</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>48</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                       </layout>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_26">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="font">
+                         <font>
+                          <family>Segoe UI</family>
+                          <pointsize>14</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>Copy and paste that path in optifine</string>
+                        </property>
+                        <property name="alignment">
+                         <set>Qt::AlignCenter</set>
+                        </property>
+                        <property name="textInteractionFlags">
+                         <set>Qt::NoTextInteraction</set>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <layout class="QHBoxLayout" name="horizontalLayout_45">
+                        <item>
+                         <spacer name="horizontalSpacer_17">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_25">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Arial</family>
+                            <pointsize>12</pointsize>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">background: rgba(0,0,0,0.4);border-radius:5px;</string>
+                          </property>
+                          <property name="text">
+                           <string>[path]</string>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignCenter</set>
+                          </property>
+                          <property name="margin">
+                           <number>5</number>
+                          </property>
+                          <property name="textInteractionFlags">
+                           <set>Qt::TextSelectableByMouse</set>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <spacer name="horizontalSpacer_18">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                       </layout>
+                      </item>
+                      <item>
+                       <widget class="QFrame" name="frame_6">
+                        <property name="frameShape">
+                         <enum>QFrame::StyledPanel</enum>
+                        </property>
+                        <property name="frameShadow">
+                         <enum>QFrame::Raised</enum>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_40">
+                         <item>
+                          <widget class="QWebEngineView" name="webWidget_optifine" native="true">
+                           <property name="minimumSize">
+                            <size>
+                             <width>0</width>
+                             <height>0</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
                </widget>
                <widget class="QWidget" name="page_bug">
                 <property name="styleSheet">
@@ -4035,7 +4378,7 @@ QPushButton:pressed {
                     <string notr="true">background:rgb(91,90,90);</string>
                    </property>
                    <property name="currentIndex">
-                    <number>1</number>
+                    <number>0</number>
                    </property>
                    <widget class="QWidget" name="page_android_contact">
                     <property name="styleSheet">

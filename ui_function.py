@@ -194,9 +194,6 @@ class UIFunction(MainWindow):
         elif page == "page_doc":
             self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_doc)
             self.ui.lab_tab.setText("Settings > Documentation")
-            self.ui.webWidget.load(
-            QtCore.QUrl("https://mlauncher.readthedocs.io/en/latest")
-        )
             self.ui.frame_android_doc.setStyleSheet("background:rgb(91,90,90)")
         
         elif page == "page_faq":
