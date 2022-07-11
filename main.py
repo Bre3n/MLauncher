@@ -181,9 +181,11 @@ class MainWindow(QMainWindow):
         self.ui.webWidget.load(
             QtCore.QUrl("https://mlauncher.readthedocs.io/en/latest")
         )
+        self.ui.webWidget.urlChanged.connect(self.update_urlbar)
         self.ui.webWidget_mods.load(
             QtCore.QUrl("https://www.curseforge.com/minecraft/mc-mods")
         )
+        self.ui.webWidget_mods.urlChanged.connect(self.update_urlbar2)
         self.ui.webWidget_optifine.load(
             QtCore.QUrl("https://www.youtube.com/embed/0mwTk-nJf8g?start=18")
         )
@@ -203,20 +205,30 @@ class MainWindow(QMainWindow):
             or os.path.getsize(f"{sciezkajvms}/jvm17.zip") < 170000000
             or path.exists(f"{sciezkains}/shared/.minecraft") == False
         ):
-            threading.Thread(target=lambda: brain.downloadstuff(self)).start()
+            threading.Thread(
+                name="t-DownloadStuff", target=lambda: brain.downloadstuff(self)
+            ).start()
 
         self.i = 0
         self.valueChanged.connect(self.changetheme)
         brain.news(self)
-        threading.Thread(target=lambda: brain.GetReleases(self)).start()
-        threading.Thread(target=lambda: brain.ForgeReleases(self, 0)).start()
+        threading.Thread(
+            name="t-GetReleases", target=lambda: brain.GetReleases(self)
+        ).start()
+        threading.Thread(
+            name="t-ForgeReleases", target=lambda: brain.ForgeReleases(self, 0)
+        ).start()
 
         brain.updateLines(self)
         #! ACTIVE
-        threading.Thread(target=lambda: brain.checkinternet(self)).start()
+        threading.Thread(
+            name="t-CheckInternet", target=lambda: brain.checkinternet(self)
+        ).start()
         brain.setCurrentDiscordRpc("Home Page", f"Playing as {username}")
         #! ACTIVE
-        threading.Thread(target=lambda: brain.discordrpc(self)).start()
+        threading.Thread(
+            name="t-DiscordRPC", target=lambda: brain.discordrpc(self)
+        ).start()
         self.ui.bn_error.setVisible(False)
         with open(f"{sciezkaver}/version.txt") as f:
             contentv = f.readlines()
@@ -302,6 +314,14 @@ class MainWindow(QMainWindow):
         # WIDGET TO MOVE: WE CHOOSE THE TOPMOST FRAME WHERE THE APPLICATION NAME IS PRESENT AS THE AREA TO MOVE THE WINDOW.
         self.ui.frame_appname.mouseMoveEvent = moveWindow  # CALLING THE FUNCTION TO CJANGE THE POSITION OF THE WINDOW DURING MOUSE DRAG
 
+    def update_urlbar(self, q):
+
+        self.ui.label_27.setText(q.toString())
+
+    def update_urlbar2(self, q):
+
+        self.ui.label_28.setText(q.toString())
+
     # ----> FUNCTION TO CAPTURE THE INITIAL POSITION OF THE MOUSE: NECESSERY FOR THE moveWindow FUNCTION
     def mousePressEvent(self, event):
         self.dragPos = event.globalPos()
@@ -324,8 +344,8 @@ class MainWindow(QMainWindow):
             self.ui.lab_tab2.setText("")
             self.ui.bn_error.setVisible(False)
             self.ui.bn_error.setEnabled(False)
-            self.ui.lab_tab2.setStyleSheet("")
-            self.ui.lab_tab.setStyleSheet("")
+            self.ui.frame_drag.setStyleSheet("")
+            self.ui.frame_tab.setStyleSheet("")
             self.ui.frame_appname.setStyleSheet("")
             self.ui.frame_close.setStyleSheet("")
             self.ui.frame_min.setStyleSheet("")
@@ -337,8 +357,8 @@ class MainWindow(QMainWindow):
             )
             self.ui.bn_error.setVisible(True)
             self.ui.bn_error.setEnabled(True)
-            self.ui.lab_tab2.setStyleSheet("background:#ff0033;")
-            self.ui.lab_tab.setStyleSheet("background:#ff0033;")
+            self.ui.frame_drag.setStyleSheet("background:#ff0033;")
+            self.ui.frame_tab.setStyleSheet("background:#ff0033;")
             self.ui.frame_appname.setStyleSheet("background:#ff0033;")
             self.ui.frame_close.setStyleSheet("background:#ff0033;")
             self.ui.frame_min.setStyleSheet("background:#ff0033;")
@@ -353,7 +373,9 @@ class MainWindow(QMainWindow):
     def closeprogram(self):
         if self.closebool == True:
             bufor = -5
-            threading.Thread(target=lambda: brain.iterablebooldef(bufor)).start()
+            threading.Thread(
+                name="t-IterableBool", target=lambda: brain.iterablebooldef(bufor)
+            ).start()
             self.close()
         else:
             threading.Thread(

@@ -1,5 +1,6 @@
 import configparser
 import ctypes
+from email.headerregistry import ContentTransferEncodingHeader
 import json
 import math
 import os
@@ -374,8 +375,10 @@ def GetReleases(self):
         global ServerVersions
         if ServerVersions == "":
             versions = configparser.ConfigParser()
-            versions.read(f"{sciezkaver}/versions.ini")
+            versions.read(f"{sciezkaver}/servers.ini")
             ServerVersions = versions.sections()
+            """for i in range(len(ServerVersions)):
+                ServerVersions[i] = ServerVersions[i].replace("s_","")"""
         self.ui.comboBox.addItems(McVers)
     except Exception:
         pass
@@ -398,6 +401,8 @@ def serverVersions(self):
         versions = configparser.ConfigParser()
         versions.read(f"{sciezkaver}/versions.ini")
         ServerVersions = versions.sections()
+        """for i in range(len(ServerVersions)):
+            ServerVersions[i] = ServerVersions[i].replace("s_","")"""
     self.ui.comboBox.addItems(ServerVersions)
 
 
@@ -448,12 +453,14 @@ def playthread(self):
     config.read(f"{sciezkaver}/config.ini")
     bufor = config["PROFILE"]["gameversion"]
     if bufor == "Vanilla Versions":
-        threading.Thread(target=lambda: playVanilla(self, 1)).start()
+        threading.Thread(
+            name="t-PlayVanilla", target=lambda: playVanilla(self, 1)
+        ).start()
     # TODO: ADD FORGE AND SERVER
     if bufor == "Forge Versions":
-        threading.Thread(target=lambda: playForge(self, 1)).start()
-    if bufor == "Server Versions":
-        pass
+        threading.Thread(name="t-PlayForge", target=lambda: playForge(self, 1)).start()
+    if bufor == "Modpacks":
+        threading.Thread(name="t-PlayServers", target=lambda: playServers(self)).start()
 
 
 def downloadingCount(self):
@@ -510,16 +517,23 @@ def playForge(self, var):
     }
 
     content = config.get("PROFILE", "version")
-    versionPath = (
-        content.replace("release", "")
-        .replace("snapshot", "")
-        .replace("<-- local installed", "")
-        .replace("local", "")
-        .replace(" ", "")
-    )
-    version = versionPath
-    versionPath = "f-" + version
-    versionPathh = f"{sciezkains}/{versionPath}/.minecraft"
+    if var != 2:
+        versionPath = (
+            content.replace("release", "")
+            .replace("snapshot", "")
+            .replace("<-- local installed", "")
+            .replace("local", "")
+            .replace(" ", "")
+        )
+        version = versionPath
+        versionPath = "f-" + version
+        versionPathh = f"{sciezkains}/{versionPath}/.minecraft"
+    else:
+        config_servers = configparser.ConfigParser()
+        config_servers.read(f"{sciezkaver}/servers.ini")
+        version = config_servers.get(f"{content}", "forgeVersion")
+        versionPath = content
+        versionPathh = f"{sciezkains}/{content}/.minecraft"
 
     bufor = version.split("-")
     bufor = bufor[0].split(".")
@@ -563,7 +577,9 @@ def playForge(self, var):
             "QPushButton {font-size:55px;background-color: rgba(30,100,140,0.7);border-radius: 10px;}QPushButton:hover {font-size:65px;background-color: rgba(70,140,190,0.7);}"
         )
         self.ui.bn_play.setText(f"Downloading")
-        threading.Thread(target=lambda: downloadingCount(self)).start()
+        threading.Thread(
+            name="t-DownloadingCount", target=lambda: downloadingCount(self)
+        ).start()
         os.mkdir(f"{sciezkains}/{versionPath}/")
         os.mkdir(f"{sciezkains}/{versionPath}/.minecraft")
         shutil.copy(
@@ -666,7 +682,9 @@ def playForge(self, var):
         )
         self.ui.bn_play.setText(f"Launched")
         setCurrentDiscordRpc(f"Minecraft {version}", f"Playing as {username}")
-        threading.Thread(target=lambda: playingcheck(self)).start()
+        threading.Thread(
+            name="t-PlayingCheck", target=lambda: playingcheck(self)
+        ).start()
         version = minecraft_launcher_lib.utils.get_installed_versions(f"{versionPathh}")
         try:
             version = version[1]["id"]
@@ -781,7 +799,9 @@ def playVanilla(self, var):
             "QPushButton {font-size:55px;background-color: rgba(30,100,140,0.7);border-radius: 10px;}QPushButton:hover {font-size:65px;background-color: rgba(70,140,190,0.7);}"
         )
         self.ui.bn_play.setText(f"Downloading")
-        threading.Thread(target=lambda: downloadingCount(self)).start()
+        threading.Thread(
+            name="t-DownloadingCount", target=lambda: downloadingCount(self)
+        ).start()
         if path.exists(f"{sciezkains}/{versionPath}/") == False:
             os.mkdir(f"{sciezkains}/{versionPath}/")
             os.mkdir(f"{sciezkains}/{versionPath}/.minecraft")
@@ -861,7 +881,9 @@ def playVanilla(self, var):
         )
         self.ui.bn_play.setText(f"Launched")
         setCurrentDiscordRpc(f"Minecraft {version}", f"Playing as {username}")
-        threading.Thread(target=lambda: playingcheck(self)).start()
+        threading.Thread(
+            name="t-PlayingCheck", target=lambda: playingcheck(self)
+        ).start()
         version = minecraft_launcher_lib.utils.get_installed_versions(f"{versionPathh}")
         try:
             version = version[1]["id"]
@@ -879,6 +901,80 @@ def playVanilla(self, var):
                 "icons/1x/errorAsset 55.png",
                 "Ok",
             )
+
+
+class playServers:
+    def __init__(self, selfui):
+        config = configparser.ConfigParser()
+        config.read(f"{sciezkaver}/config.ini")
+        config_servers = configparser.ConfigParser()
+        config_servers.read(f"{sciezkaver}/servers.ini")
+        bufor = config["PROFILE"]["version"]
+        forgeVersion = config_servers.get(f"{bufor}", "forgeVersion")
+        if (
+            path.exists(
+                f"C:\\Users\\mwgoi\\AppData\\Roaming\\.mlauncher\\instances\\{bufor}"
+            )
+            == False
+        ):
+            playForge(selfui, 2)
+
+        # CHECKING MODS
+        self.checkmods(config, config_servers)
+        selfui.ui.bn_play.setText("Launched")
+        versionPath = f"C:\\Users\\mwgoi\\AppData\\Roaming\\.mlauncher\\instances\\{bufor}\\.minecraft"
+        version = minecraft_launcher_lib.utils.get_installed_versions(f"{versionPath}")
+        username = config.get("PROFILE", "username")
+        token = config.get("PROFILE", "uuid")
+        uuid = token.replace("-", "")
+        allocatedram = config.get("SETTINGS", "allocatedram")
+        specialarg = config.get("SETTINGS", "specialarg")
+        jvmArguments = []
+        jvmArguments.append(f"-Xmx{allocatedram}")
+        options = {
+            "username": username,
+            "uuid": uuid,
+            "token": token,
+            "jvmArguments": jvmArguments,
+            "executablePath": "C:\\Users\\mwgoi\\AppData\\Roaming/.mlauncher/jvms/jdk-17.0.2/bin/javaw.exe",
+        }
+        try:
+            version = version[1]["id"]
+        except Exception:
+            version = version[0]["id"]
+        minecraft_command = minecraft_launcher_lib.command.get_minecraft_command(
+            version, versionPath, options
+        )
+        subprocess.call(minecraft_command)
+
+    def checkmods(self, config, config_servers):
+        version = config.get("PROFILE", "version")
+        forgeVersion = config_servers.get(f"{version}", "forgeVersion")
+        mods = config_servers.options(version)
+        bufor = mods.index("mods")
+        mods = mods[bufor + 1 :]
+        versionPath = f"C:\\Users\\mwgoi\\AppData\\Roaming\\.mlauncher\\instances\\{version}\\.minecraft\\mods"
+        if path.exists(versionPath) == False:
+            os.mkdir(versionPath)
+        localMods = [f for f in listdir(versionPath) if isfile(join(versionPath, f))]
+        for i in localMods:
+            if i not in mods:
+                print("deleted ", i)
+                os.remove(f"{versionPath}/{i}")
+        for i in mods:
+            if i not in localMods:
+                url = config_servers.get(version, i)
+                r = requests.get(url, stream=True)
+                percentagebufor = 0
+                with open(f"{versionPath}/{i}", "wb") as f:
+                    total_length = int(r.headers.get("content-length")) or None
+                    for chunk in progress.bar(
+                        r.iter_content(chunk_size=1024),
+                        expected_size=(total_length / 1024) + 1,
+                    ):
+                        if chunk:
+                            f.write(chunk)
+                            f.flush()
 
 
 def playingcheck(self):
@@ -1145,7 +1241,8 @@ class instancesettings:
                 pass
             selfui.ui.bug_repair.clicked.connect(
                 lambda: threading.Thread(
-                    target=lambda: self.repairInstance(bufor, selfui)
+                    name="t-RepairInstance",
+                    target=lambda: self.repairInstance(bufor, selfui),
                 ).start()
             )
             selfui.ui.bug_repair.setText("Repair Instance")
@@ -1339,7 +1436,7 @@ class instancesettings:
             instancesettings(selfui)
 
     def repairInstance(self, version, selfui):
-        selfui.ui.bn_play.setStylesheet(
+        selfui.ui.bn_play.setStyleSheet(
             "QPushButton {font-size:55px;background-color: rgba(30,100,140,0.7);border-radius: 10px;}QPushButton:hover {font-size:65px;background-color: rgba(70,140,190,0.7);}"
         )
         selfui.ui.bn_play.setText(f"Downloading")
@@ -1351,16 +1448,24 @@ class instancesettings:
             "setProgress": lambda value: ProgressBarMc(value, max_value[0], selfui),
             "setMax": lambda value: ProgressBarMcMaximum(max_value, value),
         }
-        threading.Thread(target=lambda: downloadingCount(selfui)).start()
+        threading.Thread(
+            name="t-DownloadingCount", target=lambda: downloadingCount(selfui)
+        ).start()
         if version.startswith("f-"):
             version = version.replace("f-", "")
             # versionPathh = buforinstance.replace("/", "\\")
+            install_forge_version(version, buforinstance, callback=callback)
+        elif version.startswith("s_"):
+            config_servers = configparser.ConfigParser()
+            config_servers.read(f"{sciezkaver}/servers.ini")
+            buforinstance = f"{sciezkains}/{version}/.minecraft"
+            version = config_servers.get(f"{version}", "forgeVersion")
             install_forge_version(version, buforinstance, callback=callback)
         else:
             minecraft_launcher_lib.install.install_minecraft_version(
                 version, buforinstance, callback=callback
             )
-        selfui.ui.bn_play.setStylesheet(
+        selfui.ui.bn_play.setStyleSheet(
             "QPushButton {font-size:80px;background-color: rgba(30,100,140,0.7);border-radius: 10px;}QPushButton:hover {font-size:90px;background-color: rgba(70,140,190,0.7);}"
         )
         selfui.ui.bn_play.setText(f"Play")

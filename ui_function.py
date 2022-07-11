@@ -134,8 +134,12 @@ class UIFunction(MainWindow):
         self.ui.bn_android_doc.clicked.connect(
             lambda: UIFunction.androidStackPages(self, "page_doc")
         )
-        self.ui.bn_faq.clicked.connect(lambda: UIFunction.androidStackPages(self, "page_faq"))
-        self.ui.bn_changelog.clicked.connect(lambda: UIFunction.androidStackPages(self, "page_changelog"))
+        self.ui.bn_faq.clicked.connect(
+            lambda: UIFunction.androidStackPages(self, "page_faq")
+        )
+        self.ui.bn_changelog.clicked.connect(
+            lambda: UIFunction.androidStackPages(self, "page_changelog")
+        )
         self.ui.bn_android_clean.clicked.connect(
             lambda: UIFunction.androidStackPages(self, "page_clean")
         )
@@ -195,20 +199,20 @@ class UIFunction(MainWindow):
             self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_doc)
             self.ui.lab_tab.setText("Settings > Documentation")
             self.ui.frame_android_doc.setStyleSheet("background:rgb(91,90,90)")
-        
+
         elif page == "page_faq":
             self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_doc)
             self.ui.lab_tab.setText("Settings > Documentation")
             self.ui.webWidget.load(
-            QtCore.QUrl("https://mlauncher.readthedocs.io/en/latest/faq/index.html")
-        )
+                QtCore.QUrl("https://mlauncher.readthedocs.io/en/latest/faq/index.html")
+            )
             self.ui.frame_android_doc.setStyleSheet("background:rgb(91,90,90)")
 
         elif page == "page_changelog":
             self.ui.stackedWidget_android.setCurrentWidget(self.ui.page_android_doc)
             self.ui.lab_tab.setText("Settings > Documentation")
             self.ui.webWidget.load(
-            QtCore.QUrl("https://mlauncher.readthedocs.io/en/latest/changelog.html")
+                QtCore.QUrl("https://mlauncher.readthedocs.io/en/latest/changelog.html")
             )
             self.ui.frame_android_doc.setStyleSheet("background:rgb(91,90,90)")
 
@@ -259,9 +263,32 @@ class APFunction:
 
     def saveContact(self):
         username = self.ui.line_android_name.text()
-        if len(username) > 15:
+        if any(not c.isalnum() for c in username) or username.isascii() == False:
+            self.ui.line_android_name.setStyleSheet(
+                "QLineEdit {\n	color:rgb(255,255,255);\n	border:2px solid red;\n	border-radius:4px;\n	background:rgb(51,51,51);\n}\n\nQLineEdit:disabled {\n	color:rgb(255,255,255);\n	border:2px solid red;\n	border-radius:4px;\n	background:rgb(112,112,112);\n}"
+            )
             self.errorexec(
-                "Your nickname is too long!\nMax 15 characters",
+                "Only English chars! Special characters and spaces are not allowed!",
+                "icons/1x/errorAsset 55.png",
+                "Ok",
+            )
+            return
+        elif len(username) < 3:
+            self.ui.line_android_name.setStyleSheet(
+                "QLineEdit {\n	color:rgb(255,255,255);\n	border:2px solid red;\n	border-radius:4px;\n	background:rgb(51,51,51);\n}\n\nQLineEdit:disabled {\n	color:rgb(255,255,255);\n	border:2px solid red;\n	border-radius:4px;\n	background:rgb(112,112,112);\n}"
+            )
+            self.errorexec(
+                "Your nickname is too short!\nMin 3 characters",
+                "icons/1x/errorAsset 55.png",
+                "Ok",
+            )
+            return
+        elif len(username) > 16:
+            self.ui.line_android_name.setStyleSheet(
+                "QLineEdit {\n	color:rgb(255,255,255);\n	border:2px solid red;\n	border-radius:4px;\n	background:rgb(51,51,51);\n}\n\nQLineEdit:disabled {\n	color:rgb(255,255,255);\n	border:2px solid red;\n	border-radius:4px;\n	background:rgb(112,112,112);\n}"
+            )
+            self.errorexec(
+                "Your nickname is too long!\nMax 16 characters",
                 "icons/1x/errorAsset 55.png",
                 "Ok",
             )
@@ -288,6 +315,9 @@ class APFunction:
         self.ui.lab_user.setText(username)
         self.ui.lab_home_username.setText(username)
         config["PROFILE"]["username"] = username
+        self.ui.line_android_name.setStyleSheet(
+            "QLineEdit {\n	color:rgb(255,255,255);\n	border:2px solid rgb(51,51,51);\n	border-radius:4px;\n	background:rgb(51,51,51);\n}\n\nQLineEdit:disabled {\n	color:rgb(255,255,255);\n	border:2px solid rgb(112,112,112);\n	border-radius:4px;\n	background:rgb(112,112,112);\n}"
+        )
         brain.setCurrentDiscordRpc("Home Page", f"Playing as {username}")
 
         # * Alocated Ram
@@ -295,23 +325,42 @@ class APFunction:
         bufor = self.ui.line_android_adress.text().upper()
         bufor = bufor.replace("B", "")
         self.ui.line_android_adress.setText(bufor)
-        if bufor[-1] != "G" and bufor[-1] != "M":
+        if "G" in bufor and "M" in bufor:
+            self.ui.line_android_adress.setStyleSheet(
+                "QLineEdit {\n	color:rgb(255,255,255);\n	border:2px solid red;\n	border-radius:4px;\n	background:rgb(51,51,51);\n}\n\nQLineEdit:disabled {\n	color:rgb(255,255,255);\n	border:2px solid red;\n	border-radius:4px;\n	background:rgb(112,112,112);\n}"
+            )
+            self.ui.line_android_adress.setText(config.get("SETTINGS", "allocatedram"))
             self.errorexec(
-                "'Max Ram' must have a unit. One of this two: 'G', 'M'. Settings will not be applied and saved!!!",
+                "Something weird occured with that amount of ram, check if it is entered correctly!",
                 "icons/1x/errorAsset 55.png",
                 "Ok",
             )
+        elif bufor[-1] != "G" and bufor[-1] != "M":
+            self.ui.line_android_adress.setStyleSheet(
+                "QLineEdit {\n	color:rgb(255,255,255);\n	border:2px solid red;\n	border-radius:4px;\n	background:rgb(51,51,51);\n}\n\nQLineEdit:disabled {\n	color:rgb(255,255,255);\n	border:2px solid red;\n	border-radius:4px;\n	background:rgb(112,112,112);\n}"
+            )
             self.ui.line_android_adress.setText(config.get("SETTINGS", "allocatedram"))
+            self.errorexec(
+                "'Max Ram' must have a unit. One of this two: 'G', 'M'. Settings will not be applied and saved!",
+                "icons/1x/errorAsset 55.png",
+                "Ok",
+            )
         else:
-            if bufor[-1] == "G":
+            if bufor[0] == "G":
                 bufor = str(int(bufor.replace("G", "").replace("g", "")) * 1024) + "M"
                 self.ui.line_android_adress.setText(bufor)
             var, buf, size = brain.check_ram(bufor)
             if var == True:
                 config["SETTINGS"]["AllocatedRam"] = bufor
+                self.ui.line_android_adress.setStyleSheet(
+                    "QLineEdit {\n	color:rgb(255,255,255);\n	border:2px solid rgb(51,51,51);\n	border-radius:4px;\n	background:rgb(51,51,51);\n}\n\nQLineEdit:disabled {\n	color:rgb(255,255,255);\n	border:2px solid rgb(112,112,112);\n	border-radius:4px;\n	background:rgb(112,112,112);\n}"
+                )
             else:
                 self.ui.line_android_adress.setText(
                     config.get("SETTINGS", "allocatedram")
+                )
+                self.ui.line_android_adress.setStyleSheet(
+                    "QLineEdit {\n	color:rgb(255,255,255);\n	border:2px solid red;\n	border-radius:4px;\n	background:rgb(51,51,51);\n}\n\nQLineEdit:disabled {\n	color:rgb(255,255,255);\n	border:2px solid red;\n	border-radius:4px;\n	background:rgb(112,112,112);\n}"
                 )
                 self.errorexec(
                     f"Cannot asing more ram than {buf}MB (80% of amount of available RAM ({size}) )",
@@ -340,7 +389,9 @@ class APFunction:
         with open(f"{sciezkaver}/config.ini", "w") as configfile:
             config.write(configfile)
 
-        threading.Thread(target=lambda: brain.GetReleases(self)).start()
+        threading.Thread(
+            name="t-GetReleases", target=lambda: brain.GetReleases(self)
+        ).start()
 
     def deleteContact(self):
         global deleteBufor
@@ -393,15 +444,21 @@ class APFunction:
 
     def bug_button(self):
         self.ui.label_12.setText("Vanilla Versions")
-        threading.Thread(target=lambda: brain.GetReleases(self)).start()
+        threading.Thread(
+            name="t-GetReleases", target=lambda: brain.GetReleases(self)
+        ).start()
 
     def bug_button2(self):
         self.ui.label_12.setText("Forge Versions")
-        threading.Thread(target=lambda: brain.ForgeReleases(self, 1)).start()
+        threading.Thread(
+            name="t-ForgeReleases", target=lambda: brain.ForgeReleases(self, 1)
+        ).start()
 
     def bug_button3(self):
-        self.ui.label_12.setText("Server Versions")
-        threading.Thread(target=lambda: brain.serverVersions(self)).start()
+        self.ui.label_12.setText("Modpacks")
+        threading.Thread(
+            name="t-ServerVersions", target=lambda: brain.serverVersions(self)
+        ).start()
 
     def bug_confirm(self):
         bufor = self.ui.comboBox.currentText()
