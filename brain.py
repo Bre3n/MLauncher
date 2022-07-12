@@ -1111,19 +1111,24 @@ def news(self):
         header = {"user-agent": f"launcher"}
 
         for i in range(5):
-            number = bufor[i]
-            default_tile = number["default_tile"]
-            title[i] = default_tile["title"]
-            sub_title[i] = default_tile["sub_header"]
-            image_buf = default_tile["image"]
-            imageURL[i] = image_buf["imageURL"]
-            articleURL[i] = number["article_url"]
+            if "LGBT" not in default_tile["sub_header"]:
+                number = bufor[i]
+                default_tile = number["default_tile"]
+                title[i] = default_tile["title"]
+                sub_title[i] = default_tile["sub_header"]
+                image_buf = default_tile["image"]
+                imageURL[i] = image_buf["imageURL"]
+                articleURL[i] = number["article_url"]
 
-            img_data = requests.get(
-                f"https://www.minecraft.net{imageURL[i]}", headers=header
-            ).content
-            with open(f"{sciezka}/cache/img/{i}.png", "wb") as handler:
-                handler.write(img_data)
+                img_data = requests.get(
+                    f"https://www.minecraft.net{imageURL[i]}", headers=header
+                ).content
+                with open(f"{sciezka}/cache/img/{i}.png", "wb") as handler:
+                    handler.write(img_data)
+            else:
+                number = bufor[i]
+                title[i] = "No information from server"
+                sub_title[i] = ""
 
         self.ui.news_1.setText(title[0])
         self.ui.news_2.setText(title[1])
