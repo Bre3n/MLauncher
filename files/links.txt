@@ -7,7 +7,7 @@ ui_function.py == 1.2
 ui_dialog.py == 1.0
 ui_error.py == 1.1
 icons.zip == 1.1
-modpacks.ini == 1.0
+modpacks.ini == 1.1
 launcher_profiles.json == 1.4.9.1
 https://raw.githubusercontent.com/Bre3n/MLauncher/master/main.py
 https://raw.githubusercontent.com/Bre3n/MLauncher/master/setup/setup.py

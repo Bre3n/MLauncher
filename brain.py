@@ -788,7 +788,7 @@ def playVanilla(self, var):
         "uuid": uuid,
         "token": token,
         "jvmArguments": jvmArguments,
-        "executablePath": executablePath,
+        # "executablePath": executablePath,
     }
 
     settings_ins = configparser.ConfigParser()
@@ -909,20 +909,15 @@ class playServers:
         config.read(f"{sciezkaver}/config.ini")
         config_servers = configparser.ConfigParser()
         config_servers.read(f"{sciezkaver}/modpacks.ini")
-        bufor = config["PROFILE"]["version"]
-        forgeVersion = config_servers.get(f"{bufor}", "forgeVersion")
-        if (
-            path.exists(
-                f"{sciezkains}/{bufor}"
-            )
-            == False
-        ):
+        versionBufor = config["PROFILE"]["version"]
+        forgeVersion = config_servers.get(f"{versionBufor}", "forgeVersion")
+        if path.exists(f"{sciezkains}/{versionBufor}") == False:
             playForge(selfui, 2)
 
         # CHECKING MODS
         self.checkmods(config, config_servers)
         selfui.ui.bn_play.setText("Launched")
-        versionPath = f"{sciezkains}/{bufor}/.minecraft"
+        versionPath = f"{sciezkains}/{versionBufor}/.minecraft"
         version = minecraft_launcher_lib.utils.get_installed_versions(f"{versionPath}")
         username = config.get("PROFILE", "username")
         token = config.get("PROFILE", "uuid")
@@ -931,15 +926,42 @@ class playServers:
         specialarg = config.get("SETTINGS", "specialarg")
         jvmArguments = []
         jvmArguments.append(f"-Xmx{allocatedram}")
+        print(version)
+        bufor = forgeVersion.split("-")
+        bufor = bufor[0].split(".")
+        try:
+            if int(bufor[1]) >= 16:
+                executablePath = config.get("JVMS", "java-17")
+            else:
+                executablePath = config.get("JVMS", "java-1.8")
+        except Exception:
+            executablePath = config.get("JVMS", "java-17")
+
+        if specialarg == "True":
+            if bufor[1] != int:
+                if int(bufor[1]) >= 16:
+                    buf = config.get("JVMS", "specialarg-17")
+                    buf = buf.split(" ")
+                    for i in range(len(buf)):
+                        jvmArguments.append(buf[i])
+                else:
+                    buf = config.get("JVMS", "specialarg-1.8")
+                    buf = buf.split(" ")
+                    for i in range(len(buf)):
+                        jvmArguments.append(buf[i])
+            else:
+                buf = config.get("JVMS", "specialarg-17")
+                buf = buf.split(" ")
+                for i in range(len(buf)):
+                    jvmArguments.append(buf[i])
         options = {
             "username": username,
             "uuid": uuid,
             "token": token,
             "jvmArguments": jvmArguments,
-            "executablePath": f"{sciezkajvms}/jdk-17.0.2/bin/javaw.exe",
         }
         setCurrentDiscordRpc(
-            "Minecraft modpack {}".format(bufor.replace("s_", "")),
+            "Minecraft modpack {}".format(versionBufor.replace("s_", "")),
             f"Playing as {username}",
         )
         threading.Thread(
@@ -1024,7 +1046,8 @@ def downloadstuff(self):
             self.ui.lab_tab2.setText(f"UNZIPPING")
             with zipfile.ZipFile(f"{sciezkains}/shared/.minecraft.zip", "r") as zipObj:
                 zipObj.extractall(f"{sciezkains}/shared/.minecraft")
-
+        progress = "DOWNLOADED"
+    """
     # * JAVA 1.8
     if path.exists(f"{sciezkajvms}/jre1.8.0_281") == False:
         if (
@@ -1058,7 +1081,7 @@ def downloadstuff(self):
         with zipfile.ZipFile(f"{sciezkajvms}/jvm17.zip", "r") as zipObj:
             zipObj.extractall(f"{sciezkajvms}/")
         progress = "DOWNLOADED"
-
+"""
     self.closebool = True
     self.ui.lab_tab2.setText(progress)
     time.sleep(1)
@@ -1102,31 +1125,43 @@ def newsOpen(self):
 def news(self):
     global articleURL
     try:
-        bufor = minecraft_launcher_lib.utils.get_minecraft_news(5)
+        config.read(f"{sciezkaver}/config.ini")
+        username = config.read("PROFILE", "username")
+        bufor = minecraft_launcher_lib.utils.get_minecraft_news(10)
         bufor = bufor["article_grid"]
         title = [1, 2, 3, 4, 5]
         sub_title = [1, 2, 3, 4, 5]
         imageURL = [1, 2, 3, 4, 5]
         articleURL = [1, 2, 3, 4, 5]
         header = {"user-agent": f"launcher"}
+        i = 0
+        ii = 0
 
-        for i in range(5):
-            number = bufor[i]
+        while True:
+            if i == 5:
+                break
+            number = bufor[ii]
             default_tile = number["default_tile"]
             title[i] = default_tile["title"]
             sub_title[i] = default_tile["sub_header"]
-            image_buf = default_tile["image"]
-            imageURL[i] = image_buf["imageURL"]
-            articleURL[i] = number["article_url"]
+            if "LGBT" not in sub_title[i]:
+                number = bufor[ii]
+                default_tile = number["default_tile"]
+                title[i] = default_tile["title"]
+                sub_title[i] = default_tile["sub_header"]
+                image_buf = default_tile["image"]
+                imageURL[i] = image_buf["imageURL"]
+                articleURL[i] = number["article_url"]
 
-            img_data = requests.get(
-                f"https://www.minecraft.net{imageURL[i]}", headers=header
-            ).content
-            with open(f"{sciezka}/cache/img/{i}.png", "wb") as handler:
-                handler.write(img_data)
-            if "LGBT" in default_tile["sub_header"]:
-                title[i] = ""
-                sub_title[i] = ""
+                img_data = requests.get(
+                    f"https://www.minecraft.net{imageURL[i]}", headers=header
+                ).content
+                with open(f"{sciezka}/cache/img/{i}.png", "wb") as handler:
+                    handler.write(img_data)
+            else:
+                i = i - 1
+            i = i + 1
+            ii = ii + 1
 
         self.ui.news_1.setText(title[0])
         self.ui.news_2.setText(title[1])
@@ -1173,7 +1208,8 @@ def news(self):
         lbl.setPixmap(img)
         lbl.mousePressEvent = lambda x: newsOpen(self)
         self.ui.verticalLayout_32.addWidget(lbl)
-    except Exception:
+    except Exception as e:
+        print(e)
         self.ui.news_1.setText("No information from server")
         self.ui.news_2.setText("No information from server")
         self.ui.news_3.setText("No information from server")

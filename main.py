@@ -201,7 +201,12 @@ class MainWindow(QMainWindow):
         if username == "Krik" or username == "Kriktinus" or username == "Krek":
             applicationName = "PLauncher"
         self.ui.lab_appname.setText(applicationName)
-        if (
+        if path.exists(f"{sciezkains}/shared/.minecraft") == False:
+            threading.Thread(
+                name="t-DownloadStuff", target=lambda: brain.downloadstuff(self)
+            ).start()
+
+        """if (
             path.exists(f"{sciezkajvms}/jre1.8.0_281") == False
             or path.exists(f"{sciezkajvms}/jdk-17.0.2") == False
             or os.path.getsize(f"{sciezkajvms}/jvm1_8.zip") < 78355000
@@ -210,7 +215,7 @@ class MainWindow(QMainWindow):
         ):
             threading.Thread(
                 name="t-DownloadStuff", target=lambda: brain.downloadstuff(self)
-            ).start()
+            ).start()"""
 
         self.i = 0
         self.valueChanged.connect(self.changetheme)

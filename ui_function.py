@@ -317,6 +317,8 @@ class APFunction:
         config["PROFILE"]["username"] = username
         if username == "Krik" or username == "Kriktinus" or username == "Krek":
             applicationName = "PLauncher"
+        else:
+            applicationName = "MLauncher"
         self.ui.lab_appname.setText(applicationName)
         self.ui.line_android_name.setStyleSheet(
             "QLineEdit {\n	color:rgb(255,255,255);\n	border:2px solid rgb(51,51,51);\n	border-radius:4px;\n	background:rgb(51,51,51);\n}\n\nQLineEdit:disabled {\n	color:rgb(255,255,255);\n	border:2px solid rgb(112,112,112);\n	border-radius:4px;\n	background:rgb(112,112,112);\n}"
@@ -349,7 +351,7 @@ class APFunction:
                 "Ok",
             )
         else:
-            if bufor[0] == "G":
+            if bufor[-1] == "G":
                 bufor = str(int(bufor.replace("G", "").replace("g", "")) * 1024) + "M"
                 self.ui.line_android_adress.setText(bufor)
             var, buf, size = brain.check_ram(bufor)
