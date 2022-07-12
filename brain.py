@@ -913,7 +913,7 @@ class playServers:
         forgeVersion = config_servers.get(f"{bufor}", "forgeVersion")
         if (
             path.exists(
-                f"C:\\Users\\mwgoi\\AppData\\Roaming\\.mlauncher\\instances\\{bufor}"
+                f"{sciezkains}/{bufor}"
             )
             == False
         ):
@@ -922,7 +922,7 @@ class playServers:
         # CHECKING MODS
         self.checkmods(config, config_servers)
         selfui.ui.bn_play.setText("Launched")
-        versionPath = f"C:\\Users\\mwgoi\\AppData\\Roaming\\.mlauncher\\instances\\{bufor}\\.minecraft"
+        versionPath = f"{sciezkains}/{bufor}/.minecraft"
         version = minecraft_launcher_lib.utils.get_installed_versions(f"{versionPath}")
         username = config.get("PROFILE", "username")
         token = config.get("PROFILE", "uuid")
@@ -936,7 +936,7 @@ class playServers:
             "uuid": uuid,
             "token": token,
             "jvmArguments": jvmArguments,
-            "executablePath": "C:\\Users\\mwgoi\\AppData\\Roaming/.mlauncher/jvms/jdk-17.0.2/bin/javaw.exe",
+            "executablePath": f"{sciezkajvms}/jdk-17.0.2/bin/javaw.exe",
         }
         setCurrentDiscordRpc(
             "Minecraft modpack {}".format(bufor.replace("s_", "")),
@@ -960,7 +960,7 @@ class playServers:
         mods = config_servers.options(version)
         bufor = mods.index("mods")
         mods = mods[bufor + 1 :]
-        versionPath = f"C:\\Users\\mwgoi\\AppData\\Roaming\\.mlauncher\\instances\\{version}\\.minecraft\\mods"
+        versionPath = f"{sciezkains}/{version}\\.minecraft\\mods"
         if path.exists(versionPath) == False:
             os.mkdir(versionPath)
         localMods = [f for f in listdir(versionPath) if isfile(join(versionPath, f))]
@@ -1125,7 +1125,8 @@ def news(self):
             with open(f"{sciezka}/cache/img/{i}.png", "wb") as handler:
                 handler.write(img_data)
             if "LGBT" in default_tile["sub_header"]:
-                title[i] = "Tomuś lubi to"
+                title[i] = ""
+                sub_title[i] = ""
 
         self.ui.news_1.setText(title[0])
         self.ui.news_2.setText(title[1])

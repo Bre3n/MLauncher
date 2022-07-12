@@ -1,6 +1,6 @@
 main.py == 1.5.2
 setup.py == 1.1
-brain.py == 1.4.2
+brain.py == 1.4.3
 forge_mods.py == 1.0
 ui_main.py == 1.2
 ui_function.py == 1.1
