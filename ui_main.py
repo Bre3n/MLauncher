@@ -56,7 +56,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.frame_appname = QFrame(self.frame_top_east)
         self.frame_appname.setObjectName(u"frame_appname")
-        self.frame_appname.setStyleSheet(u"border-radius:0px;")
+        self.frame_appname.setStyleSheet(u"border-radius:10px;")
         self.frame_appname.setFrameShape(QFrame.NoFrame)
         self.frame_appname.setFrameShadow(QFrame.Plain)
         self.horizontalLayout_10 = QHBoxLayout(self.frame_appname)

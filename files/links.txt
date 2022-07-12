@@ -1,8 +1,8 @@
-main.py == 1.5.0
+main.py == 1.5.1
 setup.py == 1.1
-brain.py == 1.1
+brain.py == 1.2
 forge_mods.py == 1.0
-ui_main.py == 1.1
+ui_main.py == 1.2
 ui_function.py == 1.1
 ui_dialog.py == 1.0
 ui_error.py == 1.1

@@ -250,7 +250,7 @@ def checkinternet(self):
             if self.i == 1 or self.i == 0:
                 self.i = 2
                 self.valueChanged.emit(self.i)
-        time.sleep(20)
+        time.sleep(15)
 
 
 def check_ram(allocated):
@@ -314,7 +314,7 @@ def discordrpc(self):
                         )
                 else:
                     rpc.clear()
-        time.sleep(20)
+        time.sleep(10)
 
 
 def GetReleases(self):
@@ -938,6 +938,13 @@ class playServers:
             "jvmArguments": jvmArguments,
             "executablePath": "C:\\Users\\mwgoi\\AppData\\Roaming/.mlauncher/jvms/jdk-17.0.2/bin/javaw.exe",
         }
+        setCurrentDiscordRpc(
+            "Minecraft modpack {}".format(bufor.replace("s_", "")),
+            f"Playing as {username}",
+        )
+        threading.Thread(
+            name="t-PlayingCheck", target=lambda: playingcheck(selfui)
+        ).start()
         try:
             version = version[1]["id"]
         except Exception:
@@ -990,7 +997,7 @@ def playingcheck(self):
             username = config.get("PROFILE", "username")
             setCurrentDiscordRpc("Home Page", f"Playing as {username}")
             return
-        time.sleep(10)
+        time.sleep(5)
 
 
 def downloadstuff(self):

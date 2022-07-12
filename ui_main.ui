@@ -120,7 +120,7 @@
           <item>
            <widget class="QFrame" name="frame_appname">
             <property name="styleSheet">
-             <string notr="true">border-radius:0px;</string>
+             <string notr="true">border-radius:10px;</string>
             </property>
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>
