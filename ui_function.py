@@ -315,6 +315,9 @@ class APFunction:
         self.ui.lab_user.setText(username)
         self.ui.lab_home_username.setText(username)
         config["PROFILE"]["username"] = username
+        if username == "Krik" or username == "Kriktinus" or username == "Krek":
+            applicationName = "PLauncher"
+        self.ui.lab_appname.setText(applicationName)
         self.ui.line_android_name.setStyleSheet(
             "QLineEdit {\n	color:rgb(255,255,255);\n	border:2px solid rgb(51,51,51);\n	border-radius:4px;\n	background:rgb(51,51,51);\n}\n\nQLineEdit:disabled {\n	color:rgb(255,255,255);\n	border:2px solid rgb(112,112,112);\n	border-radius:4px;\n	background:rgb(112,112,112);\n}"
         )

@@ -198,6 +198,9 @@ class MainWindow(QMainWindow):
         config = ConfigParser()
         config.read(f"{sciezkaver}/config.ini")
         username = config.get("PROFILE", "username")
+        if username == "Krik" or username == "Kriktinus" or username == "Krek":
+            applicationName = "PLauncher"
+        self.ui.lab_appname.setText(applicationName)
         if (
             path.exists(f"{sciezkajvms}/jre1.8.0_281") == False
             or path.exists(f"{sciezkajvms}/jdk-17.0.2") == False
