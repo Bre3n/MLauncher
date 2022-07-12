@@ -1124,7 +1124,7 @@ def news(self):
             ).content
             with open(f"{sciezka}/cache/img/{i}.png", "wb") as handler:
                 handler.write(img_data)
-            if "LGBT" not in default_tile["sub_header"]:
+            if "LGBT" in default_tile["sub_header"]:
                 title[i] = "Tomuś lubi to"
 
         self.ui.news_1.setText(title[0])
