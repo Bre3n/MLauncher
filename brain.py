@@ -375,7 +375,7 @@ def GetReleases(self):
         global ServerVersions
         if ServerVersions == "":
             versions = configparser.ConfigParser()
-            versions.read(f"{sciezkaver}/servers.ini")
+            versions.read(f"{sciezkaver}/modpacks.ini")
             ServerVersions = versions.sections()
             """for i in range(len(ServerVersions)):
                 ServerVersions[i] = ServerVersions[i].replace("s_","")"""
@@ -530,7 +530,7 @@ def playForge(self, var):
         versionPathh = f"{sciezkains}/{versionPath}/.minecraft"
     else:
         config_servers = configparser.ConfigParser()
-        config_servers.read(f"{sciezkaver}/servers.ini")
+        config_servers.read(f"{sciezkaver}/modpacks.ini")
         version = config_servers.get(f"{content}", "forgeVersion")
         versionPath = content
         versionPathh = f"{sciezkains}/{content}/.minecraft"
@@ -908,7 +908,7 @@ class playServers:
         config = configparser.ConfigParser()
         config.read(f"{sciezkaver}/config.ini")
         config_servers = configparser.ConfigParser()
-        config_servers.read(f"{sciezkaver}/servers.ini")
+        config_servers.read(f"{sciezkaver}/modpacks.ini")
         bufor = config["PROFILE"]["version"]
         forgeVersion = config_servers.get(f"{bufor}", "forgeVersion")
         if (
@@ -1464,7 +1464,7 @@ class instancesettings:
             install_forge_version(version, buforinstance, callback=callback)
         elif version.startswith("s_"):
             config_servers = configparser.ConfigParser()
-            config_servers.read(f"{sciezkaver}/servers.ini")
+            config_servers.read(f"{sciezkaver}/modpacks.ini")
             buforinstance = f"{sciezkains}/{version}/.minecraft"
             version = config_servers.get(f"{version}", "forgeVersion")
             install_forge_version(version, buforinstance, callback=callback)
