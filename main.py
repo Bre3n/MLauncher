@@ -165,6 +165,8 @@ class MainWindow(QMainWindow):
         self.ui.stackedWidget_3.setCurrentWidget(self.ui.page_forge_mods_download)
         self.ui.bn_mod_set.clicked.connect(lambda: brain.forge_mods.set_mod(self))
         self.ui.bn_mod_del.clicked.connect(lambda: brain.forge_mods.delete_mod(self))
+        self.ui.bn_showMods.clicked.connect(lambda: brain.showmods(self))
+        self.ui.textEdit.setVerticalScrollBar(self.ui.verticalScrollBar)
         self.ui.bn_openOptifine.clicked.connect(
             lambda: webbrowser.open("https://optifine.net/downloads")
         )
@@ -200,6 +202,17 @@ class MainWindow(QMainWindow):
         username = config.get("PROFILE", "username")
         if username == "Krik" or username == "Kriktinus" or username == "Krek":
             applicationName = "PLauncher"
+        bufor = config.get("PROFILE", "version")
+        if path.exists(f"{sciezkains}/{bufor}"):
+            if (
+                config.get("PROFILE", "gameversion") == "Forge Versions"
+                or config.get("PROFILE", "gameversion") == "Modpacks"
+            ):
+                self.ui.bn_showMods.setVisible(True)
+            else:
+                self.ui.bn_showMods.setVisible(False)
+        else:
+            self.ui.bn_showMods.setVisible(False)
         self.ui.lab_appname.setText(applicationName)
         if path.exists(f"{sciezkains}/shared/.minecraft") == False:
             threading.Thread(
@@ -373,7 +386,7 @@ class MainWindow(QMainWindow):
             self.ui.frame_person.setStyleSheet("background:#ff0033;")
             self.ui.frame_user.setStyleSheet("background:#ff0033;")
             self.ui.error_lab.setText(
-                "Connection Error\n{google connection timeout 5s}\n\nFirst check your internet connection, if all is alright thats may be problem with google"
+                "Connection Error\n{google connection timeout 5s}\n\nFirst check your internet connection, if all is alright thats may be problem with google\n\nSome functions may not work"
             )
         elif var == 10:
             brain.connectRpc()

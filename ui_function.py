@@ -469,6 +469,16 @@ class APFunction:
         bufor = self.ui.comboBox.currentText()
         self.ui.label_13.setText(f"Current Version: {bufor}")
         self.ui.label_2.setText(f"Current Version: {bufor}")
+        if os.path.exists(f"{sciezka}/instances/{bufor}"):
+            if (
+                self.ui.label_12.text() == "Forge Versions"
+                or self.ui.label_12.text() == "Modpacks"
+            ):
+                self.ui.bn_showMods.setVisible(True)
+            else:
+                self.ui.bn_showMods.setVisible(False)
+        else:
+            self.ui.bn_showMods.setVisible(False)
         config = ConfigParser()
         config.read(f"{sciezkaver}/config.ini")
         config["PROFILE"]["gameversion"] = self.ui.label_12.text()

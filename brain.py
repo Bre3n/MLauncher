@@ -78,6 +78,20 @@ def download(url, pathh, self, value):
                 f.flush()
 
 
+def downloader(url, pathh):
+    r = requests.get(url, stream=True)
+    percentagebufor = 0
+    with open(f"{pathh}", "wb") as f:
+        total_length = int(r.headers.get("content-length")) or None
+        for chunk in progress.bar(
+            r.iter_content(chunk_size=1024),
+            expected_size=(total_length / 1024) + 1,
+        ):
+            if chunk:
+                f.write(chunk)
+                f.flush()
+
+
 def createshortcut():
     desktop = winshell.desktop()
     if os.path.exists(f"{desktop}/MLauncher.lnk") == False:
@@ -374,8 +388,12 @@ def GetReleases(self):
             McVers.append(Releases[i])
         global ServerVersions
         if ServerVersions == "":
+            downloader(
+                "https://raw.githubusercontent.com/Bre3n/MLauncher/master/files/modpacks.ini",
+                f"{sciezka}/cache/modpacks.ini",
+            )
             versions = configparser.ConfigParser()
-            versions.read(f"{sciezkaver}/modpacks.ini")
+            versions.read(f"{sciezka}/cache/modpacks.ini")
             ServerVersions = versions.sections()
             """for i in range(len(ServerVersions)):
                 ServerVersions[i] = ServerVersions[i].replace("s_","")"""
@@ -529,8 +547,12 @@ def playForge(self, var):
         versionPath = "f-" + version
         versionPathh = f"{sciezkains}/{versionPath}/.minecraft"
     else:
+        downloader(
+            "https://raw.githubusercontent.com/Bre3n/MLauncher/master/files/modpacks.ini",
+            f"{sciezka}/cache/modpacks.ini",
+        )
         config_servers = configparser.ConfigParser()
-        config_servers.read(f"{sciezkaver}/modpacks.ini")
+        config_servers.read(f"{sciezka}/cache/modpacks.ini")
         version = config_servers.get(f"{content}", "forgeVersion")
         versionPath = content
         versionPathh = f"{sciezkains}/{content}/.minecraft"
@@ -907,15 +929,19 @@ class playServers:
     def __init__(self, selfui):
         config = configparser.ConfigParser()
         config.read(f"{sciezkaver}/config.ini")
+        downloader(
+            "https://raw.githubusercontent.com/Bre3n/MLauncher/master/files/modpacks.ini",
+            f"{sciezka}/cache/modpacks.ini",
+        )
         config_servers = configparser.ConfigParser()
-        config_servers.read(f"{sciezkaver}/modpacks.ini")
+        config_servers.read(f"{sciezka}/cache/modpacks.ini")
         versionBufor = config["PROFILE"]["version"]
         forgeVersion = config_servers.get(f"{versionBufor}", "forgeVersion")
         if path.exists(f"{sciezkains}/{versionBufor}") == False:
             playForge(selfui, 2)
 
         # CHECKING MODS
-        self.checkmods(config, config_servers)
+        self.checkmods(config)
         selfui.ui.bn_play.setText("Launched")
         versionPath = f"{sciezkains}/{versionBufor}/.minecraft"
         version = minecraft_launcher_lib.utils.get_installed_versions(f"{versionPath}")
@@ -976,7 +1002,13 @@ class playServers:
         )
         subprocess.call(minecraft_command)
 
-    def checkmods(self, config, config_servers):
+    def checkmods(self, config):
+        downloader(
+            "https://raw.githubusercontent.com/Bre3n/MLauncher/master/files/modpacks.ini",
+            f"{sciezka}/cache/modpacks.ini",
+        )
+        config_servers = configparser.ConfigParser()
+        config_servers.read(f"{sciezka}/cache/modpacks.ini")
         version = config.get("PROFILE", "version")
         forgeVersion = config_servers.get(f"{version}", "forgeVersion")
         mods = config_servers.options(version)
@@ -993,17 +1025,23 @@ class playServers:
         for i in mods:
             if i not in localMods:
                 url = config_servers.get(version, i)
-                r = requests.get(url, stream=True)
-                percentagebufor = 0
-                with open(f"{versionPath}/{i}", "wb") as f:
-                    total_length = int(r.headers.get("content-length")) or None
-                    for chunk in progress.bar(
-                        r.iter_content(chunk_size=1024),
-                        expected_size=(total_length / 1024) + 1,
-                    ):
-                        if chunk:
-                            f.write(chunk)
-                            f.flush()
+                downloader(url, f"{versionPath}/{i}")
+
+
+def showmods(self):
+    if self.ui.stackedWidget_4.currentIndex() == 1:
+        self.ui.stackedWidget_4.setCurrentIndex(0)
+        return
+    config = configparser.ConfigParser()
+    config.read(f"{sciezkaver}/config.ini")
+    version = config.get("PROFILE", "version")
+    versionPath = f"{sciezkains}/{version}\\.minecraft\\mods"
+    localMods = [f for f in listdir(versionPath) if isfile(join(versionPath, f))]
+    string = ""
+    for i in localMods:
+        string += f"{i}\n\n"
+    self.ui.textEdit.setPlainText(string)
+    self.ui.stackedWidget_4.setCurrentIndex(1)
 
 
 def playingcheck(self):
@@ -1502,8 +1540,12 @@ class instancesettings:
             # versionPathh = buforinstance.replace("/", "\\")
             install_forge_version(version, buforinstance, callback=callback)
         elif version.startswith("s_"):
+            downloader(
+                "https://raw.githubusercontent.com/Bre3n/MLauncher/master/files/modpacks.ini",
+                f"{sciezka}/cache/modpacks.ini",
+            )
             config_servers = configparser.ConfigParser()
-            config_servers.read(f"{sciezkaver}/modpacks.ini")
+            config_servers.read(f"{sciezka}/cache/modpacks.ini")
             buforinstance = f"{sciezkains}/{version}/.minecraft"
             version = config_servers.get(f"{version}", "forgeVersion")
             install_forge_version(version, buforinstance, callback=callback)
