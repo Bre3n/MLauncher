@@ -1025,6 +1025,7 @@ class playServers:
         for i in mods:
             if i not in localMods:
                 url = config_servers.get(version, i)
+                url.replace("+", "%2B")
                 downloader(url, f"{versionPath}/{i}")
 
 
