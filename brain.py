@@ -940,9 +940,9 @@ class playServers:
         if path.exists(f"{sciezkains}/{versionBufor}") == False:
             playForge(selfui, 2)
 
+        selfui.ui.bn_play.setText("Launched")
         # CHECKING MODS
         self.checkmods(config)
-        selfui.ui.bn_play.setText("Launched")
         versionPath = f"{sciezkains}/{versionBufor}/.minecraft"
         version = minecraft_launcher_lib.utils.get_installed_versions(f"{versionPath}")
         username = config.get("PROFILE", "username")
