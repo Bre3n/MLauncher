@@ -2212,7 +2212,7 @@ QPushButton:hover {
                              <bool>false</bool>
                             </property>
                             <property name="textInteractionFlags">
-                             <set>Qt::NoTextInteraction</set>
+                             <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                             </property>
                            </widget>
                           </item>
@@ -2915,7 +2915,7 @@ QPushButton:hover {
                            <rect>
                             <x>0</x>
                             <y>0</y>
-                            <width>95</width>
+                            <width>100</width>
                             <height>410</height>
                            </rect>
                           </property>
