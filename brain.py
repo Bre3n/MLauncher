@@ -1003,10 +1003,6 @@ class playServers:
         subprocess.call(minecraft_command)
 
     def checkmods(self, config):
-        downloader(
-            "https://raw.githubusercontent.com/Bre3n/MLauncher/master/files/modpacks.ini",
-            f"{sciezka}/cache/modpacks.ini",
-        )
         config_servers = configparser.ConfigParser()
         config_servers.read(f"{sciezka}/cache/modpacks.ini")
         version = config.get("PROFILE", "version")
@@ -1025,7 +1021,9 @@ class playServers:
         for i in mods:
             if i not in localMods:
                 url = config_servers.get(version, i)
-                url.replace("+", "%2B")
+                print(url)
+                url = url.replace("+", "%2B")
+                print(url)
                 downloader(url, f"{versionPath}/{i}")
 
 
