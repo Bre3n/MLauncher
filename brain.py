@@ -79,6 +79,7 @@ def download(url, pathh, self, value):
 
 
 def downloader(url, pathh):
+    print(url, pathh)
     r = requests.get(url, stream=True)
     percentagebufor = 0
     with open(f"{pathh}", "wb") as f:
@@ -1045,7 +1046,7 @@ def showmods(self):
 
 def playingcheck(self):
     global iterablebool
-    time.sleep(20)
+    time.sleep(30)
     while iterablebool > 0:
         buforplay = "javaw.exe" in (i.name() for i in psutil.process_iter())
         if buforplay == False:
