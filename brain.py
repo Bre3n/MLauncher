@@ -1008,24 +1008,33 @@ class playServers:
         config_servers.read(f"{sciezka}/cache/modpacks.ini")
         version = config.get("PROFILE", "version")
         forgeVersion = config_servers.get(f"{version}", "forgeVersion")
-        mods = config_servers.options(version)
-        bufor = mods.index("mods")
-        mods = mods[bufor + 1 :]
-        versionPath = f"{sciezkains}/{version}\\.minecraft\\mods"
-        if path.exists(versionPath) == False:
-            os.mkdir(versionPath)
-        localMods = [f for f in listdir(versionPath) if isfile(join(versionPath, f))]
-        for i in localMods:
-            if i not in mods:
-                print("deleted ", i)
-                os.remove(f"{versionPath}/{i}")
-        for i in mods:
-            if i not in localMods:
-                url = config_servers.get(version, i)
-                print(url)
-                url = url.replace("+", "%2B")
-                print(url)
-                downloader(url, f"{versionPath}/{i}")
+        if not config_servers.has_option(version, "zip"):
+            mods = config_servers.options(version)
+            bufor = mods.index("mods")
+            mods = mods[bufor + 1 :]
+            versionPath = f"{sciezkains}/{version}\\.minecraft\\mods"
+            if path.exists(versionPath) == False:
+                os.mkdir(versionPath)
+            localMods = [f for f in listdir(versionPath) if isfile(join(versionPath, f))]
+            for i in localMods:
+                if i not in mods:
+                    print("deleted ", i)
+                    os.remove(f"{versionPath}/{i}")
+            for i in mods:
+                if i not in localMods:
+                    url = config_servers.get(version, i)
+                    print(url)
+                    url = url.replace("+", "%2B")
+                    print(url)
+                    downloader(url, f"{versionPath}/{i}")
+        else:
+            from zipfile import ZipFile
+            url = config_servers.get(version, "zip")
+            url = url.replace("+", "%2B")
+            downloader(url, f"{versionPath}/{i}")
+            with ZipFile("zipfile.zip", 'r') as zipObj:
+                zipObj.extractall()
+
 
 
 def showmods(self):
