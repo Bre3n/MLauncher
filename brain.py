@@ -81,7 +81,6 @@ def download(url, pathh, self, value):
 def downloader(url, pathh):
     print(url, pathh)
     r = requests.get(url, stream=True)
-    percentagebufor = 0
     with open(f"{pathh}", "wb") as f:
         total_length = int(r.headers.get("content-length")) or None
         for chunk in progress.bar(
@@ -943,8 +942,10 @@ class playServers:
 
         selfui.ui.bn_play.setText("Launched")
         # CHECKING MODS
-        self.checkmods(config)
         versionPath = f"{sciezkains}/{versionBufor}/.minecraft"
+        if not path.exists(f"{versionPath}/mods"):
+            os.mkdir(f"{versionPath}/mods")
+        self.checkmods(config)
         version = minecraft_launcher_lib.utils.get_installed_versions(f"{versionPath}")
         username = config.get("PROFILE", "username")
         token = config.get("PROFILE", "uuid")
@@ -1008,11 +1009,11 @@ class playServers:
         config_servers.read(f"{sciezka}/cache/modpacks.ini")
         version = config.get("PROFILE", "version")
         forgeVersion = config_servers.get(f"{version}", "forgeVersion")
+        versionPath = f"{sciezkains}/{version}\\.minecraft\\mods"
         if not config_servers.has_option(version, "zip"):
             mods = config_servers.options(version)
             bufor = mods.index("mods")
             mods = mods[bufor + 1 :]
-            versionPath = f"{sciezkains}/{version}\\.minecraft\\mods"
             if path.exists(versionPath) == False:
                 os.mkdir(versionPath)
             localMods = [f for f in listdir(versionPath) if isfile(join(versionPath, f))]
@@ -1028,13 +1029,13 @@ class playServers:
                     print(url)
                     downloader(url, f"{versionPath}/{i}")
         else:
-            from zipfile import ZipFile
-            url = config_servers.get(version, "zip")
-            url = url.replace("+", "%2B")
-            downloader(url, f"{versionPath}/{i}")
-            with ZipFile("zipfile.zip", 'r') as zipObj:
-                zipObj.extractall()
-
+            if not path.exists(f"{versionPath}/zipfile.zip"):
+                from zipfile import ZipFile
+                url = config_servers.get(version, "zip")
+                url = url.replace("+", "%2B")
+                downloader(url, f"{versionPath}/zipfile.zip")
+                with ZipFile(f"{versionPath}/zipfile.zip", 'r') as zipObj:
+                    zipObj.extractall(f"{versionPath}")
 
 
 def showmods(self):
