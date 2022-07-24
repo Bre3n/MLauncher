@@ -166,7 +166,6 @@ class MainWindow(QMainWindow):
         self.ui.bn_mod_set.clicked.connect(lambda: brain.forge_mods.set_mod(self))
         self.ui.bn_mod_del.clicked.connect(lambda: brain.forge_mods.delete_mod(self))
         self.ui.bn_showMods.clicked.connect(lambda: brain.showmods(self))
-        self.ui.textEdit.setVerticalScrollBar(self.ui.verticalScrollBar)
         self.ui.bn_openOptifine.clicked.connect(
             lambda: webbrowser.open("https://optifine.net/downloads")
         )

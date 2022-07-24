@@ -1101,7 +1101,7 @@ QPushButton:hover {
                 <string notr="true"/>
                </property>
                <property name="currentIndex">
-                <number>0</number>
+                <number>9</number>
                </property>
                <widget class="QWidget" name="page_home">
                 <property name="styleSheet">
@@ -2915,7 +2915,7 @@ QPushButton:hover {
                            <rect>
                             <x>0</x>
                             <y>0</y>
-                            <width>100</width>
+                            <width>95</width>
                             <height>410</height>
                            </rect>
                           </property>
@@ -4572,7 +4572,7 @@ QPushButton:pressed {
                     <string notr="true">background:rgb(91,90,90);</string>
                    </property>
                    <property name="currentIndex">
-                    <number>1</number>
+                    <number>0</number>
                    </property>
                    <widget class="QWidget" name="page_android_contact">
                     <property name="styleSheet">
@@ -4670,6 +4670,19 @@ QPushButton:pressed {
                            <property name="spacing">
                             <number>5</number>
                            </property>
+                           <item row="4" column="8">
+                            <spacer name="horizontalSpacer_5">
+                             <property name="orientation">
+                              <enum>Qt::Horizontal</enum>
+                             </property>
+                             <property name="sizeHint" stdset="0">
+                              <size>
+                               <width>40</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                            </spacer>
+                           </item>
                            <item row="3" column="0" colspan="3">
                             <widget class="QLabel" name="label_5">
                              <property name="font">
@@ -4686,49 +4699,6 @@ QPushButton:pressed {
                              </property>
                             </widget>
                            </item>
-                           <item row="3" column="3">
-                            <widget class="QLineEdit" name="line_android_adress">
-                             <property name="enabled">
-                              <bool>false</bool>
-                             </property>
-                             <property name="minimumSize">
-                              <size>
-                               <width>300</width>
-                               <height>25</height>
-                              </size>
-                             </property>
-                             <property name="maximumSize">
-                              <size>
-                               <width>400</width>
-                               <height>25</height>
-                              </size>
-                             </property>
-                             <property name="font">
-                              <font>
-                               <family>Segoe UI</family>
-                               <pointsize>12</pointsize>
-                              </font>
-                             </property>
-                             <property name="styleSheet">
-                              <string notr="true">QLineEdit {
-	color:rgb(255,255,255);
-	border:2px solid rgb(51,51,51);
-	border-radius:4px;
-	background:rgb(51,51,51);
-}
-
-QLineEdit:disabled {
-	color:rgb(255,255,255);
-	border:2px solid rgb(112,112,112);
-	border-radius:4px;
-	background:rgb(112,112,112);
-}</string>
-                             </property>
-                             <property name="text">
-                              <string>2048M</string>
-                             </property>
-                            </widget>
-                           </item>
                            <item row="6" column="0">
                             <widget class="QLabel" name="label_4">
                              <property name="font">
@@ -4742,24 +4712,8 @@ QLineEdit:disabled {
                              </property>
                             </widget>
                            </item>
-                           <item row="4" column="0">
-                            <widget class="QLabel" name="label_6">
-                             <property name="font">
-                              <font>
-                               <family>Segoe UI</family>
-                               <pointsize>14</pointsize>
-                              </font>
-                             </property>
-                             <property name="styleSheet">
-                              <string notr="true">color:rgb(255,255,255);</string>
-                             </property>
-                             <property name="text">
-                              <string>Special arguments</string>
-                             </property>
-                            </widget>
-                           </item>
-                           <item row="5" column="3">
-                            <widget class="QCheckBox" name="line_checkbox_rpc">
+                           <item row="6" column="3">
+                            <widget class="QCheckBox" name="line_checkbox_snapshots">
                              <property name="enabled">
                               <bool>false</bool>
                              </property>
@@ -4855,18 +4809,52 @@ QCheckBox::indicator:checked:pressed {
                              </property>
                             </widget>
                            </item>
-                           <item row="7" column="8">
-                            <spacer name="horizontalSpacer_6">
-                             <property name="orientation">
-                              <enum>Qt::Horizontal</enum>
+                           <item row="5" column="3">
+                            <widget class="QCheckBox" name="line_checkbox_rpc">
+                             <property name="enabled">
+                              <bool>false</bool>
                              </property>
-                             <property name="sizeHint" stdset="0">
-                              <size>
-                               <width>40</width>
-                               <height>20</height>
-                              </size>
+                             <property name="font">
+                              <font>
+                               <family>Segoe UI</family>
+                               <pointsize>12</pointsize>
+                              </font>
                              </property>
-                            </spacer>
+                             <property name="styleSheet">
+                              <string notr="true">QCheckBox {
+    color:rgb(255,255,255);
+}
+
+QCheckBox::indicator {
+    width: 10px;
+    height: 10px;
+}
+
+QCheckBox::indicator:unchecked {
+    border:2px solid rgb(51,51,51);
+	background:rgb(91,90,90);
+}
+
+QCheckBox::indicator:unchecked:pressed {
+	border:2px solid rgb(51,51,51);
+   	background:rgb(0,143,170);
+}
+
+QCheckBox::indicator:checked {
+	background-color:rgb(0,143,170);
+    border: 2px solid rgb(51,51,51);
+}
+
+QCheckBox::indicator:checked:pressed {
+    border:2px solid rgb(51,51,51);
+	background:rgb(91,90,90);
+}
+</string>
+                             </property>
+                             <property name="text">
+                              <string>Unchecked</string>
+                             </property>
+                            </widget>
                            </item>
                            <item row="5" column="0">
                             <widget class="QLabel" name="label_8">
@@ -4881,19 +4869,59 @@ QCheckBox::indicator:checked:pressed {
                              </property>
                             </widget>
                            </item>
-                           <item row="1" column="0" colspan="3">
-                            <widget class="QLabel" name="label">
+                           <item row="8" column="3">
+                            <spacer name="verticalSpacer_4">
+                             <property name="orientation">
+                              <enum>Qt::Vertical</enum>
+                             </property>
+                             <property name="sizeHint" stdset="0">
+                              <size>
+                               <width>20</width>
+                               <height>40</height>
+                              </size>
+                             </property>
+                            </spacer>
+                           </item>
+                           <item row="3" column="3">
+                            <widget class="QLineEdit" name="line_android_adress">
+                             <property name="enabled">
+                              <bool>false</bool>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>300</width>
+                               <height>25</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>400</width>
+                               <height>25</height>
+                              </size>
+                             </property>
                              <property name="font">
                               <font>
                                <family>Segoe UI</family>
-                               <pointsize>14</pointsize>
+                               <pointsize>12</pointsize>
                               </font>
                              </property>
                              <property name="styleSheet">
-                              <string notr="true">color:rgb(255,255,255);</string>
+                              <string notr="true">QLineEdit {
+	color:rgb(255,255,255);
+	border:2px solid rgb(51,51,51);
+	border-radius:4px;
+	background:rgb(51,51,51);
+}
+
+QLineEdit:disabled {
+	color:rgb(255,255,255);
+	border:2px solid rgb(112,112,112);
+	border-radius:4px;
+	background:rgb(112,112,112);
+}</string>
                              </property>
                              <property name="text">
-                              <string>Nickname</string>
+                              <string>2048M</string>
                              </property>
                             </widget>
                            </item>
@@ -4939,6 +4967,89 @@ QLineEdit:disabled {
                               <string>Steve</string>
                              </property>
                             </widget>
+                           </item>
+                           <item row="4" column="0">
+                            <widget class="QLabel" name="label_6">
+                             <property name="font">
+                              <font>
+                               <family>Segoe UI</family>
+                               <pointsize>14</pointsize>
+                              </font>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">color:rgb(255,255,255);</string>
+                             </property>
+                             <property name="text">
+                              <string>Special arguments</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item row="1" column="0" colspan="3">
+                            <widget class="QLabel" name="label">
+                             <property name="font">
+                              <font>
+                               <family>Segoe UI</family>
+                               <pointsize>14</pointsize>
+                              </font>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">color:rgb(255,255,255);</string>
+                             </property>
+                             <property name="text">
+                              <string>Nickname</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item row="9" column="3">
+                            <widget class="QPushButton" name="bn_shortcut">
+                             <property name="font">
+                              <font>
+                               <family>Segoe UI</family>
+                               <pointsize>12</pointsize>
+                              </font>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">QPushButton {
+	border: 2px solid rgb(51,51,51);
+	border-radius: 5px;	
+	color:rgb(255,255,255);
+	background-color: rgb(51,51,51);
+}
+QPushButton:hover {
+	border: 2px solid rgb(112,0,0);
+	background-color: rgb(112,0,0);
+}
+QPushButton:pressed {	
+	border: 2px solid rgb(112,0,0);
+	background-color: rgb(51,51,51);
+}
+
+QPushButton:disabled {	
+	border-radius: 5px;	
+	border: 2px solid rgb(112,112,112);
+	background-color: rgb(112,112,112);
+}</string>
+                             </property>
+                             <property name="text">
+                              <string>Create shortcut on desktop</string>
+                             </property>
+                             <property name="flat">
+                              <bool>true</bool>
+                             </property>
+                            </widget>
+                           </item>
+                           <item row="7" column="8">
+                            <spacer name="horizontalSpacer_6">
+                             <property name="orientation">
+                              <enum>Qt::Horizontal</enum>
+                             </property>
+                             <property name="sizeHint" stdset="0">
+                              <size>
+                               <width>40</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                            </spacer>
                            </item>
                            <item row="7" column="0" colspan="7">
                             <widget class="QFrame" name="frame_3">
@@ -5109,117 +5220,6 @@ QPushButton:disabled {
                                </widget>
                               </item>
                              </layout>
-                            </widget>
-                           </item>
-                           <item row="6" column="3">
-                            <widget class="QCheckBox" name="line_checkbox_snapshots">
-                             <property name="enabled">
-                              <bool>false</bool>
-                             </property>
-                             <property name="font">
-                              <font>
-                               <family>Segoe UI</family>
-                               <pointsize>12</pointsize>
-                              </font>
-                             </property>
-                             <property name="styleSheet">
-                              <string notr="true">QCheckBox {
-    color:rgb(255,255,255);
-}
-
-QCheckBox::indicator {
-    width: 10px;
-    height: 10px;
-}
-
-QCheckBox::indicator:unchecked {
-    border:2px solid rgb(51,51,51);
-	background:rgb(91,90,90);
-}
-
-QCheckBox::indicator:unchecked:pressed {
-	border:2px solid rgb(51,51,51);
-   	background:rgb(0,143,170);
-}
-
-QCheckBox::indicator:checked {
-	background-color:rgb(0,143,170);
-    border: 2px solid rgb(51,51,51);
-}
-
-QCheckBox::indicator:checked:pressed {
-    border:2px solid rgb(51,51,51);
-	background:rgb(91,90,90);
-}
-</string>
-                             </property>
-                             <property name="text">
-                              <string>Unchecked</string>
-                             </property>
-                            </widget>
-                           </item>
-                           <item row="8" column="3">
-                            <spacer name="verticalSpacer_4">
-                             <property name="orientation">
-                              <enum>Qt::Vertical</enum>
-                             </property>
-                             <property name="sizeHint" stdset="0">
-                              <size>
-                               <width>20</width>
-                               <height>40</height>
-                              </size>
-                             </property>
-                            </spacer>
-                           </item>
-                           <item row="4" column="8">
-                            <spacer name="horizontalSpacer_5">
-                             <property name="orientation">
-                              <enum>Qt::Horizontal</enum>
-                             </property>
-                             <property name="sizeHint" stdset="0">
-                              <size>
-                               <width>40</width>
-                               <height>20</height>
-                              </size>
-                             </property>
-                            </spacer>
-                           </item>
-                           <item row="9" column="3">
-                            <widget class="QPushButton" name="bn_shortcut">
-                             <property name="font">
-                              <font>
-                               <family>Segoe UI</family>
-                               <pointsize>12</pointsize>
-                              </font>
-                             </property>
-                             <property name="styleSheet">
-                              <string notr="true">QPushButton {
-	border: 2px solid rgb(51,51,51);
-	border-radius: 5px;	
-	color:rgb(255,255,255);
-	background-color: rgb(51,51,51);
-}
-QPushButton:hover {
-	border: 2px solid rgb(112,0,0);
-	background-color: rgb(112,0,0);
-}
-QPushButton:pressed {	
-	border: 2px solid rgb(112,0,0);
-	background-color: rgb(51,51,51);
-}
-
-QPushButton:disabled {	
-	border-radius: 5px;	
-	border: 2px solid rgb(112,112,112);
-	background-color: rgb(112,112,112);
-}</string>
-                             </property>
-                             <property name="text">
-                              <string>Create shortcut on desktop</string>
-                             </property>
-                             <property name="flat">
-                              <bool>true</bool>
-                             </property>
                             </widget>
                            </item>
                           </layout>

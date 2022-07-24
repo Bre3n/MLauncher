@@ -977,7 +977,7 @@ class Ui_MainWindow(object):
         self.textEdit.setFont(font11)
         self.textEdit.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
         self.textEdit.setUndoRedoEnabled(False)
-        self.textEdit.setTextInteractionFlags(Qt.NoTextInteraction)
+        self.textEdit.setTextInteractionFlags(Qt.TextSelectableByKeyboard|Qt.TextSelectableByMouse)
 
         self.horizontalLayout_49.addWidget(self.textEdit)
 
@@ -2380,6 +2380,10 @@ class Ui_MainWindow(object):
         self.gridLayout_4.setSpacing(5)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.gridLayout_4.setContentsMargins(5, 5, 5, 5)
+        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout_4.addItem(self.horizontalSpacer_5, 4, 8, 1, 1)
+
         self.label_5 = QLabel(self.frame_android_field)
         self.label_5.setObjectName(u"label_5")
         self.label_5.setFont(font8)
@@ -2387,46 +2391,17 @@ class Ui_MainWindow(object):
 
         self.gridLayout_4.addWidget(self.label_5, 3, 0, 1, 3)
 
-        self.line_android_adress = QLineEdit(self.frame_android_field)
-        self.line_android_adress.setObjectName(u"line_android_adress")
-        self.line_android_adress.setEnabled(False)
-        self.line_android_adress.setMinimumSize(QSize(300, 25))
-        self.line_android_adress.setMaximumSize(QSize(400, 25))
-        self.line_android_adress.setFont(font)
-        self.line_android_adress.setStyleSheet(u"QLineEdit {\n"
-"	color:rgb(255,255,255);\n"
-"	border:2px solid rgb(51,51,51);\n"
-"	border-radius:4px;\n"
-"	background:rgb(51,51,51);\n"
-"}\n"
-"\n"
-"QLineEdit:disabled {\n"
-"	color:rgb(255,255,255);\n"
-"	border:2px solid rgb(112,112,112);\n"
-"	border-radius:4px;\n"
-"	background:rgb(112,112,112);\n"
-"}")
-
-        self.gridLayout_4.addWidget(self.line_android_adress, 3, 3, 1, 1)
-
         self.label_4 = QLabel(self.frame_android_field)
         self.label_4.setObjectName(u"label_4")
         self.label_4.setFont(font8)
 
         self.gridLayout_4.addWidget(self.label_4, 6, 0, 1, 1)
 
-        self.label_6 = QLabel(self.frame_android_field)
-        self.label_6.setObjectName(u"label_6")
-        self.label_6.setFont(font8)
-        self.label_6.setStyleSheet(u"color:rgb(255,255,255);")
-
-        self.gridLayout_4.addWidget(self.label_6, 4, 0, 1, 1)
-
-        self.line_checkbox_rpc = QCheckBox(self.frame_android_field)
-        self.line_checkbox_rpc.setObjectName(u"line_checkbox_rpc")
-        self.line_checkbox_rpc.setEnabled(False)
-        self.line_checkbox_rpc.setFont(font)
-        self.line_checkbox_rpc.setStyleSheet(u"QCheckBox {\n"
+        self.line_checkbox_snapshots = QCheckBox(self.frame_android_field)
+        self.line_checkbox_snapshots.setObjectName(u"line_checkbox_snapshots")
+        self.line_checkbox_snapshots.setEnabled(False)
+        self.line_checkbox_snapshots.setFont(font)
+        self.line_checkbox_snapshots.setStyleSheet(u"QCheckBox {\n"
 "    color:rgb(255,255,255);\n"
 "}\n"
 "\n"
@@ -2456,7 +2431,7 @@ class Ui_MainWindow(object):
 "}\n"
 "")
 
-        self.gridLayout_4.addWidget(self.line_checkbox_rpc, 5, 3, 1, 1)
+        self.gridLayout_4.addWidget(self.line_checkbox_snapshots, 6, 3, 1, 1)
 
         self.line_checkbox_arg = QCheckBox(self.frame_android_field)
         self.line_checkbox_arg.setObjectName(u"line_checkbox_arg")
@@ -2495,9 +2470,41 @@ class Ui_MainWindow(object):
 
         self.gridLayout_4.addWidget(self.line_checkbox_arg, 4, 3, 1, 1)
 
-        self.horizontalSpacer_6 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.line_checkbox_rpc = QCheckBox(self.frame_android_field)
+        self.line_checkbox_rpc.setObjectName(u"line_checkbox_rpc")
+        self.line_checkbox_rpc.setEnabled(False)
+        self.line_checkbox_rpc.setFont(font)
+        self.line_checkbox_rpc.setStyleSheet(u"QCheckBox {\n"
+"    color:rgb(255,255,255);\n"
+"}\n"
+"\n"
+"QCheckBox::indicator {\n"
+"    width: 10px;\n"
+"    height: 10px;\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:unchecked {\n"
+"    border:2px solid rgb(51,51,51);\n"
+"	background:rgb(91,90,90);\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:unchecked:pressed {\n"
+"	border:2px solid rgb(51,51,51);\n"
+"   	background:rgb(0,143,170);\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:checked {\n"
+"	background-color:rgb(0,143,170);\n"
+"    border: 2px solid rgb(51,51,51);\n"
+"}\n"
+"\n"
+"QCheckBox::indicator:checked:pressed {\n"
+"    border:2px solid rgb(51,51,51);\n"
+"	background:rgb(91,90,90);\n"
+"}\n"
+"")
 
-        self.gridLayout_4.addItem(self.horizontalSpacer_6, 7, 8, 1, 1)
+        self.gridLayout_4.addWidget(self.line_checkbox_rpc, 5, 3, 1, 1)
 
         self.label_8 = QLabel(self.frame_android_field)
         self.label_8.setObjectName(u"label_8")
@@ -2505,12 +2512,31 @@ class Ui_MainWindow(object):
 
         self.gridLayout_4.addWidget(self.label_8, 5, 0, 1, 1)
 
-        self.label = QLabel(self.frame_android_field)
-        self.label.setObjectName(u"label")
-        self.label.setFont(font8)
-        self.label.setStyleSheet(u"color:rgb(255,255,255);")
+        self.verticalSpacer_4 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
-        self.gridLayout_4.addWidget(self.label, 1, 0, 1, 3)
+        self.gridLayout_4.addItem(self.verticalSpacer_4, 8, 3, 1, 1)
+
+        self.line_android_adress = QLineEdit(self.frame_android_field)
+        self.line_android_adress.setObjectName(u"line_android_adress")
+        self.line_android_adress.setEnabled(False)
+        self.line_android_adress.setMinimumSize(QSize(300, 25))
+        self.line_android_adress.setMaximumSize(QSize(400, 25))
+        self.line_android_adress.setFont(font)
+        self.line_android_adress.setStyleSheet(u"QLineEdit {\n"
+"	color:rgb(255,255,255);\n"
+"	border:2px solid rgb(51,51,51);\n"
+"	border-radius:4px;\n"
+"	background:rgb(51,51,51);\n"
+"}\n"
+"\n"
+"QLineEdit:disabled {\n"
+"	color:rgb(255,255,255);\n"
+"	border:2px solid rgb(112,112,112);\n"
+"	border-radius:4px;\n"
+"	background:rgb(112,112,112);\n"
+"}")
+
+        self.gridLayout_4.addWidget(self.line_android_adress, 3, 3, 1, 1)
 
         self.line_android_name = QLineEdit(self.frame_android_field)
         self.line_android_name.setObjectName(u"line_android_name")
@@ -2533,6 +2559,51 @@ class Ui_MainWindow(object):
 "}")
 
         self.gridLayout_4.addWidget(self.line_android_name, 1, 3, 1, 1)
+
+        self.label_6 = QLabel(self.frame_android_field)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setFont(font8)
+        self.label_6.setStyleSheet(u"color:rgb(255,255,255);")
+
+        self.gridLayout_4.addWidget(self.label_6, 4, 0, 1, 1)
+
+        self.label = QLabel(self.frame_android_field)
+        self.label.setObjectName(u"label")
+        self.label.setFont(font8)
+        self.label.setStyleSheet(u"color:rgb(255,255,255);")
+
+        self.gridLayout_4.addWidget(self.label, 1, 0, 1, 3)
+
+        self.bn_shortcut = QPushButton(self.frame_android_field)
+        self.bn_shortcut.setObjectName(u"bn_shortcut")
+        self.bn_shortcut.setFont(font)
+        self.bn_shortcut.setStyleSheet(u"QPushButton {\n"
+"	border: 2px solid rgb(51,51,51);\n"
+"	border-radius: 5px;	\n"
+"	color:rgb(255,255,255);\n"
+"	background-color: rgb(51,51,51);\n"
+"}\n"
+"QPushButton:hover {\n"
+"	border: 2px solid rgb(112,0,0);\n"
+"	background-color: rgb(112,0,0);\n"
+"}\n"
+"QPushButton:pressed {	\n"
+"	border: 2px solid rgb(112,0,0);\n"
+"	background-color: rgb(51,51,51);\n"
+"}\n"
+"\n"
+"QPushButton:disabled {	\n"
+"	border-radius: 5px;	\n"
+"	border: 2px solid rgb(112,112,112);\n"
+"	background-color: rgb(112,112,112);\n"
+"}")
+        self.bn_shortcut.setFlat(True)
+
+        self.gridLayout_4.addWidget(self.bn_shortcut, 9, 3, 1, 1)
+
+        self.horizontalSpacer_6 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout_4.addItem(self.horizontalSpacer_6, 7, 8, 1, 1)
 
         self.frame_3 = QFrame(self.frame_android_field)
         self.frame_3.setObjectName(u"frame_3")
@@ -2629,77 +2700,6 @@ class Ui_MainWindow(object):
 
 
         self.gridLayout_4.addWidget(self.frame_3, 7, 0, 1, 7)
-
-        self.line_checkbox_snapshots = QCheckBox(self.frame_android_field)
-        self.line_checkbox_snapshots.setObjectName(u"line_checkbox_snapshots")
-        self.line_checkbox_snapshots.setEnabled(False)
-        self.line_checkbox_snapshots.setFont(font)
-        self.line_checkbox_snapshots.setStyleSheet(u"QCheckBox {\n"
-"    color:rgb(255,255,255);\n"
-"}\n"
-"\n"
-"QCheckBox::indicator {\n"
-"    width: 10px;\n"
-"    height: 10px;\n"
-"}\n"
-"\n"
-"QCheckBox::indicator:unchecked {\n"
-"    border:2px solid rgb(51,51,51);\n"
-"	background:rgb(91,90,90);\n"
-"}\n"
-"\n"
-"QCheckBox::indicator:unchecked:pressed {\n"
-"	border:2px solid rgb(51,51,51);\n"
-"   	background:rgb(0,143,170);\n"
-"}\n"
-"\n"
-"QCheckBox::indicator:checked {\n"
-"	background-color:rgb(0,143,170);\n"
-"    border: 2px solid rgb(51,51,51);\n"
-"}\n"
-"\n"
-"QCheckBox::indicator:checked:pressed {\n"
-"    border:2px solid rgb(51,51,51);\n"
-"	background:rgb(91,90,90);\n"
-"}\n"
-"")
-
-        self.gridLayout_4.addWidget(self.line_checkbox_snapshots, 6, 3, 1, 1)
-
-        self.verticalSpacer_4 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout_4.addItem(self.verticalSpacer_4, 8, 3, 1, 1)
-
-        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_4.addItem(self.horizontalSpacer_5, 4, 8, 1, 1)
-
-        self.bn_shortcut = QPushButton(self.frame_android_field)
-        self.bn_shortcut.setObjectName(u"bn_shortcut")
-        self.bn_shortcut.setFont(font)
-        self.bn_shortcut.setStyleSheet(u"QPushButton {\n"
-"	border: 2px solid rgb(51,51,51);\n"
-"	border-radius: 5px;	\n"
-"	color:rgb(255,255,255);\n"
-"	background-color: rgb(51,51,51);\n"
-"}\n"
-"QPushButton:hover {\n"
-"	border: 2px solid rgb(112,0,0);\n"
-"	background-color: rgb(112,0,0);\n"
-"}\n"
-"QPushButton:pressed {	\n"
-"	border: 2px solid rgb(112,0,0);\n"
-"	background-color: rgb(51,51,51);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {	\n"
-"	border-radius: 5px;	\n"
-"	border: 2px solid rgb(112,112,112);\n"
-"	background-color: rgb(112,112,112);\n"
-"}")
-        self.bn_shortcut.setFlat(True)
-
-        self.gridLayout_4.addWidget(self.bn_shortcut, 9, 3, 1, 1)
 
 
         self.gridLayout_3.addWidget(self.frame_android_field, 0, 2, 2, 1)
@@ -3031,10 +3031,10 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(9)
         self.stackedWidget_2.setCurrentIndex(4)
         self.stackedWidget_3.setCurrentIndex(1)
-        self.stackedWidget_android.setCurrentIndex(1)
+        self.stackedWidget_android.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -3150,19 +3150,19 @@ class Ui_MainWindow(object):
         self.bn_android_world.setText("")
         self.lab_android_contact.setText(QCoreApplication.translate("MainWindow", u"Settings", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"Max RAM: ", None))
-        self.line_android_adress.setText(QCoreApplication.translate("MainWindow", u"2048M", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"Show Snapshots", None))
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Special arguments", None))
-        self.line_checkbox_rpc.setText(QCoreApplication.translate("MainWindow", u"Unchecked", None))
+        self.line_checkbox_snapshots.setText(QCoreApplication.translate("MainWindow", u"Unchecked", None))
         self.line_checkbox_arg.setText(QCoreApplication.translate("MainWindow", u"Unchecked", None))
+        self.line_checkbox_rpc.setText(QCoreApplication.translate("MainWindow", u"Unchecked", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"Discord Activity", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"Nickname", None))
+        self.line_android_adress.setText(QCoreApplication.translate("MainWindow", u"2048M", None))
         self.line_android_name.setText(QCoreApplication.translate("MainWindow", u"Steve", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Special arguments", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"Nickname", None))
+        self.bn_shortcut.setText(QCoreApplication.translate("MainWindow", u"Create shortcut on desktop", None))
         self.bn_android_contact_edit.setText(QCoreApplication.translate("MainWindow", u"Edit", None))
         self.bn_android_contact_delete.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
         self.bn_android_contact_save.setText(QCoreApplication.translate("MainWindow", u"Save", None))
-        self.line_checkbox_snapshots.setText(QCoreApplication.translate("MainWindow", u"Unchecked", None))
-        self.bn_shortcut.setText(QCoreApplication.translate("MainWindow", u"Create shortcut on desktop", None))
         self.lab_person_icon.setText("")
         self.label_27.setText("")
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"Information:", None))
