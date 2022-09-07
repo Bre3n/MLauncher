@@ -589,7 +589,7 @@ def playForge(self, var):
         "uuid": uuid,
         "token": token,
         "jvmArguments": jvmArguments,
-        "executablePath": executablePath,
+        # "executablePath": executablePath,
     }
     settings_ins = configparser.ConfigParser()
     settings_ins.read(f"{sciezkains}/{versionPath}/settings_ins.ini")
