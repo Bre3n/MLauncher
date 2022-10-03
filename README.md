@@ -8,10 +8,12 @@ If you want to check this project, download latest release and run "setup.py"
 
 UI redesigned from <a href="https://github.com/anjalp/Minimalistic-Flat-Modern-GUI-Template" target="_blank" style="text-decoration:none;">anjalp repository</a>
 
+![Ex1](https://i.imgur.com/1eocqf1.jpg)
+![Ex2](https://i.imgur.com/sZMuwUJ.jpg)
+![Ex5](https://i.imgur.com/i7Dnnl8.jpg)
+![Ex3](https://i.imgur.com/YlCl4Eo.jpg)
+![Ex4](https://i.imgur.com/EaJY2UB.jpg)
 
-MLauncher od Mods/Minecraft/Multiplayer a nie od Mateusz idioci
-
-^^^ Don't worry about it, is's just for friends ^^^
 
 
 <a href="https://github.dev/Bre3n/MLauncher"><img src="https://ashgrennan.com/post/how-do-i-rename-a-local-git-branch/tl2.png" width="80px" height="80px">
