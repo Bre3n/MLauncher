@@ -79,6 +79,7 @@ if __name__ == "__main__":
         import win32com.client
         #import selenium
         #import chromedriver_autoinstaller
+        from win10toast import ToastNotifier
     except ImportError:
         os.system(f"pip install doctext -U")
         os.system(f"pip install requests -U")
@@ -94,6 +95,7 @@ if __name__ == "__main__":
         os.system(f"pip install selenium -U")
         # os.system(f"pip install edgedriver-autoinstaller -U")
         os.system(f"pip install chromedriver_autoinstaller -U")
+        os.system(f"pip install win10toast -U")
         os.execv(sys.executable, ["python"] + sys.argv)
 
     os.system(f"pip install minecraft-launcher-lib -U")

@@ -12,6 +12,7 @@ import webbrowser
 import zipfile
 from os import listdir, path
 from os.path import isfile, join
+from winotify import Notification, audio
 
 from clint.textui import progress
 import minecraft_launcher_lib
@@ -49,6 +50,7 @@ deleteInstance = False
 ProgressBarMc_value = 1
 ProgressBarMc_total = 2
 articleURL = [1, 2, 3, 4, 5]
+
 
 
 def download(url, pathh, self, value):
@@ -501,6 +503,15 @@ def downloadingCount(self):
                 )
         else:
             break
+    toast = Notification(
+    app_id="Mlauncher",
+    title="Notification",
+    msg="Downloaded",
+    duration="short",
+    icon=f"{sciezkaver}/icons/1x/icon.ico"
+
+)
+    toast.show()
     self.ui.lab_tab2.setText("Downloaded")
     time.sleep(1)
     self.ui.lab_tab2.setText(f"")
@@ -1016,7 +1027,9 @@ class playServers:
             mods = mods[bufor + 1 :]
             if path.exists(versionPath) == False:
                 os.mkdir(versionPath)
-            localMods = [f for f in listdir(versionPath) if isfile(join(versionPath, f))]
+            localMods = [
+                f for f in listdir(versionPath) if isfile(join(versionPath, f))
+            ]
             for i in localMods:
                 if i not in mods:
                     print("deleted ", i)
@@ -1031,10 +1044,11 @@ class playServers:
         else:
             if not path.exists(f"{versionPath}/zipfile.zip"):
                 from zipfile import ZipFile
+
                 url = config_servers.get(version, "zip")
                 url = url.replace("+", "%2B")
                 downloader(url, f"{versionPath}/zipfile.zip")
-                with ZipFile(f"{versionPath}/zipfile.zip", 'r') as zipObj:
+                with ZipFile(f"{versionPath}/zipfile.zip", "r") as zipObj:
                     zipObj.extractall(f"{versionPath}")
 
 
@@ -1130,6 +1144,15 @@ def downloadstuff(self):
             zipObj.extractall(f"{sciezkajvms}/")
         progress = "DOWNLOADED"
 """
+    toast = Notification(
+    app_id="Mlauncher",
+    title="Notification",
+    msg="All required files downloaded",
+    duration="short",
+    icon=f"{sciezkaver}/icons/1x/icon.ico"
+
+)
+    toast.show()
     self.closebool = True
     self.ui.lab_tab2.setText(progress)
     time.sleep(1)
