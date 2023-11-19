@@ -8,11 +8,11 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
+from PySide6.QtCore import *
+from PySide6.QtGui import *
+from PySide6.QtWidgets import *
 
-from PySide2.QtWebEngineWidgets import QWebEngineView
+from PySide6.QtWebEngineWidgets import QWebEngineView
 
 
 class Ui_MainWindow(object):
@@ -476,7 +476,7 @@ class Ui_MainWindow(object):
         font3.setFamily(u"Segoe UI Semibold")
         font3.setPointSize(65)
         font3.setBold(True)
-        font3.setWeight(75)
+        font3.setLegacyWeight(75)
         font3.setKerning(True)
         self.lab_home_main_hed.setFont(font3)
         self.lab_home_main_hed.setStyleSheet(u"QLabel {\n"
@@ -509,7 +509,7 @@ class Ui_MainWindow(object):
         font4.setFamily(u"Segoe UI Semibold")
         font4.setPointSize(40)
         font4.setBold(True)
-        font4.setWeight(75)
+        font4.setLegacyWeight(75)
         self.lab_home_username.setFont(font4)
         self.lab_home_username.setStyleSheet(u"color:rgb(255,255,255);\n"
 "background:rgba(0,0,0,0);\n"
@@ -539,7 +539,7 @@ class Ui_MainWindow(object):
         font5 = QFont()
         font5.setFamily(u"Segoe UI Black")
         font5.setBold(True)
-        font5.setWeight(75)
+        font5.setLegacyWeight(75)
         font5.setStyleStrategy(QFont.PreferAntialias)
         self.bn_play.setFont(font5)
         self.bn_play.setStyleSheet(u"QPushButton {\n"
@@ -699,7 +699,7 @@ class Ui_MainWindow(object):
         font7.setFamily(u"Segoe UI")
         font7.setPointSize(18)
         font7.setBold(True)
-        font7.setWeight(75)
+        font7.setLegacyWeight(75)
         self.news_1.setFont(font7)
         self.news_1.setStyleSheet(u"")
         self.news_1.setAlignment(Qt.AlignCenter)
@@ -901,7 +901,7 @@ class Ui_MainWindow(object):
         font9.setFamily(u"Segoe UI")
         font9.setPointSize(14)
         font9.setBold(False)
-        font9.setWeight(50)
+        font9.setLegacyWeight(50)
         self.bn_news_open.setFont(font9)
         self.bn_news_open.setStyleSheet(u"QPushButton {\n"
 "	border: none;\n"
@@ -1051,7 +1051,7 @@ class Ui_MainWindow(object):
         font12.setFamily(u"Segoe UI")
         font12.setPointSize(20)
         font12.setBold(True)
-        font12.setWeight(75)
+        font12.setLegacyWeight(75)
         self.label_7.setFont(font12)
         self.label_7.setAlignment(Qt.AlignCenter)
 
@@ -1165,7 +1165,7 @@ class Ui_MainWindow(object):
         font15.setFamily(u"Courier New")
         font15.setPointSize(24)
         font15.setBold(False)
-        font15.setWeight(50)
+        font15.setLegacyWeight(50)
         self.label_23.setFont(font15)
         self.label_23.setAlignment(Qt.AlignCenter)
 
@@ -1206,7 +1206,7 @@ class Ui_MainWindow(object):
         font16.setFamily(u"Segoe UI Black")
         font16.setPointSize(14)
         font16.setBold(True)
-        font16.setWeight(75)
+        font16.setLegacyWeight(75)
         self.label_10.setFont(font16)
         self.label_10.setStyleSheet(u"color:red;")
         self.label_10.setAlignment(Qt.AlignCenter)
@@ -1967,7 +1967,7 @@ class Ui_MainWindow(object):
         font27.setFamily(u"Segoe UI")
         font27.setPointSize(36)
         font27.setBold(True)
-        font27.setWeight(75)
+        font27.setLegacyWeight(75)
         self.label_14.setFont(font27)
         self.label_14.setAlignment(Qt.AlignCenter)
 

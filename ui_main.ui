@@ -1168,7 +1168,6 @@ QPushButton:hover {
                        <font>
                         <family>Segoe UI Semibold</family>
                         <pointsize>65</pointsize>
-                        <weight>75</weight>
                         <bold>true</bold>
                         <kerning>true</kerning>
                        </font>
@@ -1232,7 +1231,6 @@ QPushButton:hover {
                          <font>
                           <family>Segoe UI Semibold</family>
                           <pointsize>40</pointsize>
-                          <weight>75</weight>
                           <bold>true</bold>
                          </font>
                         </property>
@@ -1294,7 +1292,6 @@ padding-bottom:1px;
                        <font>
                         <family>Segoe UI Black</family>
                         <pointsize>-1</pointsize>
-                        <weight>75</weight>
                         <bold>true</bold>
                         <stylestrategy>PreferAntialias</stylestrategy>
                        </font>
@@ -1616,7 +1613,6 @@ border-bottom-left-radius: 10px;</string>
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>18</pointsize>
-                                <weight>75</weight>
                                 <bold>true</bold>
                                </font>
                               </property>
@@ -1720,7 +1716,6 @@ border-bottom-left-radius: 10px;</string>
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>18</pointsize>
-                                <weight>75</weight>
                                 <bold>true</bold>
                                </font>
                               </property>
@@ -1821,7 +1816,6 @@ border-bottom-left-radius: 10px;</string>
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>18</pointsize>
-                                <weight>75</weight>
                                 <bold>true</bold>
                                </font>
                               </property>
@@ -1922,7 +1916,6 @@ border-bottom-left-radius: 10px;</string>
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>18</pointsize>
-                                <weight>75</weight>
                                 <bold>true</bold>
                                </font>
                               </property>
@@ -2023,7 +2016,6 @@ border-bottom-left-radius: 10px;</string>
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>18</pointsize>
-                                <weight>75</weight>
                                 <bold>true</bold>
                                </font>
                               </property>
@@ -2096,7 +2088,6 @@ border-bottom-left-radius: 10px;</string>
                            <font>
                             <family>Segoe UI</family>
                             <pointsize>14</pointsize>
-                            <weight>50</weight>
                             <bold>false</bold>
                            </font>
                           </property>
@@ -2308,7 +2299,6 @@ QScrollBar::sub-page {
                        <font>
                         <family>Segoe UI</family>
                         <pointsize>20</pointsize>
-                        <weight>75</weight>
                         <bold>true</bold>
                        </font>
                       </property>
@@ -2515,7 +2505,6 @@ QScrollBar::sub-page:vertical {
                            <font>
                             <family>Courier New</family>
                             <pointsize>24</pointsize>
-                            <weight>50</weight>
                             <bold>false</bold>
                            </font>
                           </property>
@@ -2592,7 +2581,6 @@ QPushButton:hover {
                         <font>
                          <family>Segoe UI Black</family>
                          <pointsize>14</pointsize>
-                         <weight>75</weight>
                          <bold>true</bold>
                         </font>
                        </property>
@@ -2916,7 +2904,7 @@ QPushButton:hover {
                             <x>0</x>
                             <y>0</y>
                             <width>95</width>
-                            <height>410</height>
+                            <height>438</height>
                            </rect>
                           </property>
                           <property name="sizePolicy">
@@ -3277,7 +3265,7 @@ QPushButton:hover {
                         </widget>
                        </item>
                        <item>
-                        <widget class="QWebEngineView" name="webWidget_mods" native="true">
+                        <widget class="QWebEngineView" name="webWidget_mods">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                            <horstretch>0</horstretch>
@@ -3766,7 +3754,7 @@ font-size:34px;
                         </property>
                         <layout class="QVBoxLayout" name="verticalLayout_40">
                          <item>
-                          <widget class="QWebEngineView" name="webWidget_optifine" native="true">
+                          <widget class="QWebEngineView" name="webWidget_optifine">
                            <property name="minimumSize">
                             <size>
                              <width>0</width>
@@ -3811,7 +3799,6 @@ font-size:34px;
                     <font>
                      <family>Segoe UI</family>
                      <pointsize>36</pointsize>
-                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -5000,44 +4987,6 @@ QLineEdit:disabled {
                              </property>
                             </widget>
                            </item>
-                           <item row="9" column="3">
-                            <widget class="QPushButton" name="bn_shortcut">
-                             <property name="font">
-                              <font>
-                               <family>Segoe UI</family>
-                               <pointsize>12</pointsize>
-                              </font>
-                             </property>
-                             <property name="styleSheet">
-                              <string notr="true">QPushButton {
-	border: 2px solid rgb(51,51,51);
-	border-radius: 5px;	
-	color:rgb(255,255,255);
-	background-color: rgb(51,51,51);
-}
-QPushButton:hover {
-	border: 2px solid rgb(112,0,0);
-	background-color: rgb(112,0,0);
-}
-QPushButton:pressed {	
-	border: 2px solid rgb(112,0,0);
-	background-color: rgb(51,51,51);
-}
-
-QPushButton:disabled {	
-	border-radius: 5px;	
-	border: 2px solid rgb(112,112,112);
-	background-color: rgb(112,112,112);
-}</string>
-                             </property>
-                             <property name="text">
-                              <string>Create shortcut on desktop</string>
-                             </property>
-                             <property name="flat">
-                              <bool>true</bool>
-                             </property>
-                            </widget>
-                           </item>
                            <item row="7" column="8">
                             <spacer name="horizontalSpacer_6">
                              <property name="orientation">
@@ -5222,6 +5171,44 @@ QPushButton:disabled {
                              </layout>
                             </widget>
                            </item>
+                           <item row="9" column="3">
+                            <widget class="QPushButton" name="bn_shortcut">
+                             <property name="font">
+                              <font>
+                               <family>Segoe UI</family>
+                               <pointsize>12</pointsize>
+                              </font>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">QPushButton {
+	border: 2px solid rgb(51,51,51);
+	border-radius: 5px;	
+	color:rgb(255,255,255);
+	background-color: rgb(51,51,51);
+}
+QPushButton:hover {
+	border: 2px solid rgb(112,0,0);
+	background-color: rgb(112,0,0);
+}
+QPushButton:pressed {	
+	border: 2px solid rgb(112,0,0);
+	background-color: rgb(51,51,51);
+}
+
+QPushButton:disabled {	
+	border-radius: 5px;	
+	border: 2px solid rgb(112,112,112);
+	background-color: rgb(112,112,112);
+}</string>
+                             </property>
+                             <property name="text">
+                              <string>Create shortcut on desktop</string>
+                             </property>
+                             <property name="flat">
+                              <bool>true</bool>
+                             </property>
+                            </widget>
+                           </item>
                           </layout>
                          </widget>
                         </item>
@@ -5316,7 +5303,7 @@ QPushButton:disabled {
                       </widget>
                      </item>
                      <item>
-                      <widget class="QWebEngineView" name="webWidget" native="true"/>
+                      <widget class="QWebEngineView" name="webWidget"/>
                      </item>
                     </layout>
                    </widget>
@@ -5760,7 +5747,7 @@ QPushButton:hover {
   <customwidget>
    <class>QWebEngineView</class>
    <extends>QWidget</extends>
-   <header>PySide2.QtWebEngineWidgets</header>
+   <header location="global">QtWebEngineWidgets/QWebEngineView</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
@@ -5816,7 +5803,6 @@ QPushButton:hover {
   <tabstop>bn_android_contact_delete</tabstop>
   <tabstop>bn_android_contact_save</tabstop>
   <tabstop>line_checkbox_snapshots</tabstop>
-  <tabstop>bn_shortcut</tabstop>
   <tabstop>bn_faq</tabstop>
   <tabstop>pushButton_issue</tabstop>
   <tabstop>pushButton_github</tabstop>

@@ -1,6 +1,5 @@
 import configparser
 import ctypes
-from email.headerregistry import ContentTransferEncodingHeader
 import json
 import math
 import os
@@ -27,8 +26,8 @@ from minecraft_launcher_lib.forge import (
     supports_automatic_install,
 )
 from pypresence import Presence
-from PySide2 import QtCore, QtGui
-from PySide2.QtWidgets import QAction, QApplication, QFileDialog, QLabel, QMainWindow
+from PySide6 import QtCore, QtGui
+from PySide6.QtWidgets import QApplication, QFileDialog, QLabel, QMainWindow
 
 roaming = os.getenv("APPDATA")
 sciezka = f"{roaming}/.mlauncher"

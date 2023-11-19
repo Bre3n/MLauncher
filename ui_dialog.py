@@ -1,4 +1,4 @@
-from PySide2.QtCore import (
+from PySide6.QtCore import (
     QCoreApplication,
     QDate,
     QDateTime,
@@ -11,7 +11,7 @@ from PySide2.QtCore import (
     QUrl,
     Qt,
 )
-from PySide2.QtGui import (
+from PySide6.QtGui import (
     QBrush,
     QColor,
     QConicalGradient,
@@ -26,7 +26,7 @@ from PySide2.QtGui import (
     QPixmap,
     QRadialGradient,
 )
-from PySide2.QtWidgets import *
+from PySide6.QtWidgets import *
 
 
 class Ui_Dialog(object):

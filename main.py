@@ -13,9 +13,9 @@ import brain
 # import forge_mods
 
 ctypes.windll.user32.ShowWindow(ctypes.windll.kernel32.GetConsoleWindow(), 0)
-from PySide2.QtWebEngineWidgets import QWebEnginePage, QWebEngineView
-from PySide2 import QtCore, QtGui, QtWidgets
-from PySide2.QtCore import (
+from PySide6.QtWebEngineWidgets import QWebEngineView
+from PySide6 import QtCore, QtGui, QtWidgets
+from PySide6.QtCore import (
     QCoreApplication,
     QDate,
     QDateTime,
@@ -32,7 +32,7 @@ from PySide2.QtCore import (
     Signal,
     Slot,
 )
-from PySide2.QtGui import (
+from PySide6.QtGui import (
     QBrush,
     QColor,
     QConicalGradient,
@@ -47,7 +47,7 @@ from PySide2.QtGui import (
     QPixmap,
     QRadialGradient,
 )
-from PySide2.QtWidgets import *
+from PySide6.QtWidgets import *
 
 from ui_dialog import Ui_Dialog
 from ui_error import Ui_Error
